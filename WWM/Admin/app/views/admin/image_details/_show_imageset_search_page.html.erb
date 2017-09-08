@@ -1,0 +1,46 @@
+<%= form_tag({:action => 'imagset_search'},{:name=>'multi'}) do %>
+	<table id="image_search">
+			<tr>
+				<td>
+					<label for="image_detail_search_title">Keywords:</label>
+				</td>
+				<td style="align:left">
+					<%=text_field "image_detail_search","name" %>
+        		</td>
+        		<td>
+                    Uploader: 
+                </td>
+                <td>
+					<%= select('image_detail_search','created_by', User.find(:all,:order=>"firstname").map{|a| ["#{a.firstname} #{a.lastname}",a.id]},options={:prompt=>"All"},html_options = {:class=>"input_text"}) %>
+                </td>
+			</tr>
+			<tr>
+				<td>Site:</td>
+				<td><%= collection_select 'image_detail_search', 'site_id', User.find(session[:user_id]).sites.by_role_type(session[:role_type]).find(:all,:order=>"short_name").uniq, :id, :short_name %></td>
+				<td>License type:</td>
+				<td><%= select( "image_detail_search", "licence_type", { "Universal rights granted to all users" => "Universal rights granted to all users", "Non-Commercial rights granted to all users" => "Non-Commercial rights granted to all users","Copyright Worldwide Media Pvt Ltd - all right reserved"=>"Copyright Worldwide Media Pvt Ltd - all right reserved","Copyright Worldwide Media Pvt Ltd- non-commercial rights granted"=>"Copyright Worldwide Media Pvt Ltd- non-commercial rights granted","Copyright held by third party - all right reserved"=>"Copyright held by third party - all right reserved","Copyright held by third party - non -commercial rights granted" => "Copyright held by third party - non -commercial rights granted" ,"Creative Commons commercial - attribution required" => "Creative Commons commercial - attribution required"},{},:class=>"input_text") %></td>
+				
+			</tr>
+			<tr>
+				<td>
+					From:        
+ 					</td>
+				 <td><%=raw datetimepicker_input(:image_detail_search, :from, {:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70}) %></td>
+         <td>To:</td>
+         <td><%=raw datetimepicker_input(:image_detail_search, :to, {:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70}) %></td>
+        </tr>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   </td>
+			
+			<tr>
+			    <td></td>
+				<td colspan="3">
+				<div class="common_button_parent">                   
+						<div class="button" id="imageset_search">
+							<a href="javascript:void(0);">Search</a>
+						</div>
+					</div>
+				 </td>
+				 
+			</tr>
+			</table>
+        <%end %>
+

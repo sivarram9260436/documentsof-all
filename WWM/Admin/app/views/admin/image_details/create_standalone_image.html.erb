@@ -1,0 +1,153 @@
+		 <div class="validation_box">
+	<%=raw error_messages(@image)%>
+   </div> <%!@image.errors.empty? and  (params[:commit] and params[:commit]=="Upload Image") ? @image=Image.new : ''%>
+<table width="100%"  %>
+	<tr>
+	  <td width="50%">
+	  <%=  form_for @image, :url => { :action => "create_standalone_image" },:html => { :onSubmit=>"return create_standalone_image();",:method => "get", :class => "edit_post", :id => "upload_form_meta",:name=>"upload_form_meta",:multipart => true }  do |f| %>
+	   	<%if @image.id%>
+			<%=hidden_field_tag 'id',@image.id%>
+		<%end%>
+	 	  <table >
+	   		<tr>
+	   			<td>Filename*:</td>
+	   			<td><%= f.text_field 'image_name',:class=>'input_text'%></td>	   	
+	   			<td> <%=("." + @image.extension.to_s) if @image.extension%></td>
+	   		</tr>
+	   		<tr>
+	   			<td colspan="2" align="right">eg:funny-face</td>	
+	   		</tr>
+	   		<tr>
+				<td>Tags:</td>
+				<td><%=f.text_area 'tag',{:rows => 7, :cols => 40,:class=>"input_text"}%></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="right">eg:face,funny,glasses</td>
+			</tr>
+			<tr>
+				<td>Alt/Title*:</td>
+				<td><%=f.text_field 'alt_tag',:class=>'input_text'%></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="right">eg:picture of guy with funny face</td>
+			</tr>
+			<tr>
+				<td>License type*:</td>
+				<td><%= f.select("licence_type", { "Universal rights granted to all users" => "Universal rights granted to all users", "Non-Commercial rights granted to all users" => "Non-Commercial rights granted to all users","Copyright Worldwide Media Pvt Ltd - all right reserved"=>"Copyright Worldwide Media Pvt Ltd - all right reserved","Copyright Worldwide Media Pvt Ltd- non-commercial rights granted"=>"Copyright Worldwide Media Pvt Ltd- non-commercial rights granted","Copyright held by third party - all right reserved"=>"Copyright held by third party - all right reserved","Copyright held by third party - non -commercial rights granted" => "Copyright held by third party - non -commercial rights granted","Creative Commons commercial - attribution required" => "Creative Commons commercial - attribution required" },{:prompt=>'---PICK A LICENCE TYPE---'},:class=>"input_text") %></td>
+			</tr>
+			<tr>
+			
+				<td>Site*:</td>
+				
+				<td><%=raw collection_select_with_select_all_other(:standalone,:site_id,Site.find(:all,:order=>"short_name").uniq,:id,:short_name,Site.find(session[:site_id]).short_name,'','all','',html_options={:class=>"input_text"})  %>  </td>
+			
+			</tr>
+			<tr>
+				<td>Uploader:</td><td><%=User.find(session[:user_id]).full_name%></td>
+			</tr>
+			<tr>
+				<td>Upload date:</td><td><%=Date.today%></td>
+			</tr>
+			<tr>
+				<td>                   
+					<div class="adminButton" id="submit_image"><%=submit_tag 'Finish & Save Image'%></div>
+				</td>
+				<td>                   
+					<div class="adminLinkButton"><%=link_to 'Cancel and go to Image List',:action=>'cancel_standalone_image',:id=>@image.id%></div>
+				</td>
+			</tr>
+
+	   </table>
+	  <%end%>
+	</td>
+	<td width="50%" valign="top">
+	<table align="right" valign="top">
+	 <%= form_tag({:action => 'create_standalone_image'},{:id=>"upload_form",:name=>"upload_form" ,:multipart => true}) do %>
+		 	<tr>
+	   			<td style="font-size:1.2em !important;letter-spacing:2px;margin:11px 0 4px">Select Image</td>
+	   		</tr>
+			
+	   		<tr>
+	   			<td><%=file_field :image_detail,:image_path%><%=link_to(image_tag("/images/standalone_question_mark.gif"),"javascript:void(0)",:class => "help_show")%>	 </td>
+				
+	   		</tr>
+	   		<tr>
+		   		<td>              
+					<div class="adminLinkButton" id="image_upload"><a href="javascript:void(0);">Upload Image</a></div> 
+				</td>
+			</tr>
+			<tr>
+				<td align="left" >
+				  <div  id="browse_help" class="intip_standalone" style="display:none">
+				   <span > 
+						<ul>UPLOADED IMAGE RULES<br/> 
+							
+							<li>* file types: jpg/gif/png</li>
+							<li>* max width: 600px</li>
+							<li>* max height: 600px</li>
+							<li>* max filesize: 200KB</li>
+						</ul>
+					</span>
+				  </div>	 
+				</td>
+			</tr>
+			<%if @image and @image.get_orginal_image%>
+			<tr>
+				<td>
+					<%width,height=ImageManipulation.image_width_and_height("#{Rails.root}/public"+@image.get_orginal_image.image_path)%>
+					<%=image_tag(@image.get_orginal_image.image_path, :alt => @image.alt_tag, :class => "image_border")%>
+				</td>
+			</tr>
+			<%end%>
+	<%end%>
+	</table>	
+	
+  </td>	
+</tr>
+</table>
+
+<script type="text/javascript">
+	/*code for upload image*/
+		jQuery("#image_upload").click(function(){
+			var image_path=jQuery('#image_detail_image_path').val();                
+          	var re_img_path = new RegExp("(.*?)\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$");          
+	        if (image_path!="")
+	           {
+	               if (!re_img_path.test(image_path))
+	               {              
+	               alert("Permissible image formats: gif,png,jpg");              
+	               }
+	               else
+	               {
+	                var pars =  '&image[tag]=' + jQuery('#image_tag').val() + '&image[site_id]=' + jQuery('#standalone_site_id option:selected').val() + '&image[licence_type]=' + jQuery("#image_licence_type option:selected").val() + '&commit=Upload Image' ;
+	                var set_action = "/admin/image_details/create_standalone_image?"+ pars;
+					jQuery("#upload_form").attr("action",set_action);
+					jQuery("#upload_form").submit();
+	               }
+	          } 
+           else
+           {           
+            alert("No image has been uploaded");             
+           }
+		});
+
+</script>
+
+<script type="text/javascript">
+	jQuery("#submit_image").click(function() {
+		var text_alert = "";
+		var img_name = jQuery('#image_image_name').val();
+		var img_alt_tag = jQuery('#image_alt_tag').val();
+		var image_path = jQuery('#image_detail_image_path').val();
+		if(img_name == "") {
+			text_alert = "Filename should not be blank";
+		}
+		if(img_alt_tag == "") {
+			text_alert = text_alert + "\n" + "Alt/Title should not be blank";
+		}
+		if(image_path == "") {
+			text_alert = text_alert + "\n" + "No image has been uploaded";
+		}
+		alert(text_alert);
+	});
+</script>

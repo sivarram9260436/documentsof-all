@@ -1,0 +1,192 @@
+<%= error_messages_for_text_changes :featured_set%>
+<div class="section_block">
+	
+	<div class="ranked_list_notice">
+		<h3> <%= flash[:notice]  if flash[:notice] %></h3>
+	</div>
+	 <h2><%= @page_properties[:menu_title] %></h2>
+	<div class="section_content">
+		<%= semantic_form_for ([:admin,@featured_set]),:url=>"/admin/ranked_list/create",:html =>{:name =>"ranklist"} do |f| %>
+		<div class="form_data ranklist_name">
+			<label for="featured_set_name">Name <span>*</span>:</label>
+			<%if params[:action]=="new"%>
+			<%= f.input :name,:input_html => { :name=>"featured[name]",:class=>"input_text",:id=>"featured_set_name"}, :wrapper_html => { :style => "list-style:none;" }%>
+			<%elsif params[:action]=="edit"%>
+			<%= f.input :name,:input_html => { :name=>"featured[name]",:class=>"input_text",:id=>"featured_set_name",:readonly=>true}, :wrapper_html => { :style => "list-style:none;" }%>
+			<%end%>
+		</div><!--form_data-->
+		<div class="form_data">
+			<label for="text_head">Expire Status:</label>
+			<%if @featured_set.new_record?%>
+			<%= check_box(:featured,:expire_status,{:id=>"cust_img",:name=>"cust_img"},"customise_image") %>
+			<%else%>
+			<%= check_box(:featured,:expire_status,(@featured_set.expire_status == true) ? {:checked => true} : {:checked => false}) %>
+			<%end%>
+		</div><!--form_data-->
+		<div class="form_data">
+			<label for="text_head">Expire Date:</label>
+			<%= raw datetimepicker_input(:featured, :expire_date, {:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70,:object => @featured_set}) %>
+		</div><!--form_data-->
+		<div class="form_data">
+			<label for="text_head">Drag and Drop List here:</label>
+		</div>
+		<div class="section_content">
+			<div id="featured_list_new">
+				<% @component = SrComponent.find_component_by_name("featured_articles").dup %>
+				<% @component.merge!({:data_string => %q({:articles =>[], :featured_set_id=> ''})}) if @featured_set.new_record? %>
+				<%= sr_render_widget(@component) %>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="section_block right_section">
+	<h2 class="headBG">Article List</h2>
+	<div class="section_content">
+		<div class="navcontainer rank_list_navcontainer">
+			<ul id="ranklist_navmenu-h">
+				<%if @featured_set.asset_group %>
+				<li>
+					<a class="active" href="#" id='asset_group_tab'><b>Asset Group</b></a>
+				</li>
+				<li>
+					<a id='latest_tab'href="#"><b>Latest</b></a>
+				</li>
+				<li>
+					<a href="#" id='most_rated_tab'><b>Most Rated</b></a>
+				</li>
+				<%else %>
+				<li>
+					<a class="active" id='latest_tab' href="#"><b>Latest</b></a>
+				</li>
+				<li>
+					<a href="#" id='most_rated_tab'><b>Most Rated</b></a>
+				</li>
+				<%end %>
+				<li>
+					<a href="#" id='featured_article_search'><b>Featured Search</b></a>
+				</li>
+			</ul>
+		</div>
+		<div id='article_list_tab'>
+			<%if @featured_set.asset_group %>
+			<div id='asset_group_container' class="article_container update_pagination_block">
+				<div id="edit_asset">
+					<%= sr_render_widget(SrComponent.find_component_by_name("asset_group_tab")) %>
+				</div>
+			</div>
+			<div id='latest_article_container' class="article_container update_pagination_block" style="display:none;">
+				<div id="edit_latest">
+					<%= sr_render_widget(SrComponent.find_component_by_name("latest_article_tab")) %>
+				</div>
+			</div>
+			<div id='most_rated_container' class="article_container update_pagination_block" style="display:none;">
+				<div id="edit_most_rated">
+					<%= sr_render_widget(SrComponent.find_component_by_name("most_rated_article_tab")) %>
+				</div>
+			</div>
+			<div id='featured_article_search_container' class="article_container" style="display:none;">
+				<%= sr_render_widget(SrComponent.find_component_by_name("search_page")) %>
+			</div>
+			<%else %>
+			<div id='latest_article_container' class="article_container update_pagination_block">
+				<div id= <%= params[:action]=='edit' ? 'edit_latest' : 'new_latest' %>>
+					<%= sr_render_widget(SrComponent.find_component_by_name("latest_article_tab")) %>
+				</div>
+			</div>
+			<div id='most_rated_container' class="article_container update_pagination_block" style="display:none;">
+				<div id=<%= params[:action]=='edit' ? 'edit_most_rated' : 'new_most_rated' %>>
+					<%= sr_render_widget(SrComponent.find_component_by_name("most_rated_article_tab")) %>
+				</div>
+			</div>
+			<div id='featured_article_search_container' class="article_container" style="display:none;">
+				<%= sr_render_widget(SrComponent.find_component_by_name("search_page")) %>
+			</div>
+			<%end %>
+		</div>
+	</div>
+</div>
+</div>
+<%end%>
+</div>
+<script type="text/javascript">
+	jQuery(function() {
+		/*Code for save & return button*/
+		jQuery("#save_return_list").click(function() {
+			var get_action = jQuery("#new_featured_set").attr("action");
+			var rankedlistname = jQuery('#featured_set_name').val();
+			var blankRE = /^\s/;
+			if (rankedlistname.trim() == "") {
+				alert("Ranked List Name should not be blank.");
+				return false;
+			} else if (blankRE.test(rankedlistname)) {
+				alert("Ranked List Name should not start with a blank space.")
+				return false;
+			}
+			var list_value = jQuery("#listTaken").sortable('serialize', {
+				key : 'listTaken[]'
+			});
+			var setform_action = get_action + "?featured_set=" + list_value;
+			document.multi.action += "?" + list_value + '&flag=save';
+			document.multi.submit();
+		});
+		/*code for save button*/
+		jQuery("#save_collections_1").click(function() {
+			var get_action = jQuery("#new_featured_set").attr("action");
+			var rankedlistname = jQuery('#featured_set_name').val();
+			var blankRE = /^\s/;
+			if (rankedlistname.trim() == "") {
+				alert("Ranked List Name should not be blank.")
+				return false;
+			} else if (blankRE.test(rankedlistname)) {
+				alert("Ranked List Name should not start with a blank space.")
+				return false;
+			}
+
+			var list_value = jQuery("#listTaken").sortable('serialize', {
+				key : 'listTaken[]'
+			});
+			var setform_action = get_action + "?featured_set=" + list_value + '&flag=save';
+
+			document.multi.action += "?" + list_value + '&flag=save';
+			document.multi.submit();
+		});
+	});
+
+    jQuery("#save_collections a").click(function() {
+	var get_action = jQuery("#new_featured_set").attr("action");
+	var rankedlistname = jQuery('#featured_set_name').val();
+	var blankRE = /^\s/;
+	if (rankedlistname.trim() == "") {
+		alert("Ranked List Name should not be blank.")
+		return false;
+	} else if (blankRE.test(rankedlistname)) {
+		alert("Ranked List Name should not start with a blank space.")
+		return false;
+	} else {
+		var list_value = jQuery("#listTaken").sortable('serialize', {
+			key : 'listTaken[]',
+			attribute : 'data-listid'
+		});
+		$.ajax({
+			url:$(this).parents("form").attr('action'),
+			type:'POST',
+			dataType:'json',
+			data:list_value+'&featured[name]='+rankedlistname+'&featured[expire_date]='+$('#featured_expire_date_id').attr('value')+'&path=edit&featured_set='+$('#featured_set').attr('value')+'&flag=save&featured[expire_status]='+$('#featured_expire_status').attr('value'),
+			success:function(data){
+				//location.reload();
+				location.href=data.path			
+			}
+		});
+	}
+});
+
+	jQuery("#list_asset_group_article,#listTaken").sortable({
+		connectWith : '#listTaken'
+	});
+
+</script>
+<style type="text/css">
+#featured_expire_date_id{width: 200px}
+</style>
+
+

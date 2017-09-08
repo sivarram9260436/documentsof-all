@@ -1,0 +1,7 @@
+/etc/init.d/unicorn stop
+/home/edms/EDMS: Stopping
+
+
+ /etc/init.d/unicorn start
+/home/edms/EDMS: Starting
+

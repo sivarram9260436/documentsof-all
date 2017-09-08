@@ -1,0 +1,33 @@
+<%= link_to "View All Geographic Prefs" ,fetch_all_geographic_prefs_window_funds_path(:fund_id => @fund.id,:popup => "true",:geographic_pref_id => "geographic_prefs"),{:class =>"popup_window"} %>
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/funds/_key_fund_specifics.html.erb
+<%= content_tag(:tr) do %>
+             <% selected_geo = @fund.investment_preference.countries.collect{ |geo| { "id" => geo.id, "name" => geo.name } if geo.id }.compact %>
+                 <%= content_tag(:td, label_tag("Geographic Prefs :"), { :class => "lab-field" } ) %>
+                 <%= content_tag(:td, text_field_tag("geographic_prefs", "", { :class => "auto_complete", "data-url" => "/funds/get_geography_prefs", "data-duplicate" => "false",  "data-hint-text" => "Type to search Geography prefs ", "data-no-result" => "No Geography prefs found", "data-searching-text" => "Fetching Geography prefs","data-selected" => (selected_geo).to_json})) %>
+                 <%= hidden_field(:fund, :geo_name,:value => @fund.geo_name ? @fund.geo_name : nil )%>
+                 <%= content_tag(:td, { :class => "success_remove move_executives_geo" }) do %>
+                 <%#= auto_complete_view_all("funds", "fetch_all_geographic_prefs", "View All Geographic Prefs", {:class => "view_all_link", :fund_id => @fund.id, :replace_id => "geographic_prefs" }) %>
+                 <%= link_to "View All Geographic Prefs" ,fetch_all_geographic_prefs_window_funds_path(:fund_id => @fund.id,:popup => "true",:geographic_pref_id => "geographic_prefs"),{:class =>"popup_window"} %>
+
+
+
+
+
+<%= content_tag(:tr) do %>
+            <% selected_geo = @pei_data.countries.order(:name).uniq.collect{ |geo| { "id" => geo.id, "name" => geo.name } if geo.id }.compact %>
+            <%= content_tag(:td, label_tag("Geographic Preferences:"), { :class => "lab-field" } ) %>
+            <%= content_tag(:td, text_field(:pei_data, :geo_pref_text,:readonly => true)) %>
+            <%= content_tag(:td, text_field_tag("geographic_prefs", "", { :class => "auto_complete", "data-url" => "/institutions/get_geography_prefs", "data-duplicate" => "false",  "data-hint-text" => "Type to search Geography prefs ", "data-no-result" => "No Geography prefs found", "data-searching-text" => "Fetching Geography prefs","data-selected" => (selected_geo).to_json}),:style => "display:none") %>
+            <%= content_tag(:td, { :class => "success_remove move_executives_geo" }) do %>
+                <%= link_to "View All Geographic Prefs" ,fetch_geographfic_pref_pei_data_institutions_path(:popup => "true",:geographic_pref_id => "geographic_prefs"),{:class =>"popup_window"} %>
+            <% end %> <!-- td -->
+        <% end %>
+
+InstitutionPeiData
+
+:institution_pei_data_id => @institution_pei_data.id
+
+
+ <%= hidden_field(:pei_data, :geo_name,:value => @pei_data.geo_name ? @pei_data.geo_name : nil )%>

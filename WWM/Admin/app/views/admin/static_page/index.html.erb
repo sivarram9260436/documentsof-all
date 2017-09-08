@@ -1,0 +1,129 @@
+<%if not request.xhr?%>
+<script type="text/javascript">
+	jQuery(".static_type").change(function() {
+		var path = '/admin/static_page/new?article_path=static_page';
+		var section_type = jQuery(".static_type option:selected").attr("value");
+		var z = path + "&section_type=" + section_type;
+		jQuery('#static_page_link').attr('href', z);
+		jQuery('#static_page_link1').attr('href', z);
+	});
+
+</script>
+<%else%>
+<script type="text/javascript">
+	jQuery(".static_type").change(function() {
+		var path = '/admin/static_page/new?article_path=static_page';
+		var section_type = jQuery(".static_type option:selected").attr("value");
+		var z = path + "&section_type=" + section_type + "&temp=" + "nil";
+		jQuery('#new').attr('data-url', z);
+		jQuery('#new').attr('data-url', z);
+	});
+
+</script>
+<%end%>
+<div id="load_indicatior" style="left: 700px;position: fixed;top: 151px;display:none;">
+	<%= image_tag("/images/loading_process.gif",:alt=>"Loading page")%>
+</div>
+<%=form_tag({:controller=>"static_page",:action => 'advance_search'},{:name=>'multi_advance_search',:multipart => true,:method=>'get',:id=>'advance_search'}) do %>
+<div class="validation_box">
+	<%= error_messages_for_text_changes :article ,:header_message=>"Article cannot be searched due to the following errors" %>
+</div>
+<%=hidden_field_tag "entity_type",params[:entity_type] %>
+<div class="section_block full_section">
+	<% if params[:entity_type]=="static-fragment" %>
+		<h2>Static Fragment Search</h2>
+		<% else %>
+		<h2>Static Search</h2>
+		 <%end%>
+
+	<div class="search_fields">
+		<p>
+			<label for="search_data_title">Search Article:</label>
+			<%if params[:search_data]%>
+			<%= text_field_tag 'search_data[title]' ,params[:search_data][:title]%>
+			<%else%>
+			<%= text_field_tag 'search_data[title]'%>
+			<%end%>
+		</p>
+			<%=hidden_field_tag "search_data[section_id]",@selected_section.id %>
+		
+
+		<p>
+			<label for="search_data_status">Status:</label> <%= select('search_data','status',[['All',''],['Published','published'],['Unpublished','unpublished'],['Expired','expired'],['Draft','draft'],['Embargoed','inembargo'],['For Approval','waiting_for_approval']],{:selected=>"#{params[:search_data][:status] if params[:search_data] and params[:search_data][:status]!=''}"}) %>
+		</p>
+		
+		<div class="button">
+		  <input class="submit blue_submit" type="submit" value="Search" />
+		</div>
+		<!-- <div class="article_advance_button">
+			<%#= link_to("Advanced Search","javascript:void(0)",:class=>"advance_search_panel_static settextcolor fontbold",:id=>"advance_search_01","data-param"=>"advance_search","data-update"=>"search_form","data-url"=>"/admin/static_page/advance_search_view")%>
+			<%#= link_to(image_tag("/images/new_button/down_arrow.png", :alt => "no_image_available"),"javascript:void(0)",:class=>"advance_search_panel_static settextcolor fontbold",:id=>"advance_search_01","data-param"=>"advance_search","data-update"=>"search_form","data-url"=>"/admin/static_page/advance_search_view")%>
+		</div> -->
+		 <!-- <div class="button advance_search article_advance_button">
+           <a href="javascript:void(0)" class="advance_search_panel_hide" data-param="advance_search" data-update="search_form_text" data-url="/admin/articles/advance_search_view" id="advance_search_01">Advanced Search</a>
+        </div> -->
+		
+		
+		<div id="search_form">
+			<%if params[:search_data]%>
+			<%if params[:search_data][:site_ids]!=nil or params[:search_data][:category_ids]!=nil or params[:search_data][:tag_ids]!=nil or params[:search_data][:author_ids]!=nil or params[:search_data][:publish_date]!=nil or params[:search_data][:expiry_date]!=nil or params[:search_data][:volume_and_issue]!=nil%>
+			<%= render :partial=>"/admin/articles/article_advance_search"%>
+			<%end%>
+			<%end%>
+		</div>
+	</div>
+	<!-- search_fields -->
+</div>
+<!-- search block -->
+
+<% if flash[:notice] %>
+<div class="article_notice">
+     <h3><%= flash[:notice] %></h3>
+</div>
+<% end %>
+
+<%if params[:entity_type] == "static-fragment"%>
+<%= @search ?	component_table_list(SrComponent.find_component_by_name("static_fragment_search"))	: component_table_list(SrComponent.find_component_by_name("static_fragment_list")) %>
+<%else%>
+<%= @search ?	component_table_list(SrComponent.find_component_by_name("static_article_search"))	: component_table_list(SrComponent.find_component_by_name("static_article_list_new")) %>
+<%end%>
+<%end%>
+
+<script type="text/javascript">
+	jQuery(".advance_search_panel").live("click", function() {
+		jQuery.ajax({
+			url : '/admin/static_page/advance_search_view',
+			type : 'POST',
+			data : 'advance_search',
+			dataType : 'html',
+			success : function(advance_search) {
+				jQuery("#search_form").html(advance_search);
+			}
+		});
+		jQuery(this).attr("class", "advance_search_panel_hide");
+	});
+	</script>
+<%if not request.xhr?%>
+<script type="text/javascript">
+	jQuery(".static_type").change(function() {
+		var path = '/admin/static_page/new?article_path=static_page';
+		var section_type = jQuery(".static_type option:selected").attr("value");
+		var z = path + "&section_type=" + section_type;
+		jQuery('#static_page_link').attr('href', z);
+		jQuery('#static_page_link1').attr('href', z);
+	});
+
+</script>
+<%else%>
+<script type="text/javascript">
+	jQuery(".static_type").change(function() {
+		var path = '/admin/static_page/new?article_path=static_page';
+		var section_type = jQuery(".static_type option:selected").attr("value");
+		var z = path + "&section_type=" + section_type + "&temp=" + "nil";
+		jQuery('#new').attr('data-url', z);
+		jQuery('#new').attr('data-url', z);
+	});
+
+</script>
+<%end%> 
+

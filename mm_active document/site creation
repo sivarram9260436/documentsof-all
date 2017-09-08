@@ -1,0 +1,111 @@
+1.9.3-p194 :009 >   User.last
+   (0.2ms)  SHOW search_path
+  User Load (0.8ms)  SELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1
+ => #<User id: 32, entity_id: nil, entity_type: nil, firstname: "sivag", lastname: "ramg", password: "1a1dc91c907325c69271ddf0c944bc72", salutation: nil, title: nil, email: "sivarrram@kreatio.com", phone: nil, extn: nil, fax: nil, final_selected_site_id: 5, end_user_company_name: nil, job_title: nil, address1: nil, address2: nil, city: nil, country_id: nil, postal_code: nil, terms_acceptance: nil, magazine_receive_status: nil, status: nil, reset_password_code_until: nil, reset_password_code: nil, updated_by: nil, created_by: nil, created_at: "2016-11-03 10:24:07", updated_at: "2016-11-03 10:24:07", expiry_date: nil, notes: nil, active: true, remember_me_key: nil, expiry_time: nil, fullname: "sivag ramg", delivery_email: nil, admin_selected_site_id: 3> 
+1.9.3-p194 :010 > Site.all
+  Site Load (0.4ms)  SELECT "sites".* FROM "sites" 
+ => [#<Site id: 3, name: "staging-autocarpro.kreatio.com", short_name: "autocar_pro", layout_path: "/layouts/autocar_pro", url: "staging-autocarpro.kreatio.com", action: nil, content_sharing_portal_id: nil, created_by: 1, updated_by: 1, created_at: "2013-11-08 11:28:15", updated_at: "2014-01-24 14:21:53", wpl_id: nil, presentation_proxy_id: 3, data_proxy_id: 3, url_display_name: "staging-autocarpro.kreatio.com", robot: nil, active: true, status: "Online", domain: "staging-autocarpro.kreatio.com", prefix: nil, site_type: "Site", external_url: nil, start_date: nil, end_date: nil>, #<Site id: 4, name: "staging-autocarproresponsive.kreatio.com", short_name: "autocar_pro_responsive", layout_path: "/layouts/autocar_pro", url: nil, action: nil, content_sharing_portal_id: nil, created_by: 1, updated_by: 1, created_at: "2014-09-23 06:00:06", updated_at: "2014-09-23 06:01:52", wpl_id: nil, presentation_proxy_id: 3, data_proxy_id: 3, url_display_name: "autocar_pro_responsive", robot: nil, active: true, status: "Online", domain: "staging-autocarproresponsive.kreatio.com", prefix: nil, site_type: nil, external_url: nil, start_date: nil, end_date: nil>, #<Site id: 5, name: "printweek_india.kreatio.com", short_name: "printweek_india", layout_path: "/layouts/printweek_india", url: nil, action: nil, content_sharing_portal_id: nil, created_by: 1, updated_by: 1, created_at: "2016-03-07 05:44:42", updated_at: "2016-03-14 11:18:51", wpl_id: nil, presentation_proxy_id: 5, data_proxy_id: 5, url_display_name: "printweek_india", robot: nil, active: true, status: "Online", domain: "printweek_india.kreatio.com", prefix: nil, site_type: nil, external_url: nil, start_date: nil, end_date: nil>] 
+1.9.3-p194 :011 > Site.count
+   (0.6ms)  SELECT COUNT(*) FROM "sites" 
+ => 3 
+1.9.3-p194 :012 > SiteUserRole.last
+  SiteUserRole Load (0.7ms)  SELECT "site_user_roles".* FROM "site_user_roles" ORDER BY "site_user_roles"."id" DESC LIMIT 1
+ => #<SiteUserRole id: 111, site_id: 5, user_id: 18, role_id: 8, created_at: "2016-07-21 12:59:17", updated_at: "2016-07-21 12:59:17"> 
+1.9.3-p194 :013 > SiteUserRole
+ => SiteUserRole(id: integer, site_id: integer, user_id: integer, role_id: integer, created_at: datetime, updated_at: datetime) 
+1.9.3-p194 :014 > 
+1.9.3-p194 :015 >   
+1.9.3-p194 :016 >   Site.all
+  Site Load (0.7ms)  SELECT "sites".* FROM "sites" 
+ => [#<Site id: 3, name: "staging-autocarpro.kreatio.com", short_name: "autocar_pro", layout_path: "/layouts/autocar_pro", url: "staging-autocarpro.kreatio.com", action: nil, content_sharing_portal_id: nil, created_by: 1, updated_by: 1, created_at: "2013-11-08 11:28:15", updated_at: "2014-01-24 14:21:53", wpl_id: nil, presentation_proxy_id: 3, data_proxy_id: 3, url_display_name: "staging-autocarpro.kreatio.com", robot: nil, active: true, status: "Online", domain: "staging-autocarpro.kreatio.com", prefix: nil, site_type: "Site", external_url: nil, start_date: nil, end_date: nil>, #<Site id: 4, name: "staging-autocarproresponsive.kreatio.com", short_name: "autocar_pro_responsive", layout_path: "/layouts/autocar_pro", url: nil, action: nil, content_sharing_portal_id: nil, created_by: 1, updated_by: 1, created_at: "2014-09-23 06:00:06", updated_at: "2014-09-23 06:01:52", wpl_id: nil, presentation_proxy_id: 3, data_proxy_id: 3, url_display_name: "autocar_pro_responsive", robot: nil, active: true, status: "Online", domain: "staging-autocarproresponsive.kreatio.com", prefix: nil, site_type: nil, external_url: nil, start_date: nil, end_date: nil>, #<Site id: 5, name: "printweek_india.kreatio.com", short_name: "printweek_india", layout_path: "/layouts/printweek_india", url: nil, action: nil, content_sharing_portal_id: nil, created_by: 1, updated_by: 1, created_at: "2016-03-07 05:44:42", updated_at: "2016-03-14 11:18:51", wpl_id: nil, presentation_proxy_id: 5, data_proxy_id: 5, url_display_name: "printweek_india", robot: nil, active: true, status: "Online", domain: "printweek_india.kreatio.com", prefix: nil, site_type: nil, external_url: nil, start_date: nil, end_date: nil>] 
+1.9.3-p194 :017 > 
+1.9.3-p194 :018 >   
+1.9.3-p194 :019 >   Site.count
+   (0.6ms)  SELECT COUNT(*) FROM "sites" 
+ => 3 
+1.9.3-p194 :020 > 
+1.9.3-p194 :021 >   
+1.9.3-p194 :022 >   
+1.9.3-p194 :023 >   Site.collect(&:id)
+NoMethodError: undefined method `collect' for #<Class:0x00000006e637b8>
+	from /home/sivaram/.rvm/gems/ruby-1.9.3-p194@haymarket1/gems/activerecord-3.1.3/lib/active_record/base.rb:1088:in `method_missing'
+	from (irb):23
+	from /home/sivaram/.rvm/gems/ruby-1.9.3-p194@haymarket1/gems/railties-3.1.3/lib/rails/commands/console.rb:45:in `start'
+	from /home/sivaram/.rvm/gems/ruby-1.9.3-p194@haymarket1/gems/railties-3.1.3/lib/rails/commands/console.rb:8:in `start'
+	from /home/sivaram/.rvm/gems/ruby-1.9.3-p194@haymarket1/gems/railties-3.1.3/lib/rails/commands.rb:40:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p194 :024 > Site.all.collect(&:id)
+  Site Load (0.7ms)  SELECT "sites".* FROM "sites" 
+ => [3, 4, 5] 
+1.9.3-p194 :025 > Role.all.collect(&:id)
+  Role Load (0.5ms)  SELECT "roles".* FROM "roles" 
+ => [2, 3, 4, 6, 7, 9, 10, 11, 12, 5, 8, 1, 13] 
+1.9.3-p194 :026 > 
+1.9.3-p194 :027 >   
+1.9.3-p194 :028 >   Role
+ => Role(id: integer, name: string, user_type: string, created_at: datetime, updated_at: datetime) 
+1.9.3-p194 :029 > Role.all.collect(&:namre)
+  Role Load (0.7ms)  SELECT "roles".* FROM "roles" 
+NoMethodError: undefined method `namre' for #<Role:0x00000008e40770>
+	from /home/sivaram/.rvm/gems/ruby-1.9.3-p194@haymarket1/gems/activemodel-3.1.3/lib/active_model/attribute_methods.rb:385:in `method_missing'
+	from /home/sivaram/.rvm/gems/ruby-1.9.3-p194@haymarket1/gems/activerecord-3.1.3/lib/active_record/attribute_methods.rb:60:in `method_missing'
+	from (irb):29:in `collect'
+	from (irb):29
+	from /home/sivaram/.rvm/gems/ruby-1.9.3-p194@haymarket1/gems/railties-3.1.3/lib/rails/commands/console.rb:45:in `start'
+	from /home/sivaram/.rvm/gems/ruby-1.9.3-p194@haymarket1/gems/railties-3.1.3/lib/rails/commands/console.rb:8:in `start'
+	from /home/sivaram/.rvm/gems/ruby-1.9.3-p194@haymarket1/gems/railties-3.1.3/lib/rails/commands.rb:40:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p194 :030 > Role.all.collect(&:name)
+  Role Load (0.7ms)  SELECT "roles".* FROM "roles" 
+ => ["Developer", "Author", "Editor", "Designer", "HTML Editor", "Debate", "Debate Admin", "Page Admin", "Data Admin", "Ranking", "Content Admin", "Site Admin", "sivaram@kreatio.com"] 
+1.9.3-p194 :031 > 
+1.9.3-p194 :032 >   
+1.9.3-p194 :033 >   User.last
+  User Load (0.9ms)  SELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1
+ => #<User id: 32, entity_id: nil, entity_type: nil, firstname: "sivag", lastname: "ramg", password: "1a1dc91c907325c69271ddf0c944bc72", salutation: nil, title: nil, email: "sivarrram@kreatio.com", phone: nil, extn: nil, fax: nil, final_selected_site_id: 5, end_user_company_name: nil, job_title: nil, address1: nil, address2: nil, city: nil, country_id: nil, postal_code: nil, terms_acceptance: nil, magazine_receive_status: nil, status: nil, reset_password_code_until: nil, reset_password_code: nil, updated_by: nil, created_by: nil, created_at: "2016-11-03 10:24:07", updated_at: "2016-11-03 10:24:07", expiry_date: nil, notes: nil, active: true, remember_me_key: nil, expiry_time: nil, fullname: "sivag ramg", delivery_email: nil, admin_selected_site_id: 3> 
+1.9.3-p194 :034 > 
+1.9.3-p194 :035 >   
+1.9.3-p194 :036 >   
+1.9.3-p194 :037 >   
+1.9.3-p194 :038 >   SiteUserRole
+ => SiteUserRole(id: integer, site_id: integer, user_id: integer, role_id: integer, created_at: datetime, updated_at: datetime) 
+1.9.3-p194 :039 > 
+1.9.3-p194 :040 >   
+1.9.3-p194 :041 >   
+1.9.3-p194 :042 >   SiteUserRole.create(:site_id =>3,:user_id => 32,:role_id =>8)
+   (0.3ms)  BEGIN
+  SQL (103.4ms)  INSERT INTO "site_user_roles" ("created_at", "role_id", "site_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 03 Nov 2016 10:37:14 UTC +00:00], ["role_id", 8], ["site_id", 3], ["updated_at", Thu, 03 Nov 2016 10:37:14 UTC +00:00], ["user_id", 32]]
+   (21.4ms)  COMMIT
+ => #<SiteUserRole id: 112, site_id: 3, user_id: 32, role_id: 8, created_at: "2016-11-03 10:37:14", updated_at: "2016-11-03 10:37:14"> 
+1.9.3-p194 :043 > SiteUserRole.create(:site_id =>3,:user_id => 32,:role_id =>1)
+   (0.3ms)  BEGIN
+  SQL (0.7ms)  INSERT INTO "site_user_roles" ("created_at", "role_id", "site_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 03 Nov 2016 10:37:23 UTC +00:00], ["role_id", 1], ["site_id", 3], ["updated_at", Thu, 03 Nov 2016 10:37:23 UTC +00:00], ["user_id", 32]]
+   (14.1ms)  COMMIT
+ => #<SiteUserRole id: 113, site_id: 3, user_id: 32, role_id: 1, created_at: "2016-11-03 10:37:23", updated_at: "2016-11-03 10:37:23"> 
+1.9.3-p194 :044 > SiteUserRole.create(:site_id =>4,:user_id => 32,:role_id =>8)
+   (0.3ms)  BEGIN
+  SQL (0.7ms)  INSERT INTO "site_user_roles" ("created_at", "role_id", "site_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 03 Nov 2016 10:37:45 UTC +00:00], ["role_id", 8], ["site_id", 4], ["updated_at", Thu, 03 Nov 2016 10:37:45 UTC +00:00], ["user_id", 32]]
+   (17.6ms)  COMMIT
+ => #<SiteUserRole id: 114, site_id: 4, user_id: 32, role_id: 8, created_at: "2016-11-03 10:37:45", updated_at: "2016-11-03 10:37:45"> 
+1.9.3-p194 :045 > SiteUserRole.create(:site_id =>4,:user_id => 32,:role_id =>1)
+   (0.3ms)  BEGIN
+  SQL (0.7ms)  INSERT INTO "site_user_roles" ("created_at", "role_id", "site_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 03 Nov 2016 10:38:00 UTC +00:00], ["role_id", 1], ["site_id", 4], ["updated_at", Thu, 03 Nov 2016 10:38:00 UTC +00:00], ["user_id", 32]]
+   (15.5ms)  COMMIT
+ => #<SiteUserRole id: 115, site_id: 4, user_id: 32, role_id: 1, created_at: "2016-11-03 10:38:00", updated_at: "2016-11-03 10:38:00"> 
+1.9.3-p194 :046 > SiteUserRole.create(:site_id =>5,:user_id => 32,:role_id =>8)
+   (0.2ms)  BEGIN
+  SQL (0.4ms)  INSERT INTO "site_user_roles" ("created_at", "role_id", "site_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 03 Nov 2016 10:38:18 UTC +00:00], ["role_id", 8], ["site_id", 5], ["updated_at", Thu, 03 Nov 2016 10:38:18 UTC +00:00], ["user_id", 32]]
+   (12.1ms)  COMMIT
+ => #<SiteUserRole id: 116, site_id: 5, user_id: 32, role_id: 8, created_at: "2016-11-03 10:38:18", updated_at: "2016-11-03 10:38:18"> 
+1.9.3-p194 :047 > SiteUserRole.create(:site_id =>5,:user_id => 32,:role_id =>1)
+   (0.3ms)  BEGIN
+  SQL (0.7ms)  INSERT INTO "site_user_roles" ("created_at", "role_id", "site_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 03 Nov 2016 10:38:23 UTC +00:00], ["role_id", 1], ["site_id", 5], ["updated_at", Thu, 03 Nov 2016 10:38:23 UTC +00:00], ["user_id", 32]]
+   (42.0ms)  COMMIT
+ => #<SiteUserRole id: 117, site_id: 5, user_id: 32, role_id: 1, created_at: "2016-11-03 10:38:23", updated_at: "2016-11-03 10:38:23"> 
+1.9.3-p194 :048 > User.last
+  User Load (0.8ms)  SELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1
+ => #<User id: 32, entity_id: nil, entity_type: nil, firstname: "sivag", lastname: "ramg", password: "1a1dc91c907325c69271ddf0c944bc72", salutation: nil, title: nil, email: "sivarrram@kreatio.com", phone: nil, extn: nil, fax: nil, final_selected_site_id: 5, end_user_company_name: nil, job_title: nil, address1: nil, address2: nil, city: nil, country_id: nil, postal_code: nil, terms_acceptance: nil, magazine_receive_status: nil, status: nil, reset_password_code_until: nil, reset_password_code: nil, updated_by: nil, created_by: nil, created_at: "2016-11-03 10:24:07", updated_at: "2016-11-03 10:24:07", expiry_date: nil, notes: nil, active: true, remember_me_key: nil, expiry_time: nil, fullname: "sivag ramg", delivery_email: nil, admin_selected_site_id: 3> 
+1.9.3-p194 :049 > 
+

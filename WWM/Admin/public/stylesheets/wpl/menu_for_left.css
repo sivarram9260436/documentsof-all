@@ -1,0 +1,146 @@
+.populer_research_div{
+ padding:10px 10px 0px 0px;
+}
+.populer_research_li{
+ margin:0 0 0 0px!important;
+}
+
+.glossymenu{
+	
+	padding: 0 0 0 0px;
+	margin: 0px 0 0 0;
+	height: 36px;
+	list-style: none;
+}
+
+.glossymenu li{
+	float:left;
+	letter-spacing:-0.5px;
+	word-spacing:-0.5px;
+	padding:0 0 0 0px;
+}
+.glossymenu li.for_fix{
+	float:left;
+	background: url(/images/title_blue.jpg) 10px top no-repeat; 
+	color:#FFFFFF;
+	text-decoration: none;
+	font-family:verdana;
+	font-size: 16px;
+	font-weight:bold;
+	padding:0 0 0 25px; /*Padding to accomodate left tab image. Do not change*/
+	height: 36px;
+	line-height: 36px;
+	text-align: center;
+}
+.glossymenu li.vin b.fix_arrow{
+	color:#FFFFFF;
+	text-decoration: none;
+	font-family: sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	padding:0 0 0 10px; /*Padding to accomodate left tab image. Do not change*/
+	height: 36px;
+	line-height: 36px;
+	text-align: center;
+	cursor: pointer;	
+       background: url(/images/title_blue.jpg) 10px top no-repeat; 
+}
+
+
+.glossymenu li a{
+	float: left;
+	word-spacing:-0.5px;
+	letter-spacing:-0.5px;
+	color:#000;
+	text-decoration: none;
+	font-family:sans-serif;
+	font-size:11px !important;
+	font-weight:bold  !important;
+	padding:0 0 0 20px; /*Padding to accomodate left tab image. Do not change*/
+	height: 36px;
+	line-height: 36px;
+	text-align: center;
+	cursor: pointer;	
+    background: url(/images/title_blue.jpg) 10px top no-repeat; 
+}
+
+/****************************************************************************************************/
+.glossymenu li a b{
+word-spacing:0.5px;
+	float:left;
+	display: block;
+      letter-spacing:-0.5px;
+      color:white;
+      margin:0 0 0 0px;
+	padding:0 10px 0 5px; /*Padding of menu items*/
+}
+.glossymenu li a:hover, .glossymenu li.active a{
+letter-spacing:-0.5px;
+word-spacing:-0.5px;
+    float:left;
+	color:#000;
+	text-decoration: none;
+	font-family: sans-serif;
+	font-size:11px  !important;
+	font-weight:bold  !important;
+	padding:0 0 0 20px; /*Padding to accomodate left tab image. Do not change*/
+	height: 36px;
+	line-height: 36px;
+	text-align: center;
+	cursor: pointer;	
+	color: black;
+	background: url(/images/title_overleft.jpg) no-repeat; /*left tab image path*/
+	background-position: left;
+	background-color:#FFF;
+}
+.glossymenu li a:hover b, .glossymenu li.active a b{
+letter-spacing:-0.5px;
+word-spacing:-0.5px;
+   	float:left;
+	color:black;
+	display:block;
+	margin:0 0px 0 0px;
+	padding:0 10px 0 5px; /*Padding of menu items*/
+	background: url(/images/title_overright.jpg) no-repeat right top white; /*right tab image path*/
+	height:100%;
+}
+.glossymenu li.active a b .firstact{
+margin:2px 0 0 0;
+line-height:13px; 
+}
+.glossymenu li.active a b .secact{
+margin:2px 0 0 0;
+line-height:13px;
+}
+.glossymenu li.active a:hover b .firstact{
+margin:2px 0 0 0;
+line-height:13px; 
+}
+.glossymenu li.active a:hover b .secact{
+margin:2px 0 0 0;
+line-height:13px;
+}
+
+
+.glossymenu li a b .first{
+margin:3px 0 0 0;
+line-height:13px; 
+display:block;
+}
+.glossymenu li a b .sec{
+margin:3px 0 0 0;
+line-height:13px;
+display:block;
+}
+.glossymenu li a:hover b .first{
+margin:3px 0 0 0;
+line-height:13px;
+display:block; 
+}
+.glossymenu li a:hover b .sec{
+margin:3px 0 0 0;
+line-height:13px;
+display:block;
+}
+/********************************************************************************************************/
+

@@ -1,0 +1,25 @@
+ unquote_date_stage1  | postgres | UTF8     | en_IN   | en_IN | 
+ unquote_live         | postgres | UTF8     | en_IN   | en_IN | 
+ unquotedata_live     | postgres | UTF8     | en_IN   | en_IN | 
+ unquotedata_stage    | postgres | UTF8     | en_IN   | en_IN | =Tc/postgres         +
+                      |          |          |         |       | postgres=CTc/postgres+
+                      |          |          |         |       | sivaram=CTc/postgres
+ unquotedata_stagenew 
+
+
+addded
+	app/models/codirect.rb
+	app/views/institutions/_add_managed_account.html.erb
+	app/views/institutions/_form_managed_account.erb
+	app/views/institutions/_listing_managed_accounts.html.erb
+	app/views/institutions/_manage_account_in_pei_data.html.erb
+	app/views/institutions/edit_managed_account.html.erb
+	app/views/institutions/new_direct_codirect.html.erb
+	app/views/institutions/new_managed_account.html.erb
+
+modify
+         app/controllers/institutions_controller.rb
+	 app/models/currency.rb
+	 app/models/institution_company_info.rb
+	 app/views/institutions/_general_asset_allocation.html.erb
+

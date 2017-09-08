@@ -1,0 +1,63 @@
+<script tyep="text/javascript">
+	newsletter_check();
+	$('#ranklist_navmenu-h li a').click(function() {
+		newsletter_check();
+	}); 
+</script>
+<% ul_id = "list_#{asset[:entity_type]}" %>
+<ul id=<%= ul_id %> class="fe_pui-autocomplete-holder" style="position: relative;">
+	<% asset[:data].each do |asset| %>
+	<li class="fe_pui-autocomplete-box" id = '<%= "#{params[:entity_type]}_#{asset.id}"%>' data-listid='<%= "#{asset.id}"%>'>
+		<p>
+			<span><%= asset.id %>. <%= characters_by_count(asset.name,25,"...")%></span>
+			<a class="closebutton" href="#" onclick="create_req('<%= "#{asset[:entity_type]}_#{asset.id}"%>');"></a>
+		</p>
+	</li>
+	<% end %>
+</ul>
+<div style="text-align: center;">
+	<%if not asset[:results].blank?%>
+	<div class = "needAjax">
+		<%= previous_next_listing_page((asset[:results] ),{:params=>{:type=>
+		asset[:entity_type]},:page_links=>false}) %>
+	</div>
+	<%end%>
+	<%if not asset[:data].blank? and asset[:results].blank?%>
+	<div class = "needAjax">
+		<%= previous_next_listing_page(( asset[:data]),{:page_links=>false}) %>
+	</div>
+	<%end%>
+</div>
+<script type="text/javascript">
+	$(function() {
+		$("#list_asset,#listTaken").sortable({
+			connectWith : '#listTaken',
+			revert : true,
+			receive : function(event, ui) {
+				var drag_item = ui.item.attr('data-listid');
+				var ids = [];
+				$('#listTaken li.fe_pui-autocomplete-box').each(function() {
+					ids.push($(this).attr('data-listid'));
+				});
+				var len = ids.length
+				var uniq = jQuery.unique(ids);
+				if (len != uniq.length) {
+					$(ui.sender).sortable("cancel");
+				}
+			},
+		});
+
+		/*Drag and drop list items from Listsearch to List_taken*/
+
+		drag_drop_listSearch();
+	});
+
+	function drag_drop_listSearch() {
+		$("#list_search,#article_list").sortable({
+			connectWith : '#listTaken',
+		});
+		$("#listTaken").sortable({
+			containment : '#listTaken'
+		});
+	}
+</script>

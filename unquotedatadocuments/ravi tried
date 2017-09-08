@@ -1,0 +1,83 @@
+
+
+<fieldset>
+	<legend style="width:100px;">Country</legend>
+	<input class="uploadlist tooltip" id="Country_Type" name="equitydebt[country_name]" readonly="readonly" type="text" value="">
+	<input id="countryTrigger" title="Country" class="input_btn thickbox editAjaxone" value="Edit" type="button" data-jsonurl="/equitydebt/get_country_json" data-dropdown="#continentList" data-updatejson="#country_json" data-model="#country">
+	<input id="Country_Type1" name="equitydebt[country]" readonly="readonly" type="hidden" value="">
+</fieldset>
+
+
+
+
+
+<fieldset>
+        <legend style="width:100px;">Target Country</legend>
+        <input class="uploadlist tooltip" id="target_Country_Type" name="equitydebt[country_name]" readonly="readonly" type="text" value="">
+        <input id="targetcountryTrigger" title="target_Country" class="input_btn thickbox editAjaxone" value="Edit" type="button" data-jsonurl="/equitydebt/get_target_country_json" data-dropdown="#target_continentList" data-updatejson="#target_country_json" data-model="#target_country">
+        <input id="target_Country_Type1" name="equitydebt[target_Country_Type]" readonly="readonly" type="hidden" value="">
+</fieldset>
+
+
+
+id="target_countryList"
+
+	var dropdownMain = $(this).attr('data-dropdown'); #target_continentList"
+		  	var modelName = $(this).attr('data-model');  #target_country
+		  	var updateJson = $(this).attr('data-updateJson');  #target_country_json
+
+	var dropdownMain = $(this).attr('data-dropdown');  #continentList
+		  	var modelName = $(this).attr('data-model');  #country
+		  	var updateJson = $(this).attr('data-updateJson'); #country_json
+
+
+
+<input class="uploadlist tooltip" id="Country_Type" name="equitydebt[country_name]" readonly="readonly" type="text" value="">
+
+<input class="uploadlist tooltip" id="target_Country_Type" name="equitydebt[country_name]" readonly="readonly" type="text" value="">
+
+
+ddFields
+
+
+
+
+data-updatejson="#targetcountry_json"
+
+turnover_us_value
+
+       :Turnover => ".turn_over_export",
+         :Ebitda => "ebitda_export"
+
+
+:ebitda_export => ee.ebitda_on_currency_value, :turn_over_export =>ee.turnover_on_currency_value,
+
+:turnover_us_value => ee.turnover_us_value_export, :turnover_uk_value =>ee.turnover_uk_value_export,:turnover_euro_value=>ee.turnover_euro_value_export, :turnover_yen_value => ee.turnover_yen_value_export
+
+
+
+turnover_us_value_export
+
+
+:Turnover_
+
+<option value="Turnover_us_value_export">Turnover </option>
+
+
+:Turnover_us_value_export_us => "turnover_us_value_export"
+:Turnover_uk_value_export_uk => "turnover_uk_value_export"
+:Turnover_euro_value_export_euro => "turnover_euro_value_export"
+:Turnover_yen_value_export_yen => "turnover_yen_value_export"
+
+
+<option value="Turnover_uk_value_export">Turnover </option>
+<option value="Turnover_yen_value_export">Turnover </option>
+<option value="Turnover_euro_value_export">Turnover </option>
+
+
+<option value="First close date,Amount raised at first close">1st close </option>
+
+        :Amount_raised_at_final_close_euro => "amount_raised_at_final_close_euro",
+        :Amount_raised_at_final_close_us => "amount_raised_at_final_close_us",
+        :Amount_raised_at_final_close_uk => "amount_raised_at_final_close_uk",
+        :Amount_raised_at_final_close_yen => "amount_raised_at_final_close_yen",

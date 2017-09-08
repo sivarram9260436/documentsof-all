@@ -1,0 +1,22 @@
+<h2>User details </h2>
+
+<% if flash[:notice] %>
+    <div class="notice"> <b><%= flash[:notice] %></b></div>
+<% end %>
+<table>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Role</th>
+<th>colspan="1"</th>
+
+</tr>
+<tr>
+<td><%= @user.name %></td>
+<td><%= @user.email %></td>
+<td><%= @user.role %></td>
+<td><%= link_to 'edit',edit_user_path(@user) %></td>
+
+</tr>
+
+</table>

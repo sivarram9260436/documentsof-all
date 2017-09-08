@@ -1,0 +1,175 @@
+<%= javascript_include_tag 'new_admin','admin_new' %>
+
+ <%= stylesheet_link_tag 'token-input','token-input-facebook','token-input-mac' %>
+<%=javascript_include_tag "jquery_ujs.js"%>
+        <%=javascript_include_tag "jquery.tokeninput.js"%>
+        
+ <div id="validation_box"></div>
+<%= form_tag( @page.new_record? ? { :action => '/admin/page/create_special_page' } : { :action => '/admin/page/update_special_page', :id => @page } , { :id=>"special_form", :name => 'special_form', :multipart => true  } ) do %>
+
+
+	<div class="section_block full_section">
+	   <h2><%= @page_properties[:menu_title] %></h2>
+		 <div class="section_content">
+<div class="form_data">
+	<label for="text_head">Name <span>* </span> :</label>
+	<%= text_field 'page', 'page_name',:class=>'input_text'%>
+</div>
+<input type="hidden" value=<%= @action_type%> name="page[type]" id="page_entity_ids" class="hidden_style">
+<% if params[:page].blank?%>
+<input type="hidden" value=<%= 1%> name="page_number" class="hidden_style">
+<%else%>
+<input type="hidden" value=<%= params[:page]%> name="page_number" class="hidden_style">
+<%end%>
+<input type="hidden" value=<%= @page.id%> name="page[id]" id="page_edit_id" class="hidden_style">
+<div class="form_data">
+	<label for="text_head">URL :</label>
+	<%= text_field 'page', 'url', :class=>"input_text"%>
+</div>
+<div class="form_data">
+	<label for="text_head">Page Template :</label>
+	<%= text_field 'page','template', :class=>"input_text"%>
+</div>
+<div class="form_data">
+	<label for="text_head">Active :</label>
+	<%= check_box_tag("page[active]",{},true)%>
+</div>
+<div class="form_data">
+	<label for="text_head">Cache :</label>
+<%= check_box "page", "cache" %></td>
+</div>
+<div class="form_data">
+	<label for="text_head">Layout Required :</label>
+	<%if @page.new_record?%>
+	<%= check_box_tag('page[layout_required]',@page.layout_required,true,:id=>"showlayout")%>
+	<%else%>
+	<%= check_box_tag('page[layout_required]',nil,(@page.layout_required==false ? false : true),:id=>"showlayout")%>
+	<%end%>
+</div>
+<%if not @page.new_record?%>
+<div class="form_data">
+	<label for="text_head">Page Property :</label>
+	<%= link_to("Page Property","javascript:void(0)",:class=>"ajax_call_update",:id=>@page.id,:breadcrum_id=>params[:id],"data-update"=>"breadcrumb_form","data-url"=>"/admin/page/edit_page_properties/#{@page.id}")%>
+</div>	
+	<%end%>
+
+
+			<%if @page.new_record?%>
+			<div class="button">
+					<%= link_to("Save","javascript:void(0)",:id=>"edit_tag_opo",:class=>"ajax_call_tag_form","data-fname_id"=>"special_form","data-update"=>"special_page_list_l","data-url"=>"/admin/page/create_special_page")%>
+			</div>		
+			<%#= submit_tag "Create",:class => "validate_special_page"%>
+			<%else%>
+			 <div class="button">
+					<%= link_to("Update","javascript:void(0)",:id=>"edit_tag_opo",:class=>"ajax_call_tag_form","data-fname_id"=>"special_form","data-update"=>"special_page_list_l","data-url"=>"/admin/page/update_special_page/#{@page.id}")%>
+			</div>
+			<%end%>
+			<div class="button">
+			<%=link_to 'Close', {:controller=>'admin/page',:action => 'special_page_list'}%>
+			</div>
+		
+<div class="form_data">
+<div id="update_action"></div>
+</div>
+<div id="breadcrumb_form"></div>
+<%end%>
+
+</div>
+</div>
+
+
+<script type="text/javascript">
+jQuery("#edit_tag_opo").click(function(){
+var name =jQuery("#page_page_name").val();
+if (name.trim() == "")
+     {
+        alert("Name should not be blank.");
+        return false;
+     } 
+});
+</script>
+
+
+
+<script type="text/javascript">
+/*	var ajax_form_serialize_method = jQuery.fn.ajax_post = function() {
+		var id = $(this).attr('id');
+		var data_url = $('#' + id).data('url');
+		var data_fname = $('#' + id).data('fname_id');
+		var update_id = $('#' + id).data('update');
+		$.ajax({
+			url : data_url,
+			type : 'POST',
+			data : $("form").serialize(),
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+			},
+			error : function() {
+				alert('eerrrr');
+			},
+			beforeSend : function() {
+				jQuery("#load_indicatior").show();
+			},
+			success : function(msg, textStatus, xhr) {
+				jQuery("#load_indicatior").hide();
+				if(xhr.status == 201) {
+					$("#validation_box").html(msg);
+				} else {
+					$('#update_special_page').html('');
+					$("#" + update_id).html(msg);
+					$('#update_special_page').html('');
+				}end
+			},
+			complete : function() {
+				// window.location.reload();
+
+			}
+		});
+	}
+
+	jQuery(".ajax_call_tag_form").die("click");
+	jQuery(".ajax_call_tag_form").live("click", ajax_form_serialize_method);
+*/
+</script>
+<script type="text/javascript">
+	jQuery("#showlayout").live("click", function() {
+		layout_check();
+	});
+	function layout_check() {
+		var temp = jQuery('#showlayout').is(':checked');
+		var id = jQuery("#page_edit_id").val();
+		var type = jQuery("#page_edit_type").val();
+		jQuery.ajax({
+			type : 'GET',
+			url : '/admin/page/action_type?action_type=' + temp + '&id=' + id + '&type=' + type,
+			dataType : 'html',
+			success : function(data) {
+				jQuery("#update_action").html(data);
+			}
+		});
+	}
+
+	$(function() {
+		layout_check();
+	});
+
+</script>
+<script type="text/javascript">
+	jQuery(".validate_special_page").click(function() {
+		var a = $("#page_page_name").val()
+		var b = $("#page_url").val()
+
+		if(a == "" || a == null) {
+			alert("Page Name Should not be blank")
+			return false
+		} else if(b == "" || b == null) {
+			alert("url Should not be blank")
+			return false
+		} else {
+			$('special_page').submit();
+		}
+
+	});
+
+</script>
+

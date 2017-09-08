@@ -1,0 +1,7 @@
+        <%= hidden_field(:pei_data, :geo_name,:value => @pei_data.geo_name.blank? ? @pei_data.geo_name : nil )%>
+
+
+                 <%= hidden_field(:fund, :geo_name,:value => @fund.geo_name ? @fund.geo_name : nil )%>
+
+hidden_field(:object, :field, :value => params[:requestval])
+

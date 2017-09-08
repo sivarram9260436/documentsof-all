@@ -1,0 +1,18 @@
+
+<style>
+.tbl_style td {
+    border-bottom: solid #000 1px !important;
+    border-right: solid #000 1px !important;
+  
+
+
+}
+.tbl_style td:last-child{border-right:none !important;}
+ .table-bg td{background-color:#fff;}
+</style>
+
+
+<style>
+.table-bg td{background-color:#fff;
+
+</style>

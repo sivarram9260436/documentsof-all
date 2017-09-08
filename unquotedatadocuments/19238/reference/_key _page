@@ -1,0 +1,60 @@
+
+cat app/views/funds/_key_fund_specifics.html.erb
+
+
+
+<!-- new code for fund performance started-->
+<%= content_tag(:table, {:class => "form-left form-left-new"}) do %>
+
+    <%= content_tag(:tr) do %>
+        <%= content_tag :td, content_tag(:strong, "Fund Performances"), { :class => "td_heading" } %>
+    <% end %><!-- heading -->
+
+<% end %><!-- table -->
+
+<%= content_tag(:table, {:class => "dukes", :border => "1" } ) do %>
+    <%= content_tag(:tr, { :class => "fund_events head"}) do %>
+        <%= content_tag(:th, "Commitment") %>
+        <%= content_tag(:th, "Gross IRR") %>
+        <%= content_tag(:th, "Net IRR") %>
+
+        <%= content_tag(:th, "TVPI")%>
+        <%= content_tag(:th, "Source")%>
+        <%= content_tag(:th ,"FundPerformance Month")%>
+        <%= content_tag(:th, "FundPerformance Year") %>
+        <%= content_tag(:th ,'')%>
+    <% end %><!-- tr -->
+
+
+
+ <% @fund_performances.each do |event|%>
+        <%= content_tag(:tr, { :class => "fund_events #{cycle('odd', 'even')} " }) do %>
+            <%  if event.commitment%>
+                <%= content_tag(:td, (link_to event.commitment,edit_fund_performance_funds_path(:fund_performance_id=> event.id,:fund_id => @fund.id),{"fund-performance-event-id" => event.id,:class => "edit_fund_event",:class => "color_box" })  )%>
+            <% end %>
+
+            <%= content_tag(:td, (event.gross_irr if event.gross_irr)) %>
+            <%= content_tag(:td, (event. net_irr if event.net_irr)) %>
+            <%= content_tag(:td, (event.tvpi if event.tvpi)) %>
+            <%= content_tag(:td, (event.source if event.source)) %>
+            <%= content_tag(:td, (event.fund_performance_date.strftime("%B") if event.fund_performance_date) ) %>
+            <%= content_tag(:td, (event.fund_performance_date.strftime("%Y") if  event.fund_performance_date) ) %>
+            <%= content_tag(:td, (link_to( ( image_tag("trash.png") ), {}, { :href => "javascript:void(0)", "fund-performance-event-id" => event.id, :class => "delete_fund_performance" } ) ) ) %>
+        <% end %><!-- tr-->
+    <% end %>
+<!-- table-->
+
+ <% end %>
+
+<%= content_tag(:table, {:class => "form-left form-left-new"}) do %>
+    <%= content_tag(:tr) do %>
+        <%= content_tag(:td,content_tag(:div,(link_to "Add Fund Performance Figure",{},{ :href => "/funds/new_fund_performance?fund_id=#{@fund.id}", :class => "color_box" }),{:class => "f-button"})) %>
+    <% end %>
+<% end %><
+
+<!--end code  for fund performance-->
+
+
+
+
+

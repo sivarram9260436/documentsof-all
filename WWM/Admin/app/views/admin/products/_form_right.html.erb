@@ -1,0 +1,62 @@
+<!--<script type="text/javascript" src="/javascripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>-->
+<div class="section_block right_section">
+	<h2>Automatic Email Setting:</h2>
+	<div class="section_content">
+		<div class="form_data">
+			<label for="product_subject_prefix">Subject Prefix:</label>
+			<%= text_field :product,:subject_prefix,:class=>'input_text',:size=>30,:flash=>true %>
+		</div>
+		<div class="form_data">
+			<label for="product_sender_address">Sender Address:</label>
+			<%= text_field :product,:sender_address,:class=>'input_text',:size=>50,:flash=>true %>
+		</div>
+		<div class="form_data">
+			<label for="product_friendly_sender">Friendly Sender:</label>
+			<%= text_field :product,:friendly_sender,:class=>'input_text',:size=>30,:flash=>true %>
+		</div>
+		<div class="form_data">
+			<label for="product_site_address">Site Address:</label>
+			<%= text_field :product,:site_address,:class=>'input_text',:size=>30,:flash=>true %>
+		</div>
+		<div class="form_data">
+			<label for="product_signation">Signation:</label>
+			<%= text_field :product,:signation,:class=>'input_text',:size=>30,:flash=>true %>
+		</div>
+		<div class="form_data">
+			<label for="product_ps">PS :</label>
+			<%= text_area :product,:ps,:rows=>3,:cols=>40,:class=>"textarea_text" %>
+		</div>
+
+		<div class="productscolumnRight" id="parentTinymce">
+
+			<div class="form_data">
+				<label for="text_head">Contact details:</label>
+   
+
+     
+
+                </script>
+ <textarea id = "tinyid_9" name="product[contact_details]"  value="product[contact_details]" =rows ="10" cols ="1" class="mceEditor" style='width:10%;'><%= @product.contact_details if @product%></textarea>
+     
+          	
+</div>
+</div>
+    </tr> 
+		
+</table>
+</div>
+ </div>
+
+
+ <script type="text/javascript" >
+      tinyMCEOnDemand("tinyid_9",400,174)
+</script>
+
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#tinyid_9").css("display", "inline-block");
+	});
+</script>
+

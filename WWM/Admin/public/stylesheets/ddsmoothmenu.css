@@ -1,0 +1,136 @@
+.ddsmoothmenu, .submenu{
+
+background: #414141; /*background of menu bar (default state)*/
+
+}
+
+.ddsmoothmenu ul, .submenu ul{
+z-index:70;
+margin: 0;
+padding: 0;
+list-style-type: none;
+
+}
+
+/*Top level list items*/
+.ddsmoothmenu ul li, .submenu ul li{
+position: relative;
+display: inline;
+float: left;
+}
+
+/*Top level menu link items style*/
+.ddsmoothmenu ul li a, .submenu ul li a{
+display: block;
+/*background: #414141; /*background of menu items (default state)*/
+color: white;
+padding: 7px 12px 6px;
+/*border-right: 1px solid #778;*/
+color: #2d2b2b;
+text-decoration: none;
+}
+
+* html .ddsmoothmenu ul li a,* html .submenu ul li a{ /*IE6 hack to get sub menu links to behave correctly*/
+display: inline-block;
+}
+
+.ddsmoothmenu ul li a:link, .ddsmoothmenu ul li a:visited, .submenu ul li a:link, .submenu ul li a:visited{
+color: #fff;
+}
+/*
+.ddsmoothmenu ul li a.selected, .submenu ul li a.selected{ /*CSS class that's dynamically added to the currently active menu items' LI A element
+background: black; 
+color: white;
+}
+*/
+.ddsmoothmenu li a.active, .ddsmoothmenu li a:hover, .submenu li a.active, .submenu li a:hover, .submenu li a.selected, .ddsmoothmenu li a.selected {
+    background: -moz-linear-gradient(center top , #F9FAFA 10%, #F1F4F4 15%, #E3E8E9 25%, #D2DBDD 35%, #B3C2C5 50%, #9AAEB2 65%, #89A1A6 80%, #708C92 100%) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(10%,#F9FAFA), color-stop(15%,#F1F4F4),color-stop(25%,#E3E8E9),color-stop(35%,#D2DBDD),color-stop(50%,#B3C2C5),color-stop(65%,#9AAEB2),color-stop(80%,#89A1A6),color-stop(100%,#708C92)); /* Chrome,Safari4+ */
+     background: -webkit-linear-gradient(center top , #F9FAFA 10%, #F1F4F4 15%, #E3E8E9 25%, #D2DBDD 35%, #B3C2C5 50%, #9AAEB2 65%, #89A1A6 80%, #708C92 100%) repeat scroll 0 0 transparent;
+   background: -ms-linear-gradient(top , #F9FAFA 10%, #F1F4F4 15%, #E3E8E9 25%, #D2DBDD 35%, #B3C2C5 50%, #9AAEB2 65%, #89A1A6 80%, #708C92 100%) repeat scroll 0 0 transparent;
+color: #000000!important;
+}
+
+/*1st sub level menu*/
+.ddsmoothmenu ul li ul, .submenu ul li ul{
+position: absolute;
+left: 0;
+display: none; /*collapse all sub menus to begin with*/
+visibility: hidden;padding-left: 0;
+}
+
+/*Sub level menu list items (undo style from Top level List Items)*/
+.ddsmoothmenu ul li ul li, .submenu ul li ul li{
+display: list-item;
+float: none;
+}
+
+/*All subsequent sub menu levels vertical offset after 1st level sub menu */
+.ddsmoothmenu ul li ul li ul, .submenu ul li ul li ul{
+top: 0;
+}
+
+/* Sub level menu links style */
+.ddsmoothmenu ul li ul li a, .submenu ul li ul li a{
+font: 13px arial;
+width: 160px; /*width of sub menus*/
+padding: 5px;
+margin: 0;
+border-top-width: 0;
+border-bottom: 1px solid gray;
+background: none repeat scroll 0 0 #6D8A90;
+}
+
+/* Holly Hack for IE \*/
+* html .ddsmoothmenu{height: 1%;} /*Holly Hack for IE7 and below*/
+
+
+/* ######### CSS classes applied to down and right arrow images  ######### */
+
+/*.downarrowclass{
+position: absolute;
+top: 12px;
+right: 7px;
+}*/
+.downarrowclass {
+    position: absolute;
+    right: 7px;
+    top:10px;
+}
+
+.rightarrowclass{
+position: absolute;
+top: 6px;
+right: 5px;
+}
+
+/* ######### CSS for shadow added to sub menus  ######### */
+
+.ddshadow{ /*shadow for NON CSS3 capable browsers*/
+position: absolute;
+left: 0;
+top: 0;
+width: 0;
+height: 0;
+background: silver;
+}
+
+.toplevelshadow{ /*shadow opacity for NON CSS3 capable browsers. Doesn't work in IE*/
+opacity: 0.8;
+}
+
+.ddsmoothmenu ul li ul li ul li a, .submenu ul li ul li ul li a {
+    border-bottom: 1px solid gray;
+    border-top-width: 0;
+    background: none repeat scroll 0 0 #94B5BC ;
+    font: 13px arial;
+    margin: 0;
+    padding: 5px;
+    width: 160px;
+}
+.sub_submenu ul{padding-bottom:5px;}
+                                                                                                                                                                                                                                                                                                                                                                                                                 125,1         All
+.left_arrow_link{z-index:10000;position:static;/*position:relative;*/}
+
+.right_arrow_link{z-index:10000;position:static;/*position:relative;*/}
+

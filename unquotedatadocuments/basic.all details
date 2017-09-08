@@ -1,0 +1,52 @@
+ def fund_performance_exports
+     logger.info"============#{session[:user_id]}==========="
+     sub_log = SubscriberLog.create(:entity_type => "Fund", :subscriber_id => 24329,:log_type => "export" )
+     work_book_path = "excel_exports/Report#{Time.zone.now.strftime("%Y%m%d%H%M%S%6N")}.xlsx"
+     job_id = SecureRandom.hex
+     fund = Fund.find_by_id(params[:fund_id])
+     export_columns = FundPerformance.column_names - ["commitment","created_at","updated_at","fund_id","date_of_commitment","performance_source"]
+     delay_job = Fund.generate_performance_export_job(job_id,work_book_path,export_columns.join(","),fund,sub_log.id,24329,params[:okcancel])
+     delay_job = job_id
+     render :json => { :status => "pending", :message => "#{Subscriber.find(24329).email_id}", :id => "#{delay_job}, #{work_book_path}" }
+  end
+
+  def self.generate_performance_export_job(job_id,work_book_path, export_columns,fund,sub_log,present_user, ok_cancel)
+   #  def self.generate_performance_export_job(job_id,work_book_path, export_columns,fund,currency_value,sub_log,ok_cancel)
+
+      @export_job = ExportJob.create(:job_id => job_id, :status => "pending" , :work_book_path => work_book_path, :selectedColDeal => export_columns, :present_user => present_user, :subscriber_log => sub_log, :ok_cancel => ok_cancel)
+    #logger.info "========generate_wdxlsx_for_export_job=====#{@export_job.inspect}=========="
+
+    generate_performance_wdxlsx_for_export(work_book_path, export_columns, fund, sub_log, present_user, ok_cancel)
+    @export_job.update_attributes(:status => "completed" )
+
+   end
+
+  def self.generate_wdxlsx_for_export(work_book_path,export_columns, fund,sub_log, present_user, ok_cancel)
+   logger1 = Logger.new("#{Rails.root}/log/development.log")
+    cst = Time.now
+    Ambient.init
+    Ambient.subscriber_user = present_user
+
+   hd_col = []
+    export_columns.split(",").each do |column|
+        hd_col <<  column
+    end
+   s = Wdxlsx::SheetGen.new(Wdxlsx::XlsxTemplate, "You have exported for: Fund Performance" , hd_col.count)
+   s.header_row(hd_col)
+   fund.fund_performances.order("created_at desc").each do |fund_per|
+       a=[]
+        hd_col.each do |column|
+          a << fund_per[column.to_s]
+        end
+        s.row(a)
+     end
+   out_file = s.save("#{Rails.root}/public/#{work_book_path}")
+    if ok_cancel == "true"
+      if !Subscriber.where(:id => Ambient.subscriber_user).blank?
+        subscriber = Subscriber.find(Ambient.subscriber_user)
+        UnquoteMailer.export_mail_for_subcriber(subscriber,work_book_path,SITE_URL_EXPORT).deliver
+      end
+    end
+    logger.info "------Fund  std all time --#{Time.now-cst}--------------"
+  end
+

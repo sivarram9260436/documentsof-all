@@ -1,0 +1,44 @@
+<%= error_messages_for_text_changes :featured_set%>
+<div class="section_block">
+	<div class="ranked_list_notice">
+		<h3> <%= flash[:notice] if flash[:notice] %></h3>
+	</div>
+	<h2><%= @page_properties[:menu_title] %></h2>
+	<div class="section_content">
+		<div class="form_data">
+			<%= semantic_form_for ([:admin,@featured_set]),:url=>"/admin/ranked_list/create",:html =>{:name =>"ranklist"} do |f| %>
+			<%= f.input :name, :label=>"Name :",:input_html => { :name=>"featured[name]",:class=>"input_text" }, :wrapper_html => { :style => "list-style:none;" }%>
+		</div>
+		<div class="form_data">
+			<label for="text_head">Drag and Drop List here:</label>
+		</div>
+		<div class="section_content">
+			<div id="featured_list_new">
+				<% @component = SrComponent.find_component_by_name("featured_digital_asset").dup %>
+				<% @component.merge!({:data_string => %q({:articles =>[], :featured_set_id=> ''})}) if @featured_set.new_record? %>
+				<%= sr_render_widget(@component) %>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="section_block right_section">
+	<h2 class="headBG">Asset List</h2>
+	<div class="section_content">
+		<div id='article_list_tab'>
+			<%if @featured_set.asset_group %>
+			<div id='latest_article_container' class="article_container update_pagination_block" style="display:none;">
+				<div id="edit_latest">
+					<%= sr_render_widget(SrComponent.find_component_by_name("latest_asset_tab")) %>
+				</div>
+			</div>
+			<%else %>
+			<div id='latest_article_container' class="article_container update_pagination_block">
+				<div id= <%= params[:action]=='edit' ? 'edit_latest' : 'new_latest' %>>
+					<%= sr_render_widget(SrComponent.find_component_by_name("latest_asset_tab")) %>
+				</div>
+			</div>
+			<%end %>
+		</div>
+		<%end%>
+	</div>
+</div>

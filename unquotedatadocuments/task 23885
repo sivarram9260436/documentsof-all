@@ -1,0 +1,79 @@
+ActiveRecord::Migration.add_column :fund_export_datas, :fund_dry_powder, :string
+
+ActiveRecord::Migration.add_column :fund_performances, :reported_market_value, :string
+ 
+
+
+
+<option value="Turnover">TurnOver</option>
+  <option value="Ebitda">EBITDA</option>
+
+
+
+TurnOver
+EBITDA
+:turn_over => "turn_over"
+:ebitda => "ebitda"
+
+
+
+
+   FundExportData
+    ExitExportData
+
+
+
+admin site 
+
+vi app/views/deals/_deal_exit.html.erb 
+
+
+<%= content_tag(:tr) do %>
+            <%= content_tag(:td,  label_tag("Turnover (m):"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field("deal_exit[#{deal_exit.id}]", :turnover, { :value => deal_exit.turnover.to_f > 0 ? number_with_precision(deal_exit.turnover, :precision => 2) : nil } ) ) %>
+
+
+       <%= content_tag(:tr) do %>
+            <%= content_tag(:td,  content_tag(:label, "EBITDA:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field("deal_exit[#{deal_exit.id}]", :ebitda, { :value => deal_exit.ebitda.to_f > 0 ? number_with_precision(deal_exit.ebitda, :precision => 2) : nil } ) ) %>
+
+
+
+vi /home/ruby/Unquote_data/Sites/unquote_data_site/views/exits/partials/_export.html.erb
+
+
+
+<option value="Turnover">TurnOver</option>
+<option value="Ebitda">EBITDA</option>
+
+
+
+vi config/initializers/export_data.rb
+
+:turn_over => "turn_over"
+:ebitda => "ebitda"
+
+
+
+vi app/models/exit_export_data.rb
+
+:turn_over,:ebitda
+
+
+vi lib/export_data_migration.rb
+
+:turnover_euro => deal_exit.deal.turnover_euro_export
+
+
+
+
+migration
+
+ActiveRecord::Migration.add_column :exit_export_datas, :turn_over, :string
+
+ActiveRecord::Migration.add_column :exit_export_datas, :ebitda, :string
+
+
+
+ExportDataMigration.exit_export
+

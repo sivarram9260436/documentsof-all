@@ -1,0 +1,38 @@
+<%= render :partial => "upload_multiple_image" %>
+<div id="image_list" class="slideshow_left">
+	<div class="section_block full_section">
+			<h2>ImageSet Search</h2>
+
+				<div class="search_fields">
+					
+					<div id='loading'style='display:none'>
+ 						<img src='/images/loading_process2.gif'>
+					</div>
+            	<p>
+	   		 		<label for="search_data_title">Image Search:</label>
+            	    <%= text_field_tag "image_detail_search[name]", (params[:image_detail_search][:name] if params[:image_detail_search]) %>
+                    
+                    <%= hidden_field_tag "image_detail_search[site_id]", (params[:image_detail_search][:site_id] if params[:image_detail_search]) %>
+            	    <%= hidden_field_tag "image_detail_search[to]", (params[:image_detail_search][:to] if params[:image_detail_search]) %>
+            	    <%= hidden_field_tag "image_detail_search[from]", (params[:image_detail_search][:from] if params[:image_detail_search]) %>
+            	   <%= hidden_field_tag "image_detail_search[created_by]", (params[:image_detail_search][:created_by] if params[:image_detail_search]) %>
+            	</p>  
+            	
+            	<div class="button">
+                	<%= link_to "Search", {}, {:href => "javascript:void(0)", :class => "image_search", :id => "image_search"} %>
+            	</div>
+            	<div id="advanced_image_search" class="button advance_search">
+             	<%= link_to "Advanced Search", {}, {:href => "javascript:void(0)"} ,:class=>"container"%> 
+             	<%#= link_to (image_tag('Advanced.jpg')), {}, {:href => "javascript:void(0)"} %> <%#= image_tag('new_button/down_arrow.png') %>
+           		</div>
+			</div>
+		</div>
+    <div id="page_1" class="image_pagination active_page">
+    	<%= render :partial => "images_list" %>
+   </div>
+</div>
+<!-- Overlay  -->
+<div id="overlay_div", style="display: none">
+    <img src="" class="preview_image" height=300px; width=500px />
+</div>
+<!-- Overlay  -->

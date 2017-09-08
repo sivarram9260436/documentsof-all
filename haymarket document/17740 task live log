@@ -1,0 +1,133 @@
+
+
+live
+
+
+
+
+
+
+
+
+
+
+Started GET "/directory/search?utf8=%E2%9C%93&facet=true&site_name=www.autocarpro.in&directory_listing_search%5Bname%5D=test&searchby=company&utf8=%E2%9C%93&facet=true&site_name=www.autocarpro.in&directory_listing_search%5Bname%5D=test&directory_listing_search%5Bcategory%5D=&directory_listing_search%5Bcategory%5D=&directory_listing_search%5Bcountry_id%5D=&directory_listing_search%5Bcounty_id%5D=&directory_listing_search%5Bcity_ids%5D%5B%5D=&per_page=10" for 103.38.240.1 at 2017-01-12 12:54:39 +0530
+  Processing by Wps::DirectoryController#directory_search as HTML
+  Parameters: {"utf8"=>"✓", "facet"=>"true", "site_name"=>"www.autocarpro.in", "directory_listing_search"=>{"name"=>"test", "category"=>"", "country_id"=>"", "county_id"=>"", "city_ids"=>[""]}, "searchby"=>"company", "per_page"=>"10"}
+ ---- rem checking
+ -- rem -- nil -- nil --- nil
+============params=============={"utf8"=>"✓", "facet"=>"true", "site_name"=>"www.autocarpro.in", "directory_listing_search"=>{"name"=>"test", "category"=>"", "country_id"=>"", "county_id"=>"", "city_ids"=>[""]}, "searchby"=>"company", "per_page"=>"10", "controller"=>"wps/directory", "action"=>"directory_search"}====================
+========new_dir=========[]==========[#<DirectoryListing id: 21519, data_proxy_id: 3, created_by: nil, updated_by: nil, image_id: nil, name: "Automotive Test Systems", description: "", premium: false, created_at: "2016-11-28 10:42:52", updated_at: "2016-11-28 10:42:53", is_sponsor: nil, status: true, average_rating: nil, ses_company: nil, directory_id: 3, classified_id: nil, display_date: nil, start_date: "2016-11-28 16:12:00", end_date: "2017-11-28 16:12:00", company_name: nil, company_short_profile: nil, profile_strength: #<BigDecimal:d5c8c28,'0.1E2',9(18)>, county_id: 3, subscriber_id: 40745, county_name: nil, city: nil, description1: nil, restriction_type: "Free", video_url: "", testimonial: "", paid_status: nil, person_title: "Mr", new_contact_person: "", country_id: 340>, #<DirectoryListing id: 11474, data_proxy_id: 3, created_by: nil, updated_by: nil, image_id: nil, name: "ace coating india pvt ltd", description: "we are pleased to introduce ourselves as one of the...", premium: false, created_at: "2016-09-26 10:47:45", updated_at: "2016-09-26 10:47:46", is_sponsor: nil, status: true, average_rating: nil, ses_company: nil, directory_id: 3, classified_id: nil, display_date: nil, start_date: nil, end_date: nil, company_name: nil, company_short_profile: nil, profile_strength: #<BigDecimal:d5cf960,'0.13E3',9(18)>, county_id: nil, subscriber_id: 3020, county_name: nil, city: nil, description1: nil, restriction_type: nil, video_url: nil, testimonial: nil, paid_status: nil, person_title: "Mr", new_contact_person: "", country_id: nil>, #<DirectoryListing id: 21403, data_proxy_id: 3, created_by: nil, updated_by: nil, image_id: nil, name: "iASYS Technolgy Solutions Pvt. Ltd", description: "<p>Ever since its inception in 1999, iASYS has been...", premium: false, created_at: "2016-10-21 07:49:04", updated_at: "2016-11-09 12:31:22", is_sponsor: nil, status: true, average_rating: nil, ses_company: nil, directory_id: 3, classified_id: nil, display_date: nil, start_date: "2016-10-21 13:19:00", end_date: "2017-10-21 13:19:00", company_name: nil, company_short_profile: nil, profile_strength: #<BigDecimal:d5df680,'0.15E3',9(18)>, county_id: 18, subscriber_id: 40428, county_name: "", city: "", description1: nil, restriction_type: "Free", video_url: "", testimonial: "", paid_status: nil, person_title: "Mr", new_contact_person: "", country_id: 340>]==============
+======search================nameeeeee======
+====search1====vpageproperties===={:menu_title=>nil}=======nameeeeee======
+======search2===={:menu_title=>nil}====="directory_search"=======vvvvvvvvvv======
+======page11================nameeeeee======
+====page2====vpageproperties===={:menu_title=>nil}=======nameeeeee======
+=====page3===={:menu_title=>nil}====="directory_search"=======vvvvvvvvvv======
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/directory/partials/_search_form.html.erb (1102.6ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/directory/partials/_search_pagination_info.html.erb (3.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/directory/directory_listing_search_page.html.erb within /layouts/autocar_pro (1204.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_seo_keys.html.erb (2.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_styles.html.erb (3.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_open_graph.html.erb (0.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_google_analytics.html.erb (0.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_social_media_script.html.erb (0.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_header_script_for_ad.html.erb (2.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_header_ad_responsive.html.erb (0.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_header_search.html.erb (1.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_login_links.html.erb (3.6ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_top_leaderboard.html.erb (1.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_header_leader_banner.html.erb (2.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_menus.html.erb (171.6ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_header_top_leader.html.erb (1.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_header.html.erb (183.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_middle_banner.html.erb (23.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_footer_leader_banner.html.erb (1.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_subscribe_newsletter.html.erb (0.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_footer_small_device.html.erb (1.5ms)
+=========2222222222222222222111v===============
+===666666666======111111111111v===============
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_fragment_content.html.erb (2.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/decoration/_decoration_yield.html.erb (0.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_container.html.erb (81.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_footer.html.erb (96.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_javascripts.html.erb (11.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/authentication/_login_form.html.erb (2.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/authentication/_forget_password_form.html.erb (1.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/authentication/_registration_form.html.erb (71.4ms)
+Completed 200 OK in 2105ms (Views: 1776.9ms | ActiveRecord: 230.4ms | Solr: 5.6ms)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Wps::DirectoryController < WpsController
+  include SimpleCaptcha::ControllerHelpers
+  def directory_search
+
+     logger.info"============params==============#{params.inspect}====================" 
+    @selected_menu=@site.get_selected_menu(:others=>"Home")
+    @page_properties={:menu_title=>@site.get_property("home_title")}
+    ##if params[:directory_listing_search].blank?
+    ##  params[:directory_listing]={:name=>params[:query]}
+    ##end
+ #   if @site.config.autonomy.directory_search == "true"
+      params[:query] = params[:directory_listing_search][:name] if params[:directory_listing_search]
+      params[:query] =" " if params[:query].blank?
+      params[:sort] = (@site.get_property("directory_default_sort_filter")  || "Relevance") if params[:sort].blank?
+      filters = Utility.directory_filter_mapping(params[:directory_listing_search])
+     
+     filters[:data_proxy] = [@site.data_proxy_id].flatten
+     filters[:paid_status_type] = "paid"
+     filters[:country_id] = params[:directory_listing_search][:country_id] if !params[:directory_listing_search].blank? and !params[:directory_listing_search][:country_id].blank?
+     filters[:county_id] = params[:directory_listing_search][:county_id] if !params[:directory_listing_search].blank? and !params[:directory_listing_search][:county_id].blank?
+     #filters[:city_names] = City.find_by_id(params[:directory_listing][:city].to_i).name
+
+
+     if !params[:directory_listing_search].blank?
+      if !params[:directory_listing_search][:main_category].blank?
+        category = @site.directory_listing_categories.where("full_name = ?",params[:directory_listing_search][:main_category]).last.full_alias_name
+        filters[:category_full_alias_names]  = @site.directory_listing_categories.where("full_alias_name ILIKE  ?","#{category}%").collect(&:full_alias_name)
+        if !params[:directory_listing_search][:main_category].blank? and !params[:directory_listing_search][:sub_category].blank?
+          category = @site.directory_listing_categories.where("full_name = ?",params[:directory_listing_search][:main_category]+" >> "+params[:directory_listing_search][:sub_category]).last.full_alias_name
+          filters[:category_full_alias_names]  = @site.directory_listing_categories.where("full_alias_name ILIKE ?","#{category}%").collect(&:full_alias_name)
+          if !params[:directory_listing_search][:main_category].blank? and !params[:directory_listing_search][:sub_category].blank? and !params[:directory_listing_search][:sub_child_category].blank?
+            category = @site.directory_listing_categories.where("full_name = ?",params[:directory_listing_search][:main_category]+" >> "+params[:directory_listing_search][:sub_category]+" >> "+params[:directory_listing_search][:sub_child_category]).last.full_alias_name
+            filters[:category_full_alias_names]  = @site.directory_listing_categories.where("full_alias_name ILIKE ?","#{category}%").collect(&:full_alias_name)
+          end
+        end
+      end
+    end
+        params[:page] = 1  if params[:page].blank?
+        params[:per_page] = 10 if params[:per_page].blank?  
+      @directory_listings_paid=DirectoryListing.search_by_search_engine(params[:query],1,1000,params[:sort],filters,["category_names","service_names","location_names"])
+     filters[:paid_status_type] = "free"
+     @directory_listings_free=DirectoryListing.search_by_search_engine(params[:query],params[:page],params[:per_page],params[:sort],filters,["category_names","service_names","location_names"])
+       logger.info"========new_dir=========#{@directory_listings_paid.results}==========#{@directory_listings_free.results}=============="
+##logger.info"---directory search-----#{@directory_listings.results.count}----------#{@site.config.autonomy.directory_search}-----#{filters.inspect}-------------------#{params.inspect}----------------------"
+  #  else
+   #   @directory_listings = Service.search_by_search_engine(params[:directory_listing_search][:name], params[:page], params[:per_page], "Relevance", params,["categories_names"])
+##logger.info"---Service search-----#{@directory_listings}----------#{@site.config.autonomy.directory_search}---------#{params.inspect}-------------------------------------"
+  #  end
+##logger.info"---Service search-----#{@directory_listings}----------#{@site.config.autonomy.directory_search}------------------------------------------"
+    respond_to do |format|
+      format.html do
+        render :template=>@site.directory_listing_search_page,:layout=>@site.get_layout
+      end
+      format.rss do
+        render :template=>"#{@site.directory_listing_search_page}-rss",:layout=>false
+      end
+    end
+  end
+

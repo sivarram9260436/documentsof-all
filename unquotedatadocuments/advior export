@@ -1,0 +1,469 @@
+ params = {"utf8"=>"✓", "authenticity_token"=>"OTteiNlLmOLLDKpi3cX/8EIo+QJL1X2W7e8DGtBmgcg=", "deal_id_value"=>"94416", "advisers"=>{"currency"=>"yen", "feedback"=>""}, "advisor_group"=>"94416", "selectedColDeal"=>"Deal id", "okcancel"=>"true"}.with_indifferent_access
+ => {"utf8"=>"✓", "authenticity_token"=>"OTteiNlLmOLLDKpi3cX/8EIo+QJL1X2W7e8DGtBmgcg=", "deal_id_value"=>"94416", "advisers"=>{"currency"=>"yen", "feedback"=>""}, "advisor_group"=>"94416", "selectedColDeal"=>"Deal id", "okcancel"=>"true"} 
+1.9.3-p125 :155 > 
+1.9.3-p125 :156 >   
+1.9.3-p125 :157 >   
+1.9.3-p125 :158 >       work_book_path = "/excel_exports/Report#{Time.zone.now.strftime("%Y%m%d%H%M%S%6N")}.xlsx"
+ => "/excel_exports/Report20170722072658932265.xlsx" 
+1.9.3-p125 :159 > Ambient.init
+ => {} 
+1.9.3-p125 :160 >     Ambient.currency = currency_value
+NameError: undefined local variable or method `currency_value' for main:Object
+	from (irb):160
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :161 >     Ambient.currency = "uk"
+ => "uk" 
+1.9.3-p125 :162 > User.last
+  User Load (1.3ms)  SELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1
+ => #<User id: 384, entity_id: nil, entity_type: nil, firstname: "Venkateswara", lastname: "Reddy", password: "zk05HklZym6JL%2FwIO9dfcg%3D%3D", salutation: nil, title: nil, email: "venkateswara@kreatio.com", phone: nil, extn: nil, fax: nil, final_selected_site_id: nil, end_user_company_name: nil, job_title: nil, address1: nil, address2: nil, city: nil, country_id: nil, postal_code: nil, terms_acceptance: nil, magazine_receive_status: nil, status: nil, reset_password_code_until: nil, reset_password_code: nil, updated_by: 383, created_by: 383, created_at: "2017-06-26 13:45:09", updated_at: "2017-06-26 13:45:09", expiry_date: nil, notes: nil, active: true, remember_me_key: nil, expiry_time: nil, fullname: "Venkateswara Reddy", delivery_email: nil, admin_selected_site_id: nil, access_level_id: 1, user_type_id: 1, login_id: "venky", created_date: nil, unquote_data_access: true, investor_source_access: true, admin_user: true, research_user: true, reset_key: nil, reset_time: nil> 
+1.9.3-p125 :163 > present_user=User.last
+  User Load (1.0ms)  SELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1
+ => #<User id: 384, entity_id: nil, entity_type: nil, firstname: "Venkateswara", lastname: "Reddy", password: "zk05HklZym6JL%2FwIO9dfcg%3D%3D", salutation: nil, title: nil, email: "venkateswara@kreatio.com", phone: nil, extn: nil, fax: nil, final_selected_site_id: nil, end_user_company_name: nil, job_title: nil, address1: nil, address2: nil, city: nil, country_id: nil, postal_code: nil, terms_acceptance: nil, magazine_receive_status: nil, status: nil, reset_password_code_until: nil, reset_password_code: nil, updated_by: 383, created_by: 383, created_at: "2017-06-26 13:45:09", updated_at: "2017-06-26 13:45:09", expiry_date: nil, notes: nil, active: true, remember_me_key: nil, expiry_time: nil, fullname: "Venkateswara Reddy", delivery_email: nil, admin_selected_site_id: nil, access_level_id: 1, user_type_id: 1, login_id: "venky", created_date: nil, unquote_data_access: true, investor_source_access: true, admin_user: true, research_user: true, reset_key: nil, reset_time: nil> 
+1.9.3-p125 :164 >     Ambient.subscriber_user = present_user
+ => #<User id: 384, entity_id: nil, entity_type: nil, firstname: "Venkateswara", lastname: "Reddy", password: "zk05HklZym6JL%2FwIO9dfcg%3D%3D", salutation: nil, title: nil, email: "venkateswara@kreatio.com", phone: nil, extn: nil, fax: nil, final_selected_site_id: nil, end_user_company_name: nil, job_title: nil, address1: nil, address2: nil, city: nil, country_id: nil, postal_code: nil, terms_acceptance: nil, magazine_receive_status: nil, status: nil, reset_password_code_until: nil, reset_password_code: nil, updated_by: 383, created_by: 383, created_at: "2017-06-26 13:45:09", updated_at: "2017-06-26 13:45:09", expiry_date: nil, notes: nil, active: true, remember_me_key: nil, expiry_time: nil, fullname: "Venkateswara Reddy", delivery_email: nil, admin_selected_site_id: nil, access_level_id: 1, user_type_id: 1, login_id: "venky", created_date: nil, unquote_data_access: true, investor_source_access: true, admin_user: true, research_user: true, reset_key: nil, reset_time: nil> 
+1.9.3-p125 :165 >     row = START_ROW
+ => 11 
+1.9.3-p125 :166 > advisor_group = AdvisorGroup.last
+  Status Load (0.5ms)  SELECT "statuses".* FROM "statuses" WHERE (status_type = 'advisor') AND (UPPER(name) = UPPER('PUBLISH')) LIMIT 1
+  Status Load (0.4ms)  SELECT "statuses".* FROM "statuses" WHERE (status_type = 'advisor') AND (UPPER(name) = UPPER('PENDING QC')) LIMIT 1
+  AdvisorGroup Load (1.2ms)  SELECT "advisor_groups".* FROM "advisor_groups" ORDER BY "advisor_groups"."id" DESC LIMIT 1
+ => #<AdvisorGroup id: 100173, name: "eee", advisor_company_type_id: nil, email: nil, web: nil, city_id: nil, show_vc_tab: nil, show_in_reports: nil, list_in_vc_guide: nil, status_id: 241, company_description: nil, created_by: 370, updated_by: 383, created_at: "2017-03-21 04:58:25", updated_at: "2017-07-10 10:14:28", old_wsw_id: nil, country_id: nil, data_proxy_id: 1, wsw_profile: nil, note_description: nil, last_date: "2017-07-10 10:14:28", deal_value_euro_f: nil, deal_value_us_f: nil, deal_value_uk_f: nil, deal_value_yen_f: nil> 
+1.9.3-p125 :167 > export_columns.dup
+NameError: undefined local variable or method `export_columns' for main:Object
+	from (irb):167
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :168 > export_columns="Deal id".split(",")
+ => ["Deal id"] 
+1.9.3-p125 :169 > export_columns.dup
+ => ["Deal id"] 
+1.9.3-p125 :170 >       auth_export_columns = export_columns.dup
+ => ["Deal id"] 
+1.9.3-p125 :171 >   export_columns.collect{ |column| column.gsub(" ", "_") }
+ => ["Deal_id"] 
+1.9.3-p125 :172 >   export_columns.collect{ |column| column.gsub(" ", "_") }.last
+ => "Deal_id" 
+1.9.3-p125 :173 > EXCEL_EXPORT_MAPPING[:deal][column.to_sym].blank?
+NameError: undefined local variable or method `column' for main:Object
+	from (irb):173
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :174 > EXCEL_EXPORT_MAPPING[:deal][ export_columns.collect{ |column| column.gsub(" ", "_") }.last.to_sym].blank?
+ => false 
+1.9.3-p125 :175 >       hd_col = []
+ => [] 
+1.9.3-p125 :176 >       auth_export_columns.last
+ => "Deal id" 
+1.9.3-p125 :177 > DEAL_DOLLOR_SYMBOL.include?"Deal id"
+ => false 
+1.9.3-p125 :178 > hd_col <<auth_export_columns.last.to_s
+1.9.3-p125 :179"> ^C
+1.9.3-p125 :179 > hd_col << auth_export_columns.last.to_s
+ => ["Deal id"] 
+1.9.3-p125 :180 >  subscriber_user = Subscriber.find(User.last)
+  WorkGroupType Load (0.8ms)  SELECT "work_group_types".* FROM "work_group_types" WHERE "work_group_types"."name" = 'Trial' LIMIT 1
+  User Load (1.3ms)  SELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1
+  Subscriber Load (2.6ms)  SELECT "subscribers".* FROM "subscribers" WHERE "subscribers"."id" = $1 LIMIT 1  [["id", 384]]
+ActiveRecord::RecordNotFound: Couldn't find Subscriber with id=384
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:343:in `find_one'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:314:in `find_with_ids'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:107:in `find'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/querying.rb:5:in `find'
+	from (irb):180
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :181 >  subscriber_user = Subscriber.find(User.last.id)
+  User Load (2.0ms)  SELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1
+  Subscriber Load (0.8ms)  SELECT "subscribers".* FROM "subscribers" WHERE "subscribers"."id" = $1 LIMIT 1  [["id", 384]]
+ActiveRecord::RecordNotFound: Couldn't find Subscriber with id=384
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:343:in `find_one'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:314:in `find_with_ids'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:107:in `find'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/querying.rb:5:in `find'
+	from (irb):181
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :182 >  subscriber_user = Subscriber.find(384)
+  Subscriber Load (0.8ms)  SELECT "subscribers".* FROM "subscribers" WHERE "subscribers"."id" = $1 LIMIT 1  [["id", 384]]
+ActiveRecord::RecordNotFound: Couldn't find Subscriber with id=384
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:343:in `find_one'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:314:in `find_with_ids'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:107:in `find'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/querying.rb:5:in `find'
+	from (irb):182
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :183 >     Ambient.subscriber_user
+ => #<User id: 384, entity_id: nil, entity_type: nil, firstname: "Venkateswara", lastname: "Reddy", password: "zk05HklZym6JL%2FwIO9dfcg%3D%3D", salutation: nil, title: nil, email: "venkateswara@kreatio.com", phone: nil, extn: nil, fax: nil, final_selected_site_id: nil, end_user_company_name: nil, job_title: nil, address1: nil, address2: nil, city: nil, country_id: nil, postal_code: nil, terms_acceptance: nil, magazine_receive_status: nil, status: nil, reset_password_code_until: nil, reset_password_code: nil, updated_by: 383, created_by: 383, created_at: "2017-06-26 13:45:09", updated_at: "2017-06-26 13:45:09", expiry_date: nil, notes: nil, active: true, remember_me_key: nil, expiry_time: nil, fullname: "Venkateswara Reddy", delivery_email: nil, admin_selected_site_id: nil, access_level_id: 1, user_type_id: 1, login_id: "venky", created_date: nil, unquote_data_access: true, investor_source_access: true, admin_user: true, research_user: true, reset_key: nil, reset_time: nil> 
+1.9.3-p125 :184 >  Subscriber.find(Ambient.subscriber_user)
+  Subscriber Load (2.0ms)  SELECT "subscribers".* FROM "subscribers" WHERE "subscribers"."id" = $1 LIMIT 1  [["id", 384]]
+ActiveRecord::RecordNotFound: Couldn't find Subscriber with id=384
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:343:in `find_one'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:314:in `find_with_ids'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:107:in `find'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/querying.rb:5:in `find'
+	from (irb):184
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :185 >  Subscriber.find(present_user)
+  Subscriber Load (2.1ms)  SELECT "subscribers".* FROM "subscribers" WHERE "subscribers"."id" = $1 LIMIT 1  [["id", 384]]
+ActiveRecord::RecordNotFound: Couldn't find Subscriber with id=384
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:343:in `find_one'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:314:in `find_with_ids'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:107:in `find'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/querying.rb:5:in `find'
+	from (irb):185
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :186 > Subscriber.last
+  Subscriber Load (2.0ms)  SELECT "subscribers".* FROM "subscribers" ORDER BY "subscribers"."id" DESC LIMIT 1
+ => #<Subscriber id: 24344, title: nil, first_name: "Nisarga", last_name: "Reddy", email_id: "nisarga@kreatio.com", password: "l9oMaBdH3wHJV3Jo0%2FNbxA%3D%3D", type: nil, institution_name: nil, reset_password_code: nil, concurrent_user_max: 2, created_by: nil, updated_by: nil, last_login: nil, reset_password_code_until: nil, created_at: "2017-01-04 06:22:03", updated_at: "2017-05-05 09:40:02", o_uid: nil, legacy_uid: nil, remember_me_key: "8fad38d0708276a9430926c1b1a4969d", remember_me_time: nil, interval: nil, remaining_concurrent_logins: 2, bureau_id: nil, provider_type: nil, provider_id: nil, user_name: "nisarga", subscriber_type: nil, job_title: "QA", postcode: "-", address1: nil, town: nil, country: nil, email_subscription: false, email_unsubscription: nil, co_emails: nil, work_group_id: 5605, username: nil, currency_id: 76, inactive: false, comments: "", company_type: "MM", main_contact: false, site_id: 1, full_name: "Nisarga Reddy", email_alert: nil, hedge_funds: false, real_estate: false, private_equity: false, please_specify: nil, company_description: nil, releveant_products_mail: false, releveant_products_phone: false, releveant_products_email: false, third_party_mail: false, third_party_phone: false, third_party_email: false, hear_about_ivs: nil, contact_for_events: nil, company_name: nil, reset_key: nil, reset_time: nil, export_limit: 0, export_count: nil> 
+1.9.3-p125 :187 > Subscriber.last.subscriber_access_level
+  Subscriber Load (1.8ms)  SELECT "subscribers".* FROM "subscribers" ORDER BY "subscribers"."id" DESC LIMIT 1
+  SubscriberAccessLevel Load (3.4ms)  SELECT "subscriber_access_levels".* FROM "subscriber_access_levels" WHERE "subscriber_access_levels"."subscriber_id" = 24344 LIMIT 1
+ => #<SubscriberAccessLevel id: 14438, access_to_everything: true, access_to_deals_information_only: true, access_to_institutions_only: true, aggregate_functionality: false, extract_confidential_values_via_aggregated_serach: true, performance_analyser: false, disable_excel: true, disable_pdf_creation: true, disable_charting_or_graphing: true, enable_use_of_charge_code_structure: false, access_restricted_by_deal_country: false, access_restricted_by_deal_sector: false, access_restricted_by_deal_value: false, access_restricted_by_deal_type: false, access_restricted_by_deal_date: false, access_restricted_by_deal_country_text: "", access_restricted_by_deal_start_date: nil, access_restricted_by_deal_end_date: nil, access_restricted_by_deal_sector_text: "", access_restricted_by_deal_type_text: "", access_restricted_by_deal_value_min: nil, access_restricted_by_deal_value_max: nil, access_restricted_by_institution_country: false, access_restricted_by_geographical_preference: false, access_restricted_by_institution_status: false, access_restricted_by_institution_fund_type_preference: false, access_restricted_by_institution_type: false, access_restricted_by_institution_country_text: "", access_restricted_by_geographical_preference_text: "", access_restricted_by_institution_status_text: "", access_restricted_by_institution_type_text: "", created_at: "2017-01-04 06:22:05", updated_at: "2017-01-04 06:37:19", access_restricted_by_institution_fund_type_preference_text: "", subscriber_id: 24344> 
+1.9.3-p125 :188 > User.last
+  User Load (0.8ms)  SELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1
+ => #<User id: 384, entity_id: nil, entity_type: nil, firstname: "Venkateswara", lastname: "Reddy", password: "zk05HklZym6JL%2FwIO9dfcg%3D%3D", salutation: nil, title: nil, email: "venkateswara@kreatio.com", phone: nil, extn: nil, fax: nil, final_selected_site_id: nil, end_user_company_name: nil, job_title: nil, address1: nil, address2: nil, city: nil, country_id: nil, postal_code: nil, terms_acceptance: nil, magazine_receive_status: nil, status: nil, reset_password_code_until: nil, reset_password_code: nil, updated_by: 383, created_by: 383, created_at: "2017-06-26 13:45:09", updated_at: "2017-06-26 13:45:09", expiry_date: nil, notes: nil, active: true, remember_me_key: nil, expiry_time: nil, fullname: "Venkateswara Reddy", delivery_email: nil, admin_selected_site_id: nil, access_level_id: 1, user_type_id: 1, login_id: "venky", created_date: nil, unquote_data_access: true, investor_source_access: true, admin_user: true, research_user: true, reset_key: nil, reset_time: nil> 
+1.9.3-p125 :189 > Subscriber.find(384)
+  Subscriber Load (1.0ms)  SELECT "subscribers".* FROM "subscribers" WHERE "subscribers"."id" = $1 LIMIT 1  [["id", 384]]
+ActiveRecord::RecordNotFound: Couldn't find Subscriber with id=384
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:343:in `find_one'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:314:in `find_with_ids'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:107:in `find'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/querying.rb:5:in `find'
+	from (irb):189
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :190 > Subscriber.last
+  Subscriber Load (1.6ms)  SELECT "subscribers".* FROM "subscribers" ORDER BY "subscribers"."id" DESC LIMIT 1
+ => #<Subscriber id: 24344, title: nil, first_name: "Nisarga", last_name: "Reddy", email_id: "nisarga@kreatio.com", password: "l9oMaBdH3wHJV3Jo0%2FNbxA%3D%3D", type: nil, institution_name: nil, reset_password_code: nil, concurrent_user_max: 2, created_by: nil, updated_by: nil, last_login: nil, reset_password_code_until: nil, created_at: "2017-01-04 06:22:03", updated_at: "2017-05-05 09:40:02", o_uid: nil, legacy_uid: nil, remember_me_key: "8fad38d0708276a9430926c1b1a4969d", remember_me_time: nil, interval: nil, remaining_concurrent_logins: 2, bureau_id: nil, provider_type: nil, provider_id: nil, user_name: "nisarga", subscriber_type: nil, job_title: "QA", postcode: "-", address1: nil, town: nil, country: nil, email_subscription: false, email_unsubscription: nil, co_emails: nil, work_group_id: 5605, username: nil, currency_id: 76, inactive: false, comments: "", company_type: "MM", main_contact: false, site_id: 1, full_name: "Nisarga Reddy", email_alert: nil, hedge_funds: false, real_estate: false, private_equity: false, please_specify: nil, company_description: nil, releveant_products_mail: false, releveant_products_phone: false, releveant_products_email: false, third_party_mail: false, third_party_phone: false, third_party_email: false, hear_about_ivs: nil, contact_for_events: nil, company_name: nil, reset_key: nil, reset_time: nil, export_limit: 0, export_count: nil> 
+1.9.3-p125 :191 > User.last.subscriber_access_level
+  User Load (1.0ms)  SELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1
+NoMethodError: undefined method `subscriber_access_level' for #<User:0x000000081decc0>
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activemodel-3.2.13/lib/active_model/attribute_methods.rb:407:in `method_missing'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/activerecord-3.2.13/lib/active_record/attribute_methods.rb:149:in `method_missing'
+	from (irb):191
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :192 > Sidekiq.redis { |conn| conn.flushdb }
+ => "OK" 
+1.9.3-p125 :193 > 
+1.9.3-p125 :194 >   
+1.9.3-p125 :194 >   Sidekiq::Status::complete? "ba658fffb8ddd0385f046ead"
+ => false 
+1.9.3-p125 :195 > Sidekiq::Status::failed? "Sidekiq.redis { |conn| conn.flushdb }
+1.9.3-p125 :196"> 
+1.9.3-p125 :197"> ^C
+1.9.3-p125 :197 > Sidekiq::Status::failed? "ba658fffb8ddd0385f046ead"
+ => false 
+1.9.3-p125 :198 > Sidekiq::Status::queued? "ba658fffb8ddd0385f046ead"
+ => true 
+1.9.3-p125 :199 > Subscriber.find 24341
+  Subscriber Load (0.9ms)  SELECT "subscribers".* FROM "subscribers" WHERE "subscribers"."id" = $1 LIMIT 1  [["id", 24341]]
+ => #<Subscriber id: 24341, title: nil, first_name: "sivaram", last_name: "siva", email_id: "sivaram@kreatio.com", password: "2X2WhH1Y9CCzYjTPVtvL7Q%3D%3D", type: nil, institution_name: nil, reset_password_code: nil, concurrent_user_max: 2, created_by: nil, updated_by: nil, last_login: nil, reset_password_code_until: nil, created_at: "2016-12-13 13:09:15", updated_at: "2017-07-22 06:50:22", o_uid: nil, legacy_uid: nil, remember_me_key: "9d457786c8be55dd809ae9d5665fb8f6", remember_me_time: nil, interval: nil, remaining_concurrent_logins: 2, bureau_id: nil, provider_type: nil, provider_id: nil, user_name: "sivaram", subscriber_type: nil, job_title: "", postcode: "", address1: nil, town: nil, country: nil, email_subscription: false, email_unsubscription: nil, co_emails: nil, work_group_id: 7602, username: nil, currency_id: 67, inactive: false, comments: "", company_type: "software", main_contact: false, site_id: 1, full_name: "sivaram siva", email_alert: nil, hedge_funds: false, real_estate: false, private_equity: false, please_specify: nil, company_description: nil, releveant_products_mail: false, releveant_products_phone: false, releveant_products_email: false, third_party_mail: false, third_party_phone: false, third_party_email: false, hear_about_ivs: nil, contact_for_events: nil, company_name: nil, reset_key: nil, reset_time: nil, export_limit: 1025, export_count: 32> 
+1.9.3-p125 :200 > Ambient.subscriber_user =  24341
+ => 24341 
+1.9.3-p125 :201 > subscriber_user = Subscriber.find(24341)
+  Subscriber Load (1.7ms)  SELECT "subscribers".* FROM "subscribers" WHERE "subscribers"."id" = $1 LIMIT 1  [["id", 24341]]
+ => #<Subscriber id: 24341, title: nil, first_name: "sivaram", last_name: "siva", email_id: "sivaram@kreatio.com", password: "2X2WhH1Y9CCzYjTPVtvL7Q%3D%3D", type: nil, institution_name: nil, reset_password_code: nil, concurrent_user_max: 2, created_by: nil, updated_by: nil, last_login: nil, reset_password_code_until: nil, created_at: "2016-12-13 13:09:15", updated_at: "2017-07-22 06:50:22", o_uid: nil, legacy_uid: nil, remember_me_key: "9d457786c8be55dd809ae9d5665fb8f6", remember_me_time: nil, interval: nil, remaining_concurrent_logins: 2, bureau_id: nil, provider_type: nil, provider_id: nil, user_name: "sivaram", subscriber_type: nil, job_title: "", postcode: "", address1: nil, town: nil, country: nil, email_subscription: false, email_unsubscription: nil, co_emails: nil, work_group_id: 7602, username: nil, currency_id: 67, inactive: false, comments: "", company_type: "software", main_contact: false, site_id: 1, full_name: "sivaram siva", email_alert: nil, hedge_funds: false, real_estate: false, private_equity: false, please_specify: nil, company_description: nil, releveant_products_mail: false, releveant_products_phone: false, releveant_products_email: false, third_party_mail: false, third_party_phone: false, third_party_email: false, hear_about_ivs: nil, contact_for_events: nil, company_name: nil, reset_key: nil, reset_time: nil, export_limit: 1025, export_count: 32> 
+1.9.3-p125 :202 > subscriber_user.subscriber_access_level && subscriber_user.subscriber_access_level.extract_confidential_values_via_aggregated_serach.eql?(true)
+  SubscriberAccessLevel Load (0.9ms)  SELECT "subscriber_access_levels".* FROM "subscriber_access_levels" WHERE "subscriber_access_levels"."subscriber_id" = 24341 LIMIT 1
+ => true 
+1.9.3-p125 :203 > single_curr_vl = { "euro" => "_euro_est", "uk" => "_uk_est", "us" => "_us_est", "yen" => "_yen_est" }
+ => {"euro"=>"_euro_est", "uk"=>"_uk_est", "us"=>"_us_est", "yen"=>"_yen_est"} 
+1.9.3-p125 :204 >       conf_curr_vl = { "euro" => "_euro_conf", "uk" => "_uk_conf", "us" => "_us_conf", "yen" => "_yen_conf" }
+ => {"euro"=>"_euro_conf", "uk"=>"_uk_conf", "us"=>"_us_conf", "yen"=>"_yen_conf"} 
+1.9.3-p125 :205 > 
+1.9.3-p125 :206 >   exit_curr_vl = { "euro" => "_check_est_euro", "uk" => "_check_est_uk", "us" => "_check_est_us", "yen" => "_check_est_yen" }
+ => {"euro"=>"_check_est_euro", "uk"=>"_check_est_uk", "us"=>"_check_est_us", "yen"=>"_check_est_yen"} 
+1.9.3-p125 :207 >  gsubed_export_columns = auth_export_columns.collect{ |column| (DEAL_EBIT.include?column) ? "#{column}#{conf_curr_vl[currency_value]}" : column.gsub(" ", "_").gsub("Deal_value", "Deal_value#{single_curr_vl[currency_value]}").gsub("Exit_value", "Exit_value#{exit_curr_vl[currency_value]}")}
+NameError: undefined local variable or method `currency_value' for main:Object
+	from (irb):207:in `block in irb_binding'
+	from (irb):207:in `collect'
+	from (irb):207
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :208 > 
+1.9.3-p125 :209 >   
+1.9.3-p125 :210 >   
+1.9.3-p125 :211 >   currency_value ="yen"
+ => "yen" 
+1.9.3-p125 :212 > 
+1.9.3-p125 :213 >    gsubed_export_columns = auth_export_columns.collect{ |column| (DEAL_EBIT.include?column) ? "#{column}#{conf_curr_vl[currency_value]}" : column.gsub(" ", "_").gsub("Deal_value", "Deal_value#{single_curr_vl[}").gsub("Exit_value", "Exit_value#{exit_curr_vl[currency_value]}")}
+SyntaxError: (irb):213: syntax error, unexpected '}', expecting ']'
+..., "Deal_value#{single_curr_vl[}").gsub("Exit_value", "Exit_v...
+...                               ^
+(irb):213: syntax error, unexpected tCONSTANT, expecting '}'
+...le_curr_vl[}").gsub("Exit_value", "Exit_value#{exit_curr_vl[...
+...                               ^
+(irb):213: syntax error, unexpected tCONSTANT, expecting '}'
+....gsub("Exit_value", "Exit_value#{exit_curr_vl[currency_value...
+...                               ^
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :214 > 
+1.9.3-p125 :215 >   
+1.9.3-p125 :216 >    gsubed_export_columns = auth_export_columns.collect{ |column| (DEAL_EBIT.include?column) ? "#{column}#{conf_curr_vl[currency_value]}" : column.gsub(" ", "_").gsub("Deal_value", "Deal_value#{single_curr_vl[currency_value]}").gsub("Exit_value", "Exit_value#{exit_curr_vl[currency_value]}")}
+ => ["Deal_id"] 
+1.9.3-p125 :217 > s = Wdxlsx::SheetGen.new(Wdxlsx::XlsxTemplate, "You have searched for: #{advisor_group.name}" , auth_export_columns.count)
+ => #<Wdxlsx::SheetGen:0x00000009d8ad20 @string_table=#<Wdxlsx::StringTable:0x00000009d8acd0 @strings={"www.unquotedata.com"=>0, "You have searched for: eee"=>1}, @unique_count=2, @count=2>, @template=#<Wdxlsx::XlsxTemplate:0x00000009d8ac80 @sheet=#<Wdxlsx::SheetGen:0x00000009d8ad20 ...>, @string_table=#<Wdxlsx::StringTable:0x00000009d8acd0 @strings={"www.unquotedata.com"=>0, "You have searched for: eee"=>1}, @unique_count=2, @count=2>>, @styles={:header_row=>9, :row=>14, :row_date=>14, :default=>7}, @columns=1, @parent_dir="/tmp/d20170722-21586-1lb79oz", @dir="/tmp/d20170722-21586-1lb79oz/rep02", @sheet_file=#<File:/tmp/d20170722-21586-1lb79oz/rep02/xl/worksheets/sheet1.xml>, @shared_strings_file=#<File:/tmp/d20170722-21586-1lb79oz/rep02/xl/sharedStrings.xml>, @current_row=10> 
+1.9.3-p125 :218 >  s.header_row(hd_col)
+ => 6 
+1.9.3-p125 :219 >  DealExportData.where(:deal_id => ActiveRecord::Base.connection.select_values("(#{advisor_group.all_deals.by_statuses(Status.where(:name => ["Publish","Pending QC"]).pluck("id")).to_sql})  ORDER BY deal_announced DESC")).order("deal_announced_date desc")
+  Status Load (1.1ms)  SELECT "statuses".* FROM "statuses" WHERE (status_type = 'deal') AND (UPPER(name) = UPPER('PUBLISH')) LIMIT 1
+   (0.5ms)  SELECT id FROM "statuses" WHERE "statuses"."name" IN ('Publish', 'Pending QC')
+  InvestmentType Load (0.4ms)  SELECT "investment_types".* FROM "investment_types" WHERE (name in ('Equity Syndicate')) LIMIT 1
+  InvestmentType Load (0.5ms)  SELECT "investment_types".* FROM "investment_types" WHERE (name in ('Equity Lead')) LIMIT 1
+  InvestmentType Load (0.3ms)  SELECT "investment_types".* FROM "investment_types" WHERE (name in ('Equity Lead','Equity Syndicate','Unspecified Equity'))
+  InvestmentType Load (0.3ms)  SELECT "investment_types".* FROM "investment_types" WHERE (name in ('Mezzanine Syndicate')) LIMIT 1
+  InvestmentType Load (0.3ms)  SELECT "investment_types".* FROM "investment_types" WHERE (name in ('Debt Syndicate')) LIMIT 1
+  InvestmentType Load (0.6ms)  SELECT "investment_types".* FROM "investment_types" WHERE (name in ('Equity Lead','Equity Syndicate','Corporate Investor','Unspecified Equity'))
+  InvestmentType Load (0.7ms)  SELECT "investment_types".* FROM "investment_types" WHERE (name in ('Convertible Loan','High-yield Bonds','Mezzanine Syndicate','Mezzanine Lead'))
+  InvestmentType Load (0.6ms)  SELECT "investment_types".* FROM "investment_types" WHERE (name in ('Bridging Loan','Corporate Loan','Debt Lead','Debt Syndicate','Shareholder loan','State Loan','Unspecified Debt','Vendor loan'))
+  AdviceType Load (0.5ms)  SELECT "advice_types".* FROM "advice_types" WHERE (UPPER(name) LIKE UPPER('%%LEGAL%%')) LIMIT 1
+  AdviceType Load (0.4ms)  SELECT "advice_types".* FROM "advice_types" WHERE (UPPER(name) LIKE UPPER('%%CORPORATE FINANCE%%')) LIMIT 1
+  AdviceType Load (0.4ms)  SELECT "advice_types".* FROM "advice_types" WHERE (UPPER(name) LIKE UPPER('%%COMMERCIAL DUE DILIGENCE%%')) LIMIT 1
+  AdviceType Load (0.4ms)  SELECT "advice_types".* FROM "advice_types" WHERE (UPPER(name) LIKE UPPER('%%ENVIRONMENTAL DUE DILIGENCE%%')) LIMIT 1
+  AdviceType Load (0.4ms)  SELECT "advice_types".* FROM "advice_types" WHERE (UPPER(name) LIKE UPPER('%%FINANCIAL DUE DILIGENCE%%')) LIMIT 1
+  AdviceType Load (0.4ms)  SELECT "advice_types".* FROM "advice_types" WHERE (UPPER(name) LIKE UPPER('%%INSURANCE DUE DILIGENCE%%')) LIMIT 1
+  AdviceType Load (0.4ms)  SELECT "advice_types".* FROM "advice_types" WHERE (UPPER(name) LIKE UPPER('%%OTHER DUE DILIGENCE%%')) LIMIT 1
+   (0.3ms)  SELECT id FROM "advice_types" WHERE "advice_types"."name" IN ('Accounting')
+   (0.3ms)  SELECT id FROM "advice_types" WHERE "advice_types"."name" IN ('Tax')
+   (0.5ms)  SELECT id FROM "advice_types" WHERE "advice_types"."name" IN ('Sponsor/Broker')
+   (0.3ms)  SELECT id FROM "advice_types" WHERE "advice_types"."name" IN ('Actuarial')
+  AdviceType Load (0.4ms)  SELECT "advice_types".* FROM "advice_types" WHERE (UPPER(name) LIKE UPPER('%%OTHER CONSULTING%%')) LIMIT 1
+  Status Load (0.8ms)  SELECT "statuses".* FROM "statuses" WHERE (status_type = 'deal') AND (UPPER(name) = UPPER('PUBLISH')) LIMIT 1
+  Status Load (0.4ms)  SELECT "statuses".* FROM "statuses" WHERE (status_type = 'deal') AND (UPPER(name) = UPPER('PENDING QC')) LIMIT 1
+  Status Load (0.4ms)  SELECT "statuses".* FROM "statuses" WHERE (status_type = 'deal') AND (UPPER(name) = UPPER('DELETE')) LIMIT 1
+   (3.0ms)  (SELECT "deals".* FROM "deals" INNER JOIN "deal_advisors" ON "deals"."id" = "deal_advisors"."deal_id" INNER JOIN "advisor_group_components" ON "deal_advisors"."advisor_group_component_id" = "advisor_group_components"."id" WHERE "advisor_group_components"."advisor_group_id" = 100173 AND (deals.status_id in (197,200,201,203,205,207,208,215,216,223,231,246,247,253,254,259,260,267,270,272,232,195))) ORDER BY deal_announced DESC
+  DealExportData Load (3.0ms)  SELECT "deal_export_data".* FROM "deal_export_data" WHERE 1=0 ORDER BY deal_announced_date desc
+ => [] 
+1.9.3-p125 :220 >  out_file = s.save("#{Rails.root}/public/#{work_book_path}")
+  Site Load (0.7ms)  SELECT "sites".* FROM "sites" LIMIT 1
+Creating scope :limit. Overwriting existing method Article.limit.
+  ExtendedAttributesSchema Load (0.8ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'additional_data_required' LIMIT 1
+  ExtendedAttributesSchema Load (0.4ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'opt_out' LIMIT 1
+  ExtendedAttributesSchema Load (0.4ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'sponsor' LIMIT 1
+  ExtendedAttributesSchema Load (0.4ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'term_and_conditions' LIMIT 1
+  ExtendedAttributesSchema Load (0.4ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'thank_you_text' LIMIT 1
+  ExtendedAttributesSchema Load (0.4ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'title_of_feed' LIMIT 1
+  ExtendedAttributesSchema Load (0.4ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'link_to_title_of_feed' LIMIT 1
+  ExtendedAttributesSchema Load (0.4ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'display_on_article' LIMIT 1
+  ExtendedAttributesSchema Load (0.4ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'date_line' LIMIT 1
+  ExtendedAttributesSchema Load (0.6ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'hide_echo_comment_box' LIMIT 1
+  ExtendedAttributesSchema Load (0.8ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'rating' LIMIT 1
+  ExtendedAttributesSchema Load (0.8ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article'
+/home/ruby/Unquote_data/unquote_data_engine/Kreatio_Core/app/models/article.rb:98: warning: already initialized constant ARTICLE_SCHEMA_INFO
+  ExtendedAttributesSchema Load (0.7ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'additional_data_required' LIMIT 1
+  ExtendedAttributesSchema Load (0.9ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'opt_out' LIMIT 1
+  ExtendedAttributesSchema Load (0.8ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'sponsor' LIMIT 1
+  ExtendedAttributesSchema Load (0.9ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'term_and_conditions' LIMIT 1
+  ExtendedAttributesSchema Load (0.8ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'thank_you_text' LIMIT 1
+  ExtendedAttributesSchema Load (0.8ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'title_of_feed' LIMIT 1
+  ExtendedAttributesSchema Load (0.8ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'link_to_title_of_feed' LIMIT 1
+  ExtendedAttributesSchema Load (0.8ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'display_on_article' LIMIT 1
+  ExtendedAttributesSchema Load (0.8ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'hide_echo_comment_box' LIMIT 1
+  ExtendedAttributesSchema Load (0.7ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'competition_report_generator' LIMIT 1
+  ExtendedAttributesSchema Load (0.6ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'report_generated_time' LIMIT 1
+  ExtendedAttributesSchema Load (0.8ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article'
+Creating scope :by_extended_attr. Overwriting existing method Article.by_extended_attr.
+Creating scope :by_extended_attr_start_at. Overwriting existing method Article.by_extended_attr_start_at.
+Creating scope :by_extended_attr_end_at. Overwriting existing method Article.by_extended_attr_end_at.
+Creating scope :by_extended_attr_substring. Overwriting existing method Article.by_extended_attr_substring.
+Creating scope :substring_match. Overwriting existing method Article.substring_match.
+Creating scope :order_by_extended_attr. Overwriting existing method Article.order_by_extended_attr.
+Creating scope :by_ext_future_date. Overwriting existing method Article.by_ext_future_date.
+Creating scope :by_ext_past_date. Overwriting existing method Article.by_ext_past_date.
+Creating scope :ext_date_time_between. Overwriting existing method Article.ext_date_time_between.
+----------------------------------------------category_ids
+----------------------------------------------sites
+----------------------------------------------author_ids
+----------------------------------------------media_detail
+----------------------------------------------tag_ids
+----------------------------------------------site_ids
+----------------------------------------------related_company_ids
+----------------------------------------------related_company_alias_ids
+----------------------------------------------title
+----------------------------------------------source_id
+----------------------------------------------media_detail_id
+----------------------------------------------section_id
+----------------------------------------------blog_id
+/home/ruby/Unquote_data/unquote_data_engine/Kreatio_Core/app/models/article_content.rb:105: warning: character class has ']' without escape: /\[asset_library_tag\s(\d+),([^]]+)\]/
+  ExtendedAttributesSchema Load (0.8ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'ArticleContent' AND "extended_attributes_schemas"."attr_name" = 'by_pass_event_sponsor_page' LIMIT 1
+  ExtendedAttributesSchema Load (0.7ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'ArticleContent' AND "extended_attributes_schemas"."attr_name" = 'page_password' LIMIT 1
+  ExtendedAttributesSchema Load (0.7ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'ArticleContent' AND "extended_attributes_schemas"."attr_name" = 'imported' LIMIT 1
+  ExtendedAttributesSchema Load (0.6ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'ArticleContent'
+image_url
+sub_title
+region
+meta_keywords
+meta_description
+volume_and_issue
+title_image_url
+pullquote
+author_alias
+description
+editing_notes
+content
+title_url
+external_video_url
+external_url_text
+extended_body
+text_for_highlighting
+title_of_feed
+link_to_title_of_feed
+original_source
+full_header_and_footer
+right_hand_column
+mobile_content
+mobile_content_word_count
+title
+source_id
+section_id
+fragment_title_text
+primary_medium
+magazine_issue_id
+premium
+media_detail_id
+publish_date
+expiry_date
+display_date
+language_id
+content_word_count
+blog_id
+flash_news
+seo_title
+city_id
+link_type
+video_stream_id
+text_for_highlighting
+content
+existing_manual_tags
+tag_new_with_existing
+full_header_and_footer
+right_hand_column
+new_manual_tags
+pages_content
+extended_body
+category_ids
+sites
+author_ids
+media_detail
+tag_ids
+site_ids
+related_company_ids
+related_company_alias_ids
+title
+source_id
+media_detail_id
+section_id
+blog_id
+  Site Load (0.7ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" = $1 LIMIT 1  [["id", 1]]
+  Section Load (0.7ms)  SELECT "sections".* FROM "sections" WHERE "sections"."entity_type" = 'Static'
+  Article Load (2.7ms)  SELECT "articles".* FROM "articles" WHERE "articles"."title" = 'footer_top' AND (articles.id in (select article_id from articles_sites where data_proxy_id in(1))) AND (articles.section_id in ( 2)) AND (articles.section_id in (select id from sections where alias_name!='spotlight')) AND (articles.section_id in (select id from sections where alias_name!='alternate_home_page')) AND (articles.section_id in (select id from sections where alias_name='static-fragment')) AND (active = 't' and in_embargo = 'f' and expired = 'f' and is_draft = 'f' and (waiting_for_approval is null or waiting_for_approval = 'f')) LIMIT 1
+  ArticleContent Load (3.7ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 12 AND "article_contents"."id" = $1 LIMIT 1  [["id", 216]]
+/home/ruby/Unquote_data/unquote_data_engine/Kreatio_Core/app/models/article_content.rb:105: warning: character class has ']' without escape: /\[asset_library_tag\s(\d+),([^]]+)\]/
+  adding: [Content_Types].xml (deflated 73%)
+  adding: _rels/ (stored 0%)
+  adding: _rels/.rels (deflated 60%)
+  adding: docProps/ (stored 0%)
+  adding: docProps/core.xml (deflated 48%)
+  adding: docProps/app.xml (deflated 51%)
+  adding: xl/ (stored 0%)
+  adding: xl/_rels/ (stored 0%)
+  adding: xl/_rels/workbook.xml.rels (deflated 66%)
+  adding: xl/sharedStrings.xml (deflated 35%)
+  adding: xl/workbook.xml (deflated 45%)
+  adding: xl/drawings/ (stored 0%)
+  adding: xl/drawings/_rels/ (stored 0%)
+  adding: xl/drawings/_rels/drawing1.xml.rels (deflated 37%)
+  adding: xl/drawings/drawing1.xml (deflated 55%)
+  adding: xl/media/ (stored 0%)
+  adding: xl/media/image1.png (deflated 0%)
+  adding: xl/styles.xml (deflated 89%)
+  adding: xl/worksheets/ (stored 0%)
+  adding: xl/worksheets/_rels/ (stored 0%)
+  adding: xl/worksheets/_rels/sheet1.xml.rels (deflated 51%)
+  adding: xl/worksheets/sheet1.xml (deflated 61%)
+  adding: xl/theme/ (stored 0%)
+  adding: xl/theme/theme1.xml (deflated 80%)
+ => "/home/ruby/Unquote_data/WPS/public//excel_exports/Report20170722072658932265.xlsx" 
+1.9.3-p125 :221 > ok_cancel == "true"
+NameError: undefined local variable or method `ok_cancel' for main:Object
+	from (irb):221
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :222 > 
+
+
+  def get_export_status
+     if @site.short_name == "investor_source"
+       job_status = Sidekiq::Status::complete?(params[:id]) || Sidekiq::Status::failed?(params[:id])
+     else
+        job_status = ExportJob.find_by_job_id(params[:id]).status if ExportJob.find_by_job_id(params[:id]).present?
+     end
+    render :json => { :status => job_status ? "completed" : "pending" }
+  end
+
+
+
+ def get_export_status
+     if @site.short_name == "investor_source"
+       job_status = Sidekiq::Status::complete?(params[:id]) || Sidekiq::Status::failed?(params[:id])
+     else
+        job_status = ExportJob.find_by_job_id(params[:id]).status if ExportJob.find_by_job_id(params[:id]).present?
+     end
+    render :json => { :status => job_status ? "completed" : "pending" }
+  end
+
+ def deal_advisors_exports
+     logger.info"=====g7yg7ygbuy session w=======#{session.inspect}============="
+
+  work_book_path = "/excel_exports/Report#{Time.zone.now.strftime("%Y%m%d%H%M%S%6N")}.xlsx"
+    delay_job = AdvisorGroup.generate_wdxlsx_deal_advisor_export(work_book_path, params[:selectedColDeal].split(","), params[:advisor_group],session[:currency], session[:user_id], params[:okcancel])
+    render :json => { :status => "pending", :message => "#{Subscriber.find(session[:user_id]).email_id}", :id => "#{delay_job}, #{work_book_path}" }
+  end
+
+
+

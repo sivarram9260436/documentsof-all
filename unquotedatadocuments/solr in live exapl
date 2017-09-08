@@ -1,0 +1,3 @@
+
+
+ssh -A -L 3232:localhost:8983 ssh -A sivaram@kgw.kreatio.net ruby@178.62.113.186	

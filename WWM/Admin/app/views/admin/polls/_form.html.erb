@@ -1,0 +1,96 @@
+<div id="container" style="padding-top: 20px;">
+	<div class="section_block full_section">
+		<h2><%= @page_properties[:menu_title] %></h2>
+
+		<div class="article_new_main">
+			<div class="errorExplanation validation_box">
+				<%= raw error_messages(@poll)%>
+			</div>
+			<%= semantic_form_for ([:admin,@poll]),:url=> @poll.new_record? ? {:action=>"create", :controller=>"admin/polls"} : {:action=>"update", :controller=>"admin/polls",:id=>@poll.id} do |f| %>
+			<!--div class="errorExplanation validation_box">
+			<h3><%#= raw error_messages(@poll)%></h3>
+			</div-->
+			<div class="form_data">
+				<label for="poll_title">Title<span> *</span>:</label>
+				<%= text_field 'poll', 'title',:class=>"input_text" %>
+			</div>
+			<div class="form_data">
+				<label for="poll_description">Description:</label>
+				<%= text_area 'poll', 'description',{:rows => 10, :cols => 40,:class=>'textarea_text'} %>
+			</div>
+			
+			<div class="form_data">
+				<label for="poll_question">Question<span> *</span>:</label>
+				<%= text_area 'poll', 'question', {:rows => 10, :cols => 40,:class=>'textarea_text'} %>
+			</div>
+			<div class="form_data">
+				<label for="poll_status">Active:</label>
+				<%= check_box 'poll', 'status',:class=>"" %>
+			</div>
+			
+			<div style="float:left;width: 100%;">
+				<%= content_tag(:tr,content_tag(:td,fetch_fields(@poll.poll_options, 'option'), :id => 'option', :colspan => 3))%>
+         	        <% session[:property_count] = nil %>
+                 	<%if @poll.new_record?%>
+				<div class="button">
+				<%= content_tag(:tr,content_tag(:td, add_option_ajax('Add Option','option','option'), :colspan => 3, :class => 'add_alias')) %>
+					</div>
+					<div id="option_update">
+						<table>
+							<tr class="site_property">
+								<td style="width: 14%;"><label for="site_propert_name">Option 1 :</label></td>
+								<td style="width: 40%;">
+								<input type="text" size="30" name="poll[options][]" id="site_propert_option" class="input_text">
+								</td>
+								<td><a class="close_button_option" href="javascript:void(0);"><img width="15" height="15" src="/images/new_button/cancel_f2.png?1361529529" alt="Remove"></a></td>
+							</tr>
+						</table>
+						<table>
+							<tr class="site_property">
+							
+								<td style="width: 14%;"><label for="site_propert_name">Option 2 :</label></td>
+								<td style="width: 40%;">
+								<input type="text" size="30" name="poll[options][]" id="site_propert_option" class="input_text">
+								</td>
+								<td><a class="close_button_option" href="javascript:void(0);"><img width="15" height="15" src="/images/new_button/cancel_f2.png?1361529529" alt="Remove"></a></td>
+							</tr>
+					  </table>
+						<table>
+						
+							<tr class="site_property">
+								<td style="width: 14%;"><label for="site_propert_name">Option 3 :</label></td>
+								<td style="width: 40%;">
+								<input type="text" size="30" name="poll[options][]" id="site_propert_option" class="input_text">
+								</td>
+								<td><a class="close_button_option" href="javascript:void(0);"><img width="15" height="15" src="/images/new_button/cancel_f2.png?1361529529" alt="Remove"></a></td>
+							</tr>
+						</table>
+						
+						
+					
+				</div>
+				<%end%>
+			     <div class="form_data">
+					<div id="option_update" class="poll_add_option"  style="float:left;width: 50%;"></div>
+					<div class="add_option_poll" ></div>
+				</div>
+			
+				<div class="columnLeft"  style="float:left">
+					<div id="edit_page"></div>
+				</div>
+			</div>
+			
+			<div class="common_listing_button"  style="float:left;clear:both">
+				<ul>
+					<li class="button">
+						<%= f.commit_button  %>
+					</li>
+					<li class="button">
+						<%= link_to("Cancel",:controller=>"polls",:action=>"index")%>
+					</li>
+				</ul>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>

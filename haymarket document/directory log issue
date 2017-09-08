@@ -1,0 +1,143 @@
+///////Creating scope :limit. Overwriting existing method Article.limit.
+Creating scope :by_extended_attr. Overwriting existing method Article.by_extended_attr.
+Creating scope :by_extended_attr_start_at. Overwriting existing method Article.by_extended_attr_start_at.
+Creating scope :by_extended_attr_end_at. Overwriting existing method Article.by_extended_attr_end_at.
+Creating scope :by_extended_attr_substring. Overwriting existing method Article.by_extended_attr_substring.
+Creating scope :substring_match. Overwriting existing method Article.substring_match.
+Creating scope :order_by_extended_attr. Overwriting existing method Article.order_by_extended_attr.
+Creating scope :by_ext_future_date. Overwriting existing method Article.by_ext_future_date.
+Creating scope :by_ext_past_date. Overwriting existing method Article.by_ext_past_date.
+Creating scope :ext_date_time_between. Overwriting existing method Article.ext_date_time_between.
+----------------------------------------------category_ids
+----------------------------------------------sites
+----------------------------------------------author_ids
+----------------------------------------------media_detail
+----------------------------------------------tag_ids
+----------------------------------------------site_ids
+----------------------------------------------related_company_ids
+----------------------------------------------related_company_alias_ids
+----------------------------------------------title
+----------------------------------------------source_id
+----------------------------------------------media_detail_id
+----------------------------------------------section_id
+----------------------------------------------blog_id
+Creating scope :protected. Overwriting existing method DigitalAsset.protected.
+Creating scope :all. Overwriting existing method DigitalAsset.all.
+Creating scope :by_event_types. Overwriting existing method Event.by_event_types.
+Creating scope :by_event_business_areas. Overwriting existing method Event.by_event_business_areas.
+Creating scope :by_date. Overwriting existing method Event.by_date.
+Creating scope :list_event. Overwriting existing method Event.list_event.
+Creating scope :limit. Overwriting existing method Service.limit.
+Creating scope :limit. Overwriting existing method Tag.limit.
+Creating scope :order_by_updated_at. Overwriting existing method Comment.order_by_updated_at.
+Creating scope :by_site. Overwriting existing method Comment.by_site.
+Creating scope :by_blog. Overwriting existing method Comment.by_blog.
+Creating scope :by_site_and_type_poll. Overwriting existing method Comment.by_site_and_type_poll.
+Creating scope :by_site_and_type_service. Overwriting existing method Comment.by_site_and_type_service.
+Creating scope :by_site_and_type_author. Overwriting existing method Comment.by_site_and_type_author.
+Creating scope :by_category_with_children. Overwriting existing method Comment.by_category_with_children.
+Creating scope :by_section. Overwriting existing method Comment.by_section.
+Creating scope :latest. Overwriting existing method Comment.latest.
+Creating scope :by_reported. Overwriting existing method Comment.by_reported.
+Creating scope :by_reported_and_submitted. Overwriting existing method Comment.by_reported_and_submitted.
+Creating scope :by_comment_status. Overwriting existing method Comment.by_comment_status.
+Creating scope :published. Overwriting existing method Comment.published.
+Creating scope :live. Overwriting existing method Comment.live.
+Creating scope :distinct_status. Overwriting existing method Comment.distinct_status.
+Creating scope :order_by. Overwriting existing method Comment.order_by.
+Creating scope :by_article_ids. Overwriting existing method Comment.by_article_ids.
+Creating scope :by_article_title. Overwriting existing method Comment.by_article_title.
+Creating scope :by_poll_title. Overwriting existing method Comment.by_poll_title.
+Creating scope :by_entity_type. Overwriting existing method Comment.by_entity_type.
+Creating scope :by_entity_id. Overwriting existing method Comment.by_entity_id.
+Creating scope :type_service. Overwriting existing method Comment.type_service.
+Creating scope :limit. Overwriting existing method ComponentContainer.limit.
+Creating scope :all. Overwriting existing method EventBrand.all.
+Creating scope :public. Overwriting existing method MyFavourite.public.
+Creating scope :private. Overwriting existing method MyFavourite.private.
+Creating scope :limit. Overwriting existing method PageTemplate.limit.
+Creating scope :limit. Overwriting existing method PageTemplateContainer.limit.
+Creating scope :limit. Overwriting existing method ActivitySummary.limit.
+Creating scope :all. Overwriting existing method Campaign.all.
+Creating scope :limit. Overwriting existing method Campaign.limit.
+Creating scope :all. Overwriting existing method Company.all.
+Creating scope :limit. Overwriting existing method Company.limit.
+Creating scope :limit. Overwriting existing method Document.limit.
+Creating scope :all. Overwriting existing method Document.all.
+Creating scope :all. Overwriting existing method FeaturedSponsership.all.
+Creating scope :limit. Overwriting existing method FeaturedSponsership.limit.
+Creating scope :limit. Overwriting existing method Research.limit.
+Creating scope :all. Overwriting existing method WplSkin.all.
+Creating scope :all. Overwriting existing method WplTaxonomy.all.
+Creating scope :limit. Overwriting existing method WplTaxonomy.limit.
+
+
+Started GET "/directory" for 192.168.209.31 at 2017-01-25 11:24:35 +0530
+  Processing by Wps::PagesController#listing as HTML
+  Parameters: {"path"=>"/directory"}
+========AMBIENT SET++++++#<Site:0x0000000ab47da0>======
+ ---- rem checking
+ -- rem -- nil -- nil --- nil
+-------------------@listing_page = #<SpecialPage id: 91, site_id: nil, template_type: nil, page_name: "directory_page", layout: "/layouts/autocar_pro", menu_id: nil, asset_group_id: nil, presentation_proxy_id: 3, active: true, url: "/directory", template: "directory_page", type: "SpecialPage", copied_from: nil, blog_id: nil, layout_required: true, created_at: "2014-02-26 05:39:32", updated_at: "2014-02-26 05:41:54", cache: false>----------------
+-------------------@context = {}----------------
+============+#<Site:0x0000000ab47da0>===============
+============false==================
+====check_direc====[#<DirectoryListing id: 10648, data_proxy_id: 3, created_by: 31, updated_by: nil, image_id: nil, name: "Test", description: "", premium: nil, created_at: "2017-01-23 09:31:47", updated_at: "2017-01-23 09:31:47", is_sponsor: nil, status: true, average_rating: nil, ses_company: nil, directory_id: 3, classified_id: nil, display_date: nil, start_date: nil, end_date: nil, company_name: nil, company_short_profile: "", profile_strength: 10.0, county_id: nil, subscriber_id: nil, county_name: nil, city_name: nil, description1: nil, restriction_type: "Premium", video_url: "", testimonial: "", paid_status: true, person_title: nil, new_contact_person: nil, active: nil, country_id: 340>]===========
+====check_free====[]===========
+======page11================nameeeeee======
+====page2====vpageproperties===={:context=>{}, :page_type=>"directory_page"}=======nameeeeee======
+=====page3===={:context=>{}, :page_type=>"directory_page"}====="listing"=======vvvvvvvvvv======
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/directory/partials/_search_form.html.erb (901.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/special_pages/directory_page.html.erb within /layouts/autocar_pro (1031.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_seo_keys.html.erb (1.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_styles.html.erb (3.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_open_graph.html.erb (0.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_google_analytics.html.erb (0.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_social_media_script.html.erb (0.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_header_script_for_ad.html.erb (2.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_header_ad_responsive.html.erb (0.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_header_search.html.erb (1.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_login_links.html.erb (3.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_vertical_page_pusher.html.erb (240.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/comp/_fragment_description.html.erb (100.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/decoration/_decoration_yield.html.erb (0.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_page_peel_script.html.erb (477.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/comp/_fragment_description.html.erb (2.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/decoration/_decoration_yield.html.erb (0.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_first_impression.html.erb (26.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_top_leaderboard.html.erb (1.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_header_leader_banner.html.erb (2.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_menus.html.erb (101.6ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_header_top_leader.html.erb (1.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_header.html.erb (859.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/comp/_fragment_description.html.erb (1.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/decoration/_decoration_yield.html.erb (0.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_middle_banner.html.erb (18.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_footer_leader_banner.html.erb (134.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/_subscribe_newsletter.html.erb (0.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/comp/_fragment_description.html.erb (1.6ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/decoration/_decoration_yield.html.erb (0.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_adding_text_links.html.erb (17.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_footer_small_device.html.erb (1.1ms)
+=========2222222222222222222111v===============
+===666666666======111111111111v===============
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/_fragment_content.html.erb (4.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/decoration/_decoration_yield.html.erb (0.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/_container.html.erb (44.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_footer.html.erb (74.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_javascripts.html.erb (11.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/authentication/_login_form.html.erb (1.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/authentication/_forget_password_form.html.erb (1.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/authentication/_registration_form.html.erb (188.9ms)
+cache ---- false ---- true ---- nil ---- nil ---- 200
+Completed 200 OK in 4525ms (Views: 2433.4ms | ActiveRecord: 272.6ms | Solr: 21.8ms)
+
+
+Started GET "/verify-site-login" for 192.168.209.31 at 2017-01-25 11:24:44 +0530
+  Processing by CommonController#verify_authentication as HTML
+========AMBIENT SET++++++#<Site:0x0000000c2a8080>======
+ ---- rem checking
+ -- rem -- nil -- nil --- nil
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_header_search.html.erb (1.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_login_links.html.erb (6.6ms)
+Completed 200 OK in 45ms (Views: 8.4ms | ActiveRecord: 11.0ms | Solr: 0.0ms)

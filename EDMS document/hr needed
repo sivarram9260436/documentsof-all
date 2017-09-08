@@ -1,0 +1,43 @@
+ [#<LeaveRecord id: 7076, leave_type_id: 5, no_of_days: 0.5, employee_detail_id: 71, year: 2017, from_date: "2017-05-19", to_date: "2017-05-19", reason: "Personal Work", status: "cancelled", created_at: "2017-05-15 05:03:29", updated_at: "2017-05-18 05:40:28">, 
+
+#<LeaveRecord id: 7098, leave_type_id: 5, no_of_days: 1.0, employee_detail_id: 71, year: 2017, from_date: "2017-05-19", to_date: "2017-05-19", reason: "Personal Work", status: "Pending", created_at: "2017-05-18 05:41:48", updated_at: "2017-05-18 05:41:48">, 
+
+
+=========== girish krishna=======================
+
+#<LeaveRecord id: 7110, leave_type_id: 5, no_of_days: 0.5, employee_detail_id: 51, year: 2017, from_date: "2017-05-19", to_date: "2017-05-19", reason: "Having some personal work", status: "Pending", created_at: "2017-05-19 07:56:22", updated_at: "2017-05-19 07:56:22">, 
+
+#<LeaveRecord id: 7111, leave_type_id: 5, no_of_days: 0.5, employee_detail_id: 292, year: 2017, from_date: "2017-05-19", to_date: "2017-05-19", reason: "personal reason", status: "approved", created_at: "2017-05-19 09:00:55", updated_at: "2017-05-22 08:43:34">,
+
+ #<LeaveRecord id: 7105, leave_type_id: 1, no_of_days: 1.0, employee_detail_id: 315, year: 2017, from_date: "2017-05-19", to_date: "2017-05-19", reason: "Not feeling well, please accept my leave.", status: "Pending", created_at: "2017-05-19 04:29:15", updated_at: "2017-05-19 04:29:15">,
+
+ #<LeaveRecord id: 7107, leave_type_id: 2, no_of_days: 1.0, employee_detail_id: 309, year: 2017, from_date: "2017-05-20", to_date: "2017-05-20", reason: "Am going to friends wedding", status: "Pending", created_at: "2017-05-19 06:57:01", updated_at: "2017-05-19 06:57:01">, 
+
+#<LeaveRecord id: 7115, leave_type_id: 2, no_of_days: 1.0, employee_detail_id: 342, year: 2017, from_date: "2017-05-20", to_date: "2017-05-20", reason: "Going out of station, Friend Marriage.", status: "Pending", created_at: "2017-05-19 12:00:47", updated_at: "2017-05-19 12:00:47">,
+
+ #<LeaveRecord id: 7113, leave_type_id: 2, no_of_days: 1.0, employee_detail_id: 380, year: 2017, from_date: "2017-05-20", to_date: "2017-05-20", reason: "Going to Sujith's marriage", status: "Pending", created_at: "2017-05-19 11:19:44", updated_at: "2017-05-19 11:19:44">,
+
+ #<LeaveRecord id: 7097, leave_type_id: 2, no_of_days: 1.0, employee_detail_id: 357, year: 2017, from_date: "2017-05-19", to_date: "2017-05-19", reason: "i have to go to dharwad (out of station) bcz of my ...", status: "approved", created_at: "2017-05-18 05:02:19", updated_at: "2017-05-18 12:27:06">,
+
+ #<LeaveRecord id: 7109, leave_type_id: 5, no_of_days: 1.0, employee_detail_id: 397, year: 2017, from_date: "2017-05-20", to_date: "2017-05-20", reason: "Attending sujith marriage", status: "Pending", created_at: "2017-05-19 07:14:06", updated_at: "2017-05-19 07:14:06">] 
+
+
+
+[[71, "Girish"], [71, "Girish"], [51, "Sumitha"], [292, "Anupama"], [315, "Tapaswi"], [309, "Mahesh"], [342, "Amjith"], [380, "Sanjay"], [357, "Girish kulkarni"], [397, "Rajeev"]] 
+
+
+m.map{|x| [x.employee_detail_id,x.employee_detail.emp_name]}
+
+
+
+[[Fri, 19 May 2017, Fri, 19 May 2017, "Girish"], [Fri, 19 May 2017, Fri, 19 May 2017, "Girish"], [Fri, 19 May 2017, Fri, 19 May 2017, "Sumitha"], [Fri, 19 May 2017, Fri, 19 May 2017, "Anupama"], [Fri, 19 May 2017, Fri, 19 May 2017, "Tapaswi"], [Sat, 20 May 2017, Sat, 20 May 2017, "Mahesh"], [Sat, 20 May 2017, Sat, 20 May 2017, "Amjith"], [Sat, 20 May 2017, Sat, 20 May 2017, "Sanjay"], [Fri, 19 May 2017, Fri, 19 May 2017, "Girish kulkarni"], [Sat, 20 May 2017, Sat, 20 May 2017, "Rajeev"]] 
+
+
+
+1.9.3p194 :090 > e.map{|x| [x.from_date,x.to_date,x.reason,EmployeeDetail.find(x.employee_detail_id).emp_name,EmployeeDetail.find(x.employee_detail_id).manager_mailid]}
+
+
+
+
+[[Fri, 19 May 2017, Fri, 19 May 2017, "Personal Work", "Girish"], [Fri, 19 May 2017, Fri, 19 May 2017, "Personal Work", "Girish"], [Fri, 19 May 2017, Fri, 19 May 2017, "Having some personal work", "Sumitha"], [Thu, 18 May 2017, Thu, 18 May 2017, "Need to go native", "Sujith"], [Fri, 19 May 2017, Fri, 19 May 2017, "personal reason", "Anupama"], [Thu, 18 May 2017, Thu, 18 May 2017, "Not feeling well.", "Adarsh"], [Mon, 22 May 2017, Mon, 22 May 2017, "going home", "Sreerag"], [Fri, 19 May 2017, Fri, 19 May 2017, "Not feeling well, please accept my leave.", "Tapaswi"], [Mon, 22 May 2017, Mon, 22 May 2017, "Going  to native", "chiranjeevi b J"], [Thu, 18 May 2017, Thu, 18 May 2017, "Birthday leave:)", "Nisarga"], [Sat, 20 May 2017, Sat, 20 May 2017, "Am going to friends wedding", "Mahesh"], [Sat, 20 May 2017, Sat, 20 May 2017, "Going out of station, Friend Marriage.", "Amjith"], [Sat, 20 May 2017, Sat, 20 May 2017, "Going to Sujith's marriage", "Sanjay"], [Fri, 19 May 2017, Fri, 19 May 2017, "i have to go to dharwad (out of station) bcz of my father illness", "Girish kulkarni"], [Thu, 18 May 2017, Mon, 22 May 2017, "Brother's Marriage", "Milind"], [Mon, 22 May 2017, Mon, 22 May 2017, "fever.", "Michael"], [Thu, 18 May 2017, Thu, 18 May 2017, "I was not well ", "Tamilarasan"], [Sat, 20 May 2017, Mon, 22 May 2017, "attending sujith marriage", "Rajeev"], [Sat, 20 May 2017, Sat, 20 May 2017, "Attending sujith marriage", "Rajeev"]] 
+

@@ -1,0 +1,147 @@
+<script src="/javascripts/jquery/jquery-1.5.min.js" type="text/javascript"></script>
+<script src="/javascripts/jquery-ui.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.fcbkcomplete.js" type="text/javascript"></script>
+
+<script src="/javascripts/jquery.colorbox.js" type="text/javascript"></script>
+<%= javascript_include_tag 'new_admin'%>
+<%if params[:title_document]=="title_document" or (params[:article_doc] and params[:article_doc][:search]=="title_asset_search")%>
+<%= form_tag({:action => 'update',:id=>assets_details.id,:article_doc_upload=>params[:article_doc_update]},{:name=>'asset_update' ,:multipart => true}) do %>
+<div class="assets_details clearance">
+	<p class="digital_type">
+		Document Type
+	</p>
+	<span class="digital_colon">:</span>
+	<p class="digital_description">
+		<%= assets_details.name.split('.')[-1] %>
+	</p>
+</div>
+
+<div class="assets_details clearance">
+	<p class="digital_type">
+		Description
+	</p>
+	<span class="digital_colon">:</span>
+	<p class="digital_description">
+		<%= assets_details.description %>
+	</p>
+</div>
+
+<div class="assets_details clearance">
+	<p class="digital_type">
+		Document Name
+	</p>
+	<span class="digital_colon">:</span>
+	<p class="digital_description">
+		<%= assets_details.display_name %>
+	</p>
+</div>
+
+<div class="assets_details clearance">
+	<p class="digital_type">
+		Location
+	</p>
+	<span class="digital_colon">:</span>
+	<p class="digital_description">
+		<%= assets_details.document_path %>
+	</p>
+</div>
+
+<div class="assets_details clearance">
+	<p class="digital_type">
+		Source Name
+	</p>
+	<span class="digital_colon">:</span>
+	<p class="digital_description">
+		<%= assets_details.source.blank? ? 'Not Assigned' : assets_details.source.name %>
+	</p>
+</div>
+
+<div class="assets_details clearance">
+	<p class="digital_type">
+		Asset Categories Name
+	</p>
+	<span class="digital_colon">:</span>
+	<p class="digital_description">
+		<%= assets_details.asset_categories.blank? ? 'Not Assigned' : assets_details.asset_categories.collect{|a| a.name}.join         %>
+	</p>
+</div>
+
+<div class="assets_details clearance">
+	<p class="digital_type">
+		File Size
+	</p>
+	<span class="digital_colon">:</span>
+	<p class="digital_description">
+		<%= assets_details.file_size %>
+	</p>
+</div>
+<div class="assets_details clearance">
+	<p class="digital_type">
+		Protected
+	</p>
+	<span class="digital_colon">:</span>
+	<p class="digital_description">
+		<%= assets_details.protected? ? "Protected Document" : "Not Protected Document" %>
+	</p>
+</div>
+<div class="clearance"></div>
+<div style="margin-top:15px;margin-left:30px">
+	<div class="adminLinkButton">
+		<%= link_to('Add As Title Document', 'javascript:void(0)', :onclick => "javascript:select_document('#{assets_details.name}','#{assets_details.document_path}','#{assets_details.document_icon(assets_details.name.split('.')[-1])}','#{assets_details.id}');")%>
+	</div>
+	<%end%>
+	<%else%>
+	<%= form_tag({:controller => '/admin/digital_assets',:action => 'update',:id=>assets_details.id,:article_doc_upload=>params[:article_doc_update]},{:name=>'asset_update' ,:multipart => true}) do %>
+	<div class="section_block">
+		<h2 class="headBG">DigitalAsset Edit</h2>
+		<div class="section_content">
+			<div class="form_data">
+				<label for="text_head"> Document Type :</label>
+				<p>
+					<%= assets_details.name.split('.')[-1] %>
+				</p>
+			</div>
+			<div class="form_data">
+				<label for="text_head">Description :</label>
+				<%= text_area :digital_asset, :description,{:value=>assets_details.description,:rows => 6, :cols => 35,:class=>"input_text"} %>
+			</div>
+			<div class="form_data">
+				<label for="text_head">Document Name :</label>
+				<% @digital_asset=assets_details%>
+				<p>
+					<%= text_field "digital_asset","display_name",:class=>'input_text',:size=>"30" %>
+				</p>
+			</div>
+			<div class="form_data">
+				<label for="text_head">Location :</label>
+				<p>
+					<%= assets_details.document_path %>
+				</p>
+			</div>
+			<div class="form_data">
+				<label for="text_head">Source Name :</label>
+				<% @digital_asset=assets_details%>
+				<p>
+					<%= select_tag("digital_asset[source_id]","<option value=''>Select</option>" + options_for_select(@site.sources.collect{|source| [source.name,source.id]},assets_details.source_id),:class=>"input_text") %>
+				</p>
+			</div>
+			<div class="form_data">
+				<label for="text_head">File Size :</label>
+				<p>
+					<%= assets_details.file_size %>
+				</p>
+			</div>
+			<div class="form_data">
+				<label for="text_head">Protected :</label>
+				<%= check_box :digital_asset, :protected,options = {:checked=>assets_details.protected},true,false %>
+			</div>
+			<div class="clearance"></div>
+			<div class="button">
+				<%= link_to('Save', 'javascript:void(0)',"data-type" => 'new',"data-url" => "/admin/digital_assets/update/#{@digital_asset.id}?article_doc_upload=undefined","class" => "submit_form","data-fname" => "asset_update", :id=>"save_digital_assest_update_01") %>
+				<%#= link_to('Save', 'javascript:void(0)', :onclick => "javascript:update_document();")%>
+			</div>
+		</div>
+	</div>
+	<%end %>
+	<%end%>
+

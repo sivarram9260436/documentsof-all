@@ -1,0 +1,5 @@
+z=[]
+EmployeeDetail.all.map do |x|
+z=x.leave_records.where("from_date > ? and to_date <? ","2017-05-17" ,"2017-05-23")
+
+end

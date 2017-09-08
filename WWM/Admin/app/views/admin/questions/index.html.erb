@@ -1,0 +1,48 @@
+ <!--<div class="common_listing_button">
+  <ul>
+          <li class="button">     
+            <%#=link_to 'New Question',{:controller=>'admin/questions',:action => 'new'} %>
+          </li>
+    </ul>    
+ </div>-->
+ <%= form_tag({:controller=>'/admin/questions',:action => 'index'}) do %>
+ <div class="section_block full_section">
+	<h2 class="headBG">Question Search</h2>
+
+  	<div class="search_fields">
+  			
+  			<p>
+				<label for="content"> Name:</label>
+				<%if !params[:search_data].blank?%>
+				<%= text_field 'search_data',  "name" , :value =>params[:search_data]["name"]%>
+				<%else%>
+				<%= text_field 'search_data',  "name" , :value =>''%>
+				<%end%>
+			</p>
+  			
+  		<p>
+		  <label for="search_data_status">Select Question Type:</label> 
+		  <%if params[:search_data] and not params[:search_data][:type].blank?%>
+			<%= select_tag('search_data[type]',options_for_select([['All',''],['TextQuestion'],['TextBlockQuestion'],['NumberQuestion'],['DateQuestion'],['YearQuestion'],['SingleAnswerQuestion'],['MultipleAnswerQuestion'],['BooleanQuestion']],:selected => (params[:search_data][:type] rescue nil))) %>
+		 <%else%>
+			<%= select_tag('search_data[type]',options_for_select([['All',''],['TextQuestion'],['TextBlockQuestion'],['NumberQuestion'],['DateQuestion'],['YearQuestion'],['SingleAnswerQuestion'],['MultipleAnswerQuestion'],['BooleanQuestion']])) %>
+		 <%end%>
+		</p>
+  			
+  			
+   				
+		    <div class="button">
+					<%=submit_tag "Search"%>					
+			</div>
+			
+		<%#= submit_tag("Search",:class=>"submit blue_submit")%>
+
+	</div>			
+</div>
+
+<%end%>
+
+<%= params[:search_data] ? component_table_list(SrComponent.find_component_by_name('QuestionList_search')) : component_table_list(SrComponent.find_component_by_name('QuestionList')) %>
+
+  <%#= component_table_list(SrComponent.find_component_by_name('QuestionList')) %>
+

@@ -1,0 +1,45 @@
+ <%= number_with_precision( (case (params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) when "euro" then gpc[:euro] when "uk" then gpc[:uk] when "us" then gpc[:us] when "yen"then gpc[:yen] end ),:delimiter => ',',:precision =>0) %>
+
+
+
+
+
+ Parameters: {"utf8"=>"✓", "authenticity_token"=>"4WRHsUiZp3XqfzlVj5csOXmPyAImtMryIVsWqLeh6js=", "deal_id_value"=>"74088", "funds"=>{"currency"=>"euro", "feedbackDescription"=>""}, "fund_id"=>"74088"}
+=========ssssssaaaaaaa======{:text=>"", :page=>1, :per_page=>20, :filters=>{:fund_filter_id=>[["74088"], "ary"]}, :sort=>"Relevance", :gt_filters=>{}, :lt_filters=>{}, :not_by_filters=>{}, :not_by_gt_filters=>{}, :not_by_lt_filters=>{}, :dy_sort=>{}, :facets=>[], :fields=>[], :include_models=>[Fund(id: integer, name: string, investor_group_component_id: integer, currency_id: integer, city_id: integer, target_size: string, vintage: integer, basic_fund_type_id: integer, fund_status: string, status_id: integer, fund_overview: text, new_investor_percent: string, existing_investor_percent: string, created_by: integer, updated_by: integer, created_at: datetime, updated_at: datetime, fund_check: boolean, proprietary_capital: boolean, fund_target_amount: string, investor_id: integer, country_id: integer, fund_target_amount_usd: string, data_proxy_id: integer, investor_group_id: integer, note_description: string, fund_target_amount_uk: float, fund_target_amount_us: float, fund_target_amount_euro: float, fund_target_amount_yen: float, fund_target_size_uk: float, fund_target_size_us: float, fund_target_size_euro: float, fund_target_size_yen: float, last_date: datetime, geo_name: string)]}
+
+
+
+
+
+
+
+        <%= number_with_precision(case (params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name] )end  ,:delimiter => ',' , :precision =>0) %>
+
+
+
+
+
+
+
+ <td width="4%" class="border_left">&nbsp;</td>
+                        <td width="48%">
+   <% gpc = CurrencyExchange.get_other_currency_rates(@terms_conditions.gp_contribution.to_f,@fund.currency,@fund.created_at.blank? ? Date.today : @fund.created_at) %>
+
+ <%if @terms_conditions.gp_contribution_type.eql?("127")%>
+ <%= number_with_precision( (case (params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) when "euro" then gpc[:euro] when "uk" then gpc[:uk] when "us" then gpc[:us] when "yen"then gpc[:yen] end ),:delimiter => ',',:precision =>0) %>
+<%else @terms_conditions.gp_contribution_type.eql?("128")%>
+<%=@terms_conditions.gp_contribution %>
+
+<%#= number_with_precision(gpc (params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name])  ,:delimiter => ',',:precision =>0) %>
+
+
+        <%#= number_with_precision((case (params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) end, :delimiter => ',' , :precision =>0) %>
+<%end%>
+
+
+
+<%logger.info "====#{session[:currency]}===vvvvv====#{CURRENCY_SEND[@user.currency.name]}===={params[:funds][:currency]}=====" %>
+                        </td>
+                        <%end%><!-- tr -->
+                        <%end%> <!-- condition -->
+

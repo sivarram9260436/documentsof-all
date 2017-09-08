@@ -1,0 +1,24 @@
+
+Started GET "/admin/articles/preview_article?id=96050" for 103.38.240.1 at 2017-04-24 03:50:01 -0400
+  Processing by Admin::ArticlesController#preview_article as HTML
+  Parameters: {"id"=>"96050"}
+Redirected to http://www.nationnews.com/preview_article?article%5Bid%5D=96050&id=96050&king=king&print_article=true&submitted=85d39ee39b98397baf4c376552f275223fcc81a45017e3c55553c220c80cacae
+Completed 302 Found in 49ms
+
+
+
+
+Started POST "/admin/articles/update_time" for 103.38.240.1 at 2017-04-24 04:03:15 -0400
+  Processing by Admin::ArticlesController#update_time as */*
+  Parameters: {"html"=>nil}
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/articles/_preview_article_form.html.erb (174.1ms)
+Completed 200 OK in 2151ms (Views: 482.6ms | ActiveRecord: 194.2ms | Solr: 0.0ms)
+
+
+
+Started POST "/admin/articles/update_time" for 103.38.240.1 at 2017-04-24 04:03:44 -0400
+  Processing by Admin::ArticlesController#update_time as */*
+  Parameters: {"html"=>nil}
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/articles/_preview_article_form.html.erb (0.8ms)
+Completed 200 OK in 32ms (Views: 2.1ms | ActiveRecord: 7.2ms | Solr: 0.0ms)
+

@@ -1,0 +1,12 @@
+page_type:article_page,entity:Article,id:25681,data_proxy_id:3|www.autocarpro.in|107.178.195.133|08/Aug/2017:07:55:41 +0530|/news-international/human-robot-cooperation-takes-leap-faith-25681|200|AppEngine-Google; (+http://code.google.com/appengine; appid: s~agivox)
+
+
+if line.split("|").match(/asynchttpclient|alexa|bot|butterfly\/\d.\d|crawl(er|ing)|crowsnest|curl|embedly|eventmachine|facebookexternalhit|feedburner|flipboardproxy|firephp|google web preview|Mediapartners-Google|(^java)|LongURL|MetaURI|nagios|(^NING\/\d.\d$)|news\.me|peerindex|pingdom|postrank|(^python)|rockmeltembedservice|(^ruby$)|slurp|spider|viadeo|yahoo!|yandex/i)
+
+"news-international/human-robot-cooperation-takes-leap-faith-25681|200|AppEngine-Google"
+
+	line.match("news-international/human-robot-cooperation-takes-leap-faith-25681|200|AppEngine-Google")
+
+
+page_type:article_page,entity:Article,id:25681,data_proxy_id:3|www.autocarpro.in|52.23.133.38|08/Aug/2017:07:34:57 +0530|/news-international/human-robot-cooperation-takes-leap-faith-25681|200|Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36
+

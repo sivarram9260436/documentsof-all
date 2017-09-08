@@ -1,0 +1,41 @@
+	<%= form_tag( params[:entity_type] == "digital_asset" ? {:controller=>'/admin/ranked_list',:action => 'index', :entity_type => "digital_asset"} : {:controller=>'/admin/ranked_list',:action => 'index'}) do %>
+	  <div class="section_block full_section">
+		
+		<% if params[:entity_type]=="digital_asset" %>
+		<h2>Digital Ranked List Search</h2>
+		<% else %>
+		<h2>Ranked List Search</h2>
+		 <%end%>
+		 
+		
+			<div class="search_fields">
+				<p>
+					
+				<label for="content">Search Article :</label>
+				<%if !params[:search_data].blank?%>
+				<%= text_field 'search_data',  "name" , :value =>params[:search_data]["name"]%>
+				<%else%>
+				<%= text_field 'search_data',  "name" , :value =>''%>
+				<%end%>
+					<% if params[:entity_type]== "digital_asset"%>
+						<%=hidden_field_tag "entity_type", "digital_asset"%>
+					<%end%>
+				</p>
+		  
+			 	<div class="button">
+					<%=submit_tag "Search"%>					
+				</div>
+			</div>
+			
+	  </div>
+ <%end%>
+
+
+
+<%= form_tag({:action => 'list' },{:name=>'multi',:method=>'get'}) do %>
+<%if params[:entity_type] == "digital_asset" %>
+<%= params[:search_data] ?	component_table_list(SrComponent.find_component_by_name("ranked_list_digital_search"))	: component_table_list(SrComponent.find_component_by_name("ranked_list_digital_asset"))%>
+<%else%>
+<%= params[:search_data] ?	component_table_list(SrComponent.find_component_by_name("ranked_list_search"))	:  component_table_list(SrComponent.find_component_by_name("new_ranked_list"))%>
+<%end %>
+<%end %>

@@ -1,0 +1,35 @@
+<% type = ( params[:type] and params[:type].classify) || (@asset_group and @asset_group.entity_type) %>
+<div class="article_form">
+	<% if type.eql?('Article') %>
+	<%= render :partial => "article_form" %>
+	<% elsif type and type.downcase.eql?('digitalasset') %>
+	<%= render :partial => "digitalasset_form" %>
+	<% elsif type and type.downcase.eql?('competition') %>
+	Competition Product Criteria
+	<% end %>
+
+	<div class="common_listing_button">
+		<ul>
+			<li class="button" id="product_form">
+				<%= submit_tag (form.new_record? ? 'Save' : 'Update') %>
+			</li>
+			<li class="button">
+				<%= link_to 'Cancel', {:controller=>'admin/product_criteria',:action => 'list_asset'}, {:class=>"submit_email"} if auhtorized?("admin/product_criteria","list_asset") %>
+			</li>
+		</ul>
+	</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+jQuery("#product_form").click(function(){
+var name =jQuery("#asset_group_name").val();
+if (name.trim() == "")
+     {
+        alert("Name should not be blank.");
+        return false;
+     } 
+});
+</script>

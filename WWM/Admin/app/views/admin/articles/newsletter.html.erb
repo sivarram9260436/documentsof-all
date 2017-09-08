@@ -1,0 +1,18 @@
+<% if flash[:notice] -%>
+<div class="ranked_list_notice">
+	<h3> <%= flash[:notice] %></h3>
+</div>
+<% end %>
+<div id="news">
+	<%= component_table_list(SrComponent.find_component_by_name('NewsletterListNew')) %>
+</div>
+<script type="text/javascript">
+/*	jQuery('.preview_select').popupWindow({
+		height : 500,
+		width : 800,
+		top : 50,
+		left : 50
+	});
+*/
+</script>
+

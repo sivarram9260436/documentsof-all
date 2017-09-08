@@ -1,0 +1,404 @@
+<%if @exit_investor_true %>
+    <fieldset>
+      <legend style="width:170px;">
+        Realised Portfolio Companies
+      </legend>
+      <div style="_width:710px;" class="height_setting search_result_div_compare_realised investor_deal_list" data-total_limit="<%= @exit_investor_true_count %>" data-url="/equitydebt/investor_realised" data-increse="20" data-params='{"id" :<%= params[:investor_id] %>,"name":"investor"}' data-current_count="20">
+        <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" id="lp_research" class="cls_lp_research tbl_style">
+          <tbody>
+          <tr style="background-color: rgb(229, 230, 232);">
+            <td width="2%" class="font_black_bold" style="border-bottom: 1px solid rgb(235, 235, 235);">&nbsp;</td>
+            <td width="21%" class="font_black_bold" style="border-bottom: 1px solid rgb(235, 235, 235);">Company Name
+            </td>
+            <td width="10%" align="center" class="font_black_bold" style="border-bottom: 1px solid rgb(235, 235, 235);">Exit
+              Date
+            </td>
+            <td width="25%" class="font_black_bold" style="border-bottom: 1px solid rgb(235, 235, 235);">Sector</td>
+            <td width="14%" class="font_black_bold" style="border-bottom: 1px solid rgb(235, 235, 235);">Country</td>
+            <td width="16%" class="font_black_bold" style="border-bottom: 1px solid rgb(235, 235, 235);">Exit Route
+            </td>
+
+            <%= content_tag (:td), :width => "14%", :class => "font_black_bold", :align => "right", :style => "border-bottom: 1px solid rgb(235, 235, 235);" do %>
+               Exit Value <%= CURRENCY_DISPLAY[session[:currency] || (@user.currency !=nil && CURRENCY_SEND[@user.currency.name])] %>
+            <% end %>
+
+           <td width="14%" class="font_black_bold" style="border-bottom: 1px solid rgb(235, 235, 235);">Exit Status</td>          
+          </tr>
+<%@arr_exit_investor_true= []%>
+          <% @exit_investor_true.order("deal_final_exit_date desc").each do |current_profile| %>
+      <%@exit_investor_val = []%>
+       <% logger.info "============current_profile=======#{current_profile.id}=====aaaa==========#{current_profile.exit_date}"%>
+              <tr class="<%= cycle('row_even', 'row_odd') -%> result_table_hover_style">
+                <td style="border-bottom: 1px solid rgb(235, 235, 235);" width="4%">
+                  <%= check_box_tag 'deals[compare]', value="#{current_profile.id}", checked=false, :id => "crntPortfolio", :class => "tooltip compare_check", :onclick => "javascript:void(0);", :title => "maximum 4 records can be compared at a time. Once selected please press the Compare button" %>
+                <%@exit_investor_val << (check_box_tag 'deals[compare]', value="#{current_profile.id}", checked=false, :id => "crntPortfolio", :class => "tooltip compare_check", :onclick => "javascript:void(0);", :title => "maximum 4 records can be compared at a time. Once selected please press the Compare button")%>
+                </td>
+                <%= content_tag(:td, content_tag(:a, content_tag(:u, link_to_deal(current_profile.company_name, "#{current_profile.id}"))), :style => "vertical-align: middle; border-bottom: 1px solid rgb(235, 235, 235);") if current_profile.company_name %>
+                <%@exit_investor_val << content_tag(:a, content_tag(:u, link_to_deal(current_profile.company_name, "#{current_profile.id}"))) if current_profile.company_name%>
+                <% if !current_profile.try(:exit_date).blank? and current_profile.exit_date != [nil]  and !current_profile.exit_date.last.blank?%>
+                    <% exit_date = Date.parse(current_profile.exit_date.last) %>
+                    <%= content_tag(:td, exit_date.to_datetime.strftime("%b %Y"), :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "center") %>
+                   <%@exit_investor_val << exit_date.to_datetime.strftime("%b %Y")%>
+                <% else %>
+                    <%= content_tag(:td, "n/d", :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "center") %>
+                    <%@exit_investor_val << "n/d"%>
+                <% end %>
+                <% if !current_profile.try(:sub_sector_name).blank? %>
+                    <%= content_tag(:td, current_profile.sub_sector_name, :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                     <%@exit_investor_val << current_profile.sub_sector_name%>
+                <% else %>
+                    <%= content_tag(:td, "n/d", :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                    <%@exit_investor_val << "n/d"%>
+                <% end %>
+
+                <% if !current_profile.try(:country_name).blank? %>
+                    <%= content_tag(:td, current_profile.country_name, :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                    <%@exit_investor_val << current_profile.country_name%>
+                <% else %>
+                    <%= content_tag(:td, "n/d", :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                    <%@exit_investor_val << "n/d"%>
+                <% end %>
+
+                <% if !current_profile.try(:exit_types).blank? and !current_profile.exit_types.last.blank? and !current_profile.exit_types.last.name.blank? %>
+                    <%= content_tag(:td, current_profile.exit_types.last.name, :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                    <%@exit_investor_val << current_profile.exit_types.last.name%>
+                <% else %>
+                    <%= content_tag(:td, "n/d", :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                    <%@exit_investor_val << "n/d"%>
+                <% end %>
+
+                 <%# if !current_profile.try(:exit_value).blank? %>
+                    <%#= content_tag(:td, current_profile.exit_value.first, :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                <% #else %>
+                    <%#= content_tag(:td, "n/d", :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                <%# end %>
+
+                <%= content_tag (:td), :align => "right", :style => "border-bottom: 1px solid rgb(235, 235, 235);" do %>
+                    <% case (session[:currency] || (@user.currency !=nil && CURRENCY_SEND[@user.currency.name])) %>
+                <% when "euro" %>
+                        <% if current_profile.exits and current_profile.exits.first and current_profile.exits.first.deal_exit_investors and current_profile.exits.first.deal_exit_investors.first and current_profile.exits.first.deal_exit_investors.last.final_exit == "false" %>
+                            n/d <%@exit_investor_val << "n/d"%>
+                        <% else %>
+<%if current_profile.exits.first.exit_value_euro_f.present? %>
+<%= number_with_precision(current_profile.exits.first.exit_value_euro_f.to_i == 0 ? "n/d" : current_profile.exits.first.exit_value_euro_f, :precision => 2, :delimiter => ',') %>
+        <%@exit_investor_val <<  number_with_precision(current_profile.exits.first.exit_value_euro_f.to_i == 0 ? "n/d" : current_profile.exits.first.exit_value_euro_f, :precision => 2, :delimiter => ',') %>
+<%else%>
+        n/d <%@exit_investor_val << "n/d"%>
+<%end%>
+                        
+<% end %>
+                    <% when "uk" %>
+                        <% if current_profile.exits and current_profile.exits.first and current_profile.exits.first.deal_exit_investors and current_profile.exits.first.deal_exit_investors.first and current_profile.exits.first.deal_exit_investors.last.final_exit == "false" %>
+n/d  <%@exit_investor_val << "n/d"%>                      
+<% else %>
+
+<%if current_profile.exits.first.exit_value_uk_f.present? %>
+<%= number_with_precision(current_profile.exits.first.exit_value_uk_f.to_i == 0 ? "n/d" : current_profile.exits.first.exit_value_uk_f, :precision => 2, :delimiter => ',') %>
+	<%@exit_investor_val <<  number_with_precision(current_profile.exits.first.exit_value_uk_f.to_i == 0 ? "n/d" : current_profile.exits.first.exit_value_uk_f, :precision => 2, :delimiter => ',') %>
+<%else%>
+	n/d <%@exit_investor_val << "n/d"%>
+<%end%>
+  
+                      <% end %>
+                    <% when "us" %>
+                        <%if current_profile.exits and current_profile.exits.first and current_profile.exits.first.deal_exit_investors and current_profile.exits.first.deal_exit_investors.first and current_profile.exits.first.deal_exit_investors.last.final_exit == "false" %>
+                            n/d <%#= show_confidential_value_range(current_profile.deal_exits.first.exit_value_us_f) %><%@exit_investor_val << "n/d"%>
+                        <% else %>
+<%if current_profile.exits.first.exit_value_us_f.present? %>
+<%= number_with_precision(current_profile.exits.first.exit_value_us_f.to_i == 0 ? "n/d" : current_profile.exits.first.exit_value_us_f, :precision => 2, :delimiter => ',') %>
+        <%@exit_investor_val <<  number_with_precision(current_profile.exits.first.exit_value_us_f.to_i == 0 ? "n/d" : current_profile.exits.first.exit_value_us_f, :precision => 2, :delimiter => ',') %>
+<%else%>
+        n/d <%@exit_investor_val << "n/d"%>
+<%end%>                        
+<% end %>
+                    <% when "yen" %>
+                        <% if current_profile.exits and current_profile.exits.first and current_profile.exits.first.deal_exit_investors and current_profile.exits.first.deal_exit_investors.first and current_profile.exits.first.deal_exit_investors.last.final_exit == "false" %>
+                           n/d <%#= show_confidential_value_range(current_profile.deal_exits.first.exit_value_yen_f) %><%@exit_investor_val << "n/d"%>
+                        <% else %>
+<%if current_profile.exits.first.exit_value_yen_f.present? %>
+<%= number_with_precision(current_profile.exits.first.exit_value_yen_f.to_i == 0 ? "n/d" : current_profile.exits.first.exit_value_yen_f, :precision => 2, :delimiter => ',') %>
+        <%@exit_investor_val <<  number_with_precision(current_profile.exits.first.exit_value_yen_f.to_i == 0 ? "n/d" : current_profile.exits.first.exit_value_yen_f, :precision => 2, :delimiter => ',') %>
+<%else%>
+        n/d <%@exit_investor_val << "n/d"%>
+<%end%>
+<% end %>
+                        
+
+                    <% else %>
+                       n/d <%@exit_investor_val << "n/d"%>
+                    <% end %>
+                    <%#= current_profile.deal_specific.deal_type_forecast.eql?(true) ? "est" : nil %>
+                <% end %>
+
+            <%#if current_profile.exits.present? && current_profile.exits.first.deal_exit_investors.present? && current_profile.exits.first.deal_exit_investors.first.final_exit == "true" %>
+                 <%if current_profile.exits.present? && current_profile.exits.order("updated_at desc").first.deal_exit_investors.present? && current_profile.exits.order("updated_at desc").first.deal_exit_investors.first.final_exit == "true" %>
+                          <%= content_tag(:td,"Full",:class=>"bdr_left bdr_btm white_bg")%>
+			  <%@exit_investor_val << "Full"%>
+                         <%#elsif current_profile.exits.present? && current_profile.exits.first.deal_exit_investors.present? && current_profile.exits.first.deal_exit_investors.first.final_exit == "false"%>
+                          <%elsif current_profile.exits.present? && current_profile.exits.order("updated_at desc").first.deal_exit_investors.present? && current_profile.exits.first.deal_exit_investors.first and current_profile.exits.first.deal_exit_investors.first.final_exit == "false"%>
+                            <%= content_tag(:td,"Partial",:class=>"bdr_left bdr_btm white_bg")%>
+                          <%@exit_investor_val << "Partial"%>
+                        <%else%>
+                          <%= content_tag(:td,"n/d",:class=>"bdr_left bdr_btm white_bg")%>
+                          <%@exit_investor_val << "n/d"%>
+                        <%end%>
+
+              </tr>
+          <%@arr_exit_investor_true << @exit_investor_val%>
+          <% end %>
+          </tbody>
+        </table>
+        <div class="loading_indicator_proto" style="display:none;">
+          <%= image_tag("loader.gif", :alt => "loader") %>
+        </div>
+      </div>
+
+
+ 
+<div class="spacer_10" id="page"></div>
+<div class="spacer_10" id="page"></div>
+ <div style ="float:left; width:82%;font-family:verdana; font-size: 11px; color:black;padding-top:5px;">
+
+<p><i> 
+This table only displays the most recent results. To view all results, please use the "Export" function</i> </p>
+</div>
+
+
+
+
+      <div style="float:right; padding: 11px 4px;">
+
+        <input type="button" class="submit_btn compareDeals_realse compare" value="Compare" href="javascript:void(0);" name="Compare" data-searchurl="/compare_deals">
+
+        <input type="button" class="submit_btn profile_exportTrigger" value="Export" name="Export" data-valueurl="realised_protofolio">
+      </div>
+    </fieldset>
+<% end %>
+
+<script type="text/javascript">
+    //compare list when click compare button
+    $(document).on('click', '.compareDeals_realse', function () {
+        var comparecheck_length = $('.search_result_div_compare_realised input[type="checkbox"].compare_check:checked').length
+        if (comparecheck_length < 2) {
+            alert("Please Select minimum 2 Deals to Compare!");
+            return false;
+        }
+        else {
+            var compare_checked_id = [];
+            var invest_id = <%= params[:investor_id].to_i%>;
+            $('.search_result_div_compare_realised input[type="checkbox"].compare_check:checked').each(function () {
+                compare_checked_id.push('deals[]=' + $(this).attr('value'))
+            });
+            compare_checked_id.push('source-page=investor');
+            location.href = $(this).attr('data-searchurl') + '?investor_id=' + invest_id + '&' + compare_checked_id.join('&')
+        }
+    });
+
+    //don't check more than 4
+    $(document).on('click', '.search_result_div_compare_realised input[type="checkbox"].compare_check', function () {
+        if ($('.search_result_div_compare_realised input[type="checkbox"].compare_check:checked').length > 4) {
+            alert("Please Select only Four Deals");
+            $(this).attr('checked', false);
+            return false;
+        }
+    }); 
+</script>
+
+<%= javascript_include_tag "jquery.dataTables.min.js"%>
+<!--
+<script type="text/javascript">
+$(document).ready(function() {
+var dataSet= <%#= @arr_exit_investor_true.to_json.html_safe%>;
+console.log(dataSet);
+    $('.cls_lp_research').DataTable( {
+        data: dataSet,
+        columns: [
+            { title: "" },
+            { title: "Company Name" },
+            { title: "Exit Date" },
+            { title: "Sector" },
+            { title: "Country" },
+            { title: "Exit Route" },
+            { title: "Exit Value" },
+            { title: "Exit Status" }],
+        "paging":   false,
+        "searching": false,
+        "info":     false,
+        "scrollY":        "425px",
+        "scrollCollapse": true
+    } );
+
+var table = $('#lp_research').DataTable();
+$('#lp_research thead').on('click', 'th', function () {
+ var index = table.column(this).index();
+var sortedCol = $('#lp_research').dataTable().fnSettings().aaSorting[0][0];
+if ($(this).attr("aria-sort") == "descending"){
+$('#lp_research thead th a').removeClass("decending ascending");
+$('#lp_research thead th a').css("color","black");
+$(this).html("<a class='decending xyz'>" + $(this).text()  + "</a>");
+}
+else
+{
+$('#lp_research thead th a').removeClass("decending ascending");
+$('#lp_research thead th a').css("color","black");
+$(this).html("<a class='ascending xyz'>" + $(this).text() + "</a>");
+}
+});
+});
+
+
+</script>
+
+-->
+
+<script type="text/javascript">
+$(document).ready(function() {
+var dataSet= <%= @arr_exit_investor_true.to_json.html_safe%>;
+console.log(dataSet);
+    $('.cls_lp_research').DataTable( {
+        data: dataSet,
+        columns: [
+            { title: "" },
+            { title: "Company Name" },
+            { title: "Exit Date" },
+            { title: "Sector" },
+            { title: "Country" },
+            { title: "Exit Route" },
+            { title: "Exit Value" },
+            { title: "Exit Status" }],
+        "order": [[ 1, "desc" ]],
+        "paging": false,
+        "searching": false,
+        "info": false,
+        "scrollY": "425px",
+        "scrollCollapse": true,
+
+  "aoColumns": [ {title:""},  {title:"Company Name"}, { title:"Exit Date","sType": "stringMonthYear" }, {title:"Sector"}, {title:"Country"},{title:"Exit Route"},{title:"Exit Value","sType": "NumericOrBlank"}, {title:"Exit Status"} ]
+    } ); 
+$.extend(jQuery.fn.dataTableExt.oSort, {
+    "stringMonthYear-pre": function (s) {
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var dateComponents = s.split(" ");
+        dateComponents[0] = dateComponents[0].replace(",", "");
+        dateComponents[1] = jQuery.trim(dateComponents[1]);
+        var year = dateComponents[1];
+        var month = 0;
+       /* for (var i = 0; i < months.length; i++) {
+            if (months[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                month = i;
+                break;
+            }
+        }*/
+      var allMonths = ['Jan','Feb','Mar', "Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        for (var i = 0; i < allMonths.length; i++) {
+            if (allMonths[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                month = i;
+                break;
+            }
+        }
+        return new Date(year, month, 1);
+    },
+    "stringMonthYear-asc": function (a, b) {
+        return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+    },
+    "stringMonthYear-desc": function (a, b) {
+        return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+    },
+  /*
+   "NumericOrBlank-asc": function(x,y) {
+                   var retVal;
+                    x = (x = parseFloat($.trim(x).replace(/,/g,''))) ? x : 0;
+                    y = (y = parseFloat($.trim(y).replace(/,/g,''))) ? y : 0;
+                    if (x==y) retVal= 0;
+                    else retVal = (x>y) ? 1 : -1;
+                    return retVal;
+                },
+                "NumericOrBlank-desc": function(y,x) {
+                    var retVal;
+                    x = (x = parseFloat($.trim(x).replace(/,/g,''))) ? x : 0;
+                    y = (y = parseFloat($.trim(y).replace(/,/g,''))) ? y : 0;
+                    if (x==y) retVal= 0;
+                    else retVal = (x>y) ? 1 : -1;
+                    return retVal;
+                } */
+    "NumericOrBlank-pre": function (s){
+                    var a = parseFloat($.trim(s).replace(/,/,''));
+                    if(a==0){return "0";}else if(a>0){return a;}else{return " "}
+                },
+                  "NumericOrBlank-asc": function(a,b) {
+                      return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+                },
+                "NumericOrBlank-desc": function(b,a) {
+                    return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+                } 
+
+});
+});
+</script>
+
+<style>
+
+.decending {
+    background: url(/images/ascending-arrow.gif) no-repeat right 5px;
+    color: #E3001B;
+    padding-right: 11px;
+}
+.ascending {
+    background: url(/images/desecending-arrow.gif) no-repeat right 5px;
+    color: #E3001B;
+    padding-right: 11px;
+}
+
+
+#table_style .bdr_tp {
+    border-top: solid #D9D9D9 1px;
+}
+#table_style .bdr_btm {
+    border-bottom: solid #D9D9D9 1px;
+}
+#table_style tr th {
+    background: #E5E6E8;
+    padding: 8px 5px 8px 5px;
+    font-weight: bold;
+    color: #000;
+    text-align: left;
+}
+#table_style tr th:hover {
+    color: red;
+}
+#table_style tr td {
+    vertical-align: middle;
+    margin-left: 0px;
+}
+.porfile_right_mid fieldset table td {
+    padding: 5px 5px;
+    vertical-align: top;
+}
+
+#table_style .white_bg {
+    background: #fff;
+}
+#table_style tr td {
+    border-bottom: solid #D9D9D9 1px;
+    border-right: solid #D9D9D9 1px;
+}
+#table_style tr td {
+    vertical-align: middle;
+}
+#table_style fieldset table td {
+    padding: 5px 5px;
+    vertical-align: top;
+}
+#table_style fieldset table td {
+    padding: 5px 5px;
+    vertical-align: top;
+}
+#table_style tr td {
+    font-size: 11px;
+}
+#table_style {
+    font-size: 11px;
+}
+
+</style>
+	

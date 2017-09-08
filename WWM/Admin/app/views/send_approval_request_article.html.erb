@@ -1,0 +1,13 @@
+<p>Dear Editor,</p>
+
+<p>The following article requires your approval;</p>
+
+        <p>Article ID: <%=@article.id%> </p>
+        <p>Article Headline: <%=@article.title%></p>
+        <p>Source: <%=Source.find(@article.source_id).name%></p>
+        <p>Author: <%=@article.article_contents.last.authors.collect{|x| x.full_name}.join(',')%></p>
+        <p>Please login to <a href="http://stage.lastwordmediacms.kreatio.com//">" http://stage.lastwordmediacms.kreatio.com/"</a> to approve this article.</p>
+
+<p>With regards,</p>
+
+        <p>World Wide Media CMS Team</p>

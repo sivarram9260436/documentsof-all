@@ -1,0 +1,89 @@
+<div id="smoothmenu" class="menucontainer ddsmoothmenu">
+    <ul>
+                <% parent_menus = Menu.where("menu_access = ?", "admin").where("parent_id = ?", 0) %>
+                <% parent_menus.order_by_sequence_number.each do |parent_menu| %>
+            <li>
+                <%= link_to_admin_menu(parent_menu.name, parent_menu.controller_name, parent_menu.action_name, parent_menu.alias_name,{:menu=>parent_menu}) %>
+                <!-- Second level menu -->
+                <% if ([parent_menu.alias_name] + parent_menu.all_children.collect(&:alias_name)).flatten.compact.include?(@page_properties[:selected_menu]) %>
+                    <% @top_parent = parent_menu %>
+                <% else %>
+                    <% if !parent_menu.children.blank? %>
+                        <ul>
+                            <% parent_menu.children.each do |second_level| %>
+                                <li>
+                                    <%= link_to_admin_menu(second_level.name, second_level.controller_name, second_level.action_name, second_level.alias_name,{:menu=>second_level,:entity_type=>second_level.entity_type}) %>
+                                    <!-- Third level menu -->
+                                    <% if ([second_level.alias_name] + second_level.all_children.collect(&:alias_name)).flatten.compact.include?(@page_properties[:selected_menu]) %>
+                                        <% @second_level = second_level.order_by_sequence_number %>
+                                    <% else %>
+                                   <%if not second_level.children.blank?%>
+                                         <ul>
+                                            <% second_level.children.each do |third_level| %>
+                                                <li><%= link_to_admin_menu(third_level.name, third_level.controller_name, third_level.action_name, third_level.alias_name,{:menu=>third_level}) %></li>
+                                            <% end %>
+                                        </ul>
+                                    <%end%>
+                                    <% end %>
+                                    <!-- Third level menu -->
+                                </li>
+                            <% end %>
+                        </ul>
+                    <% end %>
+                <% end %>
+                <!-- Second level menu -->
+            </li>
+                <% end %>
+       <!--a href="http://admin-wwm-micro.kreatio.com/" style="color: #FFFFFF;cursor: pointer;font-size: 13px; text-decoration: none;float: left; margin-top: 7px; margin-left: 10px;" target="_blank">Events</a-->
+        </ul>
+</div>
+
+<!-- Second level menu -->
+<% if @top_parent and !@top_parent.blank? and !@top_parent.children.blank? %>
+    <div class="submenu" id="second_level_menu">
+
+        <% if @top_parent.children.collect{|aa| aa if aa and auhtorized?(aa.controller_name,aa.action_name)}.compact.count > 10%>
+
+
+        <%= link_to (image_tag('/images/left_arrow.png', {:class => 'left_mark'})), "#" ,:class=>"left_arrow_link"%>
+         <%end%>
+        <% if !@top_parent.children.blank? %>
+            <ul id="second_level_slider" class="jcarousel-skin-tango">
+                <% @top_parent.children.order_by_sequence_number.each do |second_level| %>
+                   <li> 
+                       <%= link_to_admin_menu(second_level.name, second_level.controller_name, second_level.action_name, second_level.alias_name ,{:menu=>second_level,:entity_type=>second_level.entity_type}) %>
+                       <% if ([second_level.alias_name] + second_level.all_children.collect(&:alias_name)).flatten.compact.include?(@page_properties[:selected_menu]) %>
+
+                           <% @second_level = second_level %>
+                       <% else %>
+                           <% if !second_level.children.blank? %>
+                               <ul>
+                                   <% second_level.children.each do |third_level| %>
+                                       <li><%= link_to_admin_menu(third_level.name, third_level.controller_name, third_level.action_name, third_level.alias_name ,{:menu=>third_level}) %></li>
+                                   <% end %>
+                               </ul>
+                           <% end %>
+                       <% end %>
+                   </li>
+                <% end %>
+            </ul>
+        <% end %>
+<% logger.info "===================================== #{@top_parent.children.collect{|aa| aa if aa and auhtorized?(aa.controller_name,aa.action_name)}.compact.count} ===================" %>
+         <% if @top_parent.children.collect{|aa| aa if aa and auhtorized?(aa.controller_name,aa.action_name)}.compact.count > 10%>
+        <%= link_to (image_tag('/images/right_arrow.png', {:class => 'right_mark'})), "#" ,:class=>"right_arrow_link"%>
+           <%end%>
+    </div>
+<% end %>
+<!-- Second level menu -->
+
+<% if @second_level and !@second_level.blank? and !@second_level.children.blank? %>
+    <div class="submenu sub_submenu">
+        <ul>
+            <% @second_level.children.order_by_sequence_number.each do |third_level| %>
+               <li><%= link_to_admin_menu(third_level.name, third_level.controller_name, third_level.action_name, third_level.alias_name ,{:menu=>third_level}) %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+<!-- Third level menu -->
+

@@ -1,0 +1,90 @@
+ def turnover_on_currency_value
+   turnover_event = self.deal_exits.collect{|a| a.turnover}
+    if !self.deal_exits.blank?
+     turnover_date = self.deal_exits.collect(&:created_at).sort.first.beginning_of_month
+    else
+      turnover_date = nil
+    end
+    currency = CurrencyExchange.get_other_currency_rates(turnover_event.first.to_f,self.currency,!turnover_date.blank? ? turnover_date : (self.created_a
+
+    if !currency.blank?
+      case Ambient.currency
+        when "euro"
+          if currency[:euro].blank? || currency[:euro].to_f == 0
+            'n/d'
+          else
+            return  "%.2f"% currency[:euro]
++          end
++        when "us"
++          if currency[:us].blank? || currency[:us].to_f == 0
++            'n/d'
++          else
++            return "%.2f"% currency[:us]
++          end
++        when "uk"
++          if currency[:uk].blank? || currency[:uk].to_f == 0
++            'n/d'
++          else
++            return "%.2f"% currency[:uk]
++          end
++        when "yen"
++          if currency[:yen].blank? || currency[:yen].to_f == 0
++            'n/d'
++          else
++            return "%.2f"% currency[:yen]
++          end
++        else
++          return_empty_value
++      end
++    else
++
++    end
++  end
++
++def ebitda_on_currency_value
++    ebitda_event = self.deal_exits.collect{|a| a.ebitda}
++    if !self.deal_exits.blank?
++     ebitda_date = self.deal_exits.collect(&:created_at).sort.first.beginning_of_month
++    else
++     ebitda_date = nil
++    end
++    currency = CurrencyExchange.get_other_currency_rates(ebitda_event.first.to_f,self.currency,!ebitda_date.blank? ? ebitda_date : (self.created_at.blan
++
++    if !currency.blank?
++      case Ambient.currency
++        when "euro"
++          if currency[:euro].blank? || currency[:euro].to_f == 0
++            'n/d'
++          else
++            return  "%.2f"% currency[:euro]
++          end
++        when "us"
++          if currency[:us].blank? || currency[:us].to_f == 0
++            'n/d'
++          else
++            return "%.2f"% currency[:us]
++          end
++        when "uk"
++          if currency[:uk].blank? || currency[:uk].to_f == 0
++            'n/d'
++          else
++            return "%.2f"% currency[:uk]
++          end
++        when "yen"
++          if currency[:yen].blank? || currency[:yen].to_f == 0
++            'n/d'
++          else
++            return "%.2f"% currency[:yen]
++          end
++        else
++          return_empty_value
++      end
++    else
++
++    end
++  end
++
++def return_empty_value
++    "n/d"
++  end
+

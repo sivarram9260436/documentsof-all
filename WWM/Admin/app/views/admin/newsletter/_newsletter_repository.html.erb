@@ -1,0 +1,6 @@
+<tr>
+	<td class="list_table"> <%= newsletter_repository.id%> </td>
+	<td class="list_table"> <%= newsletter_repository.created_at.strftime('%d-%m-%Y')%> </td>
+	<td class="list_table"> <%= link_to('View', 'javascripts:void(0)',:class=>"preview_select",:href => "http://#{request.host=='localhost' ? request.host_with_port : request.host}/NEWSLETTER/#{newsletter_repository.created_at.strftime('%d%m%Y')}/#{newsletter_repository.id}/newsletter.html")%> </td>
+</tr>
+

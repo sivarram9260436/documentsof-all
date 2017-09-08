@@ -1,0 +1,159 @@
+Processing by Wps::UqFundsController#fund_performance_exports as JSON
+  Parameters: {"selectedColDeal"=>"", "okcancel"=>"true"}
+
+
+========================================================================================================================================================
+def fund_performance_exports
+     logger.info"============#{session[:user_id]}==========="
+     sub_log = SubscriberLog.create(:entity_type => "Fund", :subscriber_id => session[:user_id],:log_type => "export" )
+
+
+     work_book_path = "excel_exports/Report#{Time.zone.now.strftime("%Y%m%d%H%M%S%6N")}.xlsx"
+     job_id = SecureRandom.hex
+     fund = Fund.find_by_id(params[:fund_id])
+
+     export_columns = FundPerformance.column_names - ["commitment","created_at","updated_at","fund_id","date_of_commitment","performance_source"]
+
+     delay_job = Fund.generate_performance_export_job(job_id,work_book_path, params[:selectedColDeal].split(","),export_columns.join(","),fund,sub_log.id,params[:okcancel])
+     delay_job = job_id
+     send_file "#{Rails.root}/public/#{work_book_path}"
+                #send_data p.to_stream.read, type: "application/xlsx", filename: "filename.xlsx"
+
+     render :json => { :status => "pending", :message => "#{Subscriber.find(session[:user_id]).email_id}", :id => "#{delay_job}, #{work_book_path}" }
+  end
+
+
+========================================================================================================================================================
+  def self.generate_performance_export_job(job_id,work_book_path, export_columns,fund,sub_log,present_user, ok_cancel)
+   #  def self.generate_performance_export_job(job_id,work_book_path, export_columns,fund,currency_value,sub_log,ok_cancel)
+
+      @export_job = ExportJob.create(:job_id => job_id, :status => "pending" , :work_book_path => work_book_path, :selectedColDeal => export_columns, :present_user => present_user, :subscriber_log => sub_log, :ok_cancel => ok_cancel)
+    #logger.info "========generate_wdxlsx_for_export_job=====#{@export_job.inspect}=========="
+
+    generate_performance_wdxlsx_for_export(work_book_path, export_columns, fund, sub_log, present_user, ok_cancel)
+    @export_job.update_attributes(:status => "completed" )
+
+   end
+
+  def self.generate_performance_wdxlsx_for_export(work_book_path, export_columns, fund, sub_log, present_user, ok_cancel)
+   logger1 = Logger.new("#{Rails.root}/log/development.log")
+    cst = Time.now
+    Ambient.init
+    Ambient.subscriber_user = present_user
+   hd_col = []
+    export_columns.split(",").each do |column|
+        hd_col <<  column
+    end
+   s = Wdxlsx::SheetGen.new(Wdxlsx::XlsxTemplate, "You have exported for: Fund Performance" , hd_col.count)
+   s.header_row(hd_col)
+   fund.fund_performances.order("created_at desc").each do |fund_per|
+     logger.info"========fund====#{fund_per}============"
+       a=[]
+        hd_col.each do |column|
+          a << fund_per[column]
+        end
+        s.row(a)
+       logger.info"=======rows=====#{a}============"
+     end
+   out_file = s.save("#{Rails.root}/public/#{work_book_path}")
+    if ok_cancel == "true"
+      if !Subscriber.where(:id => Ambient.subscriber_user).blank?
+        subscriber = Subscriber.find(Ambient.subscriber_user)
+        UnquoteMailer.export_mail_for_subcriber(subscriber,work_book_path,SITE_URL_EXPORT).deliver
+      end
+    end
+    logger.info "------Fund  std all time --#{Time.now-cst}--------------"
+  end
+end
+         
+
+
+
+========================================================================================================================================================
+
+
+
+ def self.generate_wdxlsx_for_custom_export_job(job_id,work_book_path, export_columns, ta_query, total_pages, sort, order, currency, present_user, ok_cancel)
+
+  @export_job = ExportJob.create(:job_id => job_id, :status => "started" , :work_book_path =>work_book_path, :selectedColDeal => export_columns, :keyword =>ta_query, :total_pages => total_pages, :sort => sort, :order => order,:currency =>currency, :present_user => present_user,:ok_cancel => ok_cancel)
+
+  generate_wdxlsx_for_custom_export(work_book_path, export_columns, ta_query, total_pages, sort, order, currency, present_user, ok_cancel)
+
+  @export_job.update_attributes(:status => "completed" )
+
+ logger.info "========generate_wdxlsx===========#{@export_job.inspect}=========="
+ end
+
+
+
+
+
+
+=======================================================================================================================================================
+
+
+
+
+<input style="float:right;" class="new_btn" id="funddownloadExcel" value="Download to excel" type="button" dataurl="/funds/fund_performance_exports" data-exportcustomurl="/funds/fund_performance_exports" fund_performance_path(format:="" "xlsx")="">
+
+
+
+<input style="float:right;" class="new_btn" id="funddownloadExcel" value="Download to excel" type="button" data-downloadurl="/funds/fund_exports" data-exportcustomurl="/funds/custom_search_export">
+
+
+========================================================================================================================================================
+
+
+  def custom_search_export
+    params[:taQuery].gsub!("\"", "\'")
+    session[:currency] = params[:selectedCurrency]
+    funds = Fund.custom_search({ :text => params[:taQuery], :module => :fund, :page => params[:page], :per_page => PER_PAGE, :dy_sort => params[:sort].blank? ? {:name => :asc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :sort => "Relevance", :currency => session[:currency] })
+    SubscriberLog.create(:search_params => params, :entity_type => "Fund", :subscriber_id => session[:user_id], :search_type => "custom_search", :log_type => "export" )
+
+    work_book_path = "excel_exports/Report#{Time.zone.now.strftime("%Y%m%d%H%M%S%6N")}.xlsx"
+    job_id = SecureRandom.hex
+    delay_job = Fund.generate_wdxlsx_for_custom_export_job(job_id,work_book_path, params[:selectedColDeal].split(","), params[:taQuery], funds.results.total_pages, params[:sort], params[:order], session[:currency],session[:user_id], params[:okcancel])
+    delay_job = job_id
+   # delay_job = Fund.delay.generate_wdxlsx_for_custom_export(work_book_path, params[:selectedColDeal].split(","), params[:taQuery], funds.results.total_pages, params[:sort], params[:order], session[:currency],session[:user_id], params[:okcancel])
+    render :json => { :status => "pending", :message => "#{Subscriber.find(session[:user_id]).email_id}", :id => "#{delay_job}, #{work_book_path}" }
+  end
+
+
+
+
+
+  def custom_fund_performance_search_export
+    params[:taQuery].gsub!("\"", "\'")
+    funds = Fund.custom_search({ :text => params[:taQuery], :module => :fund, :page => params[:page], :per_page => PER_PAGE, :dy_sort => params[:sort].blank? ? {:name => :asc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :sort => "Relevance", :currency => session[:currency] })
+    SubscriberLog.create(:search_params => params, :entity_type => "Fund", :subscriber_id => session[:user_id], :search_type => "custom_search", :log_type => "export" )
+    work_book_path = "excel_exports/Report#{Time.zone.now.strftime("%Y%m%d%H%M%S%6N")}.xlsx"
+    job_id = SecureRandom.hex
+  delay_job = Fund.generate_performance_export_job(job_id,work_book_path, params[:selectedColDeal].split(","),export_columns.join(","),fund,sub_log.id,params[:okcancel])
+    delay_job = job_id
+   # delay_job = Fund.delay.generate_wdxlsx_for_custom_export(work_book_path, params[:selectedColDeal].split(","), params[:taQuery], funds.results.total_pages, params[:sort], params[:order], session[:currency],session[:user_id], params[:okcancel])
+    render :json => { :status => "pending", :message => "#{Subscriber.find(session[:user_id]).email_id}", :id => "#{delay_job}, #{work_book_path}" }
+  end
+
+
+
+def fund_performance_exports
+     logger.info"============#{session[:user_id]}==========="
+     sub_log = SubscriberLog.create(:entity_type => "Fund", :subscriber_id => session[:user_id],:log_type => "export" )
+
+     work_book_path = "excel_exports/Report#{Time.zone.now.strftime("%Y%m%d%H%M%S%6N")}.xlsx"
+     job_id = SecureRandom.hex
+     fund = Fund.find_by_id(params[:fund_id])
+     export_columns = FundPerformance.column_names - ["commitment","created_at","updated_at","fund_id","date_of_commitment","performance_source"]
+     delay_job = Fund.generate_performance_export_job(job_id,work_book_path, params[:selectedColDeal].split(","),export_columns.join(","),fund,sub_log.id,params[:okcancel])
+     delay_job = job_id
+     send_file "#{Rails.root}/public/#{work_book_path}"
+                #send_data p.to_stream.read, type: "application/xlsx", filename: "filename.xlsx"
+     render :json => { :status => "pending", :message => "#{Subscriber.find(session[:user_id]).email_id}", :id => "#{delay_job}, #{work_book_path}" }
+  end
+
+========================================================================================================================================================
+
+
+
+      send_file "#{Rails.root}/public/DataExport/#{@site.short_name}/#{Date.today.to_s}.xlsx", :type => 'text/xlsx'
+

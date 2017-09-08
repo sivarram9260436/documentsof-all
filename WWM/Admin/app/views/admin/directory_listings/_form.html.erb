@@ -1,0 +1,208 @@
+ <div id="container">
+	<div class="section_block full_section">
+
+		<h2><%= @page_properties[:menu_title] %></h2>
+		<div class="article_new_main">
+			<div class="validation_box">
+				<%= raw error_messages(@directory_listing)%>
+			</div>
+			<%= javascript_include_tag "/autocomplete/auto_complete" %>
+			<%= hidden_field :directory_listing,:site_id, :value=>@site.id%>
+			<%= hidden_field :directory_listing,:directory_id, :value=>"#{@site.directories.first.id unless @site.directories.blank? }"%>
+			<%= hidden_field :directory_listings,:unpublish if @directory_listing and @directory_listing.status%>
+			<div class="form_data">
+				<label for="directory_listing_name">Company Name <span>*</span>:</label>
+				<%= text_field 'directory_listing', 'name',:class=>'input_text'%>
+			</div>
+			<div class="form_data">
+				<label for="token-input-directory_listing_directory_listing_category_id">Category Name:</label>
+				<%= raw autocompletion_field("directory_listing_categories",{:selected=>@directory_listing.directory_listing_categories,:default_selection=>"Enter the Directory Category"})%>
+			</div>
+			<div class="form_data">
+				<label for="token-input-directory_listing_service_id">Service/product Name:</label>
+				<%if @directory_listing%>
+				<%= raw autocompletion_field("directory_listing_services",{:selected=>@directory_listing.services,:default_selection=>"Enter the Directory Service"})%></td>
+				<%else%>
+				<%= raw autocompletion_field("directory_listing_services",{:default_selection=>"Enter the Directory Service"})%>
+				<%end%>
+			</div>
+			<div class="form_data">
+				<label for="token-input-directory_listing_location_id">Location:</label>
+				<%= raw autocompletion_field("directory_listing_locations",{:selected=>@directory_listing.locations,:default_selection=>"Enter the Directory Location"})%>
+			</div>
+			<div class="form_data">
+				<label for="token-input-directory_listing_membership_id">Membership:</label>
+				<%= raw autocompletion_field("directory_listing_memberships",{:selected=>@directory_listing.memberships,:default_selection=>"Enter the Directory Membership"})%>
+			</div>
+			<div class="form_data">
+				<label for="directory_listing_premium">Premium:</label>
+				<%= check_box :directory_listing, :premium,{},true,false %>
+			</div>
+
+			<div class="form_data">
+				<label for="text_head">Description:</label>
+				<%= text_area 'directory_listing', 'description', {:value=>( @directory_listing.description if @directory_listing ) ,:rows => 15, :cols => 80,:style=>'width:50%;'} %>
+			</div>
+
+			<%unless @site.config.directory.attribute_changes%>
+
+			<div class="form_data">
+				<label for="text_head">Company Logo:</label>
+				<div class="article_title_rgt">
+					<div class="no_image">
+						<div class="img_block">
+							<%if @directory_listing and @directory_listing.image%>
+							<div id="no_image" style="display:none;">
+								<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+                <img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+							</div>
+							<div id="prev" style="vertical-align:center;width:100px" >
+								<% @image=@directory_listing.image if @directory_listing%>
+								<% img=Image.find(:first,:conditions=>["id=?",@directory_listing.image.image_id])%>
+								<%= image_tag(img.thumbnail.image_path, :alt => @image.alt_tag)%>
+							</div>
+							<%end%>
+							<%if not @directory_listing %>
+							<div id="no_image">
+								<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+                <img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+							</div>
+							<div id="prev" style="vertical-align:center;width:296px" ></div>
+							<%end%>
+							<%if @directory_listing and not @directory_listing.image%>
+							<div id="no_image">
+								<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+								<img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+							</div>
+							<div id="prev" style="vertical-align:center;width:296px" ></div>
+							<%end%>
+						</div><!--img_block-->
+					</div><!--no_image-->
+					<div class="article_img_text">
+						<% @image=@directory_listing.image if @directory_listing%>
+						<%if @image==nil%>
+						<%= hidden_field 'image_property','image_id' %>
+						<%else%>
+						<%= hidden_field 'image_property','image_id',:value=>@directory_listing.image.image_id %>
+
+						<%end%>
+						<%if @directory_listing%>
+						<%if @directory_listing.image!=nil and @directory_listing.image.image_id!=nil%>
+						<span id="gen_image" style="vertical-align:center;"> <% img=Image.find(:first,:conditions=>["id=?",@directory_listing.image.image_id])%>
+							<%if img and img.thumbnail%>
+							<!-- <table>
+								<tr>
+									<td><%#=image_tag(img.thumbnail.image_path, :alt => @image.alt_tag)%></td><td> caption:</td><td><%=img.caption%> </td>
+								</tr>
+							</table> -->
+             <%end%> 
+           </span>
+						<div id="change_link" style="display:none;">
+							<a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Add from Repository</a>
+						</div>
+						<div id="imageset_caption" >
+							Title ImageSet Caption override:<%= text_field "image_property","caption",:class=>"input_text",:value=>@directory_listing.image.caption%>
+						</div>
+						<div id="change_link123" >
+							<a href="javascript:void(0);" class="remove_image" >Remove </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Change</a>
+						</div>
+						<%else%>
+						<div id="change_link" >
+							<a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Add from Repository</a>
+						</div>
+						<div id="imageset_caption" style="display:none;">
+							Title ImageSet Caption override:<%= text_field "image_property","caption",:class=>"input_text"%>
+						</div>
+						<div id="change_link123" style="display:none;" >
+							<a href="javascript:void(0);" class="remove_image" >Remove </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Change</a>
+						</div>
+						<%end%>
+
+						<%else%>
+						<div id="change_link" >
+							<a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)"></a>
+						</div>
+						<div id="imageset_caption" style="display:none;">
+							Title ImageSet Caption override:<%= text_field "image_property","caption",:class=>"input_text"%>
+						</div>
+						<div id="change_link123" >
+							<a href="javascript:void(0);" class="remove_image" >Remove </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Change</a>
+						</div>
+						<%end%>
+					</div>
+				</div>
+			</div><!--form_data-->
+			<%else%>
+			<div class="form_data">
+				<label for="directory_image_image_path">Logo Url:</label>
+				<%= text_field 'directory_image', 'image_path',:class=>'input_text',:value=>"#{@directory_listing.image.image_path if @directory_listing.image and not @directory_listing.image_id.blank?}" %>
+			</div>
+
+			<%if @directory_listing.image and not @directory_listing.image_id.blank?%>
+			<div class="form_data">
+				<label for="text_head">Original Image :</label>
+				<%= image_tag @directory_listing.image.image_path%>
+				</div>
+				<%end%>
+			
+			<div class="form_data">
+				<label for="directory_image_thumb_image_path">Logo Thumbnail Url:</label>
+				<%= text_field 'directory_image', 'thumb_image_path',:class=>'input_text',:value=>"#{@directory_listing.image.thumbnail.image_path if @directory_listing.image and not @directory_listing.image_id.blank? and @directory_listing.image.thumbnail}" %>
+			</div>
+			<%if @directory_listing.image and not @directory_listing.image_id.blank? and @directory_listing.image.thumbnail%>
+
+			<div class="form_data">
+				<label for="text_head">Thumb Image:</label>
+				<%= image_tag @directory_listing.image.thumbnail.image_path%>
+			</div>
+			<%end%>
+
+			<%if false%>
+			<div class="form_data">
+				<label for="directory_image_title">Logo Title:</label>
+				<%= text_field 'directory_image', 'title',:class=>'input_text',:value=>"#{@directory_listing.image.title if @directory_listing.image}"%>
+			</div>
+			<div class="form_data">
+				<label for="directory_image_height">Logo Height:</label>
+				<%= text_field 'directory_image', 'height',:class=>'input_text',:value=>"#{@directory_listing.image.image.height if @directory_listing.image}" %>
+			</div>
+			<div class="form_data">
+				<label for="directory_image_width">Logo Width:</label>
+				<%= text_field 'directory_image', 'width',:class=>'input_text',:value=>"#{@directory_listing.image.image.width if @directory_listing.image}" %>
+			</div>
+			<div class="form_data">
+				<label for="directory_image_caption">Logo Caption:</label>
+				<%= text_field 'directory_image', 'caption',:class=>'input_text' ,:value=>"#{@directory_listing.image.caption if @directory_listing.image}"%>
+			</div>
+			<div class="form_data">
+				<label for="directory_image_alt_tag">Logo Alt Tag:</label>
+				<%= text_field 'directory_image', 'alt_tag',:class=>'input_text',:value=>"#{@directory_listing.image.alt_tag if @directory_listing.image}" %>
+			</div>
+			<%end%>
+			<%end%>
+		</div>
+	</div>
+</div>
+</div>
+
+
+<%= javascript_include_tag "tiny_mce/tiny_mce_src.js"%>
+<script type="text/javascript">
+//<![CDATA[
+tinyMCE.init({
+elements : 'directory_listing_description',
+extended_valid_elements : 'a[name|href|target|title|onclick],img[class|src|style|title|alt|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],span[class|align|style],font[]',
+mode : 'exact',
+paste_auto_cleanup_on_paste : true,
+plugins : "spellchecker,contextmenu,paste,advimage,style,fullscreen,advlink,template",
+theme : 'advanced',
+theme_advanced_buttons1 : "spellchecker,bold,italic,underline,strikethrough,formatselect,separator,justifyleft,justifycenter,justifyright,separator,sub,sup,separator,indent,outdent,separator,bullist,numlist",
+theme_advanced_buttons2 : "blockquote,template,image,separator,code,separator,styleprops,link,unlink,separator,undo,redo,separator,fullscreen",
+theme_advanced_buttons3 : "",
+theme_advanced_resize_horizontal : false,
+theme_advanced_resizing : true,
+theme_advanced_toolbar_align : 'left',
+spellchecker_rpc_url : '/spellchecker',
+theme_advanced_toolbar_location : 'top',
+});
+</script>

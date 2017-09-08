@@ -1,0 +1,30 @@
+def remove_investor_from_deal
+    @deal_investment = DealInvestment.find(params[:deal_investment_id])
+    @deal = @deal_investment.deal
+    @investor = @deal_investment.investor_group_component.investor_group
+     @deal.transaction do
+      @deal_investment.deal_investment_executives.delete_all
+      @deal_investment.delete
+      @investor.index_to_search_engine
+      @deal.update_attributes(updated_by: @user.id,last_date: Time.zone.now)
+      @deal.index_to_search_engine
+    end
+
+    render :text => "deleted"
+  end
+
+
+
+ <option value="First close date,Amount raised at first close">1st close </option>
+
+
+        :Amount_raised_at_first_close => "amount_raised_at_first_close",
+
+        :Amount_raised_at_first_close_euro => "amount_raised_at_first_close_euro",
+        :Amount_raised_at_first_close_us => "amount_raised_at_first_close_us",
+        :Amount_raised_at_first_close_uk => "amount_raised_at_first_close_uk",
+        :Amount_raised_at_first_close_yen => "amount_raised_at_first_close_yen",
+   
+    
+        :Final_close_date => "fund_event_final_close",
+

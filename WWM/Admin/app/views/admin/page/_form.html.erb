@@ -1,0 +1,162 @@
+ <script src="/javascripts/jquery.min.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.fcbkcomplete.js" type="text/javascript"> </script>
+
+ <%= stylesheet_link_tag 'blockStyles','token-input','token-input-facebook','token-input-mac' %>
+<%=javascript_include_tag "jquery_ujs.js"%>
+        <%=javascript_include_tag "jquery.tokeninput.js"%>
+        
+<%= form_tag( @page.new_record? ? { :action => '/admin/page/create_listing_page',:type=>@action_type } : { :action => '/admin/page/update_listing_page', :id => @page ,:type=>@action_type} , { :id=>"special_form", :name => 'special_form', :multipart => true  } ) %>
+<div id="validation_box"></div>
+<%@page_type=params[:action_type]%>
+<% if params[:page].blank?%>
+<input type="hidden" value=<%=1%> name="page_number" class="hidden_style">
+<%else%>
+<input type="hidden" value=<%=params[:page]%> name="page_number" class="hidden_style">
+<%end%>
+		<input type="hidden" value=<%= @page.id%> name="page[id]" id="page_edit_id" class="hidden_style">
+		<input type="hidden" value=<%=@page_type%> name="page[type]" id="page_edit_type" class="hidden_style">
+<div class="form_data">
+	<label for="text_head">Name <span>* </span>:</label>
+<%= text_field 'page', 'page_name',:class=>'input_text' %>
+</div>
+<div class="form_data">
+	<label for="text_head">Category :</label>
+		    <% selected_field = @page.get_asset_entities("AssetConditionCategory",auto=true) %>
+			<%= raw autocompletion_field("site_category",{:selected=>selected_field,:default_selection=>"Enter the Taxonomy Name"})%></td>
+</div>
+<div class="form_data">
+	<label for="text_head">Section :</label>
+			<% selected_field = @page.get_asset_entities("AssetConditionSection",auto=true) %>	
+		    <%= raw autocompletion_field("site_section",{:selected=>selected_field,:default_selection=>"Enter the Taxonomy Name"})%></td>
+</div>
+	    
+<div class="form_data">
+	<label for="text_head">Tags :</label>
+			<% selected_field = @page.get_asset_entities("AssetConditionTag",auto=true) %>	
+		    <%= raw autocompletion_field("site_tag",{:selected=>selected_field,:default_selection=>"Enter the Taxonomy Name"})%></td>
+</div>
+	     
+<div class="form_data">
+	<label for="text_head">Sources :</label>
+			<% selected_field = @page.get_asset_entities("AssetConditionSource",auto=true) %>	
+		    <%= raw autocompletion_field("site_source",{:selected=>selected_field,:default_selection=>"Enter the Taxonomy Name"})%></td>
+</div>
+	    
+<div class="form_data">
+	<label for="text_head">Authors :</label>
+			<% selected_field = @page.get_asset_entities("AssetConditionAuthor",auto=true) %>	
+		    <%= raw autocompletion_field("site_author",{:selected=>selected_field,:default_selection=>"Enter the Taxonomy Name"})%></td>
+</div>
+	   
+<div class="form_data">
+	<label for="text_head">Blogs :</label>
+			<% selected_field = @page.get_asset_entities("AssetConditionBlog",auto=true) %>	
+		    <%= raw autocompletion_field("site_blog",{:selected=>selected_field,:default_selection=>"Enter the Taxonomy Name"})%></td>
+</div>				
+<div class="form_data">
+	<label for="text_head">URL :</label>
+			<td class="dynamic_url"><%= text_field 'page', 'url', :class=>"input_text"%></td>
+</div>
+<div class="form_data">
+	<label for="text_head">Page Template :</label>
+<%= text_field 'page','template', :class=>"input_text"%></td>
+</div>
+<div class="form_data">
+	<label for="text_head">Active :</label>
+<%= check_box "page", "active" %></td>
+</div>
+<div class="form_data">
+	<label for="text_head">Cache :</label>
+<%= check_box "page", "cache" %></td>
+</div>
+<div class="form_data">
+	<label for="text_head">Layout Required :</label>
+					<%if @page.new_record?%>
+			<%= check_box_tag('page[layout_required]',@page.layout_required,true,:id=>"showlayout")%>
+				<%else%>
+			<%= check_box_tag('page[layout_required]',@page.layout_required,(@page.layout_required.blank? ? false : true),:id=>"showlayout")%></td>
+			<%end%>
+</div>
+		<%if not @page.new_record?%>
+<div class="form_data">
+	<label for="text_head">Page Property :</label>
+			<%=link_to("Page Property","javascript:void(0)",:class=>"ajax_call_update",:id=>@page.id,:breadcrum_id=>params[:id],"data-update"=>"breadcrumb_form","data-url"=>"/admin/page/edit_page_properties/#{@page.id}")%></td>
+  </div>
+  <%end%>
+<!--div id="update_action"></div>
+<div id="breadcrumb_form"></div-->
+  <div class="form_data">
+<div id="update_action" style="clear:both;"></div>
+</div>
+<div id="breadcrumb_form" style="clear:both;"></div>
+<div class="button">
+ 	<%if @page.new_record?%>
+ 		<%= link_to("Save","javascript:void(0)",:id=>"edit_tag_opo",:class=>"ajax_call_tag_form","data-fname_id"=>"special_form","data-update"=>"site_css_list","data-url"=>"/admin/page/create_listing_page?type=#{@action_type}")%>
+	<%else%>
+	<%= link_to("Update","javascript:void(0)",:id=>"edit_tag_opo",:class=>"ajax_call_tag_form","data-fname_id"=>"special_form","data-update"=>"site_css_list","data-url"=>"/admin/page/update_listing_page/#{@page.id}?type=#{@action_type}")%>
+	<%end%>	
+</div>
+<div class="button">
+	<%=link_to 'Close', {:controller=>'admin/page',:action => 'listing_page_list'}%>
+</div>
+  		
+<script type="text/javascript">
+jQuery("#edit_tag_opo").click(function(){
+var name =jQuery("#page_page_name").val();
+if (name.trim() == "")
+     {
+        alert("Name should not be blank.");
+        return false;
+     } 
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){	
+jQuery("#showlayout").live("click",function(){
+        layout_check(); 
+});   
+}); 
+
+function layout_check(){
+     var temp = jQuery('#showlayout').is(':checked');
+     var id = jQuery("#page_edit_id").val();
+     var type = jQuery("#page_edit_type").val();
+        jQuery.ajax({
+            type:'GET',
+            url:'/admin/page/action_type?action_type='+temp+'&id='+id+'&type='+type,
+            dataType:'html',
+            success:function(data){
+                                jQuery("#update_action").html(data);
+                               }
+        });
+}
+$(function(){
+	 layout_check(); 
+});
+</script>
+
+<script type="text/javascript">
+jQuery(".validate_defined_page").click(function() {
+  var a = $("#asset_group_category_ids").val()
+   a += $("#asset_group_section_ids").val()
+   a += $("#asset_group_tag_ids").val()
+   a += $("#asset_group_source_id").val()
+   a += $("#asset_group_author_ids").val()
+   a += $("#page_url").val()
+   a += $("#page_template").val()
+
+  if (a=="" || a== null) 
+{
+alert("Please Select Any Value")
+ return false
+}
+else
+{
+$('defined_page').submit();
+}
+ 
+});
+</script>
+

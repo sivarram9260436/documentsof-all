@@ -1,0 +1,91 @@
+ <script src="/javascripts/jquery.min.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.fcbkcomplete.js" type="text/javascript"> </script>
+<div id="dialog">
+	<%= form_tag({:action => 'list'},{:name=>'multi_advance_search_static_advance',:multipart => true,:method=>'get'}) do %>
+	<%=hidden_field 'art','path',:value=>@article_path%>
+<ul>
+	<li>
+		<div class="form_data">
+			<label for="text_head"><span>Source</span>:</label>
+			<%selected_sources=(params[:search_data].blank? ? [] : params[:search_data][:source_ids].blank?) ? [] : @site.sources.where(id: params[:search_data][:source_ids])%>
+			<%= raw autocompletion_field("search_source",{:selected => selected_sources})%>
+		</div>
+		
+		<%=hidden_field_tag "entity_type",@section_type%>
+		<div class="form_data">
+			<label for="text_head"><span>Section </span>:</label>
+			<%selected_section=(params[:search_data].blank? ? [] : params[:search_data][:category_ids].blank?) ? [] : Category.where(id: params[:search_data][:category_ids])%>
+			<%= raw autocompletion_field("search_data",{:selected => selected_section})%>
+		</div>
+	</li>
+	<li>
+		<div class="form_data">
+			<label for="text_head"><span>Issue</span>:</label>
+			<%= text_field 'search_data', 'volume_and_issue',:class=>'text_style input_text',:size=>30 %>
+		</div>
+		<div class="form_data">
+			<label for="text_head"><span>Tags</span>:</label>
+			<%selected_tgs=(params[:search_data].blank? ? [] : params[:search_data][:tag_ids].blank?) ? [] : Tag.where(id: params[:search_data][:tag_ids])%>
+			<%= raw autocompletion_field("search_tag",{:selected => selected_tgs})%>
+		</div>
+	</li>
+	<li>
+		<div class="form_data">
+			<label for="text_head"><span>Author</span>:</label>
+			<%selected_authors=(params[:search_data].blank? ? [] : params[:search_data][:author_ids].blank?) ? [] : @site.authors.where(id: params[:search_data][:author_ids])%>
+			<%= raw autocompletion_field("search_author",{:selected => selected_authors})%>
+		</div>
+		<div class="form_data">
+			<label for="text_head"><span>Primary Medium</span>:</label>
+			<%= raw autocompletion_field("search_medium")%>
+		</div>
+	</li>
+	<li>
+		<div class="form_data">
+			<label for="text_head"><span>Published Date</span>:</label>
+			<%= raw datetimepicker_input(:article, :publish_date, {:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70}) %>
+		</div>
+		<div class="form_data">
+			<label for="text_head"><span>Expiry Date</span>:</label>
+			<%= raw datetimepicker_input(:article, :expiry_date, {:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70}) %>
+		</div>
+	</li>
+	<li>
+		<div class="common_listing_button">
+			<li class="button">
+				<%if params[:controller] == "admin/static_page"%> <a href="javascript:void(0)" class="submit_form" data-fname="multi_advance_search_static_advance" data-type="new" data-url="/admin/static_page/advance_search" id="Search_02">Advanced search</a>
+				<%else%> <a href="javascript:void(0)" class="submit_form" data-fname="multi_advance_search_static_advance" data-type="new" data-url="/admin/static_page/advance_search" id="Search_01">Advanced search</a>
+				<%end%>
+			</li>
+</ul>
+</div> 
+</div> 
+</div>
+<%end%>
+<script type="text/javascript">
+var article_submitfn=jQuery.fn.article_submit = function() { 
+var form_id = jQuery(this).parents("form").attr("id");
+ var id=$(this).attr("id");
+ var data_url =$('#'+id).data('url');
+  var type=$('#'+id).data('type');
+  var form_name=$('#'+id).data('fname');
+  if (type == 'new')
+ {
+         
+  $('form[name='+form_name+']').attr("action", data_url);
+  $('form[name='+form_name+']').submit();
+ }
+ else if (type == 'edit')
+ {
+  $('form[name='+form_name+']').attr("action", data_url);
+  $('form[name='+form_name+']').submit();
+ }
+else{
+$('form[name='+form_name+']').attr("action", data_url);
+$('form[name='+form_name+']').submit();
+}
+ 
+    
+  };
+jQuery(".submit_form").click(article_submitfn);
+</script>

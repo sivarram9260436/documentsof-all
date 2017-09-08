@@ -1,0 +1,51 @@
+
+<div class="section_block full_section">
+	<h2>Tag Search</h2>
+	
+	<%= sr_render_widget(SrComponent.find_component_by_name('TagSearch'))%>	
+
+</div>
+
+
+<div id="container">
+	<div class="section_block full_section">
+		<h2>Tag List</h2>
+		<div class="right_section_head">
+			<ul>
+				<li class="button">
+					<%= link_to("New Tag","javascript:void(0)",:class=>"ajax_call",:id=>11,:tag_id=>params[:id],"data-param"=>" ","data-update"=>"tag_new_edit","data-url"=>"/admin/tags/new")%>
+				</li>
+			</ul>
+		</div>
+
+		<%= component_table_list(SrComponent.find_component_by_name('TagList'))%>
+	</div>
+</div>
+<div id="tag_new_edit" class="tag_edit">
+	<%= render :partial => 'new_tag'%>
+</div>
+
+<script type="text/javascript">
+	/*jQuery("#tag_search").click(function(){
+	 var name = jQuery("#tag_name").val();
+	 var type = jQuery("#tag_entity_type option:selected").val();
+	 jQuery.ajax({
+	 url:'/admin/tags/search',
+	 data:'&tag[name]=' + name + '&tag[entity_type]=' + type,
+	 dataType:'html',
+	 success:function(search_data){
+	 jQuery("#tag").html(search_data);
+	 funcRegister();
+	 }
+	 });
+	 });*/
+</script>
+<script type="text/javascript">
+	/*This is jquery pagenation for commponent list*/
+	/*jQuery('div.pagination a').live('click', function() {
+	 var url = jQuery(this).attr("href");
+	 var update_div = jQuery(this).parents('#site_css_list').attr("id") ;
+	 jQuery("#"+update_div).load(url);
+	 return false;
+	 });	*/
+</script>

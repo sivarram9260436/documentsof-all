@@ -1,0 +1,131 @@
+<input type="button" class="submit_btn_prof" value="Export" name="Export" dataurl="/funds/fund_performance_exports?fund_id=<%= params[:fund_id]%>">
+
+<script type="text/javascript">
+    $(document).on("click",".submit_btn_prof",function(e){
+      e.preventDefault();
+      
+      var r = confirm("Are you sure want to get fund performance report by email");
+      if r == true
+       {
+       var get_val1 = true
+        }
+      else
+       {
+         var get_val1 = false
+         }
+      
+        $.ajax({
+          type: "GET",
+          url: $(this).attr('dataurl').val(),
+          data: {"ok_cancel": get_val1 },
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+          },
+          success: function (data) {
+            alert(data);
+           
+          }
+        });
+    });
+</script>
+
+
+
+/home/ruby/Unquote_data/WPS/public/excel_exports/Report20170331133317213442.xlsx
+
+
+
+
+
+
+<script type="text/javascript">
+    $(document).on("click",".submit_btn_prof",function(e){
+      e.preventDefault();
+      var r = confirm("Are you sure want to get fund performance report by email");
+      if (r == true)
+       {
+       var get_val1 = true
+        }
+      else
+       {
+         var get_val1 = false
+         }
+        $.ajax({
+          type: "GET",
+          url: $(this).attr('dataurl'),
+          data: {"ok_cancel": get_val1 },
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+          },
+          success: function (data) {
+            alert(data);
+
+          }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+Started GET "/funds/fund_performance_exports?fund_id=74090&ok_cancel=false" for 127.0.0.1 at 2017-03-31 20:53:41 +0530
+Processing by Wps::UqFundsController#fund_performance_exports as */*
+  Parameters: {"fund_id"=>"74090", "ok_cancel"=>"false"}
+============24329===========
+========fund====#<FundPerformance:0x0000000ed5afd0>============
+=======rows=====[31, "xz", "xzx", "xz", "LP", Mon, 01 Feb 2021]============
+========fund====#<FundPerformance:0x0000000f45c4c8>============
+=======rows=====[30, "d", "d", "e", "GP", Sat, 01 Jan 2022]============
+========fund====#<FundPerformance:0x0000000f45ae48>============
+=======rows=====[12, "52", "36", "987", "LP", Fri, 01 Mar 2019]============
+========fund====#<FundPerformance:0x0000000f467238>============
+=======rows=====[11, "002", "001", "120", "Others", Tue, 01 Feb 2011]============
+========fund====#<FundPerformance:0x0000000f466428>============
+=======rows=====[10, "112", "11", "987", "GP", Sat, 01 Feb 2020]============
+------Fund  std all time --0.763688102--------------
+Completed 200 OK in 1772ms (Views: 1.1ms | ActiveRecord: 119.7ms | Solr: 0.0ms)
+
+
+
+
+
+  def self.generate_performance_wdxlsx_for_export(work_book_path, export_columns, fund, sub_log, present_user, ok_cancel)
+   logger1 = Logger.new("#{Rails.root}/log/development.log")
+    cst = Time.now
+    Ambient.init
+    Ambient.subscriber_user = present_user
+   hd_col = []
+    export_columns.split(",").each do |column|
+        hd_col <<  column
+    end
+   s = Wdxlsx::SheetGen.new(Wdxlsx::XlsxTemplate, "You have exported for: Fund Performance" , hd_col.count)
+   s.header_row(hd_col)
+   fund.fund_performances.order("created_at desc").each do |fund_per|
+     logger.info"========fund====#{fund_per}============"
+       a=[]
+        hd_col.each do |column|
+          a << fund_per[column]
+        end
+        s.row(a)
+       logger.info"=======rows=====#{a}============"
+     end
+   out_file = s.save("#{Rails.root}/public/#{work_book_path}")
+    if ok_cancel == "true"
+      if !Subscriber.where(:id => Ambient.subscriber_user).blank?
+        subscriber = Subscriber.find(Ambient.subscriber_user)
+        UnquoteMailer.export_mail_for_subcriber(subscriber,work_book_path,SITE_URL_EXPORT).deliver
+      end
+    end
+    logger.info "------Fund  std all time --#{Time.now-cst}--------------"
+  end
+end
+
+
+
+

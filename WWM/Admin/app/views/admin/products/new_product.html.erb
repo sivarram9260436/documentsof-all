@@ -1,0 +1,43 @@
+<div id="container">   
+    <div class="section_block full_section">
+        <h2><%= @page_properties[:menu_title] %></h2>
+        <div class="article_new_main">
+<%=form_tag({:controller=>"products",:action=>"save_product"})%>
+
+<%asset_group_ids=@site.asset_conditions.collect{|asset_cond| asset_cond.asset_group_id}%>
+<%@asset_group=AssetGroup.find(:all,:conditions=>["id in(?)",asset_group_ids])%>
+<table>
+	<tr> 
+		<td>
+			<%=sr_render_widget(SrComponent.find_component_by_name('FormLeft'))%>
+		</td>			
+			
+		<td valign="top">
+			<%=sr_render_widget(SrComponent.find_component_by_name('FormRight'))%>
+		</td>			
+	</tr>
+</table>
+
+
+       
+            <div class="common_listing_button">
+       <ul>
+             <li class="button">
+
+                 <%=submit_tag 'Save'%>
+             </li>    
+            
+             <li class="button">  
+                   <%=link_to('Cancel',{:controller=>'/admin/products',:action => 'index'}) %>
+             </li>
+        </ul>         
+				    
+               
+            </div>
+       
+   
+
+<%#end%>
+</div>
+ </div>       
+</div>

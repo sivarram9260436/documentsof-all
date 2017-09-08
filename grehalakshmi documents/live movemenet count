@@ -1,0 +1,55 @@
+
+
+ruby@diamonddev:~/CMS/Admin$ vi public/javascripts/tinymce_ent/tinymce_split_update.js
+
+
+
+//for word count
+
+var count = {
+    remind: function (txtOrg) {
+        var word = 0;
+        tinyid = tinyMCE.activeEditor.id
+        txtLength = txtOrg.replace(/(<([^>]+)>)/ig, "");
+        txtLengthW = txtOrg.replace(/<.[^<>]*?>/g, ' ').replace(/&nbsp;/gi, ' ');
+        txtLengthW.replace(/\S\s+/g, function () {
+            word++;
+        });
+        jQuery("#word_" + tinyid).attr("value", word);
+        this.cancel();
+    },
+    setup: function (txt) {
+        this.cancel();
+        var self = this;
+        this.timeoutID = setTimeout(function () {
+            self.remind(txt);
+        }, 500);
+    },
+    cancel: function () {
+        if (typeof this.timeoutID == 'number') {
+            clearTimeout(this.timeoutID);
+        }
+    }
+};
+
+
+
+ruby@diamonddev:~/CMS/Admin$ vi app/views/admin/articles/_article_content_edit.html.erb
+
+
+ <div class="word_counter_holder" style="margin-top:6px;">
+          <label class="tiny_word_label"> Word Count : </label>
+            <input id="word_tinyid_<%= article_content_edit_counter+1 %>" class="tiny_word_input" readonly=true/>
+          </div>
+        </div>
+
+
+ruby@diamonddev:~/CMS/Admin$ vi app/views/admin/articles/_article_content_new.html.erb
+
+<div class="word_counter_holder" style="margin-top:6px;">
+        <label class="tiny_word_label">
+          Word Count :
+        </label>
+        <input id="word_tinyid_1" class="tiny_word_input" readonly=true/>
+   </div>
+

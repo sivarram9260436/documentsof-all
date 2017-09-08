@@ -1,0 +1,51 @@
+CurrencyExchange.get_other_currency_rates(@exit.turnover.to_f, @exit.currency, @exit.exit_date.blank? ? Date.today : @exit.exit_date)
+
+      @exit = @site.exits.by_exit_id(params[:exit_id]).first
+
+       @site = Site.last
+      @exit =  @exit = @site.exits{|a| a.deal_exits.first.turnover}
+
+
+
+def turnover_currency
+deal_exits = self.deal_exits
+deal_exit_loop = self.deal_exits.collect{|a| a.turnover.to_f}
+if self.deal_exits.present?
+event_date = self.deal_exits.collect{|a| a.created_at}.sort.first.beginning_of_month
+else
+event_date = nil
+end
+currency = CurrencyExchange.get_other_currency_rates(deal_exit_loop.first,self.currency,!event_date.blank? ? event_date : (self.created_at.blank? ? Date.today.beginning_of_month : self.created_at.beginning_of_month) )
+return currency
+end
+
+def turnover_euro_value_export
+currency_data = turnover_currency
+if !currency_data.blank?
+if currency_data[:euro].blank? || currency_data[:euro].to_f == 0
+'n/d'
+else
+return "%.2f"% currency_data[:euro]
+else
+return_empty_value
+end
+end
+
+
+def turnover_currency
+deal_exits = self.deal_exits
+deal_exit_loop = self.deal_exits.collect{|a| a.turnover.to_f}
+if self.deal_exits.present?
+event_date = self.deal_exits.collect{|a| a.created_at}.sort.first.beginning_of_month
+else
+event_date = nil
+end
+currency = CurrencyExchange.get_other_currency_rates(deal_exit_loop.first,self.currency,!event_date.blank? ? event_date : (self.created_at.blank? ? Date.today.beginning_of_month : self.created_at.beginning_of_month) )
+return currency
+end
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+ruby@merger-market:~/Unquote_data/WPS$ vi lib/export_data_migration.rb 
+
+
+aa.all_deals_status_applied.uniq.each do |dd|
+
+
+ExportDataMigration.investor_export
+
+243 line 
+
+def self.investor_export
+

@@ -1,0 +1,184 @@
+<div id="container">
+	<%if session[:role_type]=="Author" %>
+	<%if not params[:flag] %>
+	<%if auhtorized?("admin/articles","list") %>
+	<%#= link_to 'Articles',"/admin/login/dashboard" %>
+	<%end %>
+	<%end %>
+	<%= error_messages_for :article ,:header_message=>"Article cannot be searched due to the following errors" %>
+	<%unless @user_type%>
+	<!-- <div> -->
+	<%= form_tag({:action => 'advance_search',:multipart => true,:method=>'get'},{:id=>"new_search_form",:multipart => true,:method=>'get'}) do %>
+	<%= hidden_field_tag "art","path",:value=>@article_path%>
+	<div class="validation_box">
+		<% @site = Site.find(session[:site_id])%>
+		<%= error_messages_for :article ,:header_message=>"Article cannot be searched due to the following errors" %>
+	</div>
+	<div class="section_block full_section">
+	<h2>Article Search</h2>
+		<div class="search_fields">
+			<p>
+				<label for="search_data_title">Search Article:</label>
+				<%if params[:search_data]%>
+				<%= text_field_tag 'search_data[title]', params[:search_data][:title]%>
+				<%else%>
+				<%= text_field_tag 'search_data[title]'%>
+				<%end%>
+			</p>
+			<p>
+				<label for="search_data[section_id]">Content Type:</label> <% if @article_path=="static_page"%>
+				<% @sections=@site.static_sections.delete_if{|section| section.name=="dynamic-page"}%>
+				<%elsif @article_path=="dynamic_page"%>
+				<% @sections=@site.static_sections.find_all_by_entity_type_and_name("Static","dynamic-page")%>
+				<%else%>
+				<% @sections=@site.sections.order_by_name %>
+				<%end%>
+				<%if not @selected_section.blank?%>
+				<%= raw collection_select_with_current_obj("search_data","section_id",@sections,"id","alias_name",@selected_section.id,"All",{})%>
+				<%else%>
+				<%= raw collection_select_with_current_obj("search_data","section_id",@sections,"id","alias_name","","All",{})%>
+				<%end%>
+			</p>
+			<p>
+				<label for="search_data_status">Status:</label> <%= select('search_data','status',[['All',''],['Published','published'],['Unpublished','unpublished'],['Expired','expired'],['Draft','draft'],['Embargoed','inembargo'],['For Approval','waiting_for_approval']],{:selected=>"#{params[:search_data][:status] if params[:search_data] and params[:search_data][:status]!=''}"}) %>
+			</p>
+                         <div id='loading'style='display:none;top:30%;'>
+                           <img src='/images/loading_process2.gif'>
+                         </div>
+			<!--input class="submit blue_submit" type="submit" value="Search" /-->
+			<span class="button"> <a href="javascript:void(0)" class="submit_form"  data-type="new" data-url="/admin/articles/advance_search" id="login_search">Search</a> </span>
+			<!-- <div style="float: right;position: relative;right: 15px; top: 4px;font-size:1.1em">
+				<%#= link_to("Advanced Search","javascript:void(0)",:class=>"advance_search_panel_login settextcolor fontbold",:id=>"advance_search_01","data-param"=>"advance_search","data-update"=>"search_form_text","data-url"=>"/admin/articles/advance_search_view")%>
+				<%#= link_to(image_tag("/images/new_button/down_arrow.png", :alt => "no_image_available"),"javascript:void(0)",:class=>"advance_search_panel_login settextcolor fontbold",:id=>"advance_search_01","data-param"=>"advance_search","data-update"=>"search_form_text","data-url"=>"/admin/articles/advance_search_view")%>
+				<%end%>
+				</form>
+			</div> -->
+    <div class="button advance_search article_advance_button">
+      <a href="javascript:void(0)" class="advance_search_panel_hide" data-param="advance_search" data-update="search_form_text" data-url="/admin/articles/advance_search_view" id="advance_search_01">Advanced Search</a>
+    
+   </div>
+
+
+
+
+			<div id="search_form">
+				<%#= render :partial=>"/admin/articles/login_search"%>
+				<%if params[:search_data]%>
+				<%if params[:search_data][:site_ids]!=nil or params[:search_data][:category_ids]!=nil or params[:search_data][:tag_ids]!=nil or params[:search_data][:author_ids]!=nil or params[:search_data][:publish_date]!=nil or params[:search_data][:expiry_date]!=nil or params[:search_data][:volume_and_issue]!=nil%>
+				<%= render :partial=>"/admin/articles/login_search"%>
+				<%end%>
+				<%end%>
+			</div>
+			<!-- search_form -->
+			
+		</div>
+		<!-- search_fields -->
+</div><!--container-->
+		<%end%>
+		<%end%>
+		 <%= render :partial => "admin/home/announcement"%>
+	</div><!-- search_block -->
+	<%= render :partial => "admin/home/most_recent_content"%>
+	<%= render :partial => "admin/home/bookmarks"%>
+	<%unless session[:role_type]=="Admin"%>
+	<div id="advance_search_update">
+		<%= render :partial => "admin/home/task_manager"%>
+	</div>
+	<%end%>
+</div>
+
+
+<script type="text/javascript">
+/*var ajax_form_login_search_advance = jQuery.fn.ajax_post = function(){
+        var id = $(this).attr('id');
+        var data_url="/ad";
+        var data_fname=$('#'+id).data('fname_id');
+        var update_id=$('#'+id).data('update');
+      $.ajax({
+                    url: "/admin/articles/advance_search",
+                    type : 'POST',
+                    data: $("#advance_search_form").serialize(),
+                    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                    error: function() {alert('eerrrr');},
+                    success: function(msg) {
+                                $('#advance_search_update').html(msg);
+                    }
+            });
+}
+
+jQuery("#login_search_advance").die("click");
+jQuery("#login_search_advance").live("click",ajax_form_login_search_advance);*/
+</script>
+
+        <script type="text/javascript" src="/javascripts/jquery.jcarousel.min.js"></script>
+        <noscript></noscript>
+        <script type="text/javascript" src="/javascripts/slides-min-jquery.js"></script>
+        <noscript></noscript>
+        <script type="text/javascript" src="/javascripts/tab_slider.js"></script>
+        <noscript></noscript>
+        <script type="text/javascript" src="/javascripts/kreatio.js"></script>
+        <noscript></noscript>
+            <script type="text/javascript">
+ 
+jQuery(".advance_search_panel_login").live("click",function(){
+    jQuery.ajax({
+        url:'/admin/articles/advance_search_view',
+        type:'POST',
+        data:'advance_search',
+        beforeSend: function(xhr) {
+         
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        dataType:'html',
+        success:function(advance_search){
+          jQuery("#search_form").html(advance_search);
+        }
+    });
+     jQuery(this).attr("class","advance_search_panel_hide");
+});
+
+jQuery(".submit_form").live("click",function(){
+		$("#loading").show();	
+    jQuery.ajax({
+        url:'/admin/articles/advance_search',
+        type:'POST',
+        data:jQuery('#new_search_form').serialize(),
+        beforeSend: function(xhr) {
+      
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        dataType:'html',
+        success:function(advance_search){
+          jQuery("#advance_search_update").html(advance_search);
+          $('.section_block_sarch_announce').hide();
+          $('#container').next().hide();
+          $('#container').next().next().hide();
+          $("#loading").hide();
+        }
+    });
+     jQuery(this).attr("class","submit_form");
+});
+</script>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+$('#search_data_title').keydown(function(event){
+    if(event.keyCode==13){
+      $.ajax({
+          url : "/admin/articles/advance_search",
+          type : 'POST',
+          data : $("#new_search_form").serialize(),
+          beforeSend : function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+          },
+          error : function() {
+            alert('eerrrr');
+          },
+          success : function(msg) {
+            $('#advance_search_update').html(msg);
+          },
+      });
+        return false
+    }
+});
+});
+</script>
+        <noscript></noscript>
+

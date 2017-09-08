@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="refresh" content="1;url=/admin/login/redirect_to_dash_poard">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta http-equiv="Content-Style-Type" content="text/css" />
+        <meta name="WT.cg_n" content="TEST page" />
+        <LINK REL="SHORTCUT ICON" HREF="/images/kreatio-favicon.png">
+
+        <%= stylesheet_link_tag 'jquery/jquery-ui-dialog','new_pages.css','article_new.css','article.css','ddsmoothmenu.css','date-picker','fcbkcomplete_style','jquery-ui'%>
+
+        <%= stylesheet_link_tag 'editor' %>
+        <title>CMS-Admin Loading</title>
+        <script type="text/javascript">
+        </script>
+    </head>
+
+<style type="text/css">
+.black_theme .header_right{width:800px !important}
+.header_right ul li ul li a {color: #fff;font: 13px arial;width: 97%;float:left;padding: 5px;margin: 0;border-top-width: 0;border-bottom: 1px solid gray;background: none repeat scroll 0 0 #6D8A90;}
+.header_right ul li ul li{width:100%;padding-top:0px !important;}
+.header_right ul li{float:left;padding-top:8px;}
+.header_right ul li:last-child{float: right;}
+.active_top{display:block !important}
+.header_right ul li ul li a:hover{text-decoration:none;background: -webkit-gradient(linear, left top, left bottom, color-stop(10%,#F9FAFA), color-stop(15%,#F1F4F4),color-stop(25%,#E3E8E9),color-stop(35%,#D2DBDD),color-stop(50%,#B3C2C5),color-stop(65%,#9AAEB2),color-stop(80%,#89A1A6),color-stop(100%,#708C92)); background: -moz-linear-gradient(center top , #F9FAFA 10%, #F1F4F4 15%, #E3E8E9 25%, #D2DBDD 35%, #B3C2C5 50%, #9AAEB2 65%, #89A1A6 80%, #708C92 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);background: -webkit-linear-gradient(center top , #F9FAFA 10%, #F1F4F4 15%, #E3E8E9 25%, #D2DBDD 35%, #B3C2C5 50%, #9AAEB2 65%, #89A1A6 80%, #708C92 100%) repeat scroll 0 0 transparent;color: #000000!important;}
+</style>
+
+
+
+        <body class="black_theme">
+                <div id="wrapper">
+                  <div id="wrapper_header">
+					<div class="header">
+					<div class="header_left">
+						<a href="#"> <img src="/images/black_logo.png" alt="logo" /> </a>
+					</div>
+					<%= form_tag("/admin/login/change_website", :id => "change_website") do %>
+					<div class="header_right">
+						<ul>
+							<li>
+								<span> Site</span>
+								<% site = @site%>
+								<span><% @site= site || Site.find(session[:site_id]) %>
+									<%= collection_select 'site', 'id', User.find(session[:user_id]).sites.by_role_type(session[:role_type]).find(:all,:order=>"short_name").uniq, :id, :short_name %>
+									<% @site = site%> </span>
+								<%end %>
+							</li>
+							<li style="position: static;padding: 0px;display: inline-block;background-position: right 15px !important;">
+								<a style="float:right;margin-top: -3px;width: 24px;height: 31px;" href="javascript:void(0)" class="header_drop" ><img alt="Setting" src="/images/setting.png?1358242578" /></a>
+								<a style="padding-right:10px;float:right;padding-top:8px;font-weight: bold;color: #fff;" href="/admin/users/my_setting_change">Welcome <%= print_loggedin_user_name %></a>
+								<ul class="sub_header_block" style="display:none;position: absolute;float: left;padding: 0px 4px 0px 4px;height:74px;z-index:99999;background:none;top: 35px; box-shadow: rgb(170, 170, 170) 5px 5px 5px; -webkit-box-shadow: rgb(170, 170, 170) 5px 5px 5px; visibility: visible; right: 30px; width: 160px;">
+									<li>
+										<%= link_to 'Personal Settings',{:controller=>'/admin/users',:action=>'my_setting_change'}%>
+										
+									</li>
+									<li>
+										<%if session[:role_type]=="Author" %>
+											<%= link_to 'Login as Administrator', admin_login_url %>
+										<%else %>
+											<%= link_to 'Login as Content Modifier', root_url%>
+										<%end %>
+									</li>
+									<li>
+										<%= link_to 'Log Out', {:controller => '/admin/login', :action => 'logout'}%>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>	
+				</div>
+				
+
+
+                        </div><!-- wrapper_header -->
+        <div id="wrapperBody">
+           <!-- <div class="titleBar">-->
+                <h1><span class="settextcolor">Please Wait CMS Application Is Loading ... </span></h1>
+           <!-- </div>-->
+        </div>
+        <div style="margin-left:409px;margin-top:170px;">
+            <%= image_tag "/images/login_loading_image.gif", :alt=>"Loading page" %>
+        </div>
+    </body>
+</html>
+

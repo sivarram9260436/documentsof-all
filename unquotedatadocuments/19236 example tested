@@ -1,0 +1,34 @@
+ruby@merger-market-stage:~/Unquote_data/WPS$ vi /home/ruby/Unquote_data/Sites/unquote_data_site/views/exits/partials/_export.html.erb
+
+
+
+
+<option value="Original_Business Description">Original_Business Description</option>    126
+
+
+
+
+
+
+Started POST "/exits/save_exit_export_template" for 127.0.0.1 at 2017-03-15 11:34:59 +0530
+Processing by Wps::UqExitsController#save_exit_export_template as JSON
+  Parameters: {"templateName"=>"teee", "selectedColDeal"=>"", "selectedColExit"=>"Original_Business Description", "selectedColAdviser"=>"", "selectedColFund"=>""}
+Completed 200 OK in 114ms (Views: 0.9ms | ActiveRecord: 67.6ms | Solr: 0.0ms)
+
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi lib/export_data_migration.rb 
+
+
+  def self.exit_export
+
+add tat in both if and else 
+
+addd
+
+:deal_company_information => ActionController::Base.helpers.strip_tags(deal_exit.deal.company_information).strip)
+
+
+

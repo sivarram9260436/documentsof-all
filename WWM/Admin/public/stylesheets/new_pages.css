@@ -1,0 +1,36 @@
+/* CSS for Black theme page */
+#wrapper {margin: 0 auto;overflow: hidden;padding: 0 16px;width: 992px;background:#fff;border-right:1px solid #cbcbcb;border-left:1px solid #cbcbcb; box-shadow: 0 0 5px #CBCBCB;}
+.black_theme{background:#f0f0f0;}
+.black_theme .menucontainer{background:#000;box-shadow: 0 -1px 2px #D7D7D7;}
+.black_theme .menucontainer li.active {background: -moz-linear-gradient(center top , #F9FAFA 10%, #F1F4F4 15%, #E3E8E9 25%, #D2DBDD 35%, #B3C2C5 50%, #9AAEB2 65%, #89A1A6 80%, #708C92 100%) repeat scroll 0 0 transparent;}
+.black_theme .menucontainer li.active a {color: #000000;border-top:1px solid #d7d7d7;}
+.black_theme .sub_submenu {background: none repeat scroll 0 0 #6D8A90 !important;}
+.black_theme .submenu {background: none repeat scroll 0 0 #94b5bc;border-bottom: 1px solid #6A6A6A;}
+
+.black_theme .submenu ul li.active a {background:url("/images/sub_arrow_new.png") no-repeat scroll center 26px transparent;padding: 9px 15px;position: relative;}
+.black_theme .header_right {height: 30px; background: url("/images/black_left.png") no-repeat scroll left top transparent;margin-right: 0;padding: 0 0 0 8px;width: auto;}
+.black_theme .header_right ul {background: url("/images/black_right.png") no-repeat scroll right 0 transparent;bottom: 1px; position: relative; height: 31px;padding-left: 18px;padding-right: 30px;}
+.black_theme .sarch_announce{background:none repeat scroll 0 0 rgba(231, 240, 239, 0.9);}
+.black_theme .submenu ul {width: 94.85%;}
+
+.black_theme .table_content table{width:100%;}
+
+
+.blue_theme{background:#f0f0f0;}
+.blue_theme .submenu {background: none repeat scroll 0 0 #94B5BC;border-bottom: 1px solid #6A6A6A;}
+.blue_theme .sub_submenu {background:#6D8A90  !important;}
+.blue_theme .menucontainer li.active {background: -moz-linear-gradient(center top , #F9FAFA 10%, #F1F4F4 15%, #E3E8E9 25%, #D2DBDD 35%, #B3C2C5 50%, #9AAEB2 65%, #89A1A6 80%, #708C92 100%) repeat scroll 0 0 transparent;}
+.blue_theme .menucontainer li.active a {color: #000000;border-top:1px solid #d7d7d7;}
+.blue_theme .menucontainer {background: -moz-linear-gradient(center top , #4E9CCD 0%, #4B99CA 15%, #4290C1 25%, #3380B2 35%, #2673A5 50%, #176395 65%, #0F5B8D 80%, #0D5787 100%) repeat scroll 0 0 transparent;margin-top:7px;}
+.blue_theme .menucontainer ul li {background: url("/images/blue_menu_pipe.jpg") no-repeat scroll right top transparent;}
+.blue_theme .menucontainer {box-shadow: 0 -1px 2px #D7D7D7;}
+.blue_theme .header_right {background: url("/images/blue_left.png") no-repeat scroll left top transparent;margin-right: 0;padding: 0 0 0 12px;width: auto;}
+.blue_theme .header_right ul {background: url("/images/blue_right.png") no-repeat scroll right 0 transparent;height: 31px;padding-left: 18px;padding-right: 30px;}
+
+.blue_theme .submenu ul {width:94.85%;}
+.blue_theme .submenu ul li.active a {background: url("/images/sub_arrow_new.png") no-repeat scroll center 26px transparent;padding: 9px 15px;position: relative;}
+/*new styles */
+.sub_submenu ul li.active {  background: -moz-linear-gradient(center top , #6D8A90 0%,#65848C 40%,#62818B 41%,#396278 70%,#24516E 100%) repeat scroll 0 0 transparent;}
+
+
+

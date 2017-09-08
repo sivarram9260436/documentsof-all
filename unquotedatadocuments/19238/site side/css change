@@ -1,0 +1,7 @@
+ruby@merger-market-stage:~/Unquote_data/Sites$ vi unquote_data_site/public/stylesheets/unq.css 
+
+
+
+.porfile_right_mid fieldset table#table_style3 td:nth-child(4):after {content: "%";padding-left: 3px;}
+.porfile_right_mid fieldset table#table_style3 td:nth-child(5):after {content: "%";padding-left: 3px;}
+.porfile_right_mid fieldset table#table_style3 td:nth-child(6):after {content: "x";padding-left: 3px;}

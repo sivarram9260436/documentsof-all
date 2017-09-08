@@ -1,0 +1,1478 @@
+/*
+	Unquoate Data JS Code
+	By Karthikeyan Siva
+*/
+
+//standard search Deal type
+var fillAdvancedDeal_onDealChange = function(){
+	$('#advSearchDealAdvanced').empty();
+	$('#advSearchDeal option:selected').each(function(){
+			var dealType = $(this).attr('value');
+			fillDeal(advDealType[dealType])
+	});
+}
+
+var fillDeal = function(arrVal){
+	if(arrVal!=null || arrVal!=""){
+		$.each(arrVal,function(i){
+			var option_add = "<option value='"+arrVal[i].id+"'>"+arrVal[i].name+"</option>"
+			$('#advSearchDealAdvanced').append(option_add)
+		});
+		$('#advSearchDealAdvanced option').attr('selected','selected')
+	}
+	sortDropdown('#advSearchDealAdvanced');
+}
+
+//Funding type
+var fillAdvancedDeal_onDealChange_fundType = function(){
+	$('#advFundType').empty();
+	$('#basicFundType option:selected').each(function(){
+			var dealType = $(this).attr('value');
+			fillDeal_fundType(Funding_Type[dealType])
+	});
+}
+
+var fillDeal_fundType = function(arrVal){
+	if(arrVal!=null || arrVal!=""){
+		$.each(arrVal,function(i){
+			var option_add = "<option value='"+arrVal[i].id+"'>"+arrVal[i].name+"</option>"
+			$('#advFundType').append(option_add)
+		});
+		$('#advFundType option').attr('selected','selected')
+	}
+	sortDropdown('#advFundType');
+}
+
+var sortDropdown = function(selectId){
+	$(selectId).html( $(selectId+" option").sort(function(a, b) {
+	       return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+	}));
+}
+
+var selectAllforCountrybox = function(){
+	var select_dropdown_block = $(this).attr('data-selectdropdown');
+	$('#'+select_dropdown_block+' option').attr('selected','selected');
+	if($(this).attr('data-callfunction')!=""){
+		window[$(this).attr('data-callfunction')]();
+	}
+}
+
+var showOptionsUnSelected = function(select_dropdown){
+	$('#'+select_dropdown+' option').removeAttr('selected')
+}
+
+//clear all list when click clearall
+var clearAllDropdownlist = function(){
+	var dropdownList = $(this).attr('data-cleardropdown');
+		if($(this).attr('data-clearfield')=="true")	{
+			$($(this).attr('data-clearinputfields')).attr('value','');
+		}
+   		$(dropdownList).find('option').removeAttr('selected');
+}
+
+//select all list when click selectall
+var selectAllDropdownlist = function(){
+	var dropdownList = $(this).attr('data-selectdropdown');
+	$(dropdownList).each(function(){
+   			$(this).find('option').attr('selected','selected');
+	});
+}
+
+var fillSector = function(arrVal){
+	$.each(arrVal,function(i){
+		var option_add = "<option value='"+arrVal[i].id+"'>"+arrVal[i].name+"</option>"
+		$('#advSectorList').append(option_add)
+	});
+	$("#advSectorList option").attr('selected','selected');
+	sortDropdown('#advSectorList');
+}
+
+//move list fromtop2down and down2top
+var moveUpList = function(){
+	var dropdownlist = '#'+$(this).attr('data-movedropdown')
+	var selected_index = $(dropdownlist+' option:selected').index();
+	if($(dropdownlist+' option').length==0){
+		alert("There are no values which can be moved!");
+	}
+    else if($(dropdownlist+' option:selected').length > 1){
+        alert("You must select one entry!");
+    }
+    else{
+		if(selected_index==0 && $(this).attr('data-direction')=="up"){
+			 alert("The first entry in the list cannot be moved up.");
+		}
+		else if(selected_index == $(dropdownlist+' option').length-1 && $(this).attr('data-direction')=="down"){
+			alert("The last entry in the list cannot be moved down.");
+		}
+		else if(selected_index==-1){
+			alert("You must select an entry to be moved!");
+		}
+		else{
+			if($(this).attr('data-direction')=="up"){
+				var copy_before = $(dropdownlist+' option:eq('+(selected_index-1)+')').clone();
+				$(dropdownlist+' option:selected').after(copy_before);
+				$(dropdownlist+' option:eq('+(selected_index-1)+')').remove()
+			}
+			if($(this).attr('data-direction')=="down"){
+				var copy_after = $(dropdownlist+' option:eq('+(selected_index+1)+')').clone();
+				$(dropdownlist+' option:eq('+(selected_index+1)+')').remove()
+				$(dropdownlist+' option:selected').before(copy_after);
+			}
+		}
+	}
+}
+
+//Movelist from left2right and right2left
+var move = function(){
+ 	   var fbox = '#'+$(this).attr('data-fromselect');
+	   var tbox = '#'+$(this).attr('data-toselect');
+	   $(fbox+' option:selected').each(function(){
+	   		$(tbox).append("<option value='"+$(this).attr('value')+"'>"+$(this).text()+"</option>")
+	   		$(this).remove();
+	   });
+}
+
+$(function(){ //document ready start
+
+	$(document).on('change','#basicFundType',fillAdvancedDeal_onDealChange_fundType);
+	$(document).on('change','#advSearchDeal',fillAdvancedDeal_onDealChange);
+	$('#continentList').on('change',fillRegion_SubRegion);
+	$('#target_continentList').on('change',fillContinent_Country);
+	$('#regionList').on('change',fillSubRegion_Country_onRegionClick);
+	$('#subregionList').on('change',fillSubRegion_Country);
+	$('.select_all_country_box').on('click',selectAllforCountrybox);
+	$('.cleardropdownslist').on('click',clearAllDropdownlist);
+	$('.select_all_list').on('click',selectAllDropdownlist);
+	$('#indstry').on('change',superSector_onIndustryChange);
+	$('#suprSctr').on('change',basicSector_onSuperSectorChange);
+	$('#basicSectorList').on('change',fillAdvancedSector_onSectorChange);
+	//$('.move_items').on('click',move);
+	$(document).on('click','.move_items',move);
+	$('.moveup_list').on('click',moveUpList);
+
+//Set deal value from modelbox dropdowns
+	$('.set_value_type').on('click',function(){
+		var set_type = $(this).attr('data-displayInput');
+		var set_type1 = $(this).attr('data-hiddenInput');
+		var get_value_dropdown = $(this).attr('data-getdropdown')
+		$('#adv_left .'+set_type+',#adv_left .'+set_type1).attr('value','');
+		var advanced_deal_search_text = [],advanced_deal_search_id = [];
+		$('#'+get_value_dropdown+' option:selected').each(function(){
+			advanced_deal_search_id.push($(this).attr('value'))
+			advanced_deal_search_text.push($(this).text())
+		});
+		if(advanced_deal_search_text.length==0){
+			var clearInputFields = $(this).attr('data-clearinputfields');
+			if($(this).attr('data-clearfield')=="true"){
+			 	$(clearInputFields).attr('value','');
+			 	$('#'+set_type).attr("title","Click on Edit to select value");
+			 	$(".tooltip").tipTip();
+			}
+		}else{
+			$('#'+set_type).attr({"value" : advanced_deal_search_text.join(', '),"title":advanced_deal_search_text.join(', ')})
+			$('#'+set_type1).val(advanced_deal_search_id);
+			$(".tooltip").tipTip();
+		}
+	});
+
+//selectall basic and advanced deal
+	$('.selectAllBasicDeal').on('click',function(){
+		var block = $(this).attr('data-block');
+		var basic_deal_block = $(this).attr('data-basicdealtypeID');
+		var advanced_deal_block = $(this).attr('data-advdealtypeID');
+		if(block=="1"){
+			$('#'+basic_deal_block+' option,#'+advanced_deal_block+' option').attr('selected','selected');
+			fillAdvancedDeal_onDealChange();
+		}
+		if(block=="2"){
+			$('#'+advanced_deal_block+' option').attr('selected','selected');
+		}
+	});
+
+//clearall basic and advanced deal
+	$('.clearBasicAdvDeal').on('click',function(){
+		var block = $(this).attr('data-block');
+		var basic_deal_block = $(this).attr('data-basicdealtypeID');
+		var advanced_deal_block = $(this).attr('data-advdealtypeID');
+		if(block=="1"){
+			$('#'+basic_deal_block+' option,#'+advanced_deal_block+' option').removeAttr('selected');
+			$($(this).attr('data-clearInputfields')).attr('value','');
+		}
+		if(block=="2"){
+			$('#'+advanced_deal_block+' option').removeAttr('selected');
+			$($(this).attr('data-clearInputfields')).attr('value','');
+		}
+	});
+
+//deal form clear
+	$('.clearAllData').on('click',function(){
+		$('#mainForm').clearForm();
+		$('#Adviser_Group,#Advice_Type,#Advice_To,#Deal_Type,#Sector_Type,#Country_Type,#Funding_type,#Investor_Group,#basicFundType,#advSearchFund').attr('title','Click on Edit to select value')
+		$(".tooltip").tipTip();
+	});
+
+}); //document ready end
+
+
+/* Country Block start*/
+//country model box Continent country select
+var fillRegion_SubRegion = function(){
+	$('#countryList,#regionList,#subregionList').empty();
+	$('#continentList option:selected').each(function(){
+		    fillRegion(Continent_Region[$(this).attr('value')]);
+	});
+	$('#regionList option:selected').each(function(){
+		//if (checkExistance(continentWithSubRegion,$(this).attr('value')) == "true"){
+			fillSubRegion(Region_SubRegion[$(this).attr('value')]);
+		//}
+	});
+	$('#regionList option:selected').each(function(){
+		fillCountry(Region_country[$(this).attr('value')]);
+		//fillCountryByRegion(Region_country[$(this).attr('value')])
+	});
+}
+
+var fillContinent_Country = function(){
+
+	 $('#target_countryList,#target_regionList,#target_subregionList').empty();
+        $('#target_continentList option:selected').each(function(){
+                    fillRegion(Continent_Region[$(this).attr('value')]);
+        });
+        $('#target_regionList option:selected').each(function(){
+                //if (checkExistance(continentWithSubRegion,$(this).attr('value')) == "true"){
+                        fillSubRegion(Region_SubRegion[$(this).attr('value')]);
+                //}
+        });
+        $('#target_regionList option:selected').each(function(){
+                fillCountry(Region_country[$(this).attr('value')]);
+                //fillCountryByRegion(Region_country[$(this).attr('value')])
+        });
+
+	
+/*	 $('#target_continentList option:selected').each(function(){
+                fillCountry(SubRegion_Country[$(this).attr('value')]);
+                //fillCountryByRegion(Region_country[$(this).attr('value')])
+        });*/
+
+
+}
+
+var fillRegion = function(arrVal){
+	if(arrVal!=null || arrVal!=""){
+		$.each(arrVal,function(i){
+			var option_add = "<option value='"+arrVal[i].id+"'>"+arrVal[i].name+"</option>"
+			$('#regionList,#target_regionList').append(option_add)
+		});
+		$('#regionList option,#target_regionList option').attr('selected','selected')
+	}
+//	sortDropdown('#regionList,#target_regionList');
+}
+
+var fillCountry = function(arrVal){
+		$.each(arrVal,function(i){
+			var option_add = "<option value='"+arrVal[i].id+"'>"+arrVal[i].name+"</option>"
+			$('#countryList,#target_countryList').append(option_add)
+		});
+		$('#countryList option,#target_countryList option').attr('selected','selected');
+//		sortDropdown('#countryList,#target_countryList');
+}
+
+var fillCountryByRegion = function(arrVal){
+	$.each(arrVal,function(i){
+		var option_add = "<option value='"+arrVal[i].id+"'>"+arrVal[i].name+"</option>"
+			$('#countryList').append(option_add)
+	});
+	$('#countryList option').attr('selected','selected')
+	sortDropdown('#countryList');
+}
+
+var checkExistance = function(str,val){
+	var flag = "false";
+    $.each(str,function(i){
+    	if (str[i].id == val)  {
+             flag = "true";
+        }
+    });
+    return flag;
+}
+
+var fillSubRegion = function(arrVal){
+	if(arrVal!=null || arrVal!=""){
+		$.each(arrVal,function(i){
+			var option_add = "<option value='"+arrVal[i].id+"'>"+arrVal[i].name+"</option>"
+			var flag = true;
+			$('#subregionList option,#target_subregionList option').each(function(){
+			    if($(this).val()==arrVal[i].id){
+			    	flag = false;
+			    }
+			})
+			if(flag==true){
+				$('#subregionList,#target_subregionList').append(option_add)
+			}
+		});
+		$('#subregionList option,#target_subregionList option').attr('selected','selected')
+		sortDropdown('#subregionList,#target_subregionList');
+	}
+}
+
+var fillSubRegion_Country_onRegionClick = function(){
+	$('#subregionList,#countryList,#target_subregionList,#target_countryList').empty();
+	$('#regionList option:selected,#target_regionList option:selected').each(function(){
+		if (checkExistance(regionWithSubRegion,$(this).attr('value')) == "true"){
+			fillSubRegion(Region_SubRegion[$(this).attr('value')]);
+		}
+	});
+	$('#regionList option:selected,#target_regionList option:selected').each(function(){
+		fillCountry(Region_country[$(this).attr('value')]);
+	});
+	showOptionsSelected("subregionList,target_subregionList");
+	showOptionsSelected("countryList,target_countryList");
+}
+
+var showOptionsSelected = function(select_dropdown){
+	$('#'+select_dropdown+' option').attr('selected','selected')
+}
+
+var fillSubRegion_Country = function(){
+	$('#countryList,#target_countryList').empty()
+	$('#subregionList option:selected,#target_subregionList option:selected').each(function(){
+		fillCountry(SubRegion_Country[$(this).attr('value')]);
+	});
+	showOptionsSelected("countryList,target_countryList");
+}
+/* Country Block end*/
+
+//Sector Block start
+var superSector_onIndustryChange = function(){
+	$('#suprSctr,#basicSectorList,#advSectorList').empty();
+	$('#indstry option:selected').each(function(){
+		fillSuperSector(arrSuperSector[$(this).attr('value')]);
+	});
+	$('#suprSctr option:selected').each(function(){
+		fillBasicSector(arrIndustry_basicSectors[$(this).attr('value')]);
+	});
+	$('#basicSectorList option:selected').each(function(){
+		fillAdvSector(arrIndustry_advSectors[$(this).attr('value')]);
+	});
+}
+
+var fillSuperSector = function(arrVal){
+		$.each(arrVal,function(i){
+			var option_add = "<option value='"+arrVal[i].id+"'>"+arrVal[i].name+"</option>"
+			$('#suprSctr').append(option_add)
+		});
+		$("#suprSctr option").attr('selected','selected')
+		sortDropdown('#suprSctr');
+}
+
+var fillBasicSector = function(arrVal){
+	$.each(arrVal,function(i){
+		var option_add = "<option value='"+arrVal[i].id+"'>"+arrVal[i].name+"</option>"
+		$('#basicSectorList').append(option_add)
+	});
+	$("#basicSectorList option").attr('selected','selected');
+	sortDropdown('#basicSectorList');
+}
+
+var fillAdvSector = function(arrVal){
+	$.each(arrVal,function(i){
+		var option_add = "<option value='"+arrVal[i].id+"'>"+arrVal[i].name+"</option>"
+		$('#advSectorList').append(option_add)
+	});
+	$("#advSectorList option").attr('selected','selected');
+	sortDropdown('#advSectorList');
+}
+
+var basicSector_onSuperSectorChange = function(){
+	$('#basicSectorList,#advSectorList').empty();
+	$('#suprSctr option:selected').each(function(){
+		fillBasicSector(arrIndustry_basicSectors[$(this).attr('value')]);
+	});
+	$('#basicSectorList option:selected').each(function(){
+		fillAdvSector(arrIndustry_advSectors[$(this).attr('value')]);
+	});
+	showOptionsSelected("basicSectorList");
+	showOptionsSelected("advSectorList");
+}
+
+var fillAdvancedSector_onSectorChange = function(){
+	$('#advSectorList').empty();
+	$('#basicSectorList option:selected').each(function(){
+		fillAdvSector(arrIndustry_advSectors[$(this).attr('value')]);
+	});
+}
+
+//Sector Block end
+
+//search result
+$(document).on('click','.search_result_button',function(){
+	var total_value = $(this).attr('data-totalvalue_url');
+	if($(this).attr('data-keyword')=="yes"){
+		var keyword = $('#mainForm .keyword_search_check').val();
+		if(keyword !="" && !$('#mainForm input.keyword_check[type="checkbox"]').is(':checked')){
+			alert("Please select at least one check box to search the result!");
+			return false;
+		}
+		else{
+			$.ajax({
+				type:'POST',
+			//	dataType:'html',
+				data : $('#mainForm').serialize(),
+				url : $(this).attr('data-searchurl'),
+				beforeSend: function(xhr){
+		            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+		            $( "#loading_indicator" ).show();
+		            $('#search_result_div .search_result_block_div').addClass('loadin_background');
+		        },
+		        error:function(){
+		        	$('#search_result_div .search_result_block_div').removeClass('loadin_background');
+		        	$( "#loading_indicator" ).hide();
+		        },
+				success : function(data,textStatus,xhr){
+  				if(typeof(data) == "string"){
+					$('#search_result_div').html(data);
+					$( "#loading_indicator" ).hide();
+					$('#search_result_div .search_result_block_div').removeClass('loadin_background');
+					if($('#smallQuery').text().length>300){
+						less_more_searchresult();
+					}
+                    if(total_value!=undefined && $('#confidential').val() == undefined){
+						totalValueLeft(total_value);
+					}
+				}else{
+                           $("#dialog_blk p").html(data.message);
+                           dialog_open()
+                          $(".alert_class .ui-button ").click(function(){location.reload();});
+                          }
+			}
+			});
+		}
+	}
+	else{
+		$.ajax({
+			type:'POST',
+			//dataType:'html',
+			data : $('#mainForm').serialize(),
+			url : $(this).attr('data-searchurl'),
+			beforeSend: function(xhr){
+	            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+	            $('#search_result_div .search_result_block_div').addClass('loadin_background');
+	            $( "#loading_indicator" ).show();
+	        },
+			error:function(){
+	        	$('#search_result_div .search_result_block_div').removeClass('loadin_background');
+	        	$( "#loading_indicator" ).hide();
+	        },
+			success : function(data){
+                               if(typeof(data) == "string"){
+
+                            
+				$('#search_result_div').html(data);
+				$( "#loading_indicator" ).hide();
+				$('#search_result_div .search_result_block_div').removeClass('loadin_background');
+				if($('#smallQuery').text().length>300){
+					less_more_searchresult();
+				}
+                if(total_value!=undefined && $('#confidential').val() == undefined){
+					totalValueLeft(total_value);
+				}
+                          }else{
+                           $("#dialog_blk p").html(data.message);
+                           dialog_open()
+                          $(".alert_class .ui-button ").click(function(){location.reload();}); 
+                          }
+			}
+		});
+	}
+});
+
+function dialog_open(){
+$("#dialog_blk").dialog( {"dialogClass":"alert_class",closeOnEscape : true,title:"Message",modal : true,draggable:false,resizable:"false",closeText : '',} );
+}
+
+
+var totalValueLeft = function(total_value_url){
+	$.ajax({
+		type : 'POST',
+		data : $('#mainForm').serialize(),
+		dataType : 'html',
+		url : total_value_url,
+		beforeSend: function(xhr){
+		    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+		    $('#adv_right .value_return_count span').html('<img src="images/loading_total.gif">');
+		    $('#adv_right .selectCurrency_result_page,#adv_right .get_page_verified').attr('disabled','disabled');
+            $('#adv_right .order_select,#adv_right .get_page').bind("click",disableLink);
+		},
+        error:function(){
+        	$('#adv_right .selectCurrency_result_page,#adv_right .get_page_verified').removeAttr('disabled');
+            $('#adv_right .order_select,#adv_right .get_page').unbind("click",disableLink);
+        },
+		success : function(data){
+			$('#adv_right .value_return_count').html(data);
+			$('#adv_right .selectCurrency_result_page,#adv_right .get_page_verified').removeAttr('disabled');
+            $('#adv_right .order_select,#adv_right .get_page').unbind("click",disableLink);
+			$('.deal_diff_search').empty();
+            $('#deal_source_change').attr("name","source")
+		}
+	});
+}
+
+//click pagination and verified record and change currency
+var search_result = function(){
+    var tagname = $(this)[0].localName;
+    var redirect_url = $(this).attr('data-searchurl');
+    var page_url = $(this).attr('data-url');
+    $.ajax({
+        type:'POST',
+        dataType:'html',
+        beforeSend: function(xhr){
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            $('#search_result_div .search_result_block_div').addClass('loadin_background');
+            $( "#loading_indicator" ).show();
+        },
+        error:function(){
+            $('#search_result_div .search_result_block_div').removeClass('loadin_background');
+            $( "#loading_indicator" ).hide();
+        },
+        data : $('form[name="rightsideDealform"]').serialize()+'&page='+page_url,
+        url : redirect_url,
+        success : function(data,xhr){
+            $('#search_result_div').html(data);
+            $( "#loading_indicator" ).hide();
+            $('#search_result_div .search_result_block_div').removeClass('loadin_background');
+            if(tagname =="input" || tagname=="select"){
+                totalValueReturned(redirect_url)
+            }
+        }
+    });
+}
+
+$(function(){
+    //pagination result
+    $(document).on('click','#search_result_div .get_page',search_result);
+
+    //verified checkbox
+    $(document).on('click','#search_result_div .get_page_verified',search_result);
+
+    $(document).on('change','#search_result_div .selectCurrency_result_page',search_result);
+
+    $('#selectedCurrency').on('change',function(){
+        $('#mainForm #deals_currency').val($(this).val())
+    });
+
+});
+
+function disableLink(e) {
+    // cancels the event
+    e.preventDefault();
+
+    return false;
+}
+
+var totalValueReturned = function(url){
+	var searchUrl;
+	if($('#search_type_compare').val()=="standard_search"){
+		searchUrl = $('.search_result_button').attr('data-totalvalue_url')
+	}
+	else{
+		searchUrl = $('.customsearch_button').attr('data-totalvalue_url')
+	}
+	if(searchUrl!=undefined){
+		$.ajax({
+			type:'POST',
+			dataType:'html',
+			beforeSend: function(xhr){
+	            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+	            $('#adv_right .value_return_count span').html('<img src="images/loading_total.gif">')
+	            $('#adv_right .selectCurrency_result_page,#adv_right .get_page_verified').attr('disabled','disabled');
+                $('#adv_right .order_select,#adv_right .get_page').bind("click",disableLink);
+	        },
+			data : $('form[name="rightsideDealform"]').serialize(),
+			url : searchUrl,
+			error:function(){
+	        	$('#adv_right .selectCurrency_result_page,#adv_right .get_page_verified').removeAttr('disabled');
+                $('#adv_right .order_select,#adv_right .get_page').unbind("click",disableLink);
+	        	$('#adv_right .value_return_count span').html('0.0')
+	        },
+			success : function(data){
+				$('#adv_right .value_return_count').html(data);
+				$('#adv_right .selectCurrency_result_page,#adv_right .get_page_verified').removeAttr('disabled');
+                $('#adv_right .order_select,#adv_right .get_page').unbind("click",disableLink);
+			}
+		});
+	}
+}
+
+$(document).on('focus','.keyword_search_check',function(){
+	if($('#mainForm input.keyword_check[type="checkbox"]:checked').length==0){
+		$('#mainForm input.keyword_check[type="checkbox"]:eq(0)').prop('checked',true);
+		keyword_checkbox();
+	}
+});
+
+//params store keyword text to hidden fields for search result
+$(document).on('click','#mainForm input.keyword_check[type="checkbox"]',function(){
+	keyword_checkbox();
+})
+
+var keyword_checkbox = function(){
+	var arr = [];
+	$('#mainForm input.keyword_check[type="checkbox"]:checked').each(function(){
+		if($(this).val()!='all'){
+	   	  arr.push('<b class="keyword_check_red">'+$(this).next('lable').text()+'</b>');
+	   }
+	   else{
+	   	  arr.length = 0;
+	      arr.push('<b class="keyword_check_red">keyword</b>')
+	   }
+	});
+	$('#keyword_option_values').val(arr.join(' and '));
+}
+
+//ASC and DESC order for search result block -- company name & sector & date & Basic deal type
+$(document).on('click','.order_select',function(){
+	$('form[name="rightsideDealform"] #sort').val($(this).attr('data-select'))
+	$('form[name="rightsideDealform"] #order').val($(this).attr('data-order'))
+    $.ajax({
+        url:$(this).attr('data-searchurl'),
+        type:'POST',
+        data:$('form[name="rightsideDealform"]').serialize()+'&page=1',
+        dataType:'html',
+        error:function(){
+        	$('#search_result_div .search_result_block_div').removeClass('loadin_background');
+        	$( "#loading_indicator" ).hide();
+		},
+        beforeSend: function(xhr){
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            $( "#loading_indicator" ).show();
+            $('#search_result_div .search_result_block_div').addClass('loadin_background');
+		},
+        success:function(datas){
+           $('#search_result_div').html(datas);
+           $( "#loading_indicator" ).hide();
+		   $('#search_result_div .search_result_block_div').removeClass('loadin_background');
+        }
+    });
+});
+
+//compare list when click compare button
+$(document).on('click','.compareDeals',function(){
+	var comparecheck_length = $('#search_result_div input[type="checkbox"].compare_check:checked').length
+	if(comparecheck_length<2){
+		alert("Please Select minimum 2 Deals to Compare!");
+		return false;
+	}
+	else{
+		var currency = $('.currency_value_get option:selected').val();
+		var searchId = $('#rightsideDealform #search_id_compare').val();
+		var searchType = $('#rightsideDealform #search_type_compare').val();
+		var compare_checked_id = [];
+		$('#search_result_div input[type="checkbox"].compare_check:checked').each(function(){
+	  		compare_checked_id.push('deals[]='+$(this).attr('value'))
+		});
+		location.href = $(this).attr('data-searchurl')+'?currency='+currency+'&search_type='+searchType+'&source=deal_search&search_id='+searchId+'&'+compare_checked_id.join('&')
+	}
+});
+
+//don't check more than 4
+$(document).on('click','#search_result_div input[type="checkbox"].compare_check',function(){
+	if($('#search_result_div input[type="checkbox"].compare_check:checked').length>4){
+		alert("Please Select only Four Deals");
+		$(this).attr('checked',false);
+		return false;
+	}
+});
+
+//search for fundname and investor name
+$(document).on('click','.nameSearch_query',function(){
+	var update_block = $(this).attr('data-displaydropdown');
+	if($($(this).attr('data-searchinput')).val().length>1){
+		$.ajax({
+			type : 'POST',
+			url : $(this).attr('data-searchurl'),
+			data : $(this).attr('data-param')+'='+$($(this).attr('data-searchinput')).attr('value'),
+			dataType : 'json',
+			beforeSend: function(xhr){
+	            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+	        },
+			success : function(search_result){
+				$(update_block).empty();
+				$.each(search_result,function(i){
+					var option_add = "<option value='"+search_result[i].id+"'>"+search_result[i].name+"</option>"
+					$(update_block).append(option_add);
+				});
+			}
+		});
+	}else{
+		alert("Please enter atleast two characters");
+		$($(this).attr('data-searchinput')).focus();
+	}
+});
+
+$(function(){
+	$('input.field_design2').focus(function(){$(this).val('')});
+});
+
+//fund page eventdates select
+$(function(){
+	$('#eventdate #saveFunddatebuttId').removeClass('jqmClose')
+	$('#saveFunddatebuttId').on('click',function(){
+	 if($(this).hasClass('clearbox_alert')!=true){
+		if($('#fundEventDatesId option:selected').length==0 || $('#eventMonthId1 option:selected').val()=="" || $('#eventYearId1 option:selected').val()=="" || $('#eventMonthId2 option:selected').val()=="" || $('#eventYearId2 option:selected').val()=="" ){
+			alert("Please select all the fields");
+			$('#eventdate').jqmHide();
+			return false;
+		}
+		else{
+		    var fund_event_text = [],fund_event_value = [];
+			$('#fundEventDatesId option:selected').each(function(){
+				fund_event_text.push($(this).text());
+				fund_event_value.push($(this).val());
+			});
+			$('#funds_event_dates').val(fund_event_value);
+			$('#funds_start_month').val($('#eventMonthId1 option:selected').val());
+			$('#funds_start_year').val($('#eventYearId1 option:selected').val());
+			$('#funds_end_month').val($('#eventMonthId2 option:selected').val());
+			$('#funds_end_year').val($('#eventYearId2 option:selected').val());
+			var params = fund_event_text+','+$('#eventMonthId1 option:selected').text()+','+$('#eventYearId1 option:selected').val()+','+$('#eventMonthId2 option:selected').text()+','+$('#eventYearId2 option:selected').val();
+			$('#advSearchFund').val(params)
+			$('#advSearchFund').attr('title',params);
+			$("#advSearchFund.tooltip").tipTip();
+			$('#eventdate').jqmHide();
+			$('#saveFunddatebuttId').removeClass('clearbox_alert')
+		}
+	 }else{
+	 	$('#eventdate').jqmHide();
+	 	$('#saveFunddatebuttId').removeClass('clearbox_alert')
+	 }
+	});
+
+	$('#fundEventDatesId').on('change',function(){
+        $('#saveFunddatebuttId').removeClass('clearbox_alert')
+	});
+});
+
+//code for Feedback Description
+	$(document).on('click','#feedback_submit',function(e){
+		e.preventDefault();
+		var feedback_desc = $(this).attr('data-feedback_id');
+		if($(feedback_desc).val()!=""){
+			var deal_id = $('#deal_id').val();
+			var equity_debt = $('#investor_group').val();
+			var advisor = $('#advisor_group').val();
+			var feedback = $(feedback_desc).val();
+			var lp_id = $('#lps_id').val();
+			var fund_id = $('#fund_id').val();
+			var exit_id = $('#exit_id').val();
+			$.ajax({
+				type:'POST',
+				url:$(this).attr('data-url'),
+				data : {exit_id : exit_id, fund_id : fund_id, deal_id : deal_id, equity_debt : equity_debt, advisor : advisor, lp_id : lp_id, feedback : feedback},
+				dataType:'text',
+				beforeSend: function(xhr){
+		            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+		        },
+				success:function(data){
+					$('#feedbackCmnt').html(data),
+					$(feedback_desc).val('');
+				}
+			});
+		}
+		else{
+			alert('Please Enter Feedback Description');
+			return false;
+		}
+	});
+
+//code for export save template and add value to Existing template
+$(document).on('click','#saveTemplate',function(){
+	var already = false;
+	var dealLen = $("#dealToExport option").length;
+	var exitLen = $("#exitToExport option").length;
+	var adviserLen = $("#adviserToExport option").length;
+	var fundLen = $("#fundOptionToExport option").length;
+
+	if(dealLen==0 && exitLen==0 && adviserLen==0 && fundLen==0){
+		alert("Please select fields to save!");
+		return false;
+	}
+	if($("#newTemplate").val()==""){
+		alert("Please enter template name!");
+		return false;
+	}
+
+	$('#existingTemplateList option').each(function(){
+		if($(this).text()==$("#newTemplate").val()){
+			alert("Template already exist! Please choose differnt name.");
+			already = true
+			return false;
+		}
+	})
+	var dealExport = [];
+	$('#dealToExport option').each(function(){
+	    dealExport.push($(this).val());
+	});
+
+	var adviserExport = [];
+	$('#adviserToExport option').each(function(){
+	    adviserExport.push($(this).val());
+	});
+
+	var exitExport = [];
+	$('#exitToExport option').each(function(){
+	    exitExport.push($(this).val());
+	});
+
+	var fundExport = [];
+    $('#fundOptionToExport option').each(function(){
+        fundExport.push($(this).val());
+    });
+
+	if(already!=true){
+		var saveTempName=$("#newTemplate").val();
+		var url = $(this).attr('data-url');
+		var parameter = "&templateName="+saveTempName+"&selectedColDeal="+dealExport+"&selectedColExit="+exitExport+"&selectedColAdviser="+adviserExport+"&selectedColFund="+fundExport;
+		$.ajax({
+			type : 'POST',
+			data : parameter,
+			url : url,
+			dataType :'json',
+			beforeSend: function(xhr){
+			    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+			},
+			success : function(exportField){
+				callback(exportField)
+			}
+		});
+	}
+	var callback = function(exportJson) {
+		var template = '<option value="'+exportJson.value+'">'+exportJson.text+'</option>'
+		$('#existingTemplateList').append(template);
+	}
+});
+
+//code for download excel sheets deal/adviser/exits
+$(document).on('click','#downloadExcel',function(){
+    var  subs_email = $('#subs_id').val()
+    var okcancel = confirm("Exported data may not include changes to the database made within the last 24 hours.\n Generation of the requested export file may take some time to complete. To download on your web browser now click ‘Cancel’\n To receive an email with your document to ("+ subs_email+") click ‘Ok’ and it’ll be sent as soon as possible.");
+
+    var allExport = []
+    var dealExport = [];
+    $('#dealToExport option').each(function(){
+        allExport.push($(this).val());
+    });
+    var adviserExport = [];
+    $('#adviserToExport option').each(function(){
+        allExport.push($(this).val());
+    });
+
+    var exitExport = [];
+    $('#exitToExport option').each(function(){
+        allExport.push($(this).val());
+    });
+
+	var exportUrl;
+	if($('#search_type_compare').val()=="standard_search"){
+            exportUrl = $(this).attr('data-downloadurl')
+        }
+        else{
+            exportUrl = $(this).attr('data-exportcustomurl')
+       }
+
+	var parameter = $('#adv_right form').serialize()+"&selectedColDeal="+allExport+"&okcancel="+okcancel;
+	$.ajax({
+		url : exportUrl,
+		type : 'POST',
+		data : parameter,
+		dataType : 'json',
+		beforeSend: function(xhr){
+			xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            $( "#export_loader" ).show();
+		},
+		success : function(data){
+            if (okcancel===true){
+                clear_export_selected();
+                $( "#export_loader" ).hide();
+                $('#export .new_btn.jqmClose').click();
+                alert("Thank you for requesting the file via email. We will deliver it as soon as possible to " + subs_email+". You can now close your browser if you wish")
+            } else if(okcancel === false){
+                $( "#export_loader" ).show();
+                alert("Thank you for waiting for the file to download. Please stay on this page until the file is downloaded")
+            }
+            $('#bulk_download_reference').val(data.id);
+            setTimeout("downloadExcel()", 2000);
+		}
+	});
+});
+
+var downloadExcel = function(){
+    $.ajax({
+        url:'/get-export-status',
+        data : 'id='+$('#bulk_download_reference').val().split(",")[0],
+        type : 'POST',
+        beforeSend: function(xhr){ xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')); },
+        success : function(data){
+            if(data.status=="completed"){
+                clear_export_selected();
+                clear_fund_export_selected();
+                location.href = $.trim($('#bulk_download_reference').val().split(",")[1]);
+                $( "#export_loader" ).hide();
+                $('#export .new_btn.jqmClose').click();
+            }else{
+                $( "#export_loader" ).show();
+                setTimeout("downloadExcel()", 5000);
+            }
+        }
+    });
+};
+
+var downloadPerformanceExcel = function(){
+    $.ajax({
+        url:'/get-export-status',
+        data : 'id='+$('#bulk_download_reference').val().split(",")[0],
+        type : 'POST',
+        beforeSend: function(xhr){ xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')); },
+        success : function(data){
+            if(data.status=="completed"){
+               // location.href = $.trim($('#bulk_download_reference').val().split(",")[1]);
+                location.href = "/"+$.trim($('#bulk_download_reference').val().split(",")[1]);
+                $( "#export_loader" ).hide();
+                $('#export .new_btn.jqmClose').click();
+            }else{
+                $( "#export_loader" ).show();
+                setTimeout("downloadExcel()", 5000);
+            }
+        }
+    });
+};
+
+
+var clear_export_selected = function(){
+    $("#dealToExport option").attr("selected","selected");
+    $("[data-fromselect=dealToExport]").trigger("click");
+    $("#adviserToExport option").attr("selected","selected");
+    $("[data-fromselect=adviserToExport]").trigger("click");
+    $("#exitToExport option").attr("selected","selected");
+    $("[data-fromselect=exitToExport]").trigger("click");
+}
+
+
+var clear_fund_export_selected = function(){
+    $("#fundOptionToExport option").attr("selected","selected");
+    $("[data-fromselect=fundOptionToExport]").trigger("click");
+}
+
+$(document).on('click','#fundperformancedownloadExcel',function(){
+
+    var  subs_email = $('#subs_id').val()
+    var okcancel = confirm("Exported data may not include changes to the database made within the last 24 hours.\n Generation of the requested export file may take some time to complete. To download on your web browser now click ‘Cancel’\n To receive an email with your document to ("+ subs_email+") click ‘Ok’ and it’ll be sent as soon as possible.");
+
+   fundexportUrl = $(this).attr('data-exportcustomurl')
+   var parameter = $('#adv_right form').serialize()+"&okcancel="+okcancel;
+        $.ajax({
+                url : fundexportUrl,
+                type : 'POST',
+                data : parameter,
+                dataType : 'json',
+                beforeSend: function(xhr){
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            $( "#export_loader" ).show();
+        },
+                success : function(data){
+            if(okcancel===true){
+                $( "#export_loader" ).hide();
+                $('#export .new_btn.jqmClose').click();
+                alert("Thank you for requesting the file via email. We will deliver it as soon as possible to " + subs_email+". You can now close your browser if you wish")
+            }
+            else {
+                $( "#export_loader" ).show();
+                alert("Thank you for waiting for the file to download. Please stay on this page until the file is downloaded")
+            }
+            $('#bulk_download_reference').val(data.id);
+            setTimeout("downloadPerformanceExcel()", 2000);
+        }
+        });
+     }); 
+
+$(document).on('click','#funddownloadExcel',function(){
+
+    var  subs_email = $('#subs_id').val()
+    var okcancel = confirm("Exported data may not include changes to the database made within the last 24 hours.\n Generation of the requested export file may take some time to complete. To download on your web browser now click ‘Cancel’\n To receive an email with your document to ("+ subs_email+") click ‘Ok’ and it’ll be sent as soon as possible.");
+
+    var allExport = [];
+	$('#fundOptionToExport option').each(function(){
+	    allExport.push($(this).val());
+	});
+
+	var fundexportUrl;
+    if($('#search_type_compare').val()=="standard_search"){
+            fundexportUrl = $(this).attr('data-downloadurl')
+        }
+        else{
+            fundexportUrl = $(this).attr('data-exportcustomurl')
+       }
+
+	var parameter = $('#adv_right form').serialize()+"&selectedColDeal="+allExport+"&okcancel="+okcancel;
+	$.ajax({
+		url : fundexportUrl,
+		type : 'POST',
+		data : parameter,
+		dataType : 'json',
+		beforeSend: function(xhr){
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            $( "#export_loader" ).show();
+        },
+		success : function(data){
+            if(okcancel===true){
+                clear_fund_export_selected();
+                $( "#export_loader" ).hide();
+                $('#export .new_btn.jqmClose').click();
+                alert("Thank you for requesting the file via email. We will deliver it as soon as possible to " + subs_email+". You can now close your browser if you wish")
+            }
+            else {
+                $( "#export_loader" ).show();
+                alert("Thank you for waiting for the file to download. Please stay on this page until the file is downloaded")
+            }
+            $('#bulk_download_reference').val(data.id);
+            setTimeout("downloadExcel()", 2000);
+        }
+	});
+});
+
+//code for submit form only back-to-search=true
+$(function(){
+	if(location.href.indexOf('back-to-search=true')>0){
+		if($('#search_type_execute').val()=="standard_search"){
+			$('#mainForm #deal_search').click();
+		}
+		else if($('#search_type_execute').val()=="custom_search"){
+			setTimeout(function(){
+				$('#tabs li a[href="#tabs-2"]').click();
+				$('.customsearch_button').click();
+			},1000)
+		}
+	}
+});
+
+//code for submit form only run-saved-search=true
+$(function(){
+	if(location.href.indexOf('run-saved-search=true')>0){
+		if($('#search_type_execute').val()=="standard_search"){
+			$('#mainForm #deal_search').click();
+		}
+		else if($('#search_type_execute').val()=="custom_search"){
+			setTimeout(function(){
+				$('#tabs li a[href="#tabs-2"]').click();
+				$('.customsearch_button').click();
+			},1000)
+		}
+	}
+});
+
+//code for favourite deal page_url
+$(function() {
+	$(document).on('click','#favourites_onchange',function(){
+        var path = $(this).attr('data-favorite_url');
+        var value_id = $("#deal_id_value").val();
+        var params = $(this).attr('data-params')+value_id;
+        $.ajax({
+            type : 'POST',
+            url : path,
+            data : params,
+            dataType : 'text',
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            success : function(data) {
+                alert('Favourite added');
+            }
+        });
+	});
+});
+
+// my account fav search delete function
+ $(function() {
+	$(document).on('click','.delete_saved',function(e){
+		e.preventDefault();
+		var removeTr = $(this).parents('tr');
+		$.ajax({
+			type:'POST',
+			url : $(this).attr('href'),
+			beforeSend: function(xhr){
+		        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+		    },
+			success:function(){
+				$(removeTr).remove();
+			}
+		})
+	});
+});
+
+//saved search when click save button
+$(function(){
+	$(document).on('click','#savedsearchs',function(e){
+		e.preventDefault();
+		var searchUrl;
+		if($('#search_type_compare').val()=="standard_search"){
+			searchUrl = $(this).attr('data-standsearchurl')
+		}
+		else{
+			searchUrl = $(this).attr('data-customsearchurl')
+		}
+		var savedLength = $('#search_result_div .saved_search_validate').length
+		var savedCount = 0;
+		$('#search_result_div .saved_search_validate').each(function(){
+		    if($(this).val()==""){
+		        savedCount= savedCount+1;
+		    }
+		});
+		if(savedLength==savedCount){
+			alert('Please specify a search name')
+			$('#savesearch').jqmHide();
+		}
+		else{
+			if($('#savedsearch_update .saved_update_user').length>9){
+				alert('You Have Reached Maximum Limit');
+			}
+			else{
+			  $.ajax({
+			  	url : searchUrl,
+			  	type:'POST',
+			  	dataType : 'html',
+			  	data : $('#rightsideDealform').serialize()+'&name='+$('#searchName').val(),
+			  	beforeSend: function(xhr){
+				            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+				},
+			  	success:function(data){
+			  	  		$('#savedsearch_update tr.savedrow').after(data);
+				  		$('#savesearch').jqmHide();
+				  		$(".tooltip").tipTip();
+			  	}
+			  });
+			}
+		}
+	});
+});
+
+$(document).on('click','#loadTemplate',function(){
+	var TemplateId = $('#existingTemplateList option:selected').val();
+	if(TemplateId != undefined){
+	$.ajax({
+		url : $(this).attr('data-url'),
+		type : 'POST',
+		data : 'id='+TemplateId,
+		dataType : 'html',
+		beforeSend: function(xhr){
+			xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+		},
+		success : function(template){
+			$('#export #ajaxChangeDiv').html(template);
+			removeExportdulicateid();
+            $('.cleardropdownslist').on('click',clearAllDropdownlist);
+            $('.select_all_list').on('click',selectAllDropdownlist);
+            $(document).on('click','.move_items',move);
+            $('.moveup_list').on('click',moveUpList);
+		}
+	});
+	}
+	else{
+	    alert("please select excel template to load!");
+	}
+});
+
+
+var removeExportdulicateid = function(){
+	$('.export_value_update').each(function(i,item){
+		var current = $(item)
+		var remove_drop = $(this).attr('data-correspondent');
+		$('option',this).each(function(){
+			var left_value = $(this).val();
+			$('option',remove_drop).each(function(){
+				if(left_value==$(this).val()){
+					$('option[value="'+$(this).val()+'"]',item).remove()
+				}
+			});
+		});
+	});
+}
+
+
+//Funds Event Date clear
+$(document).on('click','.clearEventDateBox',function(){
+	$('#fundEventDatesId option').removeAttr('selected')
+	$('#eventdate .field_design2 option[value=""]').not('#eventdate .field_design2:first').attr('selected',true)
+	$('#saveFunddatebuttId').addClass('clearbox_alert');
+	$('#advSearchFund,#funds_event_dates,#funds_start_month,#funds_start_year,#funds_end_month,#funds_end_year').val('');
+	$('#advSearchFund').attr('title','Click on Edit to select value');
+	$('#advSearchFund.tooltip').tipTip()
+});
+
+// code for investor and adviser to deal search
+$(function(){
+    if(location.href.indexOf('deal-seach-link=true')>0){
+        $('#deal_source_change').attr("name","deal_source")
+            $('#deal_source_change').attr("name","deal_source")
+            $('#mainForm #deal_search').click();
+            //$('.deal_diff_search').hide();
+    }
+});
+
+//code for user access level messgae show
+$(document).ready(function() {
+    $(".access_message").on('click',function(){
+         alert($(".access_message").attr('data-title'));
+     });
+});
+
+//code for user access level messgae show
+$(document).ready(function() {
+    $("#access_message").on('click',function(){
+        alert($("#access_message").attr('data-title'));
+    });
+});
+
+
+//code for search page pdf
+$(function() {
+    $(document).on('click','#search_pdf_gen',function(){
+        if($("#search_id_compare").val() != undefined){
+        var path_url = $(this).attr('data-pdf_gen_url');
+        $('form[name="rightsideDealform"]').attr("action",path_url);
+        $('form[name="rightsideDealform"]').attr("target","_blank");
+        $('form[name="rightsideDealform"]').submit();
+        }
+        else{
+            alert("Please search criteria to create pdf");
+        }
+        // var path = $(this).attr('data-pdf_gen_url');
+        // var params = $('form[name="rightsideDealform"]').serialize();
+        // $.ajax({
+            // type : 'POST',
+            // url : path,
+            // data : params,
+            // dataType : 'text',
+            // beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            // success : function(data) {
+                // window.open(path,"_blank");
+            // }
+        // });
+
+    });
+});
+
+
+$(document).on('click','#deleteTemplate',function(){
+    var TemplateId = $('#existingTemplateList option:selected').val();
+    var DeleteTem = $('#existingTemplateList option:selected');
+
+    if(TemplateId != undefined ){
+        var conf = confirm("Are you sure! you want to delete the template.");
+        if (conf == true) {
+            $.ajax({
+                url : $(this).attr('data-delete_url'),
+                type : 'POST',
+                data : 'id='+TemplateId,
+                dataType : 'html',
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                },
+                success : function(template){
+                    $(DeleteTem).remove();
+                }
+            });
+         }
+    }
+    else{
+        alert("please select excel template to delete!");
+    }
+});
+
+
+//code for download excel sheets Investor/Advisor Page
+//
+//$(document).on('click','Profile_exportTrigger',function(){
+//    $('#profile_downloadExcel').attr("data-downloadurl", $(this).attr("data-downloadurl") )
+//})
+
+
+
+
+$(document).on('click','#profile_downloadExcel',function(){
+
+    var  subs_email = $('#subs_id').val()
+    var okcancel = confirm("Exported data may not include changes to the database made within the last 24 hours.\n Generation of the requested export file may take some time to complete. To download on your web browser now click ‘Cancel’\n To receive an email with your document to ("+ subs_email+") click ‘Ok’ and it’ll be sent as soon as possible.");
+
+    var allExport = []
+    var dealExport = [];
+    $('#dealToExport option').each(function(){
+        allExport.push($(this).val());
+    });
+    var adviserExport = [];
+    $('#adviserToExport option').each(function(){
+        allExport.push($(this).val());
+    });
+
+    var exitExport = [];
+    $('#exitToExport option').each(function(){
+        allExport.push($(this).val());
+    });
+
+    var exportUrl = $(this).attr('data-downloadurl');
+
+    var parameter = $('#mainForm').serialize()+"&selectedColDeal="+allExport+"&okcancel="+okcancel;
+    $.ajax({
+        url : exportUrl,
+        type : 'POST',
+        data : parameter,
+        dataType : 'json',
+        beforeSend: function(xhr){
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            $( "#export_loader" ).show();
+        },
+        success : function(data){
+            if(okcancel===true){
+                clear_fund_export_selected();
+                $( "#export_loader" ).hide();
+                $('#export .new_btn.jqmClose').click();
+                alert("Thank you for requesting the file via email. We will deliver it as soon as possible to " + subs_email+". You can now close your browser if you wish")
+            }
+            else {
+                $( "#export_loader" ).show();
+                alert("Thank you for waiting for the file to download. Please stay on this page until the file is downloaded")
+            }
+            $('#bulk_download_reference').val(data.id);
+            setTimeout("downloadExcel()", 2000);
+        }
+    });
+});
+
+$(document).on('click','#article_search_box_submit', function(e) {
+    if ($.trim($("#QsQuery").val()).length < 3)
+    {
+        alert('Please enter at least three characters for search');
+        e.preventDefault();
+    }
+    else
+    {
+        $('form[name="head_form"]').submit();
+    }
+});
+
+$(function ($) {
+    $('.investor_deal_list').bind('scroll', function () {
+        var currentBlock = $(this);
+        var params = $.parseJSON($(currentBlock).attr('data-params'));
+        var updateBlock = $(currentBlock).find('table tr:last');
+        var currentCount = Number($(currentBlock).attr('data-current_count'));
+        var increaseCount = Number($(currentBlock).attr('data-increse'));
+        if (Number($(currentBlock).attr('data-total_limit')) >= currentCount) {
+            if ($(currentBlock).scrollTop() + $(currentBlock).innerHeight() >= $(currentBlock)[0].scrollHeight) {
+                $.ajax({
+                    type: 'POST',
+                    url: $(currentBlock).attr('data-url') + '?count=' + currentCount,
+                    dataType: 'html',
+                    data: params,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                        $(currentBlock).find(".loading_indicator_proto").show();
+                        //  $('.investor_deal_list').addClass('loadin_background');
+                    },
+                    success: function (data) {
+                        $(updateBlock).after(data);
+                        $(currentBlock).attr('data-current_count', (currentCount + increaseCount));
+                        $(currentBlock).find(".loading_indicator_proto").hide();
+                        // $('.investor_deal_list').removeClass('loadin_background');
+                    },
+                });
+            }
+        }
+    })
+});
+
+
+//personal note when click save button
+$(function(){
+    $(document).on('click','.personal_note_save',function(){
+        var searchUrl = $(this).attr('data-saveurl');
+        var entity_type = $("#entity_type").val();
+        var entity_id = $("#entity_id").val();
+        var work_group_id = $("#work_group_id").val();
+        var subscriber_id = $("#subscriber_id").val();
+        var notesDesc = $("#dealnotesDescription").val();
+//        var params = '&entity_id='+entity_id+'&note_description='+notesDesc+'&entity_type='+entity_type+'&work_group_id='+work_group_id+'&subscriber_id='+subscriber_id;
+        var params = {entity_id:entity_id,note_description:notesDesc,entity_type:entity_type,work_group_id:work_group_id,subscriber_id:subscriber_id};
+        if(notesDesc == "" )
+        {
+            alert("Please enter data in Note!");
+            $("#dealnotesDescription").focus();
+            return false;
+        }
+        else{
+            $.ajax({
+                url : searchUrl,
+                type:'POST',
+                dataType : 'html',
+                data : params,
+                beforeSend: function(xhr){
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                },
+                error:function(){
+                    $('#note').jqmHide();
+                },
+                success:function(data){
+                    $('#personal_note_li').addClass('notepad_btn_edit');
+                    alert("Personal Notes added Successfully!");
+                    $('#note').jqmHide();
+                }
+            });
+        }
+    });
+});
+//personal note when click delete button
+$(function(){
+    $(document).on('click','.personal_note_delete',function(){
+
+
+        var searchUrl = $(this).attr('data-deleteurl')
+        var entity_type = $("#entity_type").val();
+        var entity_id = $("#entity_id").val();
+        var work_group_id = $("#work_group_id").val();
+        var subscriber_id = $("#subscriber_id").val();
+        var notesDesc = $("#dealnotesDescription").val();
+        var subscriber_note_id = $("#subscriber_note_id").val();
+//        var params = '&entity_id='+entity_id+'&note_description='+notesDesc+'&entity_type='+entity_type+'&work_group_id='+work_group_id+'&subscriber_id='+subscriber_id+'&subscriber_note_id='+subscriber_note_id;
+        var oldValue = $("#dealnotesDescription").val();
+        var params = {entity_id:entity_id,note_description:notesDesc,entity_type:entity_type,work_group_id:work_group_id,subscriber_id:subscriber_id}
+        if(notesDesc == "")
+        {
+            alert("No note exist to Delete!");
+            $("#dealnotesDescription").focus();
+            return false;
+        }
+        else{
+            var delete_confirm = confirm("Are you sure? you want to Delete the Note.");
+            if(delete_confirm ==true){
+                $.ajax({
+                    url : searchUrl,
+                    type:'POST',
+                    dataType : 'html',
+                    data : params,
+                    beforeSend: function(xhr){
+                        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                    },
+                    error:function(){
+                        $('#note').jqmHide();
+                    },
+                    success:function(data){
+                        $('#personal_note_li').removeClass('notepad_btn_edit');
+                        $("#dealnotesDescription").val("");
+                        $('#note').jqmHide();
+                        alert("Personal Notes deleted Successfully!");
+                    }
+                });
+            }
+            else if(delete_confirm == false){
+                $('#note').jqmHide();
+            }
+        }
+    });
+});
+

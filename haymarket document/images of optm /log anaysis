@@ -1,0 +1,73 @@
+live gem
+ruby@Haymarket-Live:~$ vi .rvm/gems/ruby-1.9.3-p194@haylive/gems/image_squeeze-0.1.5/
+
+
+ruby@HaymarketStage:~$ vi .rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/image_size-1.5.0/lib/image_size.rb 
+stage installed
+
+stage:
+
+gem version
+      gem 'image_optim', :git => 'git://github.com/toy/image_optim.git'
+
+      gem 'image_optim_pack'
+
+
+
+pre error:
+[!] There was an error parsing `Gemfile`: Illformed requirement ["-> 0.20.1"]. Bundler cannot continue.
+
+ #  from /home/ruby/CMS/Admin/Gemfile:16
+ #  -------------------------------------------
+ #  	# end
+ >          gem 'image_optim', '-> 0.20.1'
+ #          gem 'image_optim_pack', '-> 0.3.1'
+ #  -------------------------------------------
+
+https://github.com/toy/image_optim
+
+
+sudo apt-get install -y advancecomp gifsicle jhead jpegoptim libjpeg-progs optipng pngcrush pngquant
+
+vi .iamge_optim.yml
+
+error:
+
+ Called from: /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/actionpack-3.1.3/lib/action_dispatch/middleware/session/abstract_store.rb:28:in `initialize'.
+
+/home/ruby/CMS/Kreatio_Core/app/models/article.rb:94: warning: already initialized constant ARTICLE_SCHEMA_INFO
+/home/ruby/CMS/Kreatio_Core/app/models/article_content.rb:105: warning: character class has ']' without escape: /\[asset_library_tag\s(\d+),([^]]+)\]/
+/home/ruby/CMS/Admin/app/models/article.rb:27: warning: already initialized constant COMMON_VERSIONED_NORMAL_ATTRIBUTES
+/home/ruby/CMS/Kreatio_Core/app/models/image_size.rb:1:in `<top (required)>': superclass mismatch for class ImageSize (TypeError)
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/activesupport-3.1.3/lib/active_support/dependencies.rb:240:in `require'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/activesupport-3.1.3/lib/active_support/dependencies.rb:240:in `block in require'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/activesupport-3.1.3/lib/active_support/dependencies.rb:225:in `load_dependency'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/activesupport-3.1.3/lib/active_support/dependencies.rb:240:in `require'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/activesupport-3.1.3/lib/active_support/dependencies.rb:348:in `require_or_load'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/mixable_engines-0.1.1/lib/mixable_engines.rb:13:in `require_or_load'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/activesupport-3.1.3/lib/active_support/dependencies.rb:302:in `depend_on'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/activesupport-3.1.3/lib/active_support/dependencies.rb:214:in `require_dependency'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/railties-3.1.3/lib/rails/engine.rb:417:in `block (2 levels) in eager_load!'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/railties-3.1.3/lib/rails/engine.rb:416:in `each'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/railties-3.1.3/lib/rails/engine.rb:416:in `block in eager_load!'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/railties-3.1.3/lib/rails/engine.rb:414:in `each'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/railties-3.1.3/lib/rails/engine.rb:414:in `eager_load!'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/railties-3.1.3/lib/rails/application/railties.rb:8:in `each'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/railties-3.1.3/lib/rails/application/railties.rb:8:in `all'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/railties-3.1.3/lib/rails/engine.rb:412:in `eager_load!'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/railties-3.1.3/lib/rails/application/finisher.rb:51:in `block in <module:Finisher>'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/railties-3.1.3/lib/rails/initializable.rb:30:in `instance_exec'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/railties-3.1.3/lib/rails/initializable.rb:30:in `run'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/railties-3.1.3/lib/rails/initializable.rb:55:in `block in run_initializers'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/railties-3.1.3/lib/rails/initializable.rb:54:in `each'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/railties-3.1.3/lib/rails/initializable.rb:54:in `run_initializers'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/railties-3.1.3/lib/rails/application.rb:96:in `initialize!'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/railties-3.1.3/lib/rails/railtie/configurable.rb:30:in `method_missing'
+	from /home/ruby/CMS/Admin/config/environment.rb:5:in `<top (required)>'
+	from config.ru:4:in `require'
+	from config.ru:4:in `block in <main>'
+
+gem name same
+
+ruby@HaymarketStage:~/CMS/Admin$ vi .rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/image_size-1.5.0/lib/image_size.rb 
+

@@ -1,0 +1,10 @@
+
+
+
+ruby@MMActiv:~/CMS/CMS_Admin$ /etc/init.d/unicorn stop admin
+/home/ruby/CMS/CMS_Admin: Stopping
+ruby@MMActiv:~/CMS/CMS_Admin$ /etc/init.d/unicorn stop admin
+/home/ruby/CMS/CMS_Admin: Not running
+ruby@MMActiv:~/CMS/CMS_Admin$ /etc/init.d/unicorn start admin
+/home/ruby/CMS/CMS_Admin: Starting
+

@@ -1,0 +1,78 @@
+ <style>
+            .section_block_sarch_announce {background:none repeat scroll 0 0 rgba(231, 240, 239, 0.9)}
+            .sarch_announce {margin-bottom: 0px;font-size: 12px;padding: 0px;}
+            .sarch_announce .announce_right_one {width: 100%;padding-bottom: 0px;}
+            .sarch_announce .form_data {padding-bottom: 5px;}
+            .sarch_announce .form_data.annonce_text{margin-left: 50px;}
+  </style>
+
+
+
+ <div class="section_block full_section section_block_sarch_announce">
+            <h2>Announcement</h2>
+    <div class="section_content">
+        <div class="sarch_announce">
+
+        <%if session[:role_type]!="Author" %>
+        <div class="announce_right_one_announce">
+              <a onclick="window.open('/admin/users/add_announcement','mywindow','width=700,height=300');" >
+                  Add Announcement</a>
+             </div>
+         <%end%>
+          <div class="announce_right_one">
+
+                 <table class="list1" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tbody>
+                        <%if @announcements!=nil%>
+                            <%for announcement in @announcements %>
+                            <tr id="op_<%=announcement.id%>">
+                                <td>
+                                  <div class="form_data">
+                                    <p><%=announcement.created_at.strftime("%d.%m.%y") %></p>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div class="form_data">
+                                   <p> <%=announcement.created_at.strftime("%I:%M %p") %></p>
+                                  </div>
+                                </td>
+                                <td class="settextcolor">
+                                  <div class="form_data annonce_text">
+                                    <p><%=announcement.topic %></p>
+                                  </div>
+                                </td>
+                                <td class="settextcolors">
+                                  <div class="form_data annonce_text">
+                                    <%=announcement.message %>
+                                  </div>
+                                </td>
+                                <%if session[:role_type]!="Author" %>
+                                    <td class="settextcolor"><a href="javascript:void(0);" class="remove_announcement" data-id="op_<%= announcement.id%>"> <%= image_tag "/images/new_button/cancel_f2.png", :alt=>"Remove", :height => "15px" %> </a></td>
+                                <%end %>
+                            </tr>
+                        <%end %>
+                    <%else%>
+                        <tr><td></td></tr>
+                    <%end%>
+                </tbody>
+            </table><!--p class="view_bgimage"><a class="settextcolor"  href="#">View all announcements</a></p-->
+              </div>
+          </div>
+   </div>
+</div>
+<script type="text/javascript">
+        $('.remove_announcement').click(function() {
+                var new_id = $(this).attr("data-id");
+                var id = $(this).attr("data-id").split("_").pop();
+                $.ajax({
+                        type : "POST",
+                        url : "/admin/users/remove_anouncement",
+                        data : "id=" + id,
+                        success : function() {
+                                $('#' + new_id).remove();
+                        }
+                })
+        })
+</script>
+
+                                                                                                                                                             

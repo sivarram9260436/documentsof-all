@@ -1,0 +1,15 @@
+class Site < ActiveRecord::Base
+def a 
+p 1
+end
+def a
+super
+end
+end
+class Article < Site
+def a
+p 1
+end
+end
+
+

@@ -1,0 +1,919 @@
+class FundsController < ApplicationController
+  before_filter :admin_site
+  before_filter :access_filter
+
+  def new_fund
+
+  end
+
+  def create_fund
+    status = Status.by_type("fund").by_name("Skeletal").first.id
+    Fund.transaction do
+      @fund = @site.funds.create(name: params[:new_fund_name].strip,status_id: status)
+      @fund.index_to_search_engine
+    end
+    render :json => { :response => @fund.id }
+  end
+
+	def edit_fund
+	  @form_action = "update_fund"
+		@fund = @site.funds.find(params[:fund_id])
+
+		case params[:tab]
+		  when "Key_fund_specifics"
+		    @continents = Continent.all
+        @regions = Region.all
+        @sub_regions = SubRegion.all
+        @countries = Country.all
+        @cities = City.all
+		    @fund_alocation  = @fund.fund_alocation || @fund.create_fund_alocation
+		    @investment_preference = @fund.investment_preference || @fund.create_investment_preference
+		    @fund_structure  = @fund.fund_structure || @fund.create_fund_structure
+		    @terms_condition = @fund.terms_condition || @fund.create_terms_condition
+		    @fund_events = @fund.fund_events.order("event_date asc") || @fund.create_fund_events
+
+
+
+@lp_trade_events = @fund.lp_trades.order("trade_date asc") || @fund.create_lp_trade_events
+@fund_performances = @fund.fund_performances.order("fund_performance_date asc") || @fund.create_fund_performances
+@dry_powder_events = @fund.dry_powders.order("date asc") || @fund.create_dry_powder_events
+
+
+
+
+		    @investment_preference.co_invest_with_other_funds  =  @investment_preference.co_invest_with_other_funds.blank? ? "disclosed" : @investment_preference.co_invest_with_other_funds
+		    @investment_preference.save
+		    @terms_condition.catch_up_mechanisms = @terms_condition.catch_up_mechanisms.blank? ? "disclosed" : @terms_condition.catch_up_mechanisms
+		    @terms_condition.keyman_clause = @terms_condition.keyman_clause.blank? ? "disclosed" : @terms_condition.keyman_clause
+		    @terms_condition.clawback_prevision = @terms_condition.clawback_prevision.blank? ? "disclosed" : @terms_condition.clawback_prevision
+		    @terms_condition.save
+	  	when "lps_in_fund"
+	  	  @geographic_mix = @fund.geographic_mix_investor || @fund.create_geographic_mix_investor
+	  	when "advisors_to_fund"
+	  		@fund_advisor = @fund.fund_advisors
+	  	when "fund_portfolio"
+	  		@fund_portifolio = DealInvestment.where(:fund_id => params[:fund_id]).joins(:deal).order("deals.deal_announced asc")
+	  end
+
+	end
+
+	def update_fund
+		@fund = @site.funds.find(params[:fund_id])
+
+	    case params[:tab]
+			  when "Key_fund_specifics"
+			    @fund.transaction do
+			  		@fund.update_attributes(params[:fund])
+			  		@fund.reload()
+            cur = CurrencyExchange.get_other_currency_rates((@fund.target_size.blank? ? 0 : @fund.target_size.to_f), @fund.currency, (@fund.created_at.blank? ? Date.today.beginning_of_month : @fund.created_at.to_date.beginning_of_month))
+            @fund.fund_target_size_uk = cur[:uk]
+            @fund.fund_target_size_us = cur[:us]
+            @fund.fund_target_size_euro = cur[:euro]
+            @fund.fund_target_size_yen = cur[:yen]
+            @fund.save
+ 
+            tar = CurrencyExchange.get_other_currency_rates((@fund.fund_target_amount.blank? ? 0 : @fund.fund_target_amount.to_f), @fund.currency, (@fund.created_at.blank? ? Date.today.beginning_of_month : @fund.created_at.to_date.beginning_of_month))
+            @fund.fund_target_amount_uk = tar[:uk]
+            @fund.fund_target_amount_us = tar[:us]
+            @fund.fund_target_amount_euro = tar[:euro]
+            @fund.fund_target_amount_yen = tar[:yen]
+            @fund.save
+ 
+              @fund.investment_preference.update_attributes(params[:investment_preference])
+
+              # start geography code
+              existing_geo_ids = @fund.investment_preference.countries.collect(&:id)
+
+              new_geo_ids = params[:geographic_prefs].split(",").collect(&:strip).collect(&:to_i).flatten
+
+             unless existing_geo_ids.blank?
+               geos = @fund.investment_preference.countries.find(existing_geo_ids - new_geo_ids)
+               @fund.investment_preference.countries.delete(geos)
+             end
+
+             # adding new geography
+             (new_geo_ids - existing_geo_ids).flatten.each do |geo|
+               geography = Country.find(geo.to_i)
+               @fund.investment_preference.countries  << geography
+             end # do end
+             # end geography code
+
+             # start stage code
+               existing_stage_ids = @fund.investment_preference.stage_prefs.collect(&:id)
+
+               new_stage_ids = params[:stage_prefs].split(",").collect(&:strip).collect(&:to_i).flatten
+
+               unless existing_stage_ids.blank?
+                 stages = @fund.investment_preference.stage_prefs.find(existing_stage_ids - new_stage_ids)
+                 @fund.investment_preference.stage_prefs.delete(stages)
+               end
+
+               # adding new stage
+               (new_stage_ids - existing_stage_ids).flatten.each do |stage|
+                 stage = StagePref.find(stage.to_i)
+                 @fund.investment_preference.stage_prefs  << stage
+               end # do end
+             # end Stage  code
+
+             # start sector code
+               existing_sector_ids = @fund.investment_preference.sector_prefs.collect(&:id)
+
+               new_sector_ids = params[:sector_prefs].split(",").collect(&:strip).collect(&:to_i).flatten
+
+               unless existing_sector_ids.blank?
+                 sectors = @fund.investment_preference.sector_prefs.find(existing_sector_ids - new_sector_ids)
+                 @fund.investment_preference.sector_prefs.delete(sectors)
+               end
+
+               # adding new sector
+               (new_sector_ids - existing_sector_ids).flatten.each do |sector|
+                 sector = SectorPref.find(sector.to_i)
+                 @fund.investment_preference.sector_prefs  << sector
+               end # do end
+             # end sector  code
+			  		@fund.fund_alocation.update_attributes(params[:fund_alocation])
+			  		@fund.fund_structure.update_attributes(params[:fund_structure])
+			  		@fund.terms_condition.update_attributes(params[:terms_condition])
+			  		@fund.index_to_search_engine
+			  		@fund.update_attributes(updated_by: @user.id,last_date: Time.zone.now)
+			  	end #transaction
+
+		  	when "fundraiser_details"
+	  			@fund.transaction do
+
+	  				@fund.update_attributes(params[:fund])
+	  				if params[:fund][:investor_group_component_id] == "undefined"
+	  				  @fund.fund_executives.delete_all
+	  				else
+  		  			existing_ids = @fund.fund_executives.collect(&:investor_group_executive_id)
+  			      new_ids = params[:fund_executives].split(",").collect(&:strip).flatten
+  			      # existing executives need to be removed removed
+  			      @fund.fund_executives.where(:investor_group_executive_id => (existing_ids - new_ids)).delete_all
+
+  			      # adding new executives
+  			      (new_ids - existing_ids).flatten.each do |exec|
+  			        executive = InvestorGroupExecutive.find(exec)
+  			       @fund.fund_executives.create(investor_group_component_id: executive.investor_group_component.id, investor_group_executive_id: executive.id)
+  			      end
+        			@fund.reload()
+
+        			#render :text => "success"
+      	    end  # if
+      	    @fund.update_attributes(updated_by: @user.id,last_date: Time.zone.now)
+      	    @fund.index_to_search_engine
+			    end #transaction
+
+		  	when "lps_in_fund"
+		  		[:assessment_management, :bank, :corporate, :family_office, :foundation, :funds_of_funds_manager, :insurance_company, :other, :pension_fund, :private_bank, :private_equity_firm, :public_pension_fund, :soveregion_wealth_fund].each do |default_param|
+		  	  	params[:geographic_mix][default_param] ||= false
+		  	 	end
+		  	 	@fund.geographic_mix_investor.update_attributes(params[:geographic_mix])
+		  	 	@fund.update_attributes(updated_by: @user.id,last_date: Time.zone.now)
+	    end
+	    if request.xhr?
+	     render :text => "success"
+	    else
+	     redirect_to :action => "edit_fund", :tab => params[:tab], :fund_id => @fund.id
+	    end
+
+
+
+	end
+
+	def get_investors_for_fund
+		investors = @site.investor_groups.by_name(params[:q].strip).limit(AUTO_COMPLETION_LIMIT)
+		render :json => investors.collect{ |investor| { :id => investor.id, :name => investor.group_name } }
+	end
+
+	def get_components_for_investor
+    @investor_component = InvestorGroupComponent.by_investor_group(params[:investor_id])
+    render :partial => "get_components_for_investor"
+	end
+
+	def get_investor_executive
+    investor_executives = @site.investor_groups.find(params[:investor_comp_id]).investor_group_executives.by_name(params[:q].strip)
+    render :json => investor_executives.sort_by(&:first_name).collect{ |investor_executive| { :id => investor_executive.id, :name => "#{investor_executive.full_name} &&& #{investor_executive.investor_group_component.name} &&& #{investor_executive.investor_group_component.investor_group.group_name}"  } }
+	end
+
+	def change_status
+		@fund = @site.funds.find(params[:fund_id])
+		Fund.transaction do
+      @fund.update_attributes!(:status_id => params[:status_id],:last_date => Time.zone.now)
+      unquote_newletter_event(@fund.class.name, @fund.id, @fund.status_id, "fund")
+      @fund.index_to_search_engine
+    end
+    render :json => { :status => @fund.status.name }
+	end
+
+  def list_funds
+    @list_fund=Status.by_type("fund")
+    @hide_secondary_menu = true
+  end
+
+  def fund_search
+    a = []
+    params[:fund_name].downcase.each_char {|c| a = a.join(',') + c, c.to_i.to_s.eql?(c) ? ' ' : '' } if !params[:fund_name].blank?
+     if params[:search_submit] == "true"
+      case params[:status]
+        when "researched"
+         if !params[:fund_id].blank?
+           @funds = Fund.text_search({ :text => params[:fund_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym } } )
+         else
+            @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] }, :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :page => params[:page], :per_page => PER_PAGE,:fields => ["name"] })
+         end
+
+        when "new-records"
+          if !params[:fund_id].blank?
+           @funds= Fund.text_search({ :text => params[:fund_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :gt_filters => {:updated_at => Time.zone.now.beginning_of_day - 3.months},:dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym } })
+          else
+           @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :gt_filters => {:updated_at => Time.zone.now.beginning_of_day - 3.months}, :filters => {  :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] }, :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :page => params[:page], :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        when "pending-qc"
+          if !params[:fund_id].blank?
+            @funds = Fund.text_search({ :text => params[:fund_id], :filters => { :status_name => [["Pending QC"], "ary"] },:dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }})
+          else
+            @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""),  :filters => { :status_name => [["Pending QC"], "ary"] , :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },:dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym },  :page => params[:page], :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        when "failed"
+         if !params[:fund_id].blank?
+            @funds = Fund.text_search({ :text => params[:fund_id], :filters => { :status_name => [["Failed"], "ary"] }, :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }})
+          else
+            @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""),  :filters => { :status_name => [["Failed"], "ary"] , :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :page => params[:page],:dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        when "no-main-investor-group"
+          if !params[:fund_id].blank?
+             @funds = Fund.text_search({ :text => params[:fund_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_main_investor => [true] },:dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }})
+          else
+             @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_main_investor => [true] , :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :page => params[:page], :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        when "no-fund-country-of-origin"
+          if !params[:fund_id].blank?
+             @funds = Fund.text_search({ :text => params[:fund_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_country => [true] },:dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }})
+          else
+             @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_country => [true] }, :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :page => params[:page], :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        when "no-fund-announced-event"
+          if !params[:fund_id].blank?
+              @funds = Fund.text_search({ :text => params[:fund_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_fund_event => [true] },:dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }})
+          else
+              @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_fund_event => [true] , :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },:dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym },  :page => params[:page], :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        when "close-fund"
+          if !params[:fund_id].blank?
+              @funds = Fund.text_search({ :text => params[:fund_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :fund_status => [["Closed"],"ary"] },:dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }})
+          else
+              @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => {  :fund_status => [["Closed"],"ary"] , :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },:dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym },  :page => params[:page], :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        when "no-target-size"
+         if !params[:fund_id].blank?
+              @funds = Fund.text_search({ :text => params[:fund_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_target_size => [true] },:dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }})
+          else
+              @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_target_size => [true] , :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] }, :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :page => params[:page], :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        when "deleted"
+          if !params[:fund_id].blank?
+             @funds = Fund.text_search({ :text => params[:fund_id], :filters => { :status_name => [["Delete"], "ary"] },:dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }})
+          else
+              @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""),  :filters => { :status_name => [["Delete"], "ary"] , :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :page => params[:page],:dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        end  # case end
+      else # sumbit search else
+        case params[:status]
+        when "researched"
+         if !params[:fund_id].blank?
+           @funds = Fund.text_search({ :text => params[:fund_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym } } )
+         else
+            @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :page => params[:page], :per_page => PER_PAGE,:fields => ["name"] })
+         end
+
+        when "new-records"
+          if !params[:fund_id].blank?
+           @funds= Fund.text_search({ :text => params[:fund_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :gt_filters => {:updated_at => Time.zone.now.beginning_of_day - 3.months},:dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym } })
+          else
+           @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :gt_filters => {:updated_at => Time.zone.now.beginning_of_day - 3.months}, :filters => {  :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :page => params[:page], :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        when "pending-qc"
+          if !params[:fund_id].blank?
+            @funds = Fund.text_search({ :text => params[:fund_id], :filters => { :status_name => [["Pending QC"], "ary"] },:dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }})
+          else
+            @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""),  :filters => { :status_name => [["Pending QC"], "ary"] , :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },:dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym },  :page => params[:page], :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        when "failed"
+         if !params[:fund_id].blank?
+            @funds = Fund.text_search({ :text => params[:fund_id], :filters => { :status_name => [["Failed"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }})
+          else
+            @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""),  :filters => { :status_name => [["Failed"], "ary"] , :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :page => params[:page],:dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        when "no-main-investor-group"
+          if !params[:fund_id].blank?
+             @funds = Fund.text_search({ :text => params[:fund_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_main_investor => [true] },:dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }})
+          else
+             @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_main_investor => [true] , :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :page => params[:page], :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        when "no-fund-country-of-origin"
+          if !params[:fund_id].blank?
+             @funds = Fund.text_search({ :text => params[:fund_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_country => [true] },:dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }})
+          else
+             @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_country => [true] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :page => params[:page], :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        when "no-fund-announced-event"
+          if !params[:fund_id].blank?
+              @funds = Fund.text_search({ :text => params[:fund_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_fund_event => [true] },:dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }})
+          else
+              @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_fund_event => [true] , :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },:dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym },  :page => params[:page], :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        when "close-fund"
+          if !params[:fund_id].blank?
+              @funds = Fund.text_search({ :text => params[:fund_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :fund_status => [["Closed"],"ary"] },:dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }})
+          else
+              @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => {  :fund_status => [["Closed"],"ary"] , :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },:dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym },  :page => params[:page], :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        when "no-target-size"
+         if !params[:fund_id].blank?
+              @funds = Fund.text_search({ :text => params[:fund_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_target_size => [true] },:dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }})
+          else
+              @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_target_size => [true] , :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :page => params[:page], :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        when "deleted"
+          if !params[:fund_id].blank?
+             @funds = Fund.text_search({ :text => params[:fund_id], :filters => { :status_name => [["Delete"], "ary"] },:dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }})
+          else
+              @funds = Fund.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""),  :filters => { :status_name => [["Delete"], "ary"] , :country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :page => params[:page],:dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :per_page => PER_PAGE, :fields => ["name"] })
+          end  # if end
+        end  # case end
+      end # search submit end
+  end
+
+  def get_geography_prefs
+    country_geography_prefs =  Country.by_name(params[:q].strip)
+    render :json => country_geography_prefs.collect{ |geo| { :id => geo.id, :name => geo.name } }
+  end
+
+  def get_stage_prefs
+    stage_prefs =  StagePref.by_name(params[:q].strip)
+    render :json => stage_prefs.collect{ |stage| { :id => stage.id, :name => stage.name } }
+  end
+
+  def get_sector_prefs
+    sector_prefs =  SectorPref.by_name(params[:q].strip)
+    render :json => sector_prefs.collect{ |sector| { :id => sector.id, :name => sector.name } }
+  end
+
+  def get_cities
+    cities = City.by_name(params[:q].strip).limit(AUTO_COMPLETION_LIMIT)
+    render :json => cities.collect{ |city| { :id => city.id, :name => city.name } }
+  end
+
+   def fund_alphabetical_search
+     if params[:view_all]
+       @funds = Fund.paginate(:page => params[:page] ,:per_page => ADMIN_PER_PAGE)
+     elsif  params[:alphabet]
+       if params[:order]
+      @funds = Fund.sort_by_alphabet(params[:alphabet]).order("#{params[:sort]}  #{params[:order]}").paginate(:page => params[:page] ,:per_page => ADMIN_PER_PAGE)
+      else
+       @funds = Fund.sort_by_alphabet(params[:alphabet]).paginate(:page => params[:page] ,:per_page => ADMIN_PER_PAGE)
+      end
+      elsif params[:order]
+        @funds = Fund.order("#{params[:sort]}  #{params[:order]}").paginate(:page => params[:page] ,:per_page => ADMIN_PER_PAGE)
+    end
+  end
+
+  def get_countries
+    countries = Country.by_name(params[:q].strip).limit(AUTO_COMPLETION_LIMIT)
+    render :json => countries.collect{ |country| { :id => country.id, :name => country.name } }
+  end
+
+  def get_advisors_for_fund
+    advisor_components = AdvisorGroupComponent.by_name(params[:q].strip).limit(AUTO_COMPLETION_LIMIT)
+    render :json => advisor_components.collect{ |advisor_component| { :id => advisor_component.id, :name => advisor_component.name } }
+  end
+
+  def get_advisor_detail_for_funds
+    @advisor_component = AdvisorGroupComponent.find(params[:advisor_component_id])
+    @fund_advisor = FundAdvisor.new
+    render :partial => "get_advisor_detail_for_fund"
+  end
+   def add_advisor_to_fund
+    @fund  = Fund.find(params[:fund_id])
+
+    @fund.transaction do
+      @fund_advisor =@fund.fund_advisors.create(params[:advisor])
+      params[:executives].split(",").each do |exec|
+        executive = AdvisorGroupExecutive.find(exec)
+        @fund_advisor.fund_advisor_executives.create(advisor_group_component_id: executive.advisor_group_component.id, advisor_group_executive_id: executive.id)
+      end
+      @fund.update_attributes(updated_by: @user.id,last_date: Time.zone.now)
+    end
+
+    render :partial => "add_advisor_to_fund"
+  end
+
+  def edit_fund_advisor
+    @fund_advisor = FundAdvisor.find(params[:fund_advisor_id])
+    @advisor_component = @fund_advisor.advisor_group_component
+    render :partial => "get_advisor_detail_for_fund"
+  end
+
+  def update_fund_advisor
+    @fund=Fund.find(params[:fund_id])
+
+    @fund_advisor=FundAdvisor.find(params[:fund_advisor_id])
+     @fund.transaction do
+       @fund_advisor.fund_id=@fund.id
+       
+       @fund_advisor.update_attributes(params[:fund_advisor])
+       existing_ids = @fund_advisor.fund_advisor_executives.collect(&:advisor_group_executive_id)
+       new_ids = params[:executives].split(",").collect(&:strip).collect(&:to_i).flatten
+       # existing executives need to be removed removed
+       @fund_advisor.fund_advisor_executives.where(:advisor_group_executive_id => (existing_ids - new_ids)).delete_all
+
+       # adding new executives
+       (new_ids - existing_ids).flatten.each do |exec|
+         executive = AdvisorGroupExecutive.find(exec)
+         @fund_advisor.fund_advisor_executives.create(advisor_group_component_id: executive.advisor_group_component.id, advisor_group_executive_id: executive.id)
+       end # do end
+       @fund_advisor.reload()
+       @fund.update_attributes(updated_by: @user.id,last_date: Time.zone.now)
+      end # transaction end
+    render :partial => "add_advisor_to_fund"
+  end
+
+  def remove_advisor_from_fund
+    fund_advisor = FundAdvisor.find(params[:fund_advisor_id])
+
+      Fund.transaction do
+        fund_advisor.fund_advisor_executives.delete_all
+        fund_advisor.delete
+      end
+     render :text => "deleted"
+  end
+
+  def new_fund_event
+    @fund=@site.funds.find(params[:fund_id])
+    @fund_event=FundEvent.new
+    @fund_event.final_close = @fund_event.final_close.blank? ? "false" : @fund_event.final_close
+    @form_action="create_fund_event"
+    render :partial => "form_fund_event"
+  end
+
+  def create_fund_event
+    @fund=@site.funds.find(params[:fund_id])
+    @fund.transaction do
+      @fund_event = @fund.fund_events.create(params[:fund_event])
+      if params[:fund_event][:final_close] == "true"
+        @fund.update_attributes(:fund_status => "Closed")
+      else
+         @fund.update_attributes(:fund_status => "Open")
+      end
+
+      if !@fund.fund_events.blank?
+        if @fund.fund_events.order("event_date asc").reject { |c| c.amount_closed.empty? || c.amount_closed.to_i == 0 }.blank?
+          amount_lastest_value = ""
+        else
+          amount_lastest_value = @fund.fund_events.order("event_date asc").reject { |c| c.amount_closed.empty? || c.amount_closed.to_i == 0 }.last.amount_closed
+        end
+      else
+        amount_lastest_value = ""
+      end
+
+       @fund.update_attributes(:fund_target_amount =>  amount_lastest_value,:updated_by => @user.id,:last_date => Time.zone.now)
+      @fund.index_to_search_engine
+    end
+    render :partial => "add_fund_event"
+  end
+
+  def edit_fund_event
+    @fund=@site.funds.find(params[:fund_id])
+    @fund_event=FundEvent.find(params[:fund_event_id])
+    @fund_event.final_close = @fund_event.final_close.blank? ? "false" : @fund_event.final_close
+    @form_action="update_fund_event"
+    render :partial => "form_fund_event"
+  end
+
+  def update_fund_event
+    @fund=@site.funds.find(params[:fund_id])
+    @fund_event=FundEvent.find(params[:fund_event_id])
+    @fund.transaction do
+      fund_event = @fund_event.update_attributes(params[:fund_event])
+
+      if !@fund.fund_events.blank?
+          fund_status = @fund.fund_events.order("event_date asc").last.final_close.eql?("true") ? "Closed" : "Open"
+         @fund.update_attributes(:fund_status => fund_status)
+      end
+
+      if !@fund.fund_events.blank?
+
+        if @fund.fund_events.order("event_date asc").reject { |c| c.amount_closed.empty? || c.amount_closed.to_i == 0 }.blank?
+          amount_lastest_value = ""
+        else
+          amount_lastest_value = @fund.fund_events.order("event_date asc").reject { |c| c.amount_closed.empty? || c.amount_closed.to_i == 0 }.last.amount_closed
+        end
+      else
+        amount_lastest_value = ""
+      end
+
+       @fund.update_attributes(:fund_target_amount => amount_lastest_value,:updated_by => @user.id,:last_date => Time.zone.now)
+       @fund.index_to_search_engine
+    end
+    render :partial => "add_fund_event"
+  end
+
+  def get_fund_lps
+    institutions =  InstitutionOffice.by_name(params[:q].strip)
+    render :json => institutions.collect{ |institution| { :id => institution.id, :name => institution.company_name} }
+  end
+
+  def remove_lp_from_fund
+    fund_lp_id = LpFund.find(params[:fund_lp_id])
+
+      LpFund.transaction do
+        fund_lp_id.delete
+      end
+     render :text => "deleted"
+  end
+
+  def save_lps_in_funds
+    @fund = Fund.find(params[:fund_id])
+    @fund.transaction do
+       institution_company  = InstitutionOffice.find(params[:institution_id])
+      @lp = @fund.lp_funds.create(:institution_company_info_id => institution_company.institution_company_info_id )
+      @fund.update_attributes(updated_by: @user.id,last_date: Time.zone.now)
+    end
+    render :partial => "add_lp_to_fund"
+  end
+
+  def get_deals_for_fund
+    @form_action = "save_deal_in_funds"
+    if params[:select_type] == "first_word"
+      @search_deals = Deal.by_name_with_first_word(params[:deal_name].strip)
+    else
+      @search_deals = Deal.by_name(params[:deal_name].strip)
+    end
+    render :partial => "listing_deals_in_fund"
+  end
+
+  def get_lps_for_fund
+    @form_action = "save_lp_in_funds"
+    if params[:select_type] == "first_word"
+      @search_lps = InstitutionOffice.by_main_office(true).by_name_with_first_word(params[:institution_name].strip)
+    else
+      @search_lps = InstitutionOffice.by_main_office(true).by_name(params[:institution_name].strip)
+    end
+    render :partial => "listing_lps_in_fund"
+  end
+
+  def save_deal_in_funds
+     @fund = Fund.find(params[:fund_id])
+     if @fund.investor_group_component
+      @fund.transaction do
+        params[:selected_deals].split(",").each do |deal_id|
+        @fund_portifolio = DealInvestment.create(:deal_id => deal_id,:fund_id => @fund.id,:investor_group_component_id => @fund.investor_group_component.id )
+       end
+       @fund.update_attributes(updated_by: @user.id,last_date: Time.zone.now)
+      end
+    end
+    render :text => "success"
+  end
+
+  def save_lp_in_funds
+    @fund = @site.funds.find(params[:fund_id])
+    @fund.transaction do
+      params[:selected_deals].split(",").each do |lp_id|
+        institution_office  = InstitutionOffice.find(lp_id)
+        if  @fund.lp_funds.where(:institution_company_info_id => institution_office.institution_company_info_id ).blank?
+          @fund.lp_funds.create(:institution_company_info_id => institution_office.institution_company_info_id )
+          @fund.update_attributes(updated_by: @user.id,last_date: Time.zone.now)
+        end
+      end
+    end
+    render :text => "success"
+  end
+
+  def get_advisor_executive
+    advisor_executives = AdvisorGroupComponent.find(params[:advisor_comp_id]).advisor_group.advisor_group_executives.by_name(params[:q].strip)
+    render :json => advisor_executives.sort_by(&:first_name).collect{ |advisor_executive| { :id => advisor_executive.id, :name => "#{advisor_executive.full_name} &&& #{advisor_executive.advisor_group_component.name} &&& #{advisor_executive.advisor_group_component.advisor_group.name}" } }
+  end
+
+  def remove_event_from_fund
+    fund = Fund.find(params[:fund_id])
+    event = FundEvent.find(params[:event_id])
+
+      FundEvent.transaction do
+          event.delete
+          if !fund.fund_events.blank?
+            if fund.fund_events.order("event_date asc").reject { |c| c.amount_closed.empty? || c.amount_closed.to_i == 0 }.blank?
+              fund_amount_closed = ""
+            else
+            fund_amount_closed = fund.fund_events.order("event_date asc").reject { |c| c.amount_closed.empty? || c.amount_closed.to_i == 0}.last.amount_closed
+            end
+          else
+            fund_amount_closed = ""
+          end
+          if !fund.fund_events.blank?
+             fund_status = fund.fund_events.order("event_date asc").last.final_close.eql?("true")? "Closed" : "Open"
+             fund.update_attributes(:fund_status => fund_status,:fund_target_amount => fund_amount_closed,:updated_by => @user.id,:last_date =>Time.zone.now)
+            render :text => "deleted"
+          else
+            fund.update_attributes(:fund_status => "Open",:fund_target_amount => fund_amount_closed,:updated_by => @user.id,:last_date =>Time.zone.now)
+            render :text => "deleted"
+          end
+        end
+  end
+
+  def remove_deal_in_fund
+    deal_investment = DealInvestment.find(params[:deal_investment_id])
+
+      DealInvestment.transaction do
+        deal_investment.delete
+      end
+     render :text => "deleted"
+  end
+
+  def add_note
+    @form_action = "save_note"
+    @fund_note = @site.funds.find(params[:fund_id]).note_description
+    #render :partial => "add_note_to_fund"
+  end
+
+  def save_note
+    fund_note = @site.funds.find(params[:fund_id])
+    fund_note.transaction do
+    fund_note.update_attributes!(:note_description => params[:note_description],:updated_by => @user.id,:last_date =>Time.zone.now)
+    end
+     if !params[:note_description].blank?
+        render :text => "success"
+      else
+        render :text => "notsuccess"
+      end
+  end
+
+  def download_as_csv
+    case params[:status]
+    when "researched"
+      total_count = Fund.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }}).total
+      @funds = Fund.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+    when "new-records"
+      total_count = Fund.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :gt_filters => {:updated_at => Time.zone.now.beginning_of_day - 3.months} }).total
+      @funds = Fund.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :gt_filters => {:updated_at => Time.zone.now.beginning_of_day - 3.months} , :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+    when "pending-qc"
+      total_count = Fund.text_search({ :text => "", :filters => {:status_name=> [["Pending QC"],"ary"]}}).total
+      @funds = Fund.text_search({ :text => "", :filters => {:status_name=> [["Pending QC"],"ary"]}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+    when "failed"
+      total_count = Fund.text_search({ :text => "", :filters => {:status_name=> [["Failed"],"ary"]}}).total
+      @funds = Fund.text_search({ :text => "", :filters => {:status_name=> [["Failed"],"ary"]}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+    when "no-main-investor-group"
+      total_count = Fund.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_main_investor => [true] }}).total
+      @funds = Fund.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :filters => { :no_main_investor => [true] }, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+    when "no-fund-country-of-origin"
+      total_count = Fund.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_country => [true] }}).total
+      @funds = Fund.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :filters => { :no_country => [true] }, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+    when "no-fund-announced-event"
+      total_count = Fund.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_fund_event => [true] }}).total
+      @funds = Fund.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :filters => { :no_fund_event => [true] }, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+    when "close-fund"
+      total_count = Fund.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :fund_status => [["Closed"],"ary"] }}).total
+      @funds = Fund.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :filters => { :fund_status => [["Closed"],"ary"] }, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+    when "no-target-size"
+      total_count = Fund.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :no_target_size => [true] }}).total
+      @funds = Fund.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :filters => { :no_target_size => [true] }, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+    when "deleted"
+      total_count = Fund.text_search({ :text => "", :filters => {:status_name=> [["Delete"],"ary"] }}).total
+      @funds = Fund.text_search({ :text => "", :filters => {:status_name=> [["Delete"],"ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym }, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+    end
+
+      work_book_path = "excel_exports/Report#{Time.zone.now.strftime("%Y%m%d%H%M%S%6N")}.xlsx"
+      delay_job = Fund.delay.search_fund_export_wdxlsx(@funds.map(&:primary_key), work_book_path, params[:okcancel],session[:user_id])
+      render :json => { :status => "pending", :id => "#{delay_job}, #{work_book_path}" }
+  end
+
+  def fetch_all_stage_prefs
+    @stage_prefs = StagePref.all.sort_by{|a| a.name}
+    render :partial => "fetch_all_stage_prefs"
+  end
+
+  def fetch_all_geographic_prefs
+    #@geographic_prefs = GeographicPref.all
+    render :partial => "fetch_all_geographic_prefs"
+  end
+
+  def fetch_all_geographic_prefs_window
+    #@geographic_prefs = GeographicPref.all
+    @form_action = "edit_fund"
+    @continents = Continent.all
+        @regions = Region.all
+        @sub_regions = SubRegion.all
+        @countries = Country.all
+        @cities = City.all
+  end
+
+  def fetch_all_sector_prefs
+    @sector_prefs = SectorPref.all.sort_by{|a| a.name}
+    render :partial => "fetch_all_sector_prefs"
+  end
+
+  def edit_lp_fund
+    @lp_fund = LpFund.find(params[:lp_fund_id])
+
+    render :partial => "edit_lp_fund_details"
+  end
+
+  def update_lp_fund
+    @lp = LpFund.find(params[:lp_fund_id])
+
+    @lp.transaction do
+      @lp.update_attributes(params[:lp_fund])
+       @lp.fund.update_attributes(updated_by: @user.id,last_date: Time.zone.now)
+
+      if !@lp.fund_committed.blank?
+        curr_fund_commited = CurrencyExchange.get_other_currency_rates((@lp.fund_committed.blank? ? 0 : @lp.fund_committed.to_f), @lp.currency, ((@lp.try(:created_at).blank?) ? Date.today.beginning_of_month : @lp.created_at.to_date.beginning_of_month))
+        @lp.commitement_value_yen = curr_fund_commited[:yen]
+       @lp.commitement_value_us = curr_fund_commited[:us]
+       @lp.commitement_value_uk = curr_fund_commited[:uk]
+       @lp.commitement_value_euro = curr_fund_commited[:euro]
+        @lp.save
+      else
+        @lp.commitement_value_yen = nil
+        @lp.commitement_value_us = nil
+        @lp.commitement_value_uk = nil
+        @lp.commitement_value_euro = nil
+        @lp.save
+    end
+    end
+
+    render :partial => "add_lp_to_fund"
+  end
+
+
+def new_lp_trade_event
+    @fund=@site.funds.find(params[:fund_id])
+    @lp_trade_event=LpTrade.new
+    @form_action1="create_lp_trade_event"
+    render :partial => "form_lp_trade_event"
+ end
+
+
+def create_lp_trade_event
+    @fund=@site.funds.find_by_id(params[:fund_id])
+     params[:lp_trade][:acquirer_institution_office_id] = params[:acquirer][:acquirer_institution_office_id]
+     params[:lp_trade][:seller_institution_office_id] = params[:seller][:seller_institution_office_id]
+      @lp_trade_event = @fund.lp_trades.new(params[:lp_trade] )
+         if   @lp_trade_event.save 
+   logger.info "==========create_lp_trade_event=========#{@fund.inspect}============"
+    render :partial => "add_lp_trade_event"
+   else
+     render :text => "errori"
+    end
+end 
+
+def edit_lp_trade_event
+    @fund=@site.funds.find(params[:fund_id])
+    @lp_trade_event=LpTrade.find(params[:lp_trade_id])
+    @form_action1="update_lp_trade_event"
+    render :partial => "form_lp_trade_event"
+  end
+
+
+
+def update_lp_trade_event
+    @fund=@site.funds.find(params[:fund_id])
+    @lp_trade_event=LpTrade.find(params[:lp_trade_id])
+   params[:lp_trade][:acquirer_institution_office_id] = params[:acquirer][:acquirer_institution_office_id]
+     params[:lp_trade][:seller_institution_office_id] = params[:seller][:seller_institution_office_id]
+    #@fund.transaction do
+      lp_trade_event = @lp_trade_event.update_attributes(params[:lp_trade])
+      logger.info"========#{lp_trade_event.inspect}=======update_lp_trade_event======="
+ if   @lp_trade_event.save
+   
+    render :partial => "add_lp_trade_event"
+	else
+	 render :text => "erroris"	
+  end
+end
+ def remove_event_from_lp_trade
+    fund = Fund.find(params[:fund_id])
+    event = LpTrade.find(params[:event_id])
+    event.delete
+    render :text => "deleted"
+end
+
+def new_fund_performance
+    @fund=@site.funds.find(params[:fund_id])
+    @fund_performance=FundPerformance.new
+    @form_action2="create_fund_performance"
+    render :partial => "form_fund_performance"
+ end
+
+
+def create_fund_performance
+    @fund=@site.funds.find_by_id(params[:fund_id])
+    #@fund.transaction do
+      @fund_performance = @fund.fund_performances.create(params[:fund_performance])
+   logger.info "==========create_fund_performance=========#{@fund.inspect}============"
+    #end
+    render :partial => "add_fund_performance"
+end 
+
+def edit_fund_performance
+    @fund=@site.funds.find(params[:fund_id])
+    @fund_performance=FundPerformance.find(params[:fund_performance_id])
+    @form_action2="update_fund_performance"
+    render :partial => "form_fund_performance"
+  end
+
+
+
+def update_fund_performance
+    @fund=@site.funds.find(params[:fund_id])
+    @fund_performance=FundPerformance.find(params[:fund_performance_id])
+    #@fund.transaction do
+      fund_performance = @fund_performance.update_attributes(params[:fund_performance])
+      if !@fund_performance.reported_market_value.blank?
+       curr_fund_commited = CurrencyExchange.get_other_currency_rates((@fund_performance.reported_market_value.blank? ? 0 : @fund_performance.reported_market_value.to_f), @fund_performance.currency, ((@lp.try(:created_at).blank?) ? Date.today.beginning_of_month : @fund_performance.created_at.to_date.beginning_of_month))
+        @fund_performance.commitement_value_yen = curr_fund_commited[:yen]
+      @fund_performance.commitement_value_us = curr_fund_commited[:us]
+       @fund_performance.commitement_value_uk = curr_fund_commited[:uk]
+       @fund_performance.commitement_value_euro = curr_fund_commited[:euro]
+        @fund_performance.save
+      else
+        @fund_performance.commitement_value_yen = nil
+        @fund_performance.commitement_value_us = nil
+        @fund_performance.commitement_value_uk = nil
+        @fund_performance.commitement_value_euro = nil
+        @fund_performance.save
+    end
+      logger.info"========#{fund_performance.inspect}=======update_fund_performance======="
+   # end
+    render :partial => "add_fund_performance"
+  end
+
+ def remove_event_from_fund_performance
+    fund = Fund.find(params[:fund_id])
+    event = FundPerformance.find(params[:event_id])
+    event.delete
+    render :text => "deleted"
+end
+
+
+
+def new_dry_powder_event
+    @fund=@site.funds.find(params[:fund_id])
+    @dry_powder_event=DryPowder.new
+    @form_action1="create_dry_powder_event"
+    render :partial => "form_dry_powder_event"
+ end
+
+
+def create_dry_powder_event
+    @fund=@site.funds.find_by_id(params[:fund_id])
+      @dry_powder_event = @fund.dry_powders.new(params[:dry_powder])
+   logger.info "==========create_dry_powder_event=========#{@fund.inspect}============"
+    if @dry_powder_event.save
+    render :partial => "add_dry_powder_event"
+    else
+     render :text => "error"
+    end
+end 
+
+def edit_dry_powder_event
+    @fund=@site.funds.find(params[:fund_id])
+    @dry_powder_event=DryPowder.find(params[:dry_powder_id])
+    @form_action1="update_dry_powder_event"
+    render :partial => "form_dry_powder_event"
+  end
+
+
+
+def update_dry_powder_event
+    @fund=@site.funds.find(params[:fund_id])
+    @dry_powder_event=DryPowder.find(params[:dry_powder_id])
+      dry_powder = @dry_powder_event.update_attributes(params[:dry_powder])
+      logger.info"========#{@dry_powder_event.inspect}=======update_dry_powder_event======="
+if @dry_powder_event.save
+    render :partial => "add_dry_powder_event"
+ else
+     render :text => "errors"
+    end
+  end
+
+ def remove_event_from_dry_powder
+    fund = Fund.find(params[:fund_id])
+    event = DryPowder.find(params[:event_id])
+    event.delete
+    render :text => "deleted"
+end
+
+def get_auto_institution_name
+institution_names =InstitutionOffice.by_name(params[:q].strip).limit(AUTO_COMPLETION_LIMIT)
+render :json => institution_names.collect{ |name| { :id => name.id, :company_name => name.company_name } }
+end
+
+def get_institution_name_in_fund
+    institution_name_select = {}
+  @ins = institution_name = InstitutionOffice.find(params[:institution_office_id])
+    institution_name_select.merge!( { :institution_office_id => institution_name.id, :institution_name => institution_name.company_name } ) unless institution_name.blank?
+    render :json => institution_name_select
+    #render :partial => "form_lp_trade_event"
+  end
+end
+
+

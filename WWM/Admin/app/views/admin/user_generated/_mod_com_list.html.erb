@@ -1,0 +1,80 @@
+<%if !@path%>
+<div class="navcontainer" style="overflow:hidden;">
+	<ul id="slideshow_navmenu-h">
+		<li>
+			<a href="/admin/login/dashboard" >Articles</a>
+		</li>
+		<li>
+			<a href="javascript:void(0)" class='active' onclick="javascript:show_comment_complaint()">Complaint Moderation </a>
+		</li>
+	</ul>
+</div>
+<%end%>
+<div class="move_right">
+	<div class="comment_list">
+		
+		<div style="float:left;font-size:12px;" class=""> <label for="search_data_email">Select All &nbsp;</label> </div><input type="checkbox" id="article_published" name="comment[published][]" />
+		 &nbsp; &nbsp; &nbsp;
+		<select name="bulk_action_name" id="select_option" class="select_box">
+			<option value="" name="comment_checkbox">---Please Select Action---</option>
+			<option value="live">Publish</option>
+			<option value="delete">Delete</option>
+			<option value="archived">Archive</option>
+			<option value="spam">Spam</option>
+		</select>
+		
+		<% if params[:action] == 'user_generated' %>
+		<%= hidden_field_tag :entity_type, 'user_generated' %>
+		<% else %>
+		<%= hidden_field_tag :entity_type, @comment_type %>
+		<% end %>
+		
+			
+			<div class="button">
+				<%= link_to("Apply","javascript:void(0)",:id=>"button_id")%>
+			</div>
+	</div>
+</div>
+<%= (params[:action]== "index" || params[:action]== "poll_generated" || params[:action]== "service_generated" || params[:action]== "authors_generated") ? component_table_list(SrComponent.find_component_by_name('comment_list')) : component_table_list(SrComponent.find_component_by_name('user_generated_list')) %>
+
+<script type="text/javascript">
+
+/*this is for comment moderation check all checkbox*/
+$('#article_published').click(function(){
+var checked_status = this.checked;
+				$(".checkbox_style").each(function()
+				{
+					this.checked = checked_status;
+				});
+});
+
+function abc(){
+	var trial=$j("#select_option").val();
+if(!trial)
+{
+	alert("please select a value from drop down list");
+	return false;
+}
+var checkflag;
+$j( '.checkbox_style' ).each(function(){
+	var b=$j(this).attr('checked');
+	if(b==true)
+	{        
+		checkflag = 1;
+	}
+});
+	if(!checkflag)
+	{
+		alert("Please check any of the Comment Id checkbox first");
+		return false;
+	}
+return true;
+}
+</script>
+<style type="text/css">
+.comment_list{width:100%;}
+.comment_list .adminButton{float:left;}
+.comment_list input{float:left;/*margin-left: 21px;*/}
+.comment_list select{/*float:left;*/margin-top: -5px;margin-left: 5px; }
+#article_list {clear:both;}
+</style>

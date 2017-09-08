@@ -1,0 +1,13 @@
+<div class="right_section_head">
+<ul>
+    <li class="button">
+    	
+    	<%if params[:popup] == "true"%>
+        	<%=link_to('New Gallery',{:controller=>'admin/image_details',:action => 'new_gallery', :gallery_type => "gallery", :popup => 'true'},{:class=>"submit_email"})  %>
+        <%else%>
+         	<%=link_to('New Gallery',{:controller=>'admin/image_details',:action => 'new_gallery', :gallery_type => "gallery"},{:class=>"submit_email"})  %>
+        <%end%>
+    </li>
+</ul>
+ </div>
+

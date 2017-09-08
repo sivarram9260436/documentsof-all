@@ -1,0 +1,60 @@
+<div class="section_block full_section">
+	<h2>Gallery Search</h2> 
+                        <div class="search_fields"> 
+<%= form_tag({:action => 'search_gallery'},{:name=>'multi_user_search',:method=>"get"}) do %> 
+<div class="article_search_box text_box_fix">        
+            <p><label for="search_data[author_id]">Author:</label>  
+                                        <%if params[:search_data].blank?%> 
+                                        <%@user=User.find(session[:user_id])%> 
+                                        <%@site_new=Site.find(session[:site_id])%> 
+                                        <%else%> 
+                                                        <%if params[:search_data][:author_id].blank?%> 
+                                                        <%@user=""%> 
+                                                        <%else%> 
+                                                        <%@user=User.find(params[:search_data][:author_id]) %> 
+                                                        <%end%> 
+                                                        <%if params[:search_data][:site_id].blank?%> 
+                                                        <%@site_new=""%> 
+                                                        <%else%> 
+                                                        <%@site_new=Site.find(params[:search_data][:site_id])%> 
+                                                        <%end%> 
+                                                <%end%> 
+                                                        <%if not @selected_user.blank?%> 
+                            <%=raw collection_select_with_current_obj("search_data","author_id",User.find(:all,:order=>"fullname"),"id","fullname",@selected_user.id,"All",:class=>"select_box_gallery")%> 
+                            <%else%> 
+                            <%=raw collection_select_with_current_obj("search_data","author_id",User.find(:all,:order=>"fullname"),"id","fullname","","All",:class=>"select_box_gallery")%> 
+                            <%end%> </p>
+
+
+                    <P><%= hidden_field 'per','page',:value=>(session[:per_page] if session[:per_page]) %> 
+                                        <%if params[:search_data].blank? %> 
+                                            <label for="search_data_keyword">Name:</label>
+                                            <%=text_field 'search_data','keyword'%> 
+                                        <%else%> 
+                                         <label for="search_data_keyword"> Name:</label>
+                                         <%=text_field 'search_data','keyword',:value=>params[:search_data][:keyword]%> 
+                                        <%end%> 
+                   </p>
+               
+        <p>
+         <div class="button">        
+          <%= submit_tag "Search"%> 
+         </div>
+      </p> 
+</div> 
+
+<% end %> 
+</div> 
+</div> 
+<!--<div class="common_listing_button"> 
+    <li class="button"> 
+        <%#=link_to('New Gallery',{:controller=>'admin/image_details',:action => 'new_gallery'},{:class=>"submit_email"})  %> 
+    </li> 
+ </div>--> 
+        <%= @search.blank? ? component_table_list(SrComponent.find_component_by_name("gallery_management_list")) : component_table_list(SrComponent.find_component_by_name("gallery_search")) %> 
+
+ <!--<div class="common_listing_button"> 
+    <li class="button"> 
+        <%#=link_to('New Gallery',{:controller=>'admin/image_details',:action => 'new_gallery'},{:class=>"submit_email"}) %> 
+    </li> 
+ </div>--> 

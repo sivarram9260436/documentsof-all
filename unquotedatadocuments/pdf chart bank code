@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <link rel="apple-touch-icon" href=http://www.centralbanking.com/images/Central-Banking.png>
+
+    <meta property="og:title" content="Central Banking - Trusted Intelligence on Central Banks Policy, Regulation, Markets & Institutions"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content=""/>
+    <meta property="og:url" content="http://www.centralbanking.com/"/>
+    <meta property="og:description" content=""/>
+    <meta property="fb:page_id" content="TCB page_idcb1"/>
+    <meta property="fb:admins" content="TCB adminscd1"/>
+
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta name="verify-v1" content="H8cq8HWGeXh4hO0hlmwCdMD728LfDK7uHCpq/7eEkKg=" />
+    <meta name="google-site-verification" content="lEnYZMJRTPjSjInBK4E8xvSLFaThQKmZVi38jV0iNBQ" />
+
+    <meta http-equiv="Set-Cookie" content="last_page_viewed=/;path=/;domain=.centralbanking.com;">
+
+    <title>Central Banking - Trusted Intelligence on Central Banks Policy, Regulation, Markets &amp; Institutions - Central Banking </title>
+    <%= wicked_pdf_stylesheet_link_tag 'central_banks/base_css_packaged.css' %>
+    <%= wicked_pdf_stylesheet_link_tag 'central_banks/directory.css' %>
+    <%= wicked_pdf_stylesheet_link_tag 'central_banks/adv-tab.css' %>
+    <%= wicked_pdf_stylesheet_link_tag 'central_banks/advanced-search.css' %>
+    <%= wicked_pdf_stylesheet_link_tag 'registration-cb-form03.css' %>
+    <%= wicked_pdf_stylesheet_link_tag 'central_banks/new_pagination.css' %>
+    <%unless params[:action] != "show_central_banks"%>
+    <%= wicked_pdf_stylesheet_link_tag 'central_banks/cssmap-continents.css' %>
+    <%end%>
+    <%= wicked_pdf_stylesheet_link_tag 'central_banks/central.css' %>
+    <%= wicked_pdf_stylesheet_link_tag 'central_banks/token-input.css' %>
+    <%= wicked_pdf_stylesheet_link_tag 'central_banks/pdf-design.css' %>
+
+  </head>
+  <body>
+
+    <style>
+      .other_data {
+        width: 97%;
+      }
+      .body {
+        font-size: 100% !important;
+      }
+      .header_top_left {
+        margin-bottom: 20px;
+      }
+      table tr td a{color:#666666 !important;text-decoration:none !important;}
+      table tr td {font-size:14px !important;}
+      
+      
+    </style>
+    <div id="wrapper_parent">
+      <div id="wrapper">
+        <div class="header_top_left pdf-logo">
+          <a href="/" border="0"> <%= wicked_pdf_image_tag 'logo.jpg' %> </a>
+        </div>
+
+
+      <div class="result_table" id="tabledata" style="height:415px; overflow:scroll; overflow-x:hidden; font-size:1.1em">
+    <div class="chart_table_head">
+      <table border="0" cellpadding="2" cellspacing="0" width="100%">
+        <tbody>
+        <% chart_title1 = {"1" => "Staff size", "2" => "Population", "3" => "GDP", "4" => "Total reserves", "5" => "Gold reserves", "6" => "FX reserves", "7" => "Value (% of GDP)", "8" => "Investment (% of GDP)", "9" => "Value (Index)", "10" => "Imports (% Change)","11" => "Imports (% Change)", "12" => "Imports (USD billions)", "13" => "Value (USD billions)" }  %>
+        <% chart_title2 = { "8" => "Saving (% of GDP)", "9" => "Value (% Change)", "10" => "Exports (% Change)","11" => "Exports (% Change)", "12" => "Exports (USD billions)", "13" => "Value (% of GDP)" } %>
+
+        <tr class="tb_head">
+          <% if @chart_id.to_s == "8" || @chart_id.to_s ==  "9" || @chart_id.to_s == "10" || @chart_id.to_s == "11" || @chart_id.to_s == "12" %>
+              <td class="bdr_rt bdr_bt">Year</td>
+              <td width="20%" class="bdr_rt bdr_bt"><%= chart_title1[@chart_id] %></td>
+              <td width="20%" class="bdr_rt bdr_bt"><%= chart_title2[@chart_id] %></td>
+          <% else  %>
+              <td class="bdr_rt bdr_bt">Year</td>
+              <td width="20%" class="bdr_rt bdr_bt"><%= chart_title1[@chart_id] %></td>
+          <% end  %>
+        </tr>
+
+        <% chart_field1 = {"1" => "staff_size", "2" => "staff_ratio_to_population", "3" => "staff_ratio_to_gdp", "4" => "total_reserves1", "5" => "gold_reserves1", "6" => "fx_reserves", "7" => "gross_domestic_product_and_price", "8" => "total_investment", "9" => "inflation_and_avg_consumer_price_index", "10" => "volume_of_imports_goods_services","11" => "value_of_oil_imports", "12" => "current_ac_balance", "13" => "Value (% of GDP)" }  %>
+        <% chart_field2 = { "8" => "gross_national_saving", "9" => "inflation_and_avg_consumer_price", "10" => "volume_of_export_goods_services","11" => "value_of_oil_exports", "12" => "gross_domestic_product_and_price", "13" => "Value (% of GDP)" } %>
+
+        <% if @chart_id.to_s == "8" || @chart_id.to_s == "9" || @chart_id.to_s == "10" || @chart_id.to_s == "11" || @chart_id.to_s == "12" || @chart_id.to_s == "13" %>
+            <% @central_bank_list.central_bank_financial_details.by_publish.by_year_older_than(@site.get_property("central_bank_financial_year")).sort_by{|u| u.year.name}.reverse.first(10).reverse.each do |table_value| %>
+                <tr class="<%= cycle('row_even', 'row_odd') -%> result_table_hover_style">
+                  <%= content_tag(:td, (!table_value.year.blank? ? table_value.year.name : "n/d"), :align => "left", :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                  <%= content_tag(:td, (table_value.send(chart_field1[@chart_id]).blank? ? "n/d" : table_value.send(chart_field1[@chart_id]).to_s ) , :align => "left", :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                  <%= content_tag(:td, (table_value.send(chart_field2[@chart_id]).blank? ? "n/d" : table_value.send(chart_field2[@chart_id]).to_s ) , :align => "left", :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                </tr>
+            <% end %>
+        <% elsif @chart_id.to_s == "1" || @chart_id.to_s == "2" || @chart_id.to_s == "3" || @chart_id.to_s == "4" || @chart_id.to_s == "5" || @chart_id.to_s == "6" || @chart_id.to_s == "7" %>
+            <% @central_bank_list.central_bank_financial_details.by_publish.by_year_older_than(@site.get_property("central_bank_financial_year")).sort_by{|u| u.year.name}.reverse.first(10).reverse.each do |table_value| %>
+                <tr class="<%= cycle('row_even', 'row_odd') -%> result_table_hover_style">
+                  <%= content_tag(:td, (!table_value.year.blank? ? table_value.year.name : "n/d"), :align => "left", :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                  <%= content_tag(:td, (table_value.send(chart_field1[@chart_id]).blank? ? "n/d" : table_value.send(chart_field1[@chart_id]).to_s) , :align => "left", :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                </tr>
+            <% end %>
+        <% else %>
+            <% @central_bank_list.central_bank_financial_details.by_publish.by_year_older_than(@site.get_property("central_bank_financial_year")).sort_by{|u| u.year.name}.reverse.first(10).reverse.each do |table_value| %>
+                <tr class="<%= cycle('row_even', 'row_odd') -%> result_table_hover_style">
+                  <%= content_tag(:td, (!table_value.year.blank? ? table_value.year.name : "n/d"), :align => "left", :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                  <%= content_tag(:td, (table_value.staff_size.blank? ? "n/d" : table_value.staff_size.to_s) , :align => "left", :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                </tr>
+            <% end %>
+        <% end %>
+        </tbody>
+      </table>
+</div>
+</div>
+<table width="100%" class="resource-footer">
+          <tr>
+            <td colspan="2"><%= wicked_pdf_image_tag 'border_pdf_footer.1.jpg',:style=>"min-width:100%" %></td>
+          </tr..
+[4:40:13 PM] vinoth kumar: ====================================================
+

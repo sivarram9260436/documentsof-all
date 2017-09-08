@@ -1,0 +1,285 @@
+<div id="container" style="padding-top: 20px;">
+	<div class="section_block full_section">
+		<h2><%= @page_properties[:menu_title] %></h2>
+		<div class="section_content">
+			<div class="article_new_main author_left">
+				<div class="validation_box">
+					<%= raw error_messages(@magazine_issue)%>
+				</div>
+				<%= form_for @magazine_issue,:url=>{:action=>'create_edit'}, :html => { :multipart => true }  do |issue| %>
+				<div class="form_data">
+					<label for="text_head"><%= content_tag(:td,"Author :    ") %><span></span></label>
+					<%= content_tag(:p,(@magazine_issue.new_record? ? User.find(session[:user_id]).full_name : (User.find(@magazine_issue.created_by).full_name if @magazine_issue.created_by) )) %>
+				</div>
+				<% if !@magazine_issue.new_record? %>
+				<div letter class="form_data">
+					<label for="text_head"> <%= content_tag(:td,"Created at :        ") %></label>
+					<%= content_tag(:td,(@magazine_issue.created_at.strftime("%d - %B - %Y %H:%M" ) if @magazine_issue.created_at)) %>
+					<% end %>
+				</div>
+				<div class="form_data">
+					<%= content_tag(:label,"Title :") %>
+					<%= content_tag(:span,issue.text_field('title',{:class=>'input_text'})) %>
+				</div>
+				<div class="form_data">
+					<label for="text_head"><%= content_tag(:td,"Source") %><span> * </span>:</label>
+					<%= content_tag(:td,issue.select('source_id',@site.sources.collect{|source| [source.alais_name,source.id]},{:prompt=>"--Select a source --" },{:class=>"select_box"}))%>
+				</div>
+				<div class="form_data">
+					<label for="text_head"><%= content_tag(:td,"Volume/Issue No.") %><span> * </span>:</label>
+					<%= content_tag(:td,issue.text_field('short_name',{:class=>'input_text'})) %>
+				</div>
+				<div class="form_data">
+					<label for="text_head"><%= content_tag(:td,"Description ") %></label>
+					<%= content_tag(:td,issue.text_area('description', {:class=>'textarea_text'})) %>
+				</div>
+				<div class="form_data">
+					<label for="text_head"><%= content_tag(:td,"Publish Date") %><span>*</span>:</label>
+					<%= raw datetimepicker_input(:magazine_issue, :date_of_publication,{:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70}) %>
+				</div>
+				<div class="form_data">
+					<label for="text_head">Digital Asset:</label>
+					<div class="article_title_rgt">
+					<div class="no_image">
+							<div class="img_block">
+								<%if @magazine_issue and @magazine_issue.digital_asset%> 
+								<div id="no_digital_asset" style="display:none">
+									<a rel=1 href="/admin/digital_assets/popup_digital_asset_manager?type=fragment?type=fragment" class="newWindow">
+										<%= image_tag("/images/no_image_available_large.gif", :alt => "no_image_available", :width=>'100', :height=>'80')%></a>
+								  </div>	
+								  <div id="prev_document" style="vertical-align:center;width:100px" >
+								  	<% @digital_asset=@magazine_issue.digital_asset if @magazine_issue%>
+								  	<% digital_asset_document=DigitalAsset.find(@magazine_issue.digital_asset.digital_asset_id)%>
+                                    <%= image_tag(digital_asset_document.document_icon(digital_asset_document.name.split('.')[-1]), :alt => digital_asset_document.display_name)%>
+                                        <!-- Display Name: --><%#= digital_asset_document.display_name%> 
+								  </div>
+								  <%end%> 
+								<%if not @magazine_issue %> 								
+								  <div id="no_digital_asset">
+									<a rel=1 href="/admin/digital_assets/popup_digital_asset_manager?type=fragment?type=fragment" class="newWindow">
+										<%= image_tag("/images/no_image_available_large.gif", :alt => "no_image_available", :width=>'100', :height=>'80')%></a>
+								  </div>		
+								  <div id="prev_document" style="vertical-align:center;width:296px" ></div> 
+							  <%end%>
+								<%if @magazine_issue and not @magazine_issue.digital_asset%> 
+									<div id="no_digital_asset">
+								    <a rel=1 href="/admin/digital_assets/popup_digital_asset_manager?type=fragment" class="newWindow">
+										<%= image_tag("/images/no_image_available_large.gif", :alt => "no_image_available", :width=>'100', :height=>'80')%></a>
+									</div>	
+									<div id="prev_document" style="vertical-align:center;width:296px" ></div> 
+								<%end%>
+							</div><!--img_block-->
+					     </div><!--no_image-->
+					<div class="article_img_text article_digital">							
+							<% @digital_asset=@magazine_issue.digital_asset if @magazine_issue%>
+							<%if @digital_asset==nil%>
+							<%= hidden_field 'magazine_issue','digital_asset_file' ,:value=>"",:name=>'magazine_issue[digital_asset_file]',:id=>'digital_asset_property_digital_asset_id'%>
+							<%else%>
+							<%= hidden_field 'magazine_issue','digital_asset_file',:value=>@magazine_issue.digital_asset.digital_asset_id,:name=>'magazine_issue[digital_asset_file]',:id=>'digital_asset_property_digital_asset_id' %>
+
+							<%end%>
+							<%if @magazine_issue%>
+							<%if @magazine_issue.digital_asset!=nil and @magazine_issue.digital_asset.digital_asset_id!=nil%>
+							 <span id="gen_digital_asset" style="vertical-align:center;"> <% digital_asset_document=DigitalAsset.find(@magazine_issue.digital_asset.digital_asset_id)%>
+								<%if digital_asset_document%>
+								<table>
+									<tr>
+										<td><%#= image_tag(digital_asset_document.document_icon(digital_asset_document.name.split('.')[-1]), :alt => digital_asset_document.display_name)%></td>
+										<td class="display_name"> Display Name:</td><td><%= digital_asset_document.display_name%> </td>
+									</tr>
+								</table> <%end%> </span>
+							<div id="digital_asset_change_link" style="display:none;">
+								<a rel=1 href="/admin/digital_assets/popup_digital_asset_manager?type=fragment" class="newWindow">Add Digital Asset</a>
+							</div><div id="digital_asset_caption" ></div>
+							<div id="digital_asset_change_link123" >
+								<a href="#" onclick="remove_digital_asset()">Remove</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a rel=1 href="/admin/digital_assets/popup_digital_asset_manager?type=fragment" class="newWindow">Change</a>
+							</div> <%else%> 
+                            <div id="Add_dig_asset">
+							<a rel=1 href="/admin/digital_assets/popup_digital_asset_manager?type=fragment" class="newWindow">Add digital Asset</a>
+						    </div>
+							<div id="digital_asset_caption" style="display:none;"></div>
+							<div id="digital_asset_change_link123" style="display:none;">
+								<a href="#" onclick="remove_digital_asset()">Remove</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a rel=1 href="/admin/digital_assets/popup_digital_asset_manager?type=fragment" class="newWindow">Change</a>
+							</div> <%end%>
+
+							<%else%>
+							<div id="digital_asset_change_link">
+								<a href="#" onclick="digital_asset_popup()">Add digital Asset</a>
+							</div><div id="digital_asset_caption" style="display:none;"></div>
+							<div id="digital_asset_change_link123" style="display:none;">
+								<a href="#" onclick="remove_digital_asset()">Remove</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a rel=1 href="/admin/digital_assets/popup_digital_asset_manager?type=fragment" class="newWindow">Change</a>
+							</div> <%end%> </td>
+					</tr>
+				</div>
+			</div>
+		</div>
+			<div class="form_data">
+					<label for="text_head">Cover Image :</label>
+					<div class="article_title_rgt">
+						<div class="no_image">
+							<div class="img_block">
+								<%if @magazine_issue and @magazine_issue.image %>
+								<div id="no_image" style="display:none;">
+									<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+									<img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+								</div>
+								<div id="prev" style="vertical-align:center;width:100px">
+									<% @image=@magazine_issue.image if @magazine_issue %>
+									<%if @image==nil %>
+									<%= hidden_field 'image_property','image_id',:name=>'magazine_issue[image_property][image_id]' %>
+									<%else%>
+									<%= hidden_field 'image_property','image_id',:value=>@magazine_issue.image.image_id,:name=>'magazine_issue[image_property][image_id]' %>
+									<%end %>
+
+									<%if @magazine_issue %>
+									<%if @magazine_issue.image!=nil and @magazine_issue.image.image_id!=nil %>
+									<span id="gen_image" style="vertical-align:center;"><% img=Image.find(:first,:conditions=>["id=?",@magazine_issue.image.image_id]) %>
+										<%if img and img.thumbnail %>
+										<table>
+											<tr>
+												<td> <%= image_tag(img.get_image(80,80,'square').image_path, :alt => @image.alt_tag) %> </td>
+
+												<td> <%= img.caption%> </td>
+											</tr>
+										</table>
+										 <%end%> 
+									</span>
+									<%end%>
+									<%end%>
+								</div>
+								<%end%>
+								<%if not @magazine_issue %>
+								<div id="no_image">
+									<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+									<img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+								</div>
+								<div id="prev" style="vertical-align:center;width:296px" ></div>
+								<div id="prev_image" style="vertical-align:center;width:296px"></div> 
+								<%end %>
+
+								<%if @magazine_issue and not @magazine_issue.image %>
+								<div id="no_image">
+									<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+									<img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+								</div>
+								<div id="prev" style="vertical-align:center;width:296px" ></div>
+								 <div id="prev_image" style="vertical-align:center;width:296px"></div>
+								<%end %>
+
+							</div><!--img_block-->
+						</div><!--no_image-->
+						<div class="article_img_text">
+							<% @image=@magazine_issue.image if @magazine_issue %>
+							<%if @image==nil %>
+							<%= hidden_field 'image_property','image_id',:name=>'magazine_issue[image_property][image_id]' %>
+							<%else %>
+							<%= hidden_field 'image_property','image_id',:value=>@magazine_issue.image.image_id,:name=>'magazine_issue[image_property][image_id]' %>
+							<%end %>
+							<%if @magazine_issue %>
+							<%if @magazine_issue.image!=nil and @magazine_issue.image.image_id!=nil %>
+							<span id="gen_image" style="vertical-align:center;"><% img=Image.find(:first,:conditions=>["id=?",@magazine_issue.image.image_id]) %>
+								<%if img and img.thumbnail %>
+								<table>
+									<tr>
+										<td> <%#=image_tag(img.get_image(80,80,'square').image_path, :alt => @image.alt_tag) %> </td>
+										<!-- <td class="alter_caption">Caption :</label> </td> -->
+										<td> <%#= img.caption%> </td>
+									</tr>
+								</table>
+								 <%end%> 
+							</span>
+
+							<div id="change_link_add_image" style="display:none;">
+								<a href="javascript:void(0);" data-url="/admin/image_details/add_image_from_article?popup=true" onclick="image_popup(this)">Browse My Computer</a>
+							</div> 
+							<div id="change_link" style="display:none;">
+								<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Add from Repository</a>
+							</div>
+
+							<div id="imageset_caption">
+								Title ImageSet Caption override:<%= text_field "image_property","caption",:class=>"textinput_text",:value=>@magazine_issue.image.caption,:name=>'magazine_issue[image_property][caption]' %>
+							</div>
+
+							<div id="change_link123">
+								<a href="javascript:void(0);" class="remove_image" >Remove</a>&nbsp;<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Change</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="edit_image_popup('<%= @magazine_issue.image.image_id%>')"></a>
+							</div>
+							<% @image_property=@magazine_issue.image %>
+
+							<div id="image_customise" style="<% if @image_property.display_preference != "customise_image"%>display:none;<%end%>">
+								<div style="margin-bottom:10px;margin-top:10px;">
+									<%= select( 'image_property', 'customise_scenery', ["Landscape","Portrait","Square"],{},:class=>"textinput_text",:name=>"magazine_issue[image_property][customise_scenery]") %>
+								</div>
+								<div style="margin-top:10px;">
+									<%= select( 'image_property', 'customise_size', ["Large","Medium","Small"],{},:class=>"textinput_text",:name=>"magazine_issue[image_property][customise_size]") %>
+								</div>
+							</div>
+							<%else %>
+							 <div id="change_link_add_image" >
+								<a href="javascript:void(0);" data-url="/admin/image_details/add_image_from_article?popup=true" onclick="image_popup(this)">Browse My Computer</a>
+							</div>
+
+							<div id="change_link">
+								<p>
+									<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Add from Repository</a>
+								</p>
+							</div>
+							<div id="imageset_caption" style="display:none;">
+								Title ImageSet Caption override:<%= text_field "image_property","caption",:class=>"textinput_text",:name=>'magazine_issue[image_property][caption]' %>
+							</div>
+
+							<div id="change_link123" style="display:none;">
+								<a href="javascript:void(0);" class="remove_image" >Remove</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Change</a>
+							</div>
+
+							<div id="image_customise" style="display:none;">
+								<div style="margin-bottom:10px;margin-top:10px;">
+									<%= select( 'image_property', 'customise_scenery', ["Landscape","Portrait","Square"],{},:class=>"textinput_text",:name=>"magazine_issue[image_property][customise_scenery]") %>
+								</div>
+								<div style="margin-top:10px;">
+									<%= select( 'image_property', 'customise_size', ["Large","Medium","Small"],{},:class=>"textinput_text",:name=>"magazine_issue[image_property][customise_size]") %>
+								</div>
+							</div>
+							<%end %>
+
+							<%end %>
+
+						</div>
+					</div>
+				</div><!--form_data-->
+
+			<div class="common_listing_button">
+				<ul>
+					<li class="button">
+						<%= submit_tag "#{@magazine_issue.new_record? ? 'Create' : 'Update'}" %>
+					</li>
+					<li class ="button">
+						<%= link_to "Cancel" ,:action=>'index' %>
+					</li>
+				</ul>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+</div> 
+ <script type="text/javascript">
+// $('.remove_image').click(function(){      
+// alert('hi'); 
+//     $('#no_image').show();
+//     $('#no_image124').hide();
+//     $('#change_link').show();
+//     $("#change_link_add_image").show();
+//     $("#gen_image").hide();
+//     $('#prev_image').hide();
+//     $("#prev").hide();
+//     $('#change_link123').hide();
+//     $('#preference_setup').hide();
+//     $('#set_preference').hide();        
+//     $('#imageset_caption').hide();
+//     $('#image_property_image_id').attr("value","");
+// });
+// </div>
+</script>
+<style>
+#change_link_add_image{clear:both;}
+</style>

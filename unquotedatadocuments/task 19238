@@ -1,0 +1,87 @@
+rails generate model FundPerformance commitment:string gross_irr:string net_irr:string tvpi:string source:string fund_performance_date:date
+
+FundPerformance
+
+rails generate model LpTrade commitment:string seller:string sold:integer acquirer:string nav:string consideration_price:string trade_date:date
+
+
+class CreateFundPerformances < ActiveRecord::Migration
+  def change
+    create_table :fund_performances do |t|
+      t.string :commitment
+      t.string :gross_irr
+      t.string :net_irr
+      t.string :acquirer
+      t.string :tvpi
+      t.string :source
+      t.date :fund_performance_date
+
+      t.timestamps
+    end
+  end
+end
+
+CreateFundPerformances.new.change
+
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/controllers/funds_controller.rb 
+
+
+def new_fund_performance
+    @fund=@site.funds.find(params[:fund_id])
+    @fund_performance=FundPerformance.new
+    @form_action2="create_fund_performance"
+    render :partial => "form_fund_performance"
+ end
+
+
+def create_fund_performance
+    @fund=@site.funds.find_by_id(params[:fund_id])
+    #@fund.transaction do
+      @fund_performance = @fund.fund_performances.create(params[:lp_trade])
+   logger.info "==========create_fund_performance=========#{@fund.inspect}============"
+    #end
+    render :partial => "add_fund_performance"
+end 
+
+def edit_fund_performance
+    @fund=@site.funds.find(params[:fund_id])
+    @fund_performance=FundPerformance.find(params[:fund_performance_id])
+    @form_action2="update_fund_performance"
+    render :partial => "form_fund_performance"
+  end
+
+
+
+def update_fund_performance
+    @fund=@site.funds.find(params[:fund_id])
+    @fund_performance=FundPerformance.find(params[:fund_performance_id])
+    #@fund.transaction do
+      fund_performance = @fund_performance.update_attributes(params[:fund_performance])
+      logger.info"========#{fund_performance.inspect}=======update_fund_performance======="
+   # end
+    render :partial => "add_fund_performance"
+  end
+
+ def remove_event_from_fund_performance
+    fund = Fund.find(params[:fund_id])
+    event = FundPerformance.find(params[:event_id])
+    event.delete
+    render :text => "deleted"
+end
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/controllers/funds_controller.rb 
+
+36 line
+
+def edit_fund
+@fund_performance = @fund.fund_performances.order("trade_date asc") || @fund.create_fund_performances
+end
+
+
+
+

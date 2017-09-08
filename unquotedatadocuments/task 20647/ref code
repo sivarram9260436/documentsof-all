@@ -1,0 +1,141 @@
+<%= content_tag(:table, {:class => "form-left form-left-new"}) do %>
+    <%= content_tag(:tr) do %>
+        <%= content_tag(:td,content_tag(:div,(link_to "Add deployment percentage",{},{ :href => "/funds/new_dry_powder_event?fund_id=#{@fund.id}", :class => "color_box" }),{:class => "f-button"})) %>
+    <% end %>
+<% end %>
+
+
+
+
+
+<%= content_tag(:table, {:class => "form-left form-left-new"}) do %>
+    <%= content_tag(:tr) do %>
+        <%= content_tag(:td,content_tag(:div,(link_to "Add Managed Accounts",{},{ :href => "/institutions/new_managed_account?institution_company_id=#{@institution_company.id}", :class => "color_box" }),{:class => "f-button"})) %>
+
+
+
+
+def new_dry_powder_event
+    @fund=@site.funds.find(params[:fund_id])
+    @dry_powder_event=DryPowder.new
+    @form_action1="create_dry_powder_event"
+    render :partial => "form_dry_powder_event"
+ end
+
+
+
+/home/ruby/CMS/Sites/new_vision/views/layouts/_footer.html.erb
+Started GET "/new_vision/news/1451274/prince-harry-suffered-total-chaos-dianas-death" for 105.234.142.41 at 2017-04-19 07:20:25 +0300
+
+
+ def add_real_estate_fund_portfolios
+    @form_action = "create_real_estate_fund_portfolios"
+     @real_estate_fund_portfolio = InstitutionRealEstateFundManagerPortfolio.new
+     @real_estate_fund_portfolio.still_investing = "unknown"
+  end
+
+  def create_real_estate_fund_portfolios
+    inst_company_data = InstitutionCompanyInfo.find(params[:institution_company_id])
+     inst_real_estate_data  = inst_company_data.institution_real_estate_data
+    inst_real_estate_data.transaction do
+       real_estate_portfolios = inst_real_estate_data.institution_real_estate_fund_manager_portfolios.create(params[:real_estate_fund_portfolio])
+       inst_company_data.update_attributes(last_date: Time.zone.now)
+    end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+  def edit_real_estate_fund_portfolios
+    @form_action = "update_real_estate_fund_portfolios"
+    @real_estate_fund_portfolio = InstitutionRealEstateFundManagerPortfolio.find(params[:real_estate_fund_portfolio_id])
+    @real_estate_fund_portfolio.still_investing = @real_estate_fund_portfolio.still_investing.blank? ? "unknown" : @real_estate_fund_portfolio.still_investing
+  end
+
+  def update_real_estate_fund_portfolios
+    real_estate_portfolio = InstitutionRealEstateFundManagerPortfolio.find(params[:real_estate_fund_portfolio_id])
+    real_estate_portfolio.transaction do
+       real_estate_portfolio.update_attributes(params[:real_estate_fund_portfolio])
+    end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+  def get_real_estate_fund_manager_data
+    real_estate = RealEstateFundManager.by_name(params[:q].strip).limit(AUTO_COMPLETION_LIMIT)
+    render :json => real_estate.collect{ |real_estate| { :id => real_estate.id, :name => real_estate.real_estate_fund_manager_name } }
+  end
+
+  def remove_real_estate_fund_portfolio
+     InstitutionCompanyInfo.transaction do
+       params[:portfolio_source].split(",").each do |portfolio|
+         institution_portfolio = InstitutionRealEstateFundManagerPortfolio.find(portfolio)
+         institution_portfolio.delete
+      end
+     end
+     render :text => "deleted"
+  end
+
+ <%= content_tag(:div,(link_to "Add Real Estate Fund Managers",add_real_estate_fund_portfolios_institutions_path(:institution_company_id => @institution_company.id,:tab => params[:tab],:popup => "true"),{:class =>"popup_window"}),{:class => "f-button"}) %>
+
+
+
+ <%= content_tag(:div,(link_to "Add Real Estate Fund Managers",add_real_estate_fund_portfolios_institutions_path(:institution_company_id => @institution_company.id,:tab => params[:tab],:popup => "true"),{:class =>"popup_window"}),{:class => "f-button"}) %>
+
+
+ <%= content_tag(:div,(link_to "Add  Managed Accounts",add_managed_accounts_institutions_path(:institution_company_id => @institution_company.id,:tab => params[:tab],:popup => "true"),{:class =>"popup_window"}),{:class => "f-button"}) %>
+
+
+
+
+
+
+
+
+
+
+<%= content_tag(:div ,{ :class => "international_off"}) do %>
+   <%= content_tag(:h3 ,"Managed Accounts:",{:class =>"wsw_office"})  %>
+   <%= content_tag(:table ,{:class =>"basic_listing remove_space_basic_listing", :width => "94%" }) do %>
+          <%= content_tag(:tr) do %>
+             <%= content_tag(:th, "Manager") %>
+         <%= content_tag(:th, "Size") %>
+         <%= content_tag(:th,"")  %>
+       <% end %><!--tr-->
+
+<% @managed_account.each do |event|%>
+        <%= content_tag(:tr, { :class => "fund_events #{cycle('odd', 'even')} " }) do %>
+
+            <%= content_tag(:td, (event.manager if event.manager)) %>
+            <%= content_tag(:td, (event.size if event.size)) %>
+
+            <%= content_tag(:td, (link_to( ( image_tag("trash.png") ), {}, { :href => "javascript:void(0)", "managed-account-id" => event.id, :class => "delete_managed_account" } ) ) ) %>
+        <% end %><!-- tr-->
+<% end %><!-- table-->
+ <%#end %><!-- tr-->
+<%#end %><!-- table-->
+
+<%= content_tag(:table, {:class => "form-left form-left-new"}) do %>
+    <%= content_tag(:tr) do %>
+        <%= content_tag(:td,content_tag(:div,(link_to "Add Managed Accounts",{},{ :href => "/institutions/new_managed_account?institution_company_id=#{@institution_company.id}", :class => "color_box" }),{:class => "f-button"})) %>
+  <%#= content_tag(:div,(link_to "Add  Managed Accounts",add_managed_accounts_institutions_path(:institution_company_id => @institution_company.id,:tab => params[:tab],:popup => "true"),{:class =>"popup_window"}),{:class => "f-button"}) %>
+
+     <%end%><!--table-->
+
+
+
+
+
+
+               <% @institution_company.managed_accounts.each do |manage| %>
+                
+
+                            <%= content_tag(:td ,(manage.manager if manage.fund.manager)) %>
+
+                        <%= content_tag(:td,(manage.size if manage.fund.size) )%>
+
+                            <%#= content_tag(:td, "#{number_with_precision((lp_list.fund.send(FUNDTARGETSIZE[CURRENCY_SEND[lp_list.try(:institution_company_info).try(:institution_pei_data).try(:currency).try(:name)]])  if lp_list.try(:institution_company_info).try(:institution_pei_data).try(:currency) && !CURRENCY_SEND[lp_list.try(:institution_company_info).try(:institution_pei_data).try(:currency).try(:name)].blank?), :precision => 2)} #{lp_list.try(:fund).try(:currency).try(:name)}" )%>
+                            <%= content_tag(:td, (lp_list.fund.basic_fund_type.name if lp_list.fund.basic_fund_type) )%>
+                           <%= content_tag(:td) do %>
+                       <%= link_to( ( image_tag("trash.png") ), {}, { :href => "javascript:void(0)", "lp-fund-id" => lp_list.id, :class => "delete_lp_fund_in_institution" } ) %>
+                                   <% end %>
+               <% end %><!--tr-->
+             <% end %><!--if-->
+

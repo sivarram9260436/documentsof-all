@@ -1,0 +1,121 @@
+
+
+//////Started POST "/funds/search" for 127.0.0.1 at 2017-03-17 18:19:21 +0530
+Processing by Wps::UqFundsController#search as */*
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"JCnnz7HsaS5GzenTaOh8tWBwjxjFVeLhIX5zPAlyRkU=", "sort"=>"name_sort", "order"=>"asc", "funds"=>{"currency"=>"uk", "fund_name_value"=>"", "fund_name"=>"", "investor_name_value"=>"", "investor_name"=>"", "country_name"=>"", "country"=>"", "fund_type_value"=>"", "fund_type"=>"", "event_dates_value"=>"", "event_dates"=>"", "start_month"=>"", "start_year"=>"", "end_month"=>"", "end_year"=>"", "target_from"=>"", "target_to"=>"", "keyword"=>"", "geogcountry_value"=>"", "geogcountry"=>"", "unverified"=>"Pending QC"}, "search_type"=>"standard_search", "dry_powder"=>{"percentage_deployed"=>""}}
+====session_currency====uk===============
+1111111111111{"fund_target_amount_uk"=>""}11111111111{"fund_target_amount_uk"=>""}1111111111111111{:id=>[[], "ary"], :investor_name=>[[], "ary"], :country_id=>[[], "ary"], :fund_type=>[[], ""], :fund_event_type=>[[], "ary"], :fund_geo_pref_id=>[[], "ary"], :status_name=>[["Publish", "Pending QC"], "ary"]}222222222222
+=========ssssssaaaaaaa======{:text=>"", :page=>1, :per_page=>20, :dy_sort=>{:name_sort=>:asc}, :sort=>"Relevance", :filters=>{:id=>[[], "ary"], :investor_name=>[[], "ary"], :country_id=>[[], "ary"], :fund_type=>[[], ""], :fund_event_type=>[[], "ary"], :fund_geo_pref_id=>[[], "ary"], :status_name=>[["Publish", "Pending QC"], "ary"]}, :gt_filters=>{"fund_target_amount_uk"=>""}, :lt_filters=>{"fund_target_amount_uk"=>""}, :not_by_filters=>{}, :not_by_gt_filters=>{}, :not_by_lt_filters=>{}, :facets=>[], :fields=>[], :include_models=>[Fund(id: integer, name: string, investor_group_component_id: integer, currency_id: integer, city_id: integer, target_size: string, vintage: integer, basic_fund_type_id: integer, fund_status: string, status_id: integer, fund_overview: text, new_investor_percent: string, existing_investor_percent: string, created_by: integer, updated_by: integer, created_at: datetime, updated_at: datetime, fund_check: boolean, proprietary_capital: boolean, fund_target_amount: string, investor_id: integer, country_id: integer, fund_target_amount_usd: string, data_proxy_id: integer, investor_group_id: integer, note_description: string, fund_target_amount_uk: float, fund_target_amount_us: float, fund_target_amount_euro: float, fund_target_amount_yen: float, fund_target_size_uk: float, fund_target_size_us: float, fund_target_size_euro: float, fund_target_size_yen: float, last_date: datetime, geo_name: string)]}
+=======query[filters]======{:id=>[[], "ary"], :investor_name=>[[], "ary"], :country_id=>[[], "ary"], :fund_type=>[[], ""], :fund_event_type=>[[], "ary"], :fund_geo_pref_id=>[[], "ary"], :status_name=>[["Publish", "Pending QC"], "ary"]}
+============query[gt_filters]=========={"fund_target_amount_uk"=>""}
+===========query[lt_filters]==========={"fund_target_amount_uk"=>""}
+=====get_fund_event_ids===={}
+=====get_fund_gt_event_dates=={}
+=====get_fund_lt_event_dates=={}
+=======query[filters]======{:id=>[[], "ary"], :investor_name=>[[], "ary"], :country_id=>[[], "ary"], :fund_type=>[[], ""], :fund_event_type=>[[], "ary"], :fund_geo_pref_id=>[[], "ary"], :status_name=>[["Publish", "Pending QC"], "ary"]}
+============query[gt_filters]=========={"fund_target_amount_uk"=>""}
+===========query[lt_filters]==========={"fund_target_amount_uk"=>""}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd20xxxxxxxxxxxxxfalse
+@@@@@@@@@@@@@@@@@@@@#<Sunspot::Search::StandardSearch:0x00000010110458>=========sss====={:id=>[[], "ary"], :investor_name=>[[], "ary"], :country_id=>[[], "ary"], :fund_type=>[[], ""], :fund_event_type=>[[], "ary"], :fund_geo_pref_id=>[[], "ary"], :status_name=>[["Publish", "Pending QC"], "ary"]}==
+=========ssssssaaaaaaa======{:text=>"", :page=>1, :per_page=>3353, :dy_sort=>{:name_sort=>:asc}, :sort=>"Relevance", :filters=>{:id=>[[], "ary"], :investor_name=>[[], "ary"], :country_id=>[[], "ary"], :fund_type=>[[], ""], :fund_event_type=>[[], "ary"], :fund_geo_pref_id=>[[], "ary"], :status_name=>[["Publish", "Pending QC"], "ary"]}, :gt_filters=>{"fund_target_amount_uk"=>""}, :lt_filters=>{"fund_target_amount_uk"=>""}, :not_by_filters=>{}, :not_by_gt_filters=>{}, :not_by_lt_filters=>{}, :facets=>[], :fields=>[], :include_models=>[Fund(id: integer, name: string, investor_group_component_id: integer, currency_id: integer, city_id: integer, target_size: string, vintage: integer, basic_fund_type_id: integer, fund_status: string, status_id: integer, fund_overview: text, new_investor_percent: string, existing_investor_percent: string, created_by: integer, updated_by: integer, created_at: datetime, updated_at: datetime, fund_check: boolean, proprietary_capital: boolean, fund_target_amount: string, investor_id: integer, country_id: integer, fund_target_amount_usd: string, data_proxy_id: integer, investor_group_id: integer, note_description: string, fund_target_amount_uk: float, fund_target_amount_us: float, fund_target_amount_euro: float, fund_target_amount_yen: float, fund_target_size_uk: float, fund_target_size_us: float, fund_target_size_euro: float, fund_target_size_yen: float, last_date: datetime, geo_name: string)]}
+=======query[filters]======{:id=>[[], "ary"], :investor_name=>[[], "ary"], :country_id=>[[], "ary"], :fund_type=>[[], ""], :fund_event_type=>[[], "ary"], :fund_geo_pref_id=>[[], "ary"], :status_name=>[["Publish", "Pending QC"], "ary"]}
+============query[gt_filters]=========={"fund_target_amount_uk"=>""}
+===========query[lt_filters]==========={"fund_target_amount_uk"=>""}
+=====get_fund_event_ids===={}
+=====get_fund_gt_event_dates=={}
+=====get_fund_lt_event_dates=={}
+=======query[filters]======{:id=>[[], "ary"], :investor_name=>[[], "ary"], :country_id=>[[], "ary"], :fund_type=>[[], ""], :fund_event_type=>[[], "ary"], :fund_geo_pref_id=>[[], "ary"], :status_name=>[["Publish", "Pending QC"], "ary"]}
+============query[gt_filters]=========={"fund_target_amount_uk"=>""}
+===========query[lt_filters]==========={"fund_target_amount_uk"=>""}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd3353xxxxxxxxxxxxxfalse
+========3353=======@all_matched_funds============
+WARNING: User#current is nil, are you including SentientController on your ApplicationController?
+WARNING: User#current is nil, are you including SentientController on your ApplicationController?
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_result_params.html.erb (5.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_total_value.html.erb (3.0ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_result_return_count.html.erb (11.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_pagination.html.erb (3.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_top_result_pagination.html.erb (348.3ms)
+=======fund_count===========20====
+i need status 380.07 => uk => UK £m
+i need status 19.00 => uk => UK £m
+i need status 10.64 => uk => UK £m
+i need status 389.79 => uk => UK £m
+i need status 158.11 => uk => UK £m
+i need status 66.89 => uk => UK £m
+i need status 100.00 => uk => UK £m
+i need status 250.85 => uk => UK £m
+i need status 288.85 => uk => UK £m
+i need status 76.01 => uk => UK £m
+i need status 62.33 => uk => UK £m
+i need status 76.01 => uk => UK £m
+i need status 212.84 => uk => UK £m
+i need status 241.08 => uk => UK £m
+i need status 24.63 => uk => UK £m
+i need status 76.01 => uk => UK £m
+i need status 210.60 => uk => UK £m
+i need status 250.85 => uk => UK £m
+i need status 494.09 => uk => UK £m
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_pagination.html.erb (1.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_down_result_pagination.html.erb (2.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_down_content.html.erb (0.6ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_fund_search_result.html.erb (538.2ms)
+Completed 200 OK in 2524ms (Views: 527.8ms | ActiveRecord: 373.2ms | Solr: 80.9ms)
+Started POST "/funds/get_funds_value" for 127.0.0.1 at 2017-03-17 18:19:23 +0530
+Processing by Wps::UqFundsController#get_funds_value as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"JCnnz7HsaS5GzenTaOh8tWBwjxjFVeLhIX5zPAlyRkU=", "sort"=>"name_sort", "order"=>"asc", "funds"=>{"currency"=>"uk", "fund_name_value"=>"", "fund_name"=>"", "investor_name_value"=>"", "investor_name"=>"", "country_name"=>"", "country"=>"", "fund_type_value"=>"", "fund_type"=>"", "event_dates_value"=>"", "event_dates"=>"", "start_month"=>"", "start_year"=>"", "end_month"=>"", "end_year"=>"", "target_from"=>"", "target_to"=>"", "keyword"=>"", "geogcountry_value"=>"", "geogcountry"=>"", "unverified"=>"Pending QC"}, "search_type"=>"standard_search", "dry_powder"=>{"percentage_deployed"=>""}}
+=========ssssssaaaaaaa======{:text=>"", :page=>1, :per_page=>1, :dy_sort=>{:name_sort=>:asc}, :sort=>"Relevance", :filters=>{:id=>[[], "ary"], :investor_name=>[[], "ary"], :country_id=>[[], "ary"], :fund_type=>[[], ""], :fund_event_type=>[[], "ary"], :fund_geo_pref_id=>[[], "ary"], :status_name=>[["Publish", "Pending QC"], "ary"]}, :gt_filters=>{"fund_target_amount_uk"=>""}, :lt_filters=>{"fund_target_amount_uk"=>""}, :sum_value=>[["fund_uk"]], :not_by_filters=>{}, :not_by_gt_filters=>{}, :not_by_lt_filters=>{}, :facets=>[], :fields=>[], :include_models=>[Fund(id: integer, name: string, investor_group_component_id: integer, currency_id: integer, city_id: integer, target_size: string, vintage: integer, basic_fund_type_id: integer, fund_status: string, status_id: integer, fund_overview: text, new_investor_percent: string, existing_investor_percent: string, created_by: integer, updated_by: integer, created_at: datetime, updated_at: datetime, fund_check: boolean, proprietary_capital: boolean, fund_target_amount: string, investor_id: integer, country_id: integer, fund_target_amount_usd: string, data_proxy_id: integer, investor_group_id: integer, note_description: string, fund_target_amount_uk: float, fund_target_amount_us: float, fund_target_amount_euro: float, fund_target_amount_yen: float, fund_target_size_uk: float, fund_target_size_us: float, fund_target_size_euro: float, fund_target_size_yen: float, last_date: datetime, geo_name: string)]}
+=======query[filters]======{:id=>[[], "ary"], :investor_name=>[[], "ary"], :country_id=>[[], "ary"], :fund_type=>[[], ""], :fund_event_type=>[[], "ary"], :fund_geo_pref_id=>[[], "ary"], :status_name=>[["Publish", "Pending QC"], "ary"]}
+============query[gt_filters]=========={"fund_target_amount_uk"=>""}
+===========query[lt_filters]==========={"fund_target_amount_uk"=>""}
+=====get_fund_event_ids===={}
+=====get_fund_gt_event_dates=={}
+=====get_fund_lt_event_dates=={}
+=======query[filters]======{:id=>[[], "ary"], :investor_name=>[[], "ary"], :country_id=>[[], "ary"], :fund_type=>[[], ""], :fund_event_type=>[[], "ary"], :fund_geo_pref_id=>[[], "ary"], :status_name=>[["Publish", "Pending QC"], "ary"]}
+============query[gt_filters]=========={"fund_target_amount_uk"=>""}
+===========query[lt_filters]==========={"fund_target_amount_uk"=>""}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd1xxxxxxxxxxxxxfalse
+<Sunspot::Search:{:fq=>["type:Fund", "(status_name_s:publish OR status_name_s:pending\\ qc)", nil, nil], :sort=>"name_sort_s asc", :start=>0, :rows=>1, :stats=>true, :"stats.field"=>["fund_target_size_uk_e"], :q=>"*:*"}>
+======fund_total_val========1111===1077838.408953425=========
+======fund_avg_val========2222===331.84680078615304===
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_fund_values_total.html.erb (5.8ms)
+Completed 200 OK in 343ms (Views: 10.8ms | ActiveRecord: 10.4ms | Solr: 296.1ms)
+
+
+
+
+<%= hidden_field_tag 'deal_profile_id' %>
+<div id="search_result_div">
+  <div class="search_result_block_div">
+    <%= content_tag(:div, '', :class => "spacer_10") %>
+    <%= content_tag(:div, '', :class => "clear") %>
+    <%= hidden_field_tag 'fund_profile_id' %>
+    <%= hidden_field_tag 'source', 'fund_search' %>
+    <%= render :partial => "funds/partials/result_params" %>
+    <%= content_tag (:p), :style => "padding-right:10px;", :align => "right" do %>
+    <% if  !params[:funds][:unverified].blank? %>
+        <%= check_box_tag 'funds[unverified]', true, checked = true, :class => "check_input get_page_verified", "data-url" => "1", "data-searchurl" => "/funds/search" %>
+    <% else %>
+        <%= check_box_tag 'funds[unverified]', true, checked = false, :class => "check_input get_page_verified", "data-url" => "1", "data-searchurl" => "/funds/search" %>
+    <% end %>
+    Include partial fund profiles
+   <% end %>
+    <!-- fund page top value count start -->
+    <%= render :partial => "funds/partials/result_return_count" %>
+    <!-- fund page top value count end -->
+    <!-- fund search result top pagination start -->
+    <%= render :partial => "/funds/partials/top_result_pagination" %>
+    <!-- fund search result top pagination end -->
+    <%= content_tag(:div, '', :class => "clear") %>
+
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Sites$ vi unquote_data_site/views/funds/partials/_total_value.html.erb 
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Sites$ vi unquote_data_site/views/funds/partials/_fund_search_result.html.erb
+
+

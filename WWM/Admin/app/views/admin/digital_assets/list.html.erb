@@ -1,0 +1,42 @@
+<%= javascript_include_tag "/autocomplete/auto_complete" %>
+<div class="panel current" id="image_list">
+	<div class="columnLeft ">
+		
+		    
+		
+		<div id="asset_list">
+			<%= sr_render_widget(SrComponent.find_component_by_name("digital_assest_list")) if !@search %>	
+			<%=  sr_render_widget(SrComponent.find_component_by_name("digital_assest_search_list"))  if @search %>
+		</div>
+		
+		    
+	</div>
+	<div class="columnRight">
+		<div id="assets_information_upload"> </div>
+		<%=sr_render_widget(SrComponent.find_component_by_name("digital_assest_search_and_upload"))%>	
+	</div>
+</div>
+
+    <script type="text/javascript">
+jQuery(function(){
+jQuery(".add_document").click(function(){
+ var id=$(this).attr("id");
+ var document_name=$("#"+id).data('name');
+ var document_path=$("#"+id).data('url');
+ var icon=$("#"+id).data('icon');
+ var doc_id=$("#"+id).data('documentid');
+confirmed = window.confirm("Do you want to insert this document");
+ if (confirmed)
+    {
+ var doc_pre='<table><tr><td><img src='+document_path+' '+' alt= /></td><td>Document Name:<br/>'+document_name+'</td></tr></table>'
+                window.opener.$('#prev_document').html(doc_pre); 
+                window.opener.$('#digital_asset_property_digital_asset_id').attr("value",doc_id);  
+                window.opener.$('#no_digital_asset').hide();
+                window.opener.$('.newWindow').hide();
+                window.opener.$('#digital_asset_change_link123').show();
+                 window.opener.$('#gen_digital_asset').show();
+                parent.close();
+       }
+    });
+   });
+    </script>

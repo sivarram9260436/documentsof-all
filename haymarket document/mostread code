@@ -1,0 +1,59 @@
+1.9.3-p194 :006 > MostReadPerHour.count
+   (7477.1ms)  SELECT COUNT(*) FROM "most_read_per_hours" 
+ => 9251030 
+
+class PerHourReadForOnce
+def self.update_read_and_most_read_count
+ dir_path = "/home/ruby/Nginx/Nginx_Conf/nginx/tmp1/logs/check"
+  articles_count = {}
+  sources=Source.all.collect{|s| Regexp.escape(s.alais_name)}.join("|")
+  sections=Section.all.collect{|ss| Regexp.escape(ss.alias_name)}.join("|")
+  sections << "|"
+  sections << Blog.all.collect{|sss| Regexp.escape(sss.url_part)}.join("|")
+i=0
+   begin
+    Dir["#{dir_path}/*.log"].each do | filename |
+      input = IO.popen("tac #{filename}","r")
+puts"==========================================================#{filename}"
+       input.each do |line|
+i=i+1
+puts "At line #{i}" if i%1000 == 0
+	line=~/^\d+\.\d+\.\d+\.\d+\s\[(.+)\].*/i
+	if line.match(/^\d+\.\d+\.\d+\.\d+\s\[(.+)\].*\/(#{sources})\/(#{sections})\/(\d+)\/[^\/]+\sHTTP.*"\s200.*/i)	  
+  h=$1.split.first.split(":")[1]
+  date=Date.parse($1.split.first).strftime("%Y-%m-%d 00:00:00")
+
+
+articles_count[$4.to_i] = {} if !articles_count.has_key?($4.to_i)
+articles_count[$4.to_i][date] = 0 if !articles_count[$4.to_i].has_key?(date)
+articles_count[$4.to_i][date] +=1
+      end
+    end
+   end
+	   rescue Exception => e
+puts"Something went wrong"
+puts"#{e.message}"    
+  end
+puts"#{articles_count}"
+puts articles_count.count 
+
+j=0
+  articles_count.each do |key,value|
+j=j+1
+puts "B At #{j} record" if j%100==0
+    article_id = key
+if !(Article.find(:first,:conditions=> ["id = ? ", key])).blank?
+    article=Article.find key
+      value.each do |key1,value1|
+        cr_date = "#{key1}"
+        count = value1
+ActiveRecord::Base.connection.execute("insert into most_read_per_hours(data_proxy_id,article_id,most_read_count,created_at,updated_at) values('#{article.sites.first.data_proxy_id}','#{key}','#{count.to_i}','#{cr_date}','#{cr_date}')")
+      end
+    end
+  end
+end
+end
+
+25681
+
+#<MostReadPerHour id: 9298929, data_proxy_id: 3, article_id: 24821, most_read_count: 55, created_at: "2017-05-30 13:34:02", updated_at: "2017-05-30 13:34:02">

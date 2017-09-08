@@ -1,0 +1,465 @@
+sivaram@sivaram:~$ 
+sivaram@sivaram:~$ 
+sivaram@sivaram:~$ 
+sivaram@sivaram:~$ ssh vaidheeswaran@192.168.15.54
+The authenticity of host '192.168.15.54 (192.168.15.54)' can't be established.
+ECDSA key fingerprint is SHA256:EEX5vt5cLC85+2I/DYWRgatjjcJkFNj9ZgIen2yVL1s.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '192.168.15.54' (ECDSA) to the list of known hosts.
+vaidheeswaran@192.168.15.54's password: 
+Permission denied, please try again.
+vaidheeswaran@192.168.15.54's password: 
+Permission denied, please try again.
+vaidheeswaran@192.168.15.54's password: 
+Permission denied (publickey,password).
+sivaram@sivaram:~$ 
+sivaram@sivaram:~$ 
+sivaram@sivaram:~$ 
+sivaram@sivaram:~$ ssh vaidheeswaran@192.168.15.54
+vaidheeswaran@192.168.15.54's password: 
+Welcome to Ubuntu 14.04.5 LTS (GNU/Linux 3.13.0-96-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+  System information as of Tue Apr 11 19:42:23 IST 2017
+
+  System load:    0.88                Processes:           286
+  Usage of /home: 36.6% of 281.49GB   Users logged in:     1
+  Memory usage:   67%                 IP address for eth0: 192.168.15.54
+  Swap usage:     0%
+
+  Graph this data and manage this system at:
+    https://landscape.canonical.com/
+
+251 packages can be updated.
+187 updates are security updates.
+
+New release '16.04.2 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+Last login: Tue Apr 11 19:42:24 2017 from 192.168.15.60
+vaidheeswaran@vaidheeswaran:~$ 
+vaidheeswaran@vaidheeswaran:~$ 
+vaidheeswaran@vaidheeswaran:~$ 
+vaidheeswaran@vaidheeswaran:~$ 
+vaidheeswaran@vaidheeswaran:~$ 
+vaidheeswaran@vaidheeswaran:~$ shh ruby@46.101.90.166
+No command 'shh' found, did you mean:
+ Command 'sch' from package 'scheme2c' (universe)
+ Command 'sh' from package 'dash' (main)
+ Command 'ssh' from package 'openssh-client' (main)
+shh: command not found
+vaidheeswaran@vaidheeswaran:~$ ssh ruby@46.101.90.166
+Last login: Tue Apr 11 13:31:48 BST 2017 from 103.38.240.1 on pts/8
+Container Linux by CoreOS stable (1298.7.0)
+ruby@markallen-rails4 ~ $ 
+ruby@markallen-rails4 ~ $ 
+ruby@markallen-rails4 ~ $ 
+ruby@markallen-rails4 ~ $ 
+ruby@markallen-rails4 ~ $ 
+ruby@markallen-rails4 ~ $ 
+ruby@markallen-rails4 ~ $ ls
+Admin  kreatio-application-setup  rsyncfiles
+ruby@markallen-rails4 ~ $ 
+ruby@markallen-rails4 ~ $ 
+ruby@markallen-rails4 ~ $ cd Admin/
+ruby@markallen-rails4 ~/Admin $ 
+ruby@markallen-rails4 ~/Admin $ 
+ruby@markallen-rails4 ~/Admin $ 
+ruby@markallen-rails4 ~/Admin $ ls
+ruby@markallen-rails4 ~/Admin $ ls
+ruby@markallen-rails4 ~/Admin $ 
+ruby@markallen-rails4 ~/Admin $ 
+ruby@markallen-rails4 ~/Admin $ cd ../
+ruby@markallen-rails4 ~ $ 
+ruby@markallen-rails4 ~ $ 
+ruby@markallen-rails4 ~ $ cd kreatio-application-setup
+ruby@markallen-rails4 ~/kreatio-application-setup $ ls
+1                        kreatio_docker_build.sh                             nginx                        scheduled_tasks
+app                      kreatio_docker_container_process_check.sh_original  oldscripts                   solr
+app_setup.sh             kreatio_docker_container_start.sh                   oracle-java                  sunspot.yml
+article_publish_task.sh  kreatio_docker_container_stop.sh                    pipework                     ubuntu-with-dev-tools
+database.yml             kreatio_docker_run.sh                               postfix                      unicorn_cms.rb
+docker-compose           kreatio_docker_run.sh_original                      postgres                     unicorn_wps.rb
+docker_unicorn_start.sh  kreatio_docker_run_data.sh                          redis
+docker_unicorn_stop.sh   kreatio_docker_setup.sh                             ruby
+kreatio-nginx            memcache                                            ruby-with-gem-dependendcies
+ruby@markallen-rails4 ~/kreatio-application-setup $ 
+ruby@markallen-rails4 ~/kreatio-application-setup $ cd d
+database.yml             docker-compose/          docker_unicorn_start.sh  docker_unicorn_stop.sh   
+ruby@markallen-rails4 ~/kreatio-application-setup $ ls  
+1                        kreatio_docker_build.sh                             nginx                        scheduled_tasks
+app                      kreatio_docker_container_process_check.sh_original  oldscripts                   solr
+app_setup.sh             kreatio_docker_container_start.sh                   oracle-java                  sunspot.yml
+article_publish_task.sh  kreatio_docker_container_stop.sh                    pipework                     ubuntu-with-dev-tools
+database.yml             kreatio_docker_run.sh                               postfix                      unicorn_cms.rb
+docker-compose           kreatio_docker_run.sh_original                      postgres                     unicorn_wps.rb
+docker_unicorn_start.sh  kreatio_docker_run_data.sh                          redis
+docker_unicorn_stop.sh   kreatio_docker_setup.sh                             ruby
+kreatio-nginx            memcache                                            ruby-with-gem-dependendcies
+ruby@markallen-rails4 ~/kreatio-application-setup $ cd 
+ruby@markallen-rails4 ~ $ ls
+Admin  kreatio-application-setup  rsyncfiles
+ruby@markallen-rails4 ~ $ cd Admin/
+ruby@markallen-rails4 ~/Admin $ cd
+ruby@markallen-rails4 ~ $ cd /data/core_cms/
+ruby@markallen-rails4 /data/core_cms $ 
+ruby@markallen-rails4 /data/core_cms $ 
+ruby@markallen-rails4 /data/core_cms $ ls
+Admin  Articles_Performance  Data_import  Kreatio_Core  Sites  UnicornQueue-Checking  WPS  Webdackimage  subsribers
+ruby@markallen-rails4 /data/core_cms $ 
+ruby@markallen-rails4 /data/core_cms $ 
+ruby@markallen-rails4 /data/core_cms $ 
+ruby@markallen-rails4 /data/core_cms $ 
+ruby@markallen-rails4 /data/core_cms $ 
+ruby@markallen-rails4 /data/core_cms $ cd   
+ruby@markallen-rails4 ~ $ cd Admin/
+ruby@markallen-rails4 ~/Admin $ 
+ruby@markallen-rails4 ~/Admin $ 
+ruby@markallen-rails4 ~/Admin $ cd ..
+ruby@markallen-rails4 ~ $ cd /data/core_cms/
+ruby@markallen-rails4 /data/core_cms $ 
+ruby@markallen-rails4 /data/core_cms $ 
+ruby@markallen-rails4 /data/core_cms $ 
+ruby@markallen-rails4 /data/core_cms $ cd Admin/
+ruby@markallen-rails4 /data/core_cms/Admin $ 
+ruby@markallen-rails4 /data/core_cms/Admin $ 
+ruby@markallen-rails4 /data/core_cms/Admin $ 
+ruby@markallen-rails4 /data/core_cms/Admin $ 
+ruby@markallen-rails4 /data/core_cms/Admin $ sudo docker exec -i -t admin /bin/bash
+root@307a8a75b888:/app/cms/Admin# 
+root@307a8a75b888:/app/cms/Admin# 
+root@307a8a75b888:/app/cms/Admin# 
+root@307a8a75b888:/app/cms/Admin# bundle exec rails c
+
+
+
+/usr/local/bundle/gems/htmlentities-4.3.1/lib/htmlentities/mappings/expanded.rb:465: warning: duplicated key at line 466 ignored: "inodot"
+libdc1394 error: Failed to initialize libdc1394
+/usr/local/bundle/gems/liquid-2.4.1/lib/liquid/htmltags.rb:43: warning: duplicated key at line 46 ignored: "index0"
+/app/cms/Kreatio_Core/lib/kr_gems/css_graphs/lib/css_graphs/css_graphs.rb:3: warning: already initialized constant CssGraphs::VERSION
+/app/cms/Kreatio_Core/lib/kr_gems/css_graphs/lib/css_graphs/version.rb:3: warning: previous definition of VERSION was here
+/app/cms/Kreatio_Core/config/initializers/access_control.rb:204: warning: duplicated key at line 213 ignored: :product_management
+/app/cms/Kreatio_Core/config/initializers/access_control.rb:132: warning: duplicated key at line 248 ignored: :newsletter_management
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:40: warning: duplicated key at line 85 ignored: :search_data
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:40: warning: duplicated key at line 392 ignored: :search_data
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:98: warning: duplicated key at line 400 ignored: :search_source
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:105: warning: duplicated key at line 407 ignored: :search_tag
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:112: warning: duplicated key at line 421 ignored: :search_author
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:119: warning: duplicated key at line 428 ignored: :search_medium
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:126: warning: duplicated key at line 435 ignored: :asset_category
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:140: warning: duplicated key at line 449 ignored: :asset_condition_category
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:147: warning: duplicated key at line 456 ignored: :asset_condition_tag
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:154: warning: duplicated key at line 463 ignored: :asset_condition_section
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:161: warning: duplicated key at line 470 ignored: :product_criteria_asset_category
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:168: warning: duplicated key at line 477 ignored: :advance_search_categories
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:175: warning: duplicated key at line 484 ignored: :advance_search_locations
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:182: warning: duplicated key at line 505 ignored: :author_category
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:189: warning: duplicated key at line 512 ignored: :site_category
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:196: warning: duplicated key at line 519 ignored: :site_section
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:203: warning: duplicated key at line 526 ignored: :site_tag
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:217: warning: duplicated key at line 533 ignored: :site_blog
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:224: warning: duplicated key at line 540 ignored: :site_source
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:231: warning: duplicated key at line 547 ignored: :site_author
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:238: warning: duplicated key at line 555 ignored: :site_source_all
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:245: warning: duplicated key at line 562 ignored: :category_site_list
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:252: warning: duplicated key at line 569 ignored: :site_list_all
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:268: warning: duplicated key at line 576 ignored: :user_ranklist
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:276: warning: duplicated key at line 584 ignored: :user_fragment
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:283: warning: duplicated key at line 592 ignored: :directory_listing_services
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:290: warning: duplicated key at line 599 ignored: :directory_listing_categories
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:297: warning: duplicated key at line 606 ignored: :directory_listing_locations
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:304: warning: duplicated key at line 613 ignored: :directory_listing_memberships
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:311: warning: duplicated key at line 620 ignored: :directory_listing_category_site
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:319: warning: duplicated key at line 627 ignored: :directory_listing_sponsor_services
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:326: warning: duplicated key at line 634 ignored: :directory_listing_sponsor_locations
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:333: warning: duplicated key at line 641 ignored: :directory_listing_sponsor_memberships
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:340: warning: duplicated key at line 648 ignored: :event_sites
+==================================Component Start loading Time => 2017-04-12 10:58:46 UTC ===============================
+================================== Start file 00_base.rb => Time => 2017-04-12 10:58:46 UTC ======================
+/app/cms/Kreatio_Core/app/components/00_base.rb:137: warning: duplicated key at line 142 ignored: :button
+/app/cms/Kreatio_Core/app/components/00_base.rb:141: warning: duplicated key at line 145 ignored: :pagination
+/app/cms/Kreatio_Core/app/components/00_base.rb:152: warning: duplicated key at line 157 ignored: :button
+/app/cms/Kreatio_Core/app/components/00_base.rb:156: warning: duplicated key at line 160 ignored: :pagination
+/app/cms/Kreatio_Core/app/components/00_base.rb:171: warning: duplicated key at line 174 ignored: :pagination
+/app/cms/Kreatio_Core/app/components/00_base.rb:180: warning: duplicated key at line 185 ignored: :button
+/app/cms/Kreatio_Core/app/components/00_base.rb:194: warning: duplicated key at line 199 ignored: :button
+/app/cms/Kreatio_Core/app/components/00_base.rb:236: warning: duplicated key at line 244 ignored: :button
+/app/cms/Kreatio_Core/app/components/00_base.rb:252: warning: duplicated key at line 260 ignored: :button
+/app/cms/Kreatio_Core/app/components/00_base.rb:307: warning: duplicated key at line 312 ignored: :button
+/app/cms/Kreatio_Core/app/components/00_base.rb:695: warning: duplicated key at line 698 ignored: :pagination
+/app/cms/Kreatio_Core/app/components/00_base.rb:736: warning: duplicated key at line 739 ignored: :decoration
+/app/cms/Kreatio_Core/app/components/00_base.rb:751: warning: duplicated key at line 761 ignored: :empty_message
+/app/cms/Kreatio_Core/app/components/00_base.rb:775: warning: duplicated key at line 785 ignored: :empty_message
+loading component audio_upload
+loading component audio_search
+loading component media_upload
+loading component audio_search
+================================== End file 00_base.rb => Time => 2017-04-12 10:58:46 UTC==========================
+================================== Start file 01_admin.rb => Time => 2017-04-12 10:58:46 UTC ======================
+/app/cms/Kreatio_Core/app/components/01_admin.rb:7: warning: duplicated key at line 10 ignored: :data_as
+loading component asset_group_tab
+loading component latest_article_tab
+loading component most_rated_article_tab
+================================== End file 01_admin.rb => Time => 2017-04-12 10:58:46 UTC==========================
+================================== Start file 02_forum.rb => Time => 2017-04-12 10:58:46 UTC ======================
+================================== End file 02_forum.rb => Time => 2017-04-12 10:58:46 UTC==========================
+================================== Start file 03_debates.rb => Time => 2017-04-12 10:58:46 UTC ======================
+================================== End file 03_debates.rb => Time => 2017-04-12 10:58:46 UTC==========================
+==================================End loading Time =2017-04-12 10:58:46 UTC=============================================
+/app/cms/Kreatio_Core/config/initializers/search_engine.rb:23: warning: duplicated key at line 23 ignored: :author
+/app/cms/Kreatio_Core/config/initializers/search_engine.rb:27: warning: duplicated key at line 27 ignored: :video_or_audio
+/app/cms/Kreatio_Core/config/initializers/search_engine.rb:27: warning: duplicated key at line 27 ignored: :author
+/app/cms/Kreatio_Core/config/initializers/solr_dismax.rb:14: warning: already initialized constant Sunspot::Query::Dismax
+/usr/local/bundle/gems/sunspot-2.1.1/lib/sunspot/query/dismax.rb:9: warning: previous definition of Dismax was here
+/app/cms/Admin/config/initializers/access_control.rb:207: warning: duplicated key at line 216 ignored: :product_management
+/app/cms/Admin/config/initializers/access_control.rb:135: warning: duplicated key at line 251 ignored: :newsletter_management
+/app/cms/Admin/config/initializers/access_control.rb:1: warning: already initialized constant ROLE_TYPE_SPECIFIC_HOME_PAGE
+/app/cms/Kreatio_Core/config/initializers/access_control.rb:1: warning: previous definition of ROLE_TYPE_SPECIFIC_HOME_PAGE was here
+/app/cms/Admin/config/initializers/access_control.rb:8: warning: already initialized constant SUBPERMISSION
+/app/cms/Kreatio_Core/config/initializers/access_control.rb:8: warning: previous definition of SUBPERMISSION was here
+/app/cms/Admin/config/initializers/access_control.rb:272: warning: already initialized constant UUID
+/app/cms/Kreatio_Core/config/initializers/access_control.rb:256: warning: previous definition of UUID was here
+/app/cms/Admin/config/initializers/address_lookup.rb:3: warning: already initialized constant REMOVE_STOP_WORDS
+/app/cms/Kreatio_Core/config/initializers/general_admin_properties.rb:4: warning: previous definition of REMOVE_STOP_WORDS was here
+/app/cms/Admin/config/initializers/authentication_config.rb:1: warning: already initialized constant PACKAGE
+/app/cms/Kreatio_Core/config/initializers/authentication_config.rb:1: warning: previous definition of PACKAGE was here
+/app/cms/Admin/config/initializers/authentication_config.rb:3: warning: already initialized constant MAGAZINE_ONLINE
+/app/cms/Kreatio_Core/config/initializers/authentication_config.rb:3: warning: previous definition of MAGAZINE_ONLINE was here
+/app/cms/Admin/config/initializers/authentication_config.rb:5: warning: already initialized constant MAGAZINE
+/app/cms/Kreatio_Core/config/initializers/authentication_config.rb:5: warning: previous definition of MAGAZINE was here
+/app/cms/Admin/config/initializers/authentication_config.rb:7: warning: already initialized constant ONLINE
+/app/cms/Kreatio_Core/config/initializers/authentication_config.rb:7: warning: previous definition of ONLINE was here
+/app/cms/Admin/config/initializers/authentication_config.rb:9: warning: already initialized constant NCB_MAGAZINE_ONLINE
+/app/cms/Kreatio_Core/config/initializers/authentication_config.rb:9: warning: previous definition of NCB_MAGAZINE_ONLINE was here
+/app/cms/Admin/config/initializers/authentication_config.rb:11: warning: already initialized constant NCB_MAGAZINE
+/app/cms/Kreatio_Core/config/initializers/authentication_config.rb:11: warning: previous definition of NCB_MAGAZINE was here
+/app/cms/Admin/config/initializers/authentication_config.rb:13: warning: already initialized constant NCB_ONLINE
+/app/cms/Kreatio_Core/config/initializers/authentication_config.rb:13: warning: previous definition of NCB_ONLINE was here
+/app/cms/Admin/config/initializers/authentication_config.rb:15: warning: already initialized constant CREATE_CONTACT_TABLE_ID
+/app/cms/Kreatio_Core/config/initializers/authentication_config.rb:15: warning: previous definition of CREATE_CONTACT_TABLE_ID was here
+/app/cms/Admin/config/initializers/authentication_config.rb:17: warning: already initialized constant SUBSCRIPTION_USER_TYPE
+/app/cms/Kreatio_Core/config/initializers/authentication_config.rb:17: warning: previous definition of SUBSCRIPTION_USER_TYPE was here
+/app/cms/Admin/config/initializers/authentication_config.rb:19: warning: already initialized constant SUBSCRIPTION_STATUS
+/app/cms/Kreatio_Core/config/initializers/authentication_config.rb:19: warning: previous definition of SUBSCRIPTION_STATUS was here
+/app/cms/Admin/config/initializers/authentication_config.rb:21: warning: already initialized constant SUBSCRIPTION_EXPIRE_TIME
+/app/cms/Kreatio_Core/config/initializers/authentication_config.rb:21: warning: previous definition of SUBSCRIPTION_EXPIRE_TIME was here
+/app/cms/Admin/config/initializers/authentication_config.rb:25: warning: already initialized constant SUBSCRIPTION_PRODUCT_ID
+/app/cms/Kreatio_Core/config/initializers/authentication_config.rb:23: warning: previous definition of SUBSCRIPTION_PRODUCT_ID was here
+/app/cms/Admin/config/initializers/authentication_config.rb:27: warning: already initialized constant SUBSCRIPTION_TYPE
+/app/cms/Kreatio_Core/config/initializers/authentication_config.rb:25: warning: previous definition of SUBSCRIPTION_TYPE was here
+/app/cms/Admin/config/initializers/authentication_config.rb:29: warning: already initialized constant LIST_IDS
+/app/cms/Kreatio_Core/config/initializers/authentication_config.rb:27: warning: previous definition of LIST_IDS was here
+/app/cms/Admin/config/initializers/authentication_config.rb:31: warning: already initialized constant SITE_UID
+/app/cms/Kreatio_Core/config/initializers/authentication_config.rb:29: warning: previous definition of SITE_UID was here
+/app/cms/Admin/config/initializers/auto_completion.rb:40: warning: duplicated key at line 85 ignored: :search_data
+/app/cms/Admin/config/initializers/auto_completion.rb:40: warning: duplicated key at line 392 ignored: :search_data
+/app/cms/Admin/config/initializers/auto_completion.rb:98: warning: duplicated key at line 400 ignored: :search_source
+/app/cms/Admin/config/initializers/auto_completion.rb:105: warning: duplicated key at line 407 ignored: :search_tag
+/app/cms/Admin/config/initializers/auto_completion.rb:112: warning: duplicated key at line 421 ignored: :search_author
+/app/cms/Admin/config/initializers/auto_completion.rb:119: warning: duplicated key at line 428 ignored: :search_medium
+/app/cms/Admin/config/initializers/auto_completion.rb:126: warning: duplicated key at line 435 ignored: :asset_category
+/app/cms/Admin/config/initializers/auto_completion.rb:140: warning: duplicated key at line 449 ignored: :asset_condition_category
+/app/cms/Admin/config/initializers/auto_completion.rb:147: warning: duplicated key at line 456 ignored: :asset_condition_tag
+/app/cms/Admin/config/initializers/auto_completion.rb:154: warning: duplicated key at line 463 ignored: :asset_condition_section
+/app/cms/Admin/config/initializers/auto_completion.rb:161: warning: duplicated key at line 470 ignored: :product_criteria_asset_category
+/app/cms/Admin/config/initializers/auto_completion.rb:168: warning: duplicated key at line 477 ignored: :advance_search_categories
+/app/cms/Admin/config/initializers/auto_completion.rb:175: warning: duplicated key at line 484 ignored: :advance_search_locations
+/app/cms/Admin/config/initializers/auto_completion.rb:182: warning: duplicated key at line 505 ignored: :author_category
+/app/cms/Admin/config/initializers/auto_completion.rb:189: warning: duplicated key at line 512 ignored: :site_category
+/app/cms/Admin/config/initializers/auto_completion.rb:196: warning: duplicated key at line 519 ignored: :site_section
+/app/cms/Admin/config/initializers/auto_completion.rb:203: warning: duplicated key at line 526 ignored: :site_tag
+/app/cms/Admin/config/initializers/auto_completion.rb:217: warning: duplicated key at line 533 ignored: :site_blog
+/app/cms/Admin/config/initializers/auto_completion.rb:224: warning: duplicated key at line 540 ignored: :site_source
+/app/cms/Admin/config/initializers/auto_completion.rb:231: warning: duplicated key at line 547 ignored: :site_author
+/app/cms/Admin/config/initializers/auto_completion.rb:238: warning: duplicated key at line 555 ignored: :site_source_all
+/app/cms/Admin/config/initializers/auto_completion.rb:245: warning: duplicated key at line 562 ignored: :category_site_list
+/app/cms/Admin/config/initializers/auto_completion.rb:252: warning: duplicated key at line 569 ignored: :site_list_all
+/app/cms/Admin/config/initializers/auto_completion.rb:268: warning: duplicated key at line 576 ignored: :user_ranklist
+/app/cms/Admin/config/initializers/auto_completion.rb:276: warning: duplicated key at line 584 ignored: :user_fragment
+/app/cms/Admin/config/initializers/auto_completion.rb:283: warning: duplicated key at line 592 ignored: :directory_listing_services
+/app/cms/Admin/config/initializers/auto_completion.rb:290: warning: duplicated key at line 599 ignored: :directory_listing_categories
+/app/cms/Admin/config/initializers/auto_completion.rb:297: warning: duplicated key at line 606 ignored: :directory_listing_locations
+/app/cms/Admin/config/initializers/auto_completion.rb:304: warning: duplicated key at line 613 ignored: :directory_listing_memberships
+/app/cms/Admin/config/initializers/auto_completion.rb:311: warning: duplicated key at line 620 ignored: :directory_listing_category_site
+/app/cms/Admin/config/initializers/auto_completion.rb:319: warning: duplicated key at line 627 ignored: :directory_listing_sponsor_services
+/app/cms/Admin/config/initializers/auto_completion.rb:326: warning: duplicated key at line 634 ignored: :directory_listing_sponsor_locations
+/app/cms/Admin/config/initializers/auto_completion.rb:333: warning: duplicated key at line 641 ignored: :directory_listing_sponsor_memberships
+/app/cms/Admin/config/initializers/auto_completion.rb:340: warning: duplicated key at line 648 ignored: :event_sites
+/app/cms/Admin/config/initializers/auto_completion.rb:1: warning: already initialized constant AUTO_COMPLETION_MAPPING
+/app/cms/Kreatio_Core/config/initializers/auto_completion.rb:1: warning: previous definition of AUTO_COMPLETION_MAPPING was here
+/app/cms/Admin/config/initializers/client_specific_config.rb:9: warning: already initialized constant DEFAULT_TIME_ZONE_SET
+/app/cms/Kreatio_Core/config/initializers/general_wps_properties.rb:1: warning: previous definition of DEFAULT_TIME_ZONE_SET was here
+/app/cms/Admin/app/components/00_base.rb:94: warning: duplicated key at line 102 ignored: :button
+/app/cms/Admin/app/components/00_base.rb:110: warning: duplicated key at line 118 ignored: :button
+/app/cms/Admin/app/components/00_base.rb:137: warning: duplicated key at line 140 ignored: :data_as
+/app/cms/Admin/app/components/00_base.rb:150: warning: duplicated key at line 153 ignored: :data_as
+/app/cms/Admin/config/initializers/load_component.rb:12: warning: already initialized constant COMPONENT_ARGUMENT_HASHES
+/app/cms/Kreatio_Core/config/initializers/load_component.rb:25: warning: previous definition of COMPONENT_ARGUMENT_HASHES was here
+/app/cms/Admin/config/initializers/load_engine.rb:48: warning: already initialized constant ENGINE_NAME
+/app/cms/Admin/config/initializers/load_engine.rb:48: warning: previous definition of ENGINE_NAME was here
+Loading development environment (Rails 4.2.0)
+irb(main):001:0> 
+irb(main):002:0* 
+irb(main):003:0* 
+irb(main):004:0* 
+irb(main):005:0* 
+irb(main):006:0* Ambient.init
+=> {}
+irb(main):007:0> 
+irb(main):008:0* Ambient.set_site
+  Site Load (1.4ms)  SELECT "sites".* FROM "sites" WHERE "sites"."site_type" = $1  ORDER BY short_name  [["site_type", "Site"]]
+  1. cypnow
+  2. general
+  3. nursery_world
+  4. print_week
+Enter value :
+1
+  Site Load (0.6ms)  SELECT  "sites".* FROM "sites" WHERE "sites"."short_name" = $1 LIMIT 1  [["short_name", "cypnow"]]
+Ambient.current_site is set to cypnow
+=> #<Site id: "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f", name: "www.cypnow.co.uk", short_name: "cypnow", layout_path: "/layouts/cypnow", url: nil, action: nil, content_sharing_portal_id: nil, created_by: "c2f0eb9c-688f-4b87-a719-986b3bc31456", updated_by: "c2f0eb9c-688f-4b87-a719-986b3bc31456", created_at: "2016-01-12 07:43:25", updated_at: "2016-06-01 12:48:57", wpl_id: nil, presentation_proxy_id: "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f", data_proxy_id: "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f", url_display_name: "cypnow", prefix: nil, domain: "www.cypnow.co.uk", status: "Online", robot: nil, active: true, site_type: "Site", external_url: nil, start_date: nil, end_date: nil, module_type: nil, column_config: {"article"=>{"blog"=>{"json_key"=>"blog", "attr_name"=>["id", "name", "alias_name"], "model_name"=>"Blog", "column_name"=>"attrs", "multi_valued"=>false}, "tags"=>{"json_key"=>"tags", "attr_name"=>["id", "name"], "model_name"=>"Tag", "column_name"=>"attrs", "multi_valued"=>true}, "audio"=>{"json_key"=>"audio", "attr_name"=>["id", "name", "audio_path"], "model_name"=>"Audio", "column_name"=>"attrs", "multi_valued"=>false}, "format"=>{"json_key"=>"format", "data_type"=>"string", "column_name"=>"attrs"}, "source"=>{"json_key"=>"source", "attr_name"=>["id", "name"], "model_name"=>"Source", "column_name"=>"attrs", "multi_valued"=>false}, "authors"=>{"json_key"=>"authors", "attr_name"=>["id", "fullname"], "model_name"=>"Author", "column_name"=>"attrs", "multi_valued"=>true}, "contact"=>{"json_key"=>"contact", "data_type"=>"text", "column_name"=>"attrs"}, "premium"=>{"json_key"=>"premium", "data_type"=>"string", "column_name"=>"attrs"}, "section"=>{"json_key"=>"section", "attr_name"=>["id", "name", "alias_name"], "model_name"=>"Section", "column_name"=>"attrs", "multi_valued"=>false}, "end_date"=>{"json_key"=>"end_date", "data_type"=>"datetime", "column_name"=>"attrs"}, "location"=>{"json_key"=>"location", "data_type"=>"string", "column_name"=>"attrs"}, "shortcut"=>{"json_key"=>"shortcut", "data_type"=>"boolean", "column_name"=>"attrs"}, "organiser"=>{"json_key"=>"organiser", "data_type"=>"string", "column_name"=>"attrs"}, "pullquote"=>{"json_key"=>"pullquote", "data_type"=>"string", "column_name"=>"attrs"}, "sub_title"=>{"json_key"=>"sub_title", "data_type"=>"string", "column_name"=>"attrs"}, "title_url"=>{"json_key"=>"title_url", "data_type"=>"string", "column_name"=>"attrs"}, "categories"=>{"json_key"=>"categories", "attr_name"=>["id", "name", "full_name"], "model_name"=>"Category", "column_name"=>"attrs", "multi_valued"=>true}, "start_date"=>{"json_key"=>"start_date", "data_type"=>"datetime", "column_name"=>"attrs"}, "copied_from"=>{"json_key"=>"copied_from", "data_type"=>"string", "column_name"=>"attrs"}, "designation"=>{"json_key"=>"designation", "data_type"=>"string", "column_name"=>"attrs"}, "author_alias"=>{"json_key"=>"author_alias", "data_type"=>"string", "column_name"=>"attrs"}, "external_url"=>{"json_key"=>"external_url", "data_type"=>"string", "column_name"=>"attrs"}, "media_detail"=>{"json_key"=>"media_detail", "attr_name"=>["id", "name"], "model_name"=>"MediaDetail", "column_name"=>"attrs", "multi_valued"=>false}, "editing_notes"=>{"json_key"=>"editing_notes", "data_type"=>"string", "column_name"=>"attrs"}, "meta_keywords"=>{"json_key"=>"meta_keywords", "data_type"=>"string", "column_name"=>"attrs"}, "screen_rating"=>{"json_key"=>"screen_rating", "data_type"=>"integer", "column_name"=>"attrs"}, "ever_published"=>{"json_key"=>"ever_published", "data_type"=>"boolean", "column_name"=>"attrs"}, "magazine_issue"=>{"json_key"=>"magazine_issue", "attr_name"=>["id", "short_name"], "model_name"=>"MagazineIssue", "column_name"=>"attrs", "multi_valued"=>false}, "primary_medium"=>{"json_key"=>"primary_medium", "data_type"=>"string", "validation"=>{"madatory"=>true}, "column_name"=>"attrs"}, "screen_comment"=>{"json_key"=>"screen_comment", "data_type"=>"integer", "column_name"=>"attrs"}, "meta_description"=>{"json_key"=>"meta_description", "data_type"=>"string", "column_name"=>"attrs"}, "external_text_url"=>{"json_key"=>"external_text_url", "data_type"=>"string", "column_name"=>"attrs"}, "external_url_text"=>{"json_key"=>"external_url_text", "data_type"=>"string", "column_name"=>"attrs"}, "external_video_url"=>{"json_key"=>"external_video_url", "data_type"=>"string", "column_name"=>"attrs"}, "additional_data_required"=>{"json_key"=>"additional_data_required", "data_type"=>"boolean", "column_name"=>"attrs"}, "article_further_readings"=>{"json_key"=>"article_further_readings", "attr_name"=>["id", "title"], "model_name"=>"Article", "column_name"=>"attrs", "multi_valued"=>true}}, "article_additional_data"=>{"designation"=>{"type"=>"string", "label"=>"Designation", "field_name"=>"designation"}}, "article_mandatory_fields"=>["title", "source", "author", "category", "section", "content"]}, organisation_id: "def93660-bc82-4082-bf9f-c55e3ffe926f", display_name: "Cypnow">
+irb(main):009:0> 
+irb(main):010:0* @site=_
+=> #<Site id: "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f", name: "www.cypnow.co.uk", short_name: "cypnow", layout_path: "/layouts/cypnow", url: nil, action: nil, content_sharing_portal_id: nil, created_by: "c2f0eb9c-688f-4b87-a719-986b3bc31456", updated_by: "c2f0eb9c-688f-4b87-a719-986b3bc31456", created_at: "2016-01-12 07:43:25", updated_at: "2016-06-01 12:48:57", wpl_id: nil, presentation_proxy_id: "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f", data_proxy_id: "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f", url_display_name: "cypnow", prefix: nil, domain: "www.cypnow.co.uk", status: "Online", robot: nil, active: true, site_type: "Site", external_url: nil, start_date: nil, end_date: nil, module_type: nil, column_config: {"article"=>{"blog"=>{"json_key"=>"blog", "attr_name"=>["id", "name", "alias_name"], "model_name"=>"Blog", "column_name"=>"attrs", "multi_valued"=>false}, "tags"=>{"json_key"=>"tags", "attr_name"=>["id", "name"], "model_name"=>"Tag", "column_name"=>"attrs", "multi_valued"=>true}, "audio"=>{"json_key"=>"audio", "attr_name"=>["id", "name", "audio_path"], "model_name"=>"Audio", "column_name"=>"attrs", "multi_valued"=>false}, "format"=>{"json_key"=>"format", "data_type"=>"string", "column_name"=>"attrs"}, "source"=>{"json_key"=>"source", "attr_name"=>["id", "name"], "model_name"=>"Source", "column_name"=>"attrs", "multi_valued"=>false}, "authors"=>{"json_key"=>"authors", "attr_name"=>["id", "fullname"], "model_name"=>"Author", "column_name"=>"attrs", "multi_valued"=>true}, "contact"=>{"json_key"=>"contact", "data_type"=>"text", "column_name"=>"attrs"}, "premium"=>{"json_key"=>"premium", "data_type"=>"string", "column_name"=>"attrs"}, "section"=>{"json_key"=>"section", "attr_name"=>["id", "name", "alias_name"], "model_name"=>"Section", "column_name"=>"attrs", "multi_valued"=>false}, "end_date"=>{"json_key"=>"end_date", "data_type"=>"datetime", "column_name"=>"attrs"}, "location"=>{"json_key"=>"location", "data_type"=>"string", "column_name"=>"attrs"}, "shortcut"=>{"json_key"=>"shortcut", "data_type"=>"boolean", "column_name"=>"attrs"}, "organiser"=>{"json_key"=>"organiser", "data_type"=>"string", "column_name"=>"attrs"}, "pullquote"=>{"json_key"=>"pullquote", "data_type"=>"string", "column_name"=>"attrs"}, "sub_title"=>{"json_key"=>"sub_title", "data_type"=>"string", "column_name"=>"attrs"}, "title_url"=>{"json_key"=>"title_url", "data_type"=>"string", "column_name"=>"attrs"}, "categories"=>{"json_key"=>"categories", "attr_name"=>["id", "name", "full_name"], "model_name"=>"Category", "column_name"=>"attrs", "multi_valued"=>true}, "start_date"=>{"json_key"=>"start_date", "data_type"=>"datetime", "column_name"=>"attrs"}, "copied_from"=>{"json_key"=>"copied_from", "data_type"=>"string", "column_name"=>"attrs"}, "designation"=>{"json_key"=>"designation", "data_type"=>"string", "column_name"=>"attrs"}, "author_alias"=>{"json_key"=>"author_alias", "data_type"=>"string", "column_name"=>"attrs"}, "external_url"=>{"json_key"=>"external_url", "data_type"=>"string", "column_name"=>"attrs"}, "media_detail"=>{"json_key"=>"media_detail", "attr_name"=>["id", "name"], "model_name"=>"MediaDetail", "column_name"=>"attrs", "multi_valued"=>false}, "editing_notes"=>{"json_key"=>"editing_notes", "data_type"=>"string", "column_name"=>"attrs"}, "meta_keywords"=>{"json_key"=>"meta_keywords", "data_type"=>"string", "column_name"=>"attrs"}, "screen_rating"=>{"json_key"=>"screen_rating", "data_type"=>"integer", "column_name"=>"attrs"}, "ever_published"=>{"json_key"=>"ever_published", "data_type"=>"boolean", "column_name"=>"attrs"}, "magazine_issue"=>{"json_key"=>"magazine_issue", "attr_name"=>["id", "short_name"], "model_name"=>"MagazineIssue", "column_name"=>"attrs", "multi_valued"=>false}, "primary_medium"=>{"json_key"=>"primary_medium", "data_type"=>"string", "validation"=>{"madatory"=>true}, "column_name"=>"attrs"}, "screen_comment"=>{"json_key"=>"screen_comment", "data_type"=>"integer", "column_name"=>"attrs"}, "meta_description"=>{"json_key"=>"meta_description", "data_type"=>"string", "column_name"=>"attrs"}, "external_text_url"=>{"json_key"=>"external_text_url", "data_type"=>"string", "column_name"=>"attrs"}, "external_url_text"=>{"json_key"=>"external_url_text", "data_type"=>"string", "column_name"=>"attrs"}, "external_video_url"=>{"json_key"=>"external_video_url", "data_type"=>"string", "column_name"=>"attrs"}, "additional_data_required"=>{"json_key"=>"additional_data_required", "data_type"=>"boolean", "column_name"=>"attrs"}, "article_further_readings"=>{"json_key"=>"article_further_readings", "attr_name"=>["id", "title"], "model_name"=>"Article", "column_name"=>"attrs", "multi_valued"=>true}}, "article_additional_data"=>{"designation"=>{"type"=>"string", "label"=>"Designation", "field_name"=>"designation"}}, "article_mandatory_fields"=>["title", "source", "author", "category", "section", "content"]}, organisation_id: "def93660-bc82-4082-bf9f-c55e3ffe926f", display_name: "Cypnow">
+irb(main):011:0> 
+irb(main):012:0* 
+irb(main):013:0* 
+irb(main):014:0* Article.first
+/app/cms/Kreatio_Core/lib/writer_data.rb:124: warning: character class has '-' without escape: /\[image_library_tag [0-9a-f-\/]+ [^,|\]]* [^,|\]]*\]/
+/app/cms/Kreatio_Core/lib/writer_data.rb:147: warning: character class has '-' without escape: /\[image_library_tag [0-9a-f-\/]+,[^,|\]]*,[^,|\]]*\]/
+/app/cms/Kreatio_Core/lib/writer_data.rb:148: warning: character class has '-' without escape
+DEPRECATION WARNING: Currently, Active Record suppresses errors raised within `after_rollback`/`after_commit` callbacks and only print them to the logs. In the next version, these errors will no longer be suppressed. Instead, the errors will propagate normally just like in other Active Record callbacks.
+
+You can opt into the new behavior and remove this warning by setting:
+
+  config.active_record.raise_in_transactional_callbacks = true
+
+ (called from <class:Article> at /app/cms/Admin/app/models/article.rb:110)
+DEPRECATION WARNING: Currently, Active Record suppresses errors raised within `after_rollback`/`after_commit` callbacks and only print them to the logs. In the next version, these errors will no longer be suppressed. Instead, the errors will propagate normally just like in other Active Record callbacks.
+
+You can opt into the new behavior and remove this warning by setting:
+
+  config.active_record.raise_in_transactional_callbacks = true
+
+ (called from <class:Article> at /app/cms/Admin/app/models/article.rb:110)
+DEPRECATION WARNING: Currently, Active Record suppresses errors raised within `after_rollback`/`after_commit` callbacks and only print them to the logs. In the next version, these errors will no longer be suppressed. Instead, the errors will propagate normally just like in other Active Record callbacks.
+
+You can opt into the new behavior and remove this warning by setting:
+
+  config.active_record.raise_in_transactional_callbacks = true
+
+ (called from <class:Article> at /app/cms/Admin/app/models/article.rb:110)
+  Article Load (2.3ms)  SELECT  "articles".* FROM "articles"  ORDER BY "articles"."id" ASC LIMIT 1
+=> #<Article id: "000001b5-bbae-4a58-aab2-9c7ed4cf9124", title: "The National Youth Agency: NYA launches young wome...", counter: nil, latest_version_id: nil, published_version_id: nil, publish_date: "2006-03-15 00:00:00", expiry_date: nil, active: nil, in_embargo: nil, expired: nil, url_part: "the-national-youth-agency-nya-launches-young-women...", display_date: "2006-03-15 00:00:00", comments_count: 0, total_rating: 0, number_of_times_rated: 0, most_read: 0, most_commented: 0, average_rating: nil, template_id: nil, template_type: nil, is_draft: false, portal_id: nil, image_id: nil, created_by: nil, updated_by: nil, created_at: "2006-03-14 00:00:00", updated_at: "2007-10-25 02:10:00", fragment_title_text: nil, image_sequence_id: nil, language_id: nil, content_word_count: nil, group_id: nil, waiting_for_approval: nil, subsection_id: nil, event_sponsor_type_id: nil, event_speaker_type_id: nil, company: nil, end_date: nil, start_date: nil, flash_news: nil, seo_title: nil, city_id: nil, ownership: nil, common_image: nil, publish_facebook: nil, publish_twitter: nil, publish_linkedin: nil, link_type: nil, sponsored: nil, sequence_no: nil, for_approval_email: nil, video_stream_id: nil, read_count: 0, asset_source: nil, asset_source_alias: nil, primary_category_id: nil, publish_google: nil, external_id: 1064197, attrs: {"source"=>[{"id"=>"893b6b1f-c746-4a7f-9c54-8887a408b54c", "name"=>"cypnow"}], "section"=>[{"id"=>"01ef8b0f-bb67-4a11-98ce-c986d35c9fa6", "name"=>"News", "alias_name"=>"news"}], "categories"=>[{"id"=>"af4c49f2-cb5b-4ec9-859e-4a4d24c05fd7", "name"=>"Archive (use if source or section unknown)", "full_name"=>"Magazine Section >> Archive (use if source or section unknown)"}], "ever_published"=>true}, type: nil, status: 2, data_proxy_id: "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f", description: "", parent_id: nil, article_type: "Article">
+irb(main):015:0> Article.find_by_external_id (2003095)
+  Article Load (3.7ms)  SELECT  "articles".* FROM "articles" WHERE "articles"."external_id" = $1 LIMIT 1  [["external_id", 2003095]]
+=> #<Article id: "1f074d47-b2ee-4a27-b46f-af2262d64eed", title: "Caring in the classroom", counter: nil, latest_version_id: nil, published_version_id: nil, publish_date: "2013-05-28 00:01:00", expiry_date: nil, active: nil, in_embargo: nil, expired: nil, url_part: "caring-in-the-classroom", display_date: "2013-05-28 00:01:00", comments_count: 0, total_rating: 0, number_of_times_rated: 0, most_read: 0, most_commented: 0, average_rating: nil, template_id: nil, template_type: nil, is_draft: false, portal_id: nil, image_id: nil, created_by: "4ccc5b53-fa6d-4644-8ae5-ff77f70bc1b5", updated_by: nil, created_at: "2017-01-30 10:08:37", updated_at: "2017-01-30 10:08:37", fragment_title_text: nil, image_sequence_id: nil, language_id: nil, content_word_count: nil, group_id: nil, waiting_for_approval: nil, subsection_id: nil, event_sponsor_type_id: nil, event_speaker_type_id: nil, company: nil, end_date: nil, start_date: nil, flash_news: nil, seo_title: nil, city_id: nil, ownership: nil, common_image: nil, publish_facebook: nil, publish_twitter: nil, publish_linkedin: nil, link_type: nil, sponsored: nil, sequence_no: nil, for_approval_email: nil, video_stream_id: nil, read_count: 0, asset_source: nil, asset_source_alias: nil, primary_category_id: nil, publish_google: nil, external_id: 2003095, attrs: {"tags"=>[], "source"=>[{"id"=>"893b6b1f-c746-4a7f-9c54-8887a408b54c", "name"=>"cyp"}], "authors"=>[{"id"=>"2e96869f-db7e-477c-b236-32b9f304cac5", "fullname"=>"Ravi Chandiramani"}], "premium"=>"NULL", "section"=>[{"id"=>"109e7f1a-ca95-4659-97a3-2a0900f9775c", "name"=>"Feature", "alias_name"=>"feature"}], "categories"=>[{"id"=>"f8333e29-d466-430f-a688-e7e1b94c621b", "name"=>"Education", "full_name"=>"Disciplines >> Education"}], "author_alias"=>"Rowenna Davis", "primary_medium"=>"text"}, type: nil, status: 0, data_proxy_id: "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f", description: "The Roots of Empathy programme aims to help pupils...", parent_id: nil, article_type: "Article">
+irb(main):016:0> 
+irb(main):017:0* 
+irb(main):018:0* 
+irb(main):019:0* 
+irb(main):020:0* 
+irb(main):021:0* 
+irb(main):022:0* c=_
+=> #<Article id: "1f074d47-b2ee-4a27-b46f-af2262d64eed", title: "Caring in the classroom", counter: nil, latest_version_id: nil, published_version_id: nil, publish_date: "2013-05-28 00:01:00", expiry_date: nil, active: nil, in_embargo: nil, expired: nil, url_part: "caring-in-the-classroom", display_date: "2013-05-28 00:01:00", comments_count: 0, total_rating: 0, number_of_times_rated: 0, most_read: 0, most_commented: 0, average_rating: nil, template_id: nil, template_type: nil, is_draft: false, portal_id: nil, image_id: nil, created_by: "4ccc5b53-fa6d-4644-8ae5-ff77f70bc1b5", updated_by: nil, created_at: "2017-01-30 10:08:37", updated_at: "2017-01-30 10:08:37", fragment_title_text: nil, image_sequence_id: nil, language_id: nil, content_word_count: nil, group_id: nil, waiting_for_approval: nil, subsection_id: nil, event_sponsor_type_id: nil, event_speaker_type_id: nil, company: nil, end_date: nil, start_date: nil, flash_news: nil, seo_title: nil, city_id: nil, ownership: nil, common_image: nil, publish_facebook: nil, publish_twitter: nil, publish_linkedin: nil, link_type: nil, sponsored: nil, sequence_no: nil, for_approval_email: nil, video_stream_id: nil, read_count: 0, asset_source: nil, asset_source_alias: nil, primary_category_id: nil, publish_google: nil, external_id: 2003095, attrs: {"tags"=>[], "source"=>[{"id"=>"893b6b1f-c746-4a7f-9c54-8887a408b54c", "name"=>"cyp"}], "authors"=>[{"id"=>"2e96869f-db7e-477c-b236-32b9f304cac5", "fullname"=>"Ravi Chandiramani"}], "premium"=>"NULL", "section"=>[{"id"=>"109e7f1a-ca95-4659-97a3-2a0900f9775c", "name"=>"Feature", "alias_name"=>"feature"}], "categories"=>[{"id"=>"f8333e29-d466-430f-a688-e7e1b94c621b", "name"=>"Education", "full_name"=>"Disciplines >> Education"}], "author_alias"=>"Rowenna Davis", "primary_medium"=>"text"}, type: nil, status: 0, data_proxy_id: "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f", description: "The Roots of Empathy programme aims to help pupils...", parent_id: nil, article_type: "Article">
+irb(main):023:0> 
+irb(main):024:0* 
+irb(main):025:0* 
+irb(main):026:0* c.status
+=> "draft"
+irb(main):027:0> c.index_to_search_engine
+  DataProxy Load (0.6ms)  SELECT  "data_proxies".* FROM "data_proxies" WHERE "data_proxies"."id" = $1 LIMIT 1  [["id", "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f"]]
+  Site Load (0.8ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = $1  ORDER BY id asc, created_at ASC  [["data_proxy_id", "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f"]]
+  Source Load (0.7ms)  SELECT  "sources".* FROM "sources" WHERE "sources"."id" = $1 LIMIT 1  [["id", "893b6b1f-c746-4a7f-9c54-8887a408b54c"]]
+  Site Load (0.6ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = $1  ORDER BY id asc, created_at ASC  [["data_proxy_id", "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f"]]
+  ArticleProduct Exists (0.8ms)  SELECT  1 AS one FROM "article_products" WHERE "article_products"."article_id" = $1 LIMIT 1  [["article_id", "1f074d47-b2ee-4a27-b46f-af2262d64eed"]]
+/app/cms/Kreatio_Core/app/models/article_content.rb:90: warning: character class has '-' without escape: /\[image_library_tag [0-9a-f-\/]+ [^,|\]]* [^,|\]]*\]/
+/app/cms/Kreatio_Core/app/models/article_content.rb:105: warning: character class has '-' without escape: /\[image_library_tag [0-9a-f-\/]+ [^,|\]]* [^,|\]]*\]/
+/app/cms/Kreatio_Core/app/models/article_content.rb:106: warning: character class has '-' without escape: /\[image_library_tag [0-9a-f-\/]+,[^,|\]]*,[^,|\]]*\]/
+/app/cms/Kreatio_Core/app/models/article_content.rb:107: warning: character class has '-' without escape
+/app/cms/Kreatio_Core/app/models/article_content.rb:124: warning: character class has '-' without escape: /\[image_library_tag [0-9a-f-\/]+,[^,|\]]*,[^,|\]]*\]/
+/app/cms/Kreatio_Core/app/models/article_content.rb:125: warning: character class has '-' without escape
+DEPRECATION WARNING: Currently, Active Record suppresses errors raised within `after_rollback`/`after_commit` callbacks and only print them to the logs. In the next version, these errors will no longer be suppressed. Instead, the errors will propagate normally just like in other Active Record callbacks.
+
+You can opt into the new behavior and remove this warning by setting:
+
+  config.active_record.raise_in_transactional_callbacks = true
+
+ (called from <class:ArticleContent> at /app/cms/Kreatio_Core/app/models/article_content.rb:67)
+DEPRECATION WARNING: Currently, Active Record suppresses errors raised within `after_rollback`/`after_commit` callbacks and only print them to the logs. In the next version, these errors will no longer be suppressed. Instead, the errors will propagate normally just like in other Active Record callbacks.
+
+You can opt into the new behavior and remove this warning by setting:
+
+  config.active_record.raise_in_transactional_callbacks = true
+
+ (called from <class:ArticleContent> at /app/cms/Kreatio_Core/app/models/article_content.rb:67)
+DEPRECATION WARNING: Currently, Active Record suppresses errors raised within `after_rollback`/`after_commit` callbacks and only print them to the logs. In the next version, these errors will no longer be suppressed. Instead, the errors will propagate normally just like in other Active Record callbacks.
+
+You can opt into the new behavior and remove this warning by setting:
+
+  config.active_record.raise_in_transactional_callbacks = true
+
+ (called from <class:ArticleContent> at /app/cms/Kreatio_Core/app/models/article_content.rb:67)
+  ArticleContent Load (2.0ms)  SELECT  "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = $1 LIMIT 1  [["article_id", "1f074d47-b2ee-4a27-b46f-af2262d64eed"]]
+/app/cms/Kreatio_Core/app/models/article_content.rb:90: warning: character class has '-' without escape: /\[image_library_tag [0-9a-f-\/]+ [^,|\]]* [^,|\]]*\]/
+/app/cms/Kreatio_Core/app/models/article_content.rb:124: warning: character class has '-' without escape: /\[image_library_tag [0-9a-f-\/]+,[^,|\]]*,[^,|\]]*\]/
+  Site Load (0.8ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = $1  ORDER BY id asc, created_at ASC  [["data_proxy_id", "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f"]]
+  Site Load (0.6ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = $1  ORDER BY id asc, created_at ASC  [["data_proxy_id", "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f"]]
+  Site Load (0.6ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = $1  ORDER BY id asc, created_at ASC  [["data_proxy_id", "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f"]]
+  Source Load (0.4ms)  SELECT  "sources".* FROM "sources" WHERE "sources"."id" = $1 LIMIT 1  [["id", "893b6b1f-c746-4a7f-9c54-8887a408b54c"]]
+  Site Load (0.6ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = $1  ORDER BY id asc, created_at ASC  [["data_proxy_id", "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f"]]
+  XmlMigratedData Load (1.1ms)  SELECT  "xml_migrated_data".* FROM "xml_migrated_data" WHERE "xml_migrated_data"."int_id" = $1 LIMIT 1  [["int_id", "1f074d47-b2ee-4a27-b46f-af2262d64eed"]]
+  Source Load (0.4ms)  SELECT  "sources".* FROM "sources" WHERE "sources"."id" = $1 LIMIT 1  [["id", "893b6b1f-c746-4a7f-9c54-8887a408b54c"]]
+  Webdackimage::Image Load (1.4ms)  SELECT  "webdackimage_images".* FROM "webdackimage_images" WHERE "webdackimage_images"."used_by_id" = $1 AND "webdackimage_images"."used_by_type" = $2 AND "webdackimage_images"."purpose" = $3 LIMIT 1  [["used_by_id", "1f074d47-b2ee-4a27-b46f-af2262d64eed"], ["used_by_type", "Article"], ["purpose", "TitleImage"]]
+  Site Load (0.5ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = $1  ORDER BY id asc, created_at ASC  [["data_proxy_id", "51e09fb4-6cdd-46df-9ab8-f15e13d74a0f"]]
+D, [2017-04-12T12:05:22.797466 #18359] DEBUG -- :   SOLR Request (9.3ms)  [ path=update parameters={} ]
+RSolr::Error::Http: RSolr::Error::Http - 400 Bad Request
+Error: {'responseHeader'=>{'status'=>400,'QTime'=>4},'error'=>{'metadata'=>['error-class','org.apache.solr.common.SolrException','root-error-class','com.ctc.wstx.exc.WstxUnexpectedCharException'],'msg'=>'Illegal character ((CTRL-CHAR, code 7))
+ at [row,col {unknown-source}]: [36,268]','code'=>400}}
+
+URI: http://solr:8983/solr/collection1/update?wt=ruby
+Request Headers: {"Content-Type"=>"text/xml"}
+Request Data: "<?xml version=\"1.0\" encoding=\"UTF-8\"?><add><doc><field name=\"id\">Article 1f074d47-b2ee-4a27-b46f-af2262d64eed</field><field name=\"type\">Article</field><field name=\"type\">ActiveRecord::Base</field><field name=\"class_name\">Article</field><field name=\"categories_names_sms\">Education</field><field name=\"section_name_sms\">Feature</field><field name=\"display_author_name_sms\">Rowenna Davis</field><field name=\"full_categories_names_sms\">Disciplines &gt;&gt; Education</field><field name=\"site_proxy_ids_sms\">51e09fb4-6cdd-46df-9ab8-f15e13d74a0f</field><field name=\"dre_date_ss\">2013-05-28</field><field name=\"source_alais_name_ss\">cyp</field><field name=\"year_based_ss\">2013</field><field name=\"primary_medium_ss\">text</field><field name=\"video_flag_bs\">false</field><field name=\"free_article_bs\">true</field><field name=\"video_or_audio_flag_bs\">false</field><field name=\"title_textsv\">Caring in the classroom</field><field name=\"content_textsv\">&lt;p&gt;Ms Gordon's class sits in a circle. The nine- and 10-year-olds stay silent on their lime carpet, but the air is charged with excitement. Straight-backed and wide-eyed, they know exactly who is coming and they can't wait. \"Now what kind of atmosphere does she need?\" asks Ms Gordon. \"Quiet,\" the children respond. \"That's right. We stay calm so Abi feels calm.\"\u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;This year 5 class in John Ball School in Blackheath is in the middle of a Roots of Empathy programme. Originally devised in Canada, this is a scheme that brings a baby and parent into the classroom to help young people with emotional literacy, empathy and self-confidence. This particular class has been working with Abi, who is now nine months old, and her mum Rosie Joyce. They need it, because the behavioural difficulties in this class have been standing out for some time. \u2028&amp;nbsp;\u2028&lt;/p&gt;&#13;\n&lt;p&gt;\"It's lovely, that moment when Abi enters the class. They just melt,\" says Sue Riley, one of the volunteer instructors for the programme who used to work for the school. \"Kids go home and talk about it to their parents, who have noticed that there is less aggressive behaviour.\"&lt;/p&gt;&#13;\n&lt;p&gt;\u2028\u2028Roots of Empathy is already running in 10 countries across the globe. It first came to the UK in Scotland, where it is now universally provided. With a strong and growing evidence base built on randomised control trials, it is now spreading in England. The MP Graham Allen cited it as a key programme in his review of early intervention.\u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;John Ball School is one of the sites for a pilot being conducted by the borough of Lewisham, one of the biggest adopters of the scheme. It is the result of backing from the Big Lottery Fund with support given by the Pre-school Learning Alliance.\u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;The children certainly seem to love it. \"When you finish maths, it's all dull and then you see Abi and she's like the sun and makes it lighter,\" says nine-year-old Theo, \"She's everything in a sister that I'd ever want.\"\u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;&lt;strong&gt;Changing culture\u2028&lt;/strong&gt;&lt;br /&gt;This particular project has been running since October. Baby Abi has been coming in every three weeks for one hour, and they work around a particular theme. In the past, they have focused on crying, and on safety. This week's theme is communication. The week before Abi and her mum arrive is taken up by a session preparing for her, and the week after is used to analyse her visit. In this way, the children get a sense of ownership over \"their baby\" and watch her develop, looking at milestones in her development.\u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;Before Abi arrived in October, this class was in real difficulty. Teachers talked about a \"top dog\" culture in the classroom. Although there was no physical aggression and individually all the students were good-natured, they would not work together in groups, there was a lot of bickering and difficulty keeping quiet.\u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;\"They'd been together since nursery and so they knew what buttons to press to wind each other up,\" says Riley. \"They couldn't turn the other cheek.\"\u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;Many of the students also have attachment issues, with two children having recently lost their mothers, and several others who grew up without fathers. Gordon says that although it is difficult to measure the long-term impact of the programme once other measures were put in at the same time, the difference it is making is clear to see. In fact, she plans to volunteer for the scheme herself when she gives birth later in the year.&lt;/p&gt;&#13;\n&lt;p&gt;\u2028\u2028\"Some kids in the beginning were recoiling at the new baby, then after a month or so they were coo-cooing,\" she says, \"It gives them a platform to talk about empathy and you can use that throughout the week. Some kids are more willing to think about other people. They have been more settled this year - I'd definitely give it a go.\"\u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;In one particular case after Abi came in, one young boy who had recently lost his mother confessed that he still slept with the toy she gave him before she died. In the past, teachers said he would have been ridiculed by his classmates for such a confession, but after Abi they just drew a sharp intake of breath and felt his pain. \u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;\"The channel is the baby,\" says Riley. \"Every week that Abi comes in, she unlocks everything. She makes it okay to be vulnerable. She needs a mum and caring, and so does everyone else.\"\u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;But it is not just the baby that does the work. Riley gives up her time for free to make the programme work. Many of these children already have baby siblings at home, but they do not get the same experience from them. What is special about the sessions with Abi is that they are held alongside an experienced staffer like Riley, who can draw out lessons that might otherwise be missed. \u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;\"How has Abi changed since we saw her last?\" Riley asks the circle. Emma in purple pipes up: \"She's more inquisitive.\" Another boy adds: \"Her hair looks like she's had an electric shock.\" The others laugh when Abi seems to wave her arms at this suggestion.\u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;At present, the head teacher Michael Roach is pleased with the scheme and wants to expand it, but does not necessarily think it should be universally provided.\u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;\"At the moment, it's just a project with this class,\" he says, \"But we have two staff who are pregnant now so we have a plentiful supply of babies. If we could extend it to some classes in years 3 and 4 that would be great. But unless you're doing it in every class, it's hard to see a school-wide effect. It remains an intervention, not provision. We go where we need it.\"\u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;Some teachers say that as the scheme is extended to other schools throughout the borough, it might start to have an effect on the culture of local secondary schools. If all the difficult classes in each school get this experience, it may well have a positive cumulative effect.&lt;/p&gt;&#13;\n&lt;p&gt;\u2028\u2028According to Joyce, there seems to be benefits for her baby too. \"I'm never worried because I trust the staff and we always discuss what's going to be in the session first,\" she says. \"Abi is an adaptable baby and enjoys it.\u2028&amp;nbsp;&lt;/p&gt;&#13;\n&lt;p&gt;\u2028I feel quite proud and it's lovely because the kids have grown to love her.&lt;/p&gt;&#13;\n&lt;p&gt;\u2028\u2028\"I've noticed now that Abi is very sociable. She's not fazed going into new situations after being stared at by all the big children. It gives me other ideas of things to do with her too, and makes me watch out for more milestones in her development.\"&lt;/p&gt;&#13;\n&lt;p&gt;\u2028\u2028As this week's theme with the class is about communication, Riley hands baby Abi different toys to see how she reacts to them. She then asks the children to help analyse her response. When the baby reaches back for her mum's hand, Riley says: \"You see, she's checking her mum is still there for her. She needs to know her mum is always there. She's checking she's not alone.\"\u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;Everything the baby does becomes a way into talking about how we feel and why. When baby Abi is startled by a noise in the room, Riley asks: \"Babies get startled by loud noises. Do you ever get the same?\"&lt;/p&gt;&#13;\n&lt;p&gt;\u2028\u2028One boy in the corner puts up his hand. \"I don't like the sound of a baby crying.\" Riley replies: \"Does that make you emotional hearing that at home?\" The boy nods his head.\u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;It is striking that what is helping to fix a difficult, unruly class is not a strong authoritarian teacher or increased discipline, but a tiny, vulnerable little baby. It taps into something in all of us.\u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;Proponents of Roots of Empathy say that seeing vulnerability helps young people grow. It means they have more patience when dealing with others, and it also gives them confidence to feel that it is okay to have a more vulnerable side. The programme's founder, Mary Gordon, says this kind of emotional literacy is \"a bit like riding a bike\" - once you've learned it you never forget.\u2028&amp;nbsp;\u2028&lt;/p&gt;&#13;\n&lt;p&gt;&lt;strong&gt;Changing emotions\u2028&lt;/strong&gt;&lt;br /&gt;Critics might argue that school time should be spent on rigorous academic learning, not wasting time talking about \"feelings\". Aren't we supposed to go to school to learn about something bigger than ourselves and broaden our horizons, not look inwards?&lt;/p&gt;&#13;\n&lt;p&gt;\u2028\u2028Riley thinks this is a false choice. \"First of all, this is a PSHE (personal, social, health and economic) lesson, so it's not taking any time out of the curriculum that isn't already allocated,\" she says. \"But deeper than that, we know that if you don't develop emotional literacy then behaviour drops, and if behaviour drops then academic results drop.&lt;/p&gt;&#13;\n&lt;p&gt;\"\u2028\u2028Whatever the evidence base, the children seem to love it. In the debrief after the class, a few are keen to share their views.\u2028\u2028&lt;/p&gt;&#13;\n&lt;p&gt;\"It does change my character a bit,\" says Molly, who sports a blonde ponytail and leggings. \"Me and my brother can get into fights, but it changes that a bit. I'm not as angry. Abi is a baby and she kind of makes me laugh and forget that - it's easier to share thoughts than feelings, but we're learning.&lt;/p&gt;&#13;\n&lt;p&gt;\"\u2028\u2028That kind of emotional literacy is echoed throughout the group, and is not just confined to the girls. As the children disappear, they all seem disappointed that the session is over.\u2028\u2028Theo puts his finger on it. \"When you see Abi, it's like she's our Abi. When she's happy we're happy and when she's sad, we're sad - we feel what she feels.\" &lt;br /&gt;&lt;br /&gt;&lt;/p&gt;&#13;\n&lt;p&gt;&lt;span style=\"text-decoration: underline;\"&gt;&lt;strong&gt;\u2028\u2028\u2028Global History of Roots of Empathy&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;&#13;\n&lt;ul&gt;&#13;\n&lt;li&gt;&lt;strong&gt;1996&lt;/strong&gt; Roots of Empathy is founded by Mary Gordon in Toronto, Canada, working with 150 children. To date, Roots of Empathy programmes have reached 450,000 children worldwide.\u2028\u2028&lt;/li&gt;&#13;\n&lt;li&gt;&lt;strong&gt;2000&lt;/strong&gt; Roots of Empathy becomes a charitable not-for-profit organisation that expands across Canada, and research pilots start.\u2028\u2028&lt;/li&gt;&#13;\n&lt;li&gt;&lt;strong&gt;2005&lt;/strong&gt; The programme is introduced in Quebec and Roots of Empathy launches its French language curriculum. Gordon publishes her critically acclaimed bestseller on the theory of Roots of Empathy, Changing the World Child by Child.\u2028\a\a&lt;/li&gt;&#13;\n&lt;li&gt;&lt;strong&gt;2007&lt;/strong&gt; Roots of Empathy is introduced in New Zealand and the US. In 2008, it reaches the Isle of Man. It also wins United Nations support and begins to work in partnership with indigenous communities.\u2028\u2028&lt;/li&gt;&#13;\n&lt;li&gt;&lt;strong&gt;2009&lt;/strong&gt; Toronto becomes the first place in the world to open a Roots of Empathy centre of excellence. \u2028\a\a&lt;/li&gt;&#13;\n&lt;li&gt;&lt;strong&gt;2012&lt;/strong&gt; A year after coming to Scotland, programmes are launched in England, Wales and Germany. It is now bringing evidence-based social and emotional learning to 10 countries across three continents.&lt;/li&gt;&#13;\n&lt;/ul&gt;&#13;\n&lt;p&gt;&lt;br /&gt;&lt;span style=\"text-decoration: underline;\"&gt;&lt;strong&gt;\u2028\u2028Evidence base - Global\u2028\u2028\a\a&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;&#13;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;&#13;\n&lt;ul&gt;&#13;\n&lt;li&gt;Since 2000, the Roots of Empathy programme has been evaluated in both comparative and randomised control studies designed to measure changes in behaviour.\u2028\u2028&lt;/li&gt;&#13;\n&lt;li&gt;Independent research has been conducted in Australia, the Isle of Man and New Zealand, as well as five university-based Canadian studies. They all showed an increase in pro-social behaviour, a decrease in aggression, an increase in social and emotional understanding and an increase in parenting knowledge.\u2028\u2028&lt;/li&gt;&#13;\n&lt;li&gt;In 2001, the government of Manitoba, a Canadian province, commissioned a three-year study measuring pro-social behaviour, and physical and indirect aggression. It found positive results in all categories (Santos, Chartier, Whalen, Chateau and Boyd, 2011).\u2028\u2028&lt;/li&gt;&#13;\n&lt;li&gt;In 2009/10, another study was conducted in the Isle of Man. Teachers were invited to evaluate pupil behaviour before and after the programme. Classes that underwent the programme showed a marked increase in good behaviour compared with those that simply followed the normal curriculum (Schonert-Reichl, Russell, Gadermann, Klerian and Bayrami).\u2028\u2028&lt;/li&gt;&#13;\n&lt;li&gt;A University of Missouri report by Dr Marvin Berkowitz titled What Works in Character Education reviewed character education programmes. It concluded that Roots of Empathy was effective, particularly for reducing aggression and violence, concluding: \"Roots of Empathy is an effective school-based curriculum for fostering the development of student character.\"\u2028\u2028&lt;/li&gt;&#13;\n&lt;li&gt;Researchers Rolheiser and Wallace at the Ontario Institute for Studies in Education at the University of Toronto concluded that Roots of Empathy is an effective programme for developing social and emotional learning in 2005, adding: \"The programme increases the chances that students will develop competencies that will guide their future behaviours and shape their dispositions.\"&lt;/li&gt;&#13;\n&lt;/ul&gt;&#13;\n&lt;p&gt;&lt;br /&gt;&lt;span style=\"text-decoration: underline;\"&gt;&lt;strong&gt;\u2028\u2028Evidence base - North Lanarkshire\u2028\u2028&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;&#13;\n&lt;ul&gt;&#13;\n&lt;li&gt;Independent research carried out by North Lanarkshire Council's Psychological Services started in 2011, comprising a total of 785 primary pupils from 19 Roots of Empathy classes and 18 control classes. It revealed that 55 per cent of primary school pupils displayed an increase in pro-social behaviour (such as helping, sharing, co-operating, and volunteering). This is 33 per cent more than in pupils in a control group, who did not receive the programme.\u2028\u2028&lt;/li&gt;&#13;\n&lt;li&gt;Roots of Empathy pupils showed an improvement of 31.5 per cent more than the control group in relation to total difficulties, such as emotional symptoms, conduct problems, hyperactivity and peer problems.\u2028\u2028&lt;/li&gt;&#13;\n&lt;li&gt;\a\a59 per cent of pupils showed an increase in cognitive empathy - the distinction between oneself and another - whereas 54 per cent of pupils in the control group showed a decrease in cognitive empathy.\u2028\u2028&lt;/li&gt;&#13;\n&lt;li&gt;51 per cent of Roots of Empathy pupils showed an increase in emotional empathy - understanding the feelings of another - whereas 56 per cent of pupils in the control group showed a decrease in emotional empathy.&lt;/li&gt;&#13;\n&lt;/ul&gt;</field><field name=\"dre_date_textsv\">2013-05-28</field><field name=\"id_textsv\">1f074d47-b2ee-4a27-b46f-af2262d64eed</field><field name=\"url_textsv\">/cyp/feature/2003095/caring-in-the-classroom</field><field name=\"site_short_names_textsv\">cypnow</field><field name=\"categories_names_textsv\">Education</field><field name=\"primary_category_name_textsv\">Education</field><field name=\"section_name_textsv\">Feature</field><field name=\"display_date_textsv\">2013-05-28 00:01:00 UTC</field><field name=\"display_author_name_textsv\">Rowenna Davis</field><field name=\"description_textsv\">The Roots of Empathy programme aims to help pupils understand their own feelings and those of others. Rowenna Davis visits a primary school in Blackheath, south-east London, to see it in action.</field><field name=\"source_alais_name_textsv\">cyp</field><field name=\"full_categories_names_textsv\">Disciplines &gt;&gt; Education</field><field name=\"site_proxy_ids_textsv\">51e09fb4-6cdd-46df-9ab8-f15e13d74a0f</field><field name=\"primary_medium_textsv\">text</field></doc></add>"
+
+Backtrace: /usr/local/bundle/gems/rsolr-1.0.12/lib/rsolr/client.rb:284:in `adapt_response'
+/usr/local/bundle/gems/rsolr-1.0.12/lib/rsolr/client.rb:190:in `execute'
+/usr/local/bundle/gems/rsolr-1.0.12/lib/rsolr/client.rb:176:in `send_and_receive'
+/usr/local/bundle/gems/sunspot_rails-2.1.1/lib/sunspot/rails/solr_instrumentation.rb:16:in `block in send_and_receive_with_as_instrumentation'
+/usr/local/bundle/gems/activesupport-4.2.0/lib/active_support/notifications.rb:164:in `block in instrument'
+/usr/local/bundle/gems/activesupport-4.2.0/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+/usr/local/bundle/gems/activesupport-4.2.0/lib/active_support/notifications.rb:164:in `instrument'
+/usr/local/bundle/gems/sunspot_rails-2.1.1/lib/sunspot/rails/solr_instrumentation.rb:15:in `send_and_receive_with_as_instrumentation'
+(eval):2:in `post'
+/usr/local/bundle/gems/rsolr-1.0.12/lib/rsolr/client.rb:82:in `update'
+/usr/local/bundle/gems/rsolr-1.0.12/lib/rsolr/client.rb:102:in `add'
+	from /usr/local/bundle/gems/rsolr-1.0.12/lib/rsolr/client.rb:284:in `adapt_response'
+	from /usr/local/bundle/gems/rsolr-1.0.12/lib/rsolr/client.rb:190:in `execute'
+	from /usr/local/bundle/gems/rsolr-1.0.12/lib/rsolr/client.rb:176:in `send_and_receive'
+	from /usr/local/bundle/gems/sunspot_rails-2.1.1/lib/sunspot/rails/solr_instrumentation.rb:16:in `block in send_and_receive_with_as_instrumentation'
+	from /usr/local/bundle/gems/activesupport-4.2.0/lib/active_support/notifications.rb:164:in `block in instrument'
+	from /usr/local/bundle/gems/activesupport-4.2.0/lib/active_support/notifications/instrumenter.rb:20:in `instrument'
+	from /usr/local/bundle/gems/activesupport-4.2.0/lib/active_support/notifications.rb:164:in `instrument'
+	from /usr/local/bundle/gems/sunspot_rails-2.1.1/lib/sunspot/rails/solr_instrumentation.rb:15:in `send_and_receive_with_as_instrumentation'
+	from (eval):2:in `post'
+	from /usr/local/bundle/gems/rsolr-1.0.12/lib/rsolr/client.rb:82:in `update'
+	from /usr/local/bundle/gems/rsolr-1.0.12/lib/rsolr/client.rb:102:in `add'
+	from /usr/local/bundle/gems/sunspot-2.1.1/lib/sunspot/indexer.rb:107:in `add_documents'
+	from /usr/local/bundle/gems/sunspot-2.1.1/lib/sunspot/indexer.rb:30:in `add'
+	from /usr/local/bundle/gems/sunspot-2.1.1/lib/sunspot/session.rb:91:in `index'
+	from /usr/local/bundle/gems/sunspot-2.1.1/lib/sunspot/session.rb:98:in `index!'
+	from /usr/local/bundle/gems/sunspot-2.1.1/lib/sunspot/session_proxy/abstract_session_proxy.rb:11:in `index!'
+	from /usr/local/bundle/gems/sunspot-2.1.1/lib/sunspot.rb:196:in `index!'
+	from /usr/local/bundle/gems/sunspot_rails-2.1.1/lib/sunspot/rails/searchable.rb:394:in `solr_index!'
+	from /app/cms/Kreatio_Core/lib/kr_gems/search_engine/lib/search_engine/solr_search.rb:12:in `index'
+	from /app/cms/Kreatio_Core/lib/kr_gems/search_engine/lib/search_engine/search_engine.rb:89:in `block in index_to_search_engine'
+	from /app/cms/Kreatio_Core/lib/kr_gems/search_engine/lib/search_engine/search_engine.rb:88:in `each_value'
+	from /app/cms/Kreatio_Core/lib/kr_gems/search_engine/lib/search_engine/search_engine.rb:88:in `index_to_search_engine'
+	from (irb):27
+	from /usr/local/bundle/gems/railties-4.2.0/lib/rails/commands/console.rb:110:in `start'
+	from /usr/local/bundle/gems/railties-4.2.0/lib/rails/commands/console.rb:9:in `start'
+	from /usr/local/bundle/gems/railties-4.2.0/lib/rails/commands/commands_tasks.rb:68:in `console'
+	from /usr/local/bundle/gems/railties-4.2.0/lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+	from /usr/local/bundle/gems/railties-4.2.0/lib/rails/commands.rb:17:in `<top (required)>'
+	from bin/rails:4:in `require'
+	from bin/rails:4:in `<main>'irb(main):028:0> 
+

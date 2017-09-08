@@ -1,0 +1,39 @@
+<div id="load_indicatior" style="left: 500px;position: absolute;top: 291px;display:none;">
+<%=image_tag("/images/login_loading_image.gif",:alt=>"Loading page")%>
+</div>
+<div>
+	<%= render :partial=>'search'%>
+</div>
+
+<%= component_table_list(SrComponent.find_component_by_name('issue_management_list_new')) %>
+
+</div>
+<script type="text/javascript">
+jQuery('.issue_management_mark').click(function(){
+confirmed = confirm("Are you sure to change the issue status?");
+if (confirmed)
+{
+var id=$(this).attr("id");
+ var data_param=$('#'+id).data('param');
+jQuery.ajax({
+type : 'POST',
+data:  data_param,
+url : "/admin/print_management/assign_as_current_issue?issue_id="+id,
+dataType : "html",
+beforeSend:function(){
+	      	    jQuery("#load_indicatior").show();
+	               },
+success : function(data) {
+	jQuery("#load_indicatior").hide();
+jQuery("#dynamic_template_selection").html(data);
+window.location.reload();
+}
+});
+}
+else
+{
+return false;
+}
+});
+</script>
+	

@@ -1,0 +1,62 @@
+<div id="container" style="padding-top: 20px;">
+        <div class="section_block full_section">
+                <h2><%= @page_properties[:menu_title] %></h2>
+                <div class="section_content">
+
+                        <div class="validation_box">
+                                <%= raw error_messages(@site_website) %>
+                        </div>
+                        <%= form_tag( { :action => "site_create_save" }, { :method => :post }) %>
+
+                        <div class="form_data">
+                                <label for="site_website_name" class="align_site">Name <span>*</span>:</label>
+
+                                <%= text_field 'site_website', 'name',:class=>'input_text' %>
+                        </div>
+                        <div class="form_data">
+                                <label for="site_website_short_name_short_name" class="align_site">Short Name <span>*</span>:</label>
+
+                                <%= text_field 'site_website', 'short_name',:class=>'input_text' %>
+                        </div>
+                        <div class="form_data">
+                                <label for="site_website_domain" class="align_site">Domain <span>*</span>:</label>
+
+                                <%= text_field 'site_website', 'domain',:class=>'input_text' %>
+                        </div>
+                        <div class="form_data">
+                                <label for="site_template" class="align_site">Template:</label>
+
+                                <%= select_tag "site[template]", options_for_select(TEMPLATE),{:prompt => "------please select-----",:class=>"select_box"}%>
+                        </div>
+                        <div class="form_data">
+                                <label for="menu_entity_type" class="align_site">Status<span>*</span>:</label>
+                                <%= collection_select_for_constant("site_website[status]", SITE_STATUS ,@site_website.status,{:prompt => 'Select Menu Type',:id=>"menu_entity_type",:class=>"select_box"})%>
+
+                        </div>
+                        <div class="form_data">
+                                <label for="site_website_data_proxy_id" class="align_site"> Share Data From(Data Proxy id):</label>
+                                <%= collection_select(:site_website, :data_proxy_id, Site.all, :id, :domain, {:include_blank => "------please select-----"},{:class=>"select_box"})%>
+                        </div>
+                        <div class="form_data">
+                                <label for="site_website_presentation_proxy_id" class="align_site"> Share Presentation From(Presentation Proxy id):</label>
+                                <%= collection_select(:site_website, :presentation_proxy_id, Site.all, :id, :short_name, {:include_blank => "------please select-----"},{:class=>"select_box"})%>
+                        </div>
+                        <div class="form_data">
+                                <label for="site_website_display_name" class="align_site">Display Name:</label>
+
+                                <%= text_field 'site_website', 'display_name',:class=>'input_text' %>
+                        </div>
+                        <div class="button">
+                                <%= submit_tag "Create"%>
+                        </div>
+                        <div class="button">
+                                <%= link_to("Go To Step 2",:controller=>'sites',:action=>"site_properties")%>
+                        </div>
+                        <%if params[:id]=@site_website.id %>
+                        <div class="button">
+                                <%= submit_tag "Update"%>
+                        </div>
+                        <%end%>
+                </div>
+        </div>
+</div>

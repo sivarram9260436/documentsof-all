@@ -1,0 +1,219 @@
+
+
+
+
+/* #wrapper{    margin: 0 auto;    width: 950px;} */
+
+
+body{background:/*url("images/back_images1.jpg")*/ #fff;}
+.pagination{display:none;}
+.main_image_gallery{margin-top:50px;}
+.image_content_sub img{padding-left:0px;}
+.image_content_sub div
+{
+   float: left;
+   padding:9px 5px 1px;
+    margin:15px 19px;
+    border:1px solid #CDCDCD !important;
+
+}
+.image_content_sub{
+  /*width:915px;*/
+  clear:both;
+/*  border:1px solid #989898;*/
+  height:100px;
+  
+}
+
+#search_content{
+     left: 630px;    position: relative;
+    top: 32px;
+    width: 350px;
+}
+.search_image_con{
+ margin-top: 18px;
+    width: 266px;}
+    
+.search_image{
+ float: left;
+    margin-right: 10px;}
+    
+    
+.advan_search{ color: #989898;
+    float: left;
+    font-size: 11px;
+    margin-left: 271px;
+    margin-top: -25px;
+    width: 50px;
+  cursor:pointer;
+}
+.advan_search_close{margin-left: 133px;
+    margin-top: 22px;}
+ .advan_search_button{ background-color: #989898;
+    color: #FFFFFF;
+    margin-left: 185px;}   
+    
+.advanced_search-content{
+  background: none repeat scroll 0 0 #F5F5F5;
+    border: 1px solid #008080;
+    margin-left: 497px;
+    margin-top: 36px;
+    position: absolute;
+    width: 450px;
+    z-index: 1004;
+}
+#content_id_2{
+ padding-left: 6px;
+    padding-top: 10px;}
+#image_content{
+     background: none repeat scroll 0 0 #F1F6FC;
+    border: 6px ridge #989898;
+/*    float: left;*/
+    height: 566px;
+        width: 940px;
+}
+
+.image_details_tip{
+  border: 1px solid #456789;
+    float:left;
+
+   background:none repeat scroll 0 0 #FFFFFF;
+}
+
+.image_details_tip table{    color: #4682B4;
+    margin: 0;
+    padding-bottom: 20px;
+    padding-left: 19px;}
+.image_toolbox{height:20px;width:100px; /*visibility: hidden;*/}
+.image_toolbox span{font-size:10px;cursor:pointer;color: #0000EE !important;}
+#main_crop_image{
+    float: left;
+    margin-left: 60px;
+    padding-top: 37px;
+    width: 574px;
+  
+}
+#crop_image{border:1px solid #652497;padding:32px;}
+#crop_image img{
+      padding-bottom: 25px;
+    padding-left: 43px;
+    padding-top: 25px;
+}
+.prev{       background: url("/images/left.jpg") no-repeat scroll 0 0 transparent;
+    bottom: 400px;
+    float: left;
+    height: 266px;
+    left: -37px;
+    position: relative;
+    width: 39px;
+}
+.next{ background: url("/images/right.jpg") no-repeat scroll 0 0 transparent;
+     bottom: 400px;
+    float: right;
+    height: 277px;
+    position: relative;
+    right: -39px;
+    width: 39px;}
+
+
+/*.tooltip{width:150px;height:40px;background-color:red;color:#fff;}*/
+
+#tooltip{
+	position:absolute;
+	border:1px solid #333;
+	background:#000080;
+	padding:2px 5px;
+	color:#EEE8AA;
+	display:none;
+	}
+.ui-dialog {width:auto !important;}
+
+.image_details_tip .edit_image_crop{ background-color: #39414A;
+    color: #BDB76B;}
+    
+.crop_list_imageset .edit_image_crop{ background-color: #39414A;
+    color: #BDB76B;
+    margin-left: 7px;
+    padding-left: 9px;}
+
+.save_crop{
+float: left;background-color: #39414A;
+    color: #BDB76B;
+    margin-left: 230px;
+    margin-top: 10px;}
+
+.image_style_set{padding-top:8px;}
+
+.image_content_sub div.option_crop{border:0px solid #fff;}
+
+.option_crop{
+  border:1px solid #395687 !important;
+  margin: 153px 0 0 0 !important;
+  padding: 0 0 0 14px !important;
+  position: absolute;
+  background-color:#fff;
+  width:130px;
+  
+}
+.close_crop_div{float:right;padding-right:7px;}
+
+.ui-dialog .ui-dialog-title{padding-left:100px;}
+.aspect_group_div,#content1{text-align:center;}
+
+/* css added by selva start for imageset redesign */
+
+.image_set_redesign{
+	width: 950px !important;
+}
+
+.image_details_list{
+	width: 100px !important;
+	  text-align: center;
+	  height: 144px !important;
+}
+
+
+
+/* imageset design change */
+.images-set {float: left; margin: 15px 19px;padding:0px;   background-color: #F1F1F1;border:1px solid #CDCDCD;}
+.images-set .images-set-search {float:left;padding:0px;margin:9px;border:none!important;width:84%;}
+.images-set .images-set-search ul li{float:left;list-style:none; padding: 0 8px;cursor: default;}
+.images-set .images-set-search ul li a{background-image: url('/images/icon-set.png');text-indent: 1000px; outline: medium none;}
+.images-set .images-set-search ul li:last-child{padding-right: 0px;}
+.images-set .images-set-search ul li.img-search a {background-position: 18px -2px;float: left;height: 18px; width: 16px;}
+.images-set .images-set-search ul li.img-search a:hover{background-position: 18px -22px;}
+.images-set .images-set-search ul li.img-edit a {background-position: 18px 77px;float: left;height: 18px; width: 16px;}
+.images-set .images-set-search ul li.img-edit a:hover{background-position: 18px 58px;}
+.images-set .images-set-search ul li.img-crop a {background-position: 18px 40px;float: left;height: 18px; width: 16px;}
+.images-set .images-set-search ul li.img-crop a:hover{background-position: 18px 22px;}
+.images-set .image_details_list{width:112px!important; height: 156px !important;}
+.image-set-pagination{float:left;width: 100%;text-align:center;  margin-top: 10px;}
+.image-set-pagination .previous_page{background:url('/images/previous.jpg') no-repeat left 6px;padding-left: 10px;color:#296EA9;}
+.image-set-pagination .previous_page:hover{text-decoration:underline;}
+.image-set-pagination .next_page{background:url('/images/next.jpg') no-repeat right 6px;padding-right: 10px;color:#296EA9;}
+.image-set-pagination .next_page:hover{text-decoration:underline;}
+.images-set .bottom{float:left;width:112px;margin: 0px !important;padding-top: 3px;border:none!important;}
+.bottom .preview{cursor: default;}
+
+/* end of imageset design change */
+
+
+
+.edit {float:left;cursor:pointer;color:#3B5998;}
+.preview { cursor: pointer;    float: left;    text-align: center;    width: 100%;color:#3B5998;}
+.crop {float:right;cursor:pointer;color:#3B5998;}
+.insert_to_art { cursor: pointer;    float: left;    text-align: center;    width: 100%;color:#3B5998;}
+.edit a {color:#0000EE;}
+.image_content_block{float:left;}
+.pagination_bar {    clear: both;    cursor: pointer;    float: right;   }
+.right_section_head {    float: right !important;    width: auto !important;}
+.right_section_head ul li {    float: left;    list-style-type: none;    margin-bottom: 2px;    margin-right: 10px;}
+/*#advanced_image_search {padding-top:5px;font-size:1.2em;}*/
+#fileList {}
+#fileList p {float:right;padding-bottom:5px;width:210px;}
+#fileList label {float:left;width:100px;}
+#fileList input {float:left;width:180px;}
+#fileList textarea {float:left;width:180px;}
+
+/* css added by selva end for imageset redesign */
+

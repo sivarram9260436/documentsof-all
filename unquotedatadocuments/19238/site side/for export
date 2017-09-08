@@ -1,0 +1,154 @@
+
+
+
+ruby@merger-market:~/Unquote_data/Admin$ vi config/routes/sites.rb 
+  match "/funds/fund_performance_exports" => "wps/uq_funds#fund_performance_exports"
+
+ruby@merger-market:~/Unquote_data/Admin$ vi /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_script_fund_performance.html.erb
+
+<%= javascript_include_tag "jquery.dataTables.min.js"%>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var dataSet= <%= @arr_fund_performances.to_json.html_safe%>;
+        console.log(dataSet);
+        $('.cls_table_style188').DataTable( {
+            data: dataSet,
+            columns: [	
+                { title: "Fund Performance Date" },
+                { title: "Source" },
+                { title: "Commitment" },
+                { title: "Gross IRR" },
+		{ title: "Net IRR" },
+                { title: "TVPI" },
+                { title: "Currency" },],
+		"order" :[ 0, 'desc' ] ,
+            "paging":   false,
+            "searching": false,
+            "info":  false,
+            "scrollY": "425px",
+            "scrollCollapse": true,
+            "aoColumns": [ {title:"Fund Performance Date","sType": "stringMonthYear"},{ title:"Source"},{ title:"Commitment"},{title:"Currency"}, {title:"Gross IRR"},{title:"Net IRR"}, {title:"TVPI"} ],
+        } );
+        $.extend(jQuery.fn.dataTableExt.oSort, {
+            "stringMonthYear-pre": function (s) {
+                var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                var dateComponents = s.split(" ");
+                dateComponents[0] = dateComponents[0].replace(",", "");
+                dateComponents[1] = jQuery.trim(dateComponents[1]);
+                var year = dateComponents[1];
+                var month = 0;
+               for (var i = 0; i < months.length; i++) {
+                    if (months[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                        month = i;
+                        break;
+                    }
+                } 
+                var allMonths = ['Jan','Feb','Mar', "Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+                for (var i = 0; i < allMonths.length; i++) {
+                    if (allMonths[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                        month = i;
+                        break;
+                    }
+                }
+                return new Date(year, month, 1);
+            },
+  
+            "stringMonthYear-asc": function (a, b) {
+                return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+            },
+            "stringMonthYear-desc": function (a, b) {
+                return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+            },
+
+            "NumericOrBlank-pre": function (s){
+                var a = parseFloat($.trim(s).replace(/,/,''));
+                if(a==0){return "0";}else if(a>0){return a;}else{return " "}
+            },
+            "NumericOrBlank-asc": function(a,b) {
+                return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+            },
+            "NumericOrBlank-desc": function(b,a) {
+                return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+            }
+
+        });
+    });
+</script>
+
+
+ruby@merger-market:~/Unquote_data/Admin$ vi app/controllers/wps/uq_funds_controller.rb 
+
+def fund_performance_exports
+     logger.info"============#{session[:user_id]}==========="
+     sub_log = SubscriberLog.create(:entity_type => "Fund", :subscriber_id => session[:user_id],:log_type => "export" )
+     work_book_path = "excel_exports/Report#{Time.zone.now.strftime("%Y%m%d%H%M%S%6N")}.xlsx"
+     job_id = SecureRandom.hex
+     fund = Fund.find_by_id(params[:fund_id])
+     export_columns = FundPerformance.column_names - ["id","commitment","created_at","updated_at","fund_id","date_of_commitment","performance_source"]
+    # delay_job = Fund.generate_performance_export_job(job_id,work_book_path, params[:selectedColDeal].split(","),export_columns.join(","),fund,sub_log.id,session[:user_id],params[:okcancel])
+     delay_job = Fund.generate_performance_export_job(job_id,work_book_path,export_columns.join(","),fund,sub_log.id,session[:user_id],params[:okcancel])
+
+
+     delay_job = job_id
+     #send_file "#{Rails.root}/public/#{work_book_path}"
+                #send_data p.to_stream.read, type: "application/xlsx", filename: "filename.xlsx"
+
+     render :json => { :status => "pending", :message => "#{Subscriber.find(session[:user_id]).email_id}", :id => "#{delay_job}, #{work_book_path}" }
+
+  end
+
+
+ruby@merger-market:~/Unquote_data/Admin$  vi app/models/fund.rb 
+
+ def self.generate_performance_export_job(job_id,work_book_path, export_columns,fund,sub_log,present_user,ok_cancel)
+     logger.info"========fund===#{fund.inspect}=====#{export_columns}=============="
+      @export_job = ExportJob.create(:job_id => job_id, :status => "pending" , :work_book_path => work_book_path, :selectedColDeal => export_columns, :present_user => present_user, :subscriber_log => sub_log, :ok_cancel => ok_cancel)
+    #logger.info "========generate_wdxlsx_for_export_job=====#{@export_job.inspect}=========="
+
+    generate_performance_wdxlsx_for_export(work_book_path, export_columns, fund, sub_log, present_user, ok_cancel)
+    @export_job.update_attributes(:status => "completed" )
+      #send_file "#{Rails.root}/public/DataExport/#{@site.short_name}/#{Date.today.to_s}.xlsx", :type => 'text/xlsx'
+   end
+
+
+def self.generate_performance_wdxlsx_for_export(work_book_path, export_columns, fund, sub_log, present_user, ok_cancel)
+   logger1 = Logger.new("#{Rails.root}/log/development.log")
+    cst = Time.now
+    Ambient.init
+    Ambient.subscriber_user = present_user
+  #hd_col = []
+  hd_col = ["Gross IRR", "Net IRR", "TVPI", "Source", "Fund performance date"]
+    #export_columns.split(",").each do |column|
+     #   hd_col <<  column
+   # end
+   s = Wdxlsx::SheetGen.new(Wdxlsx::XlsxTemplate, "You have exported for: Fund Performance" , hd_col.count)
+   s.header_row(hd_col)
+   logger.info"=============fund1===#{fund.inspect}=========#{export_columns}======"
+   fund.fund_performances.order("created_at desc").each do |fund_per|
+     logger.info"========fund====#{fund_per}============"
+       a=[]
+       a << "#{fund_per.gross_irr}"
+       a << "#{fund_per.net_irr}"
+       a << "#{fund_per.tvpi}"
+       a << "#{fund_per.source}"
+       a << "#{fund_per.fund_performance_date}"
+
+
+         logger.info"=======rowddd=====#{hd_col}============"
+
+        #hd_col.each do |column|
+         # a << fund_per[column]
+        #end
+        s.row(a)
+       logger.info"=======rows=====#{a}============"
+     end
+   out_file = s.save("#{Rails.root}/public/#{work_book_path}")
+    if ok_cancel == "true"
+      if !Subscriber.where(:id => Ambient.subscriber_user).blank?
+        subscriber = Subscriber.find(Ambient.subscriber_user)
+        UnquoteMailer.export_mail_for_subcriber(subscriber,work_book_path,SITE_URL_EXPORT).deliver
+      end
+    end
+    logger.info "------Fund  std all time --#{Time.now-cst}--------------"
+  end
+

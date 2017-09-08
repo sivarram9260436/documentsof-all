@@ -1,0 +1,55 @@
+<div class="section_block full_section">
+	<h2>Magazine Issues Search</h2>
+	<!--<div class="search_block">-->
+	<div class="section_content">
+
+		<%= form_tag({:action => 'index'},{:name=>'list_issue_management'}) do %>
+		<div class="article_search_box text_box_fix print_boxes">
+
+			<div class="form_design">
+				<div class="form_data ">
+					<label for="search_data_short_name">Volume&Issue Number: </label>
+					<%= text_field "search_data","short_name"%>
+				</div>
+
+				<div class="form_data">
+					<label for="search_data_source_id" class="label_align">Source:</label>
+					<%= select("search_data","source_id",[['--Select a source --','']]+@site.sources.collect{|source| [source.alais_name,source.id]},{},:class => "search_select_box", :selected=>(@search_data.source_id.to_i if @search_data))%>
+				</div>
+
+				<div class="form_data">
+					<label for="search_data_description" class="label_align">Description:</label>
+					<%= text_field "search_data","description"%>
+				</div>
+
+			</div>
+
+			<div class="form_design">
+
+				<div class="form_data">
+					<label for="search_data_date_of_publication_id">Publish Date:</label>
+					<%= raw datetimepicker_input(:search_data, :date_of_publication,{:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70}) %>
+				</div>
+				<div class="form_data">
+					<label for="search_data_from_date_id" class="label_align">From:</label>
+					<%= raw datetimepicker_input(:search_data, :from_date,{:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70}) %>
+				</div>
+				<div class="form_data">
+					<label for="search_data_to_date_id" class="label_align">To:</label>
+					<%= raw datetimepicker_input(:search_data, :to_date,{:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70}) %>
+				</div>
+
+			</div>
+
+			<div class="form_design button_align">
+
+				<div class="button ">
+					<%= submit_tag "Search"%>
+				</div>
+
+			</div
+
+			<% end %>
+		</div>
+	</div>
+

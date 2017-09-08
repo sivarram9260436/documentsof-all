@@ -1,0 +1,198 @@
+
+.question_option li
+{
+list-style:none;
+margin-top:10px;
+}
+
+.option_addmore
+{
+margin-top:10px;
+margin-left:110px";
+}
+.flash_question_created
+{
+color:green; 
+text-align:center;
+}
+
+.create_question_submit
+{
+margin-left:250px;
+margin-top:25px;
+}
+.choice_of_question_option
+{
+margin-left:110px";
+}
+li { cursor: move; }
+
+
+.create_question_submit_asset {
+margin-left:250px;
+}
+table.older_date_range
+{
+padding-left:30px;
+}
+td.older_date_range
+{
+padding-left:30px;
+}
+td.asset_cont_time
+{
+padding-left:66px;
+}
+td.asset_form
+{
+text-align:right;
+}
+td.form_asset_criteria
+{
+font-weight:bold;
+text-align:center;
+padding:0px 0px 10px 10px;
+}
+table.product_create
+{
+margin-left:210px;
+}
+.textBoxWidth_asset
+{
+width:80px;
+}
+.textBoxOther
+{
+width:100px;
+margin-left:8px;
+margin-top:4px;
+} 
+
+.close
+{
+height:10px;
+width:10px;
+padding-left:3px;
+}
+
+td.question_form_option
+{
+padding-left:108px;
+}
+
+#result_drag a.closebutton {visibility: hidden;}
+#search_drag a.closebutton {visibility: hidden;}
+
+#result_drag .hide_element {visibility: hidden;}
+#search_drag .hide_element {visibility: hidden;}
+
+.pagination_question
+{
+text-align:center;
+margin-bottom: 8px;
+}
+
+.list_question_border
+{
+border:1px solid #B7E0EF;
+}
+
+.search_message
+{
+margin-left:175px;
+margin-top:10px;
+color:red;
+}
+
+.search_form
+{
+margin-left:30px;
+}
+
+.question_list_right
+{
+float:right;
+padding-right: 10px;
+width:49%;
+}
+
+.question_drag_drop_list 
+{
+border:1px solid #B7E0EF;
+position: relative;
+width:468px;
+}
+
+.question_save_button
+{
+margin: 20px;
+text-align: center;
+}
+
+.selected_questions
+{
+margin:20px 6px 25px;
+}
+
+.tiny_quest_textBoxWidth
+{
+width:80px;
+}
+
+.textBoxWidth_questionnaire{
+width:331px;
+}
+
+span.selected_question_check_box
+{
+margin:0px 0px 0px 0px;
+}
+.questionnaires_columnRight { width:44%; float:right;margin:10px 0px;}
+
+.questionnaire_table
+{
+width:100%
+}
+
+.question_drag_drop_list_selected
+{
+border:1px solid #B7E0EF;
+position:relative;
+width:457px;
+}
+
+.questionnaire_search_clear_button
+{
+margin-top: 15px; 
+text-align: center;
+margin-bottom: 8px;
+}
+
+.questionnaire_label
+{
+float:left;
+width:114px; 
+}
+
+.submit_button_date_piker{font-weight:bold !important;font-family:verdana !important;}
+
+/* For WPL */
+
+.no_li_style{
+list-style-type:none !important;
+margin-right :12px;	
+}
+
+.greyLineLean { border-bottom:1px solid #C3C2C0 !important; margin-top:10px; }
+.noBullet { list-style-type:none; }
+
+.disable_field { float: right; margin-top:7px; }
+
+.expand{background:transparent url(/images/new_admin_design/arrow_left_blue.gif) no-repeat scroll 0 0;width:9px;height:9px;margin:2px 12px 0px 0px;float:left;}
+.collapsed{background:transparent url(/images/new_admin_design/arrow_down_blue.gif) no-repeat scroll 0 0 !important;}
+
+/* share cast */
+.news_wire_feed{width:600px;}
+
+#tinyid_1_path_row{display:none;}
+

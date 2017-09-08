@@ -1,0 +1,124 @@
+ActiveRecord::Migration.add_column :work_groups, :company_type, :string
+
+
+
+  <tr>
+        <td>
+          <label for="subscriber_first_name">
+            Company type:
+
+          </label>
+        </td>
+        <td>
+          <%#= text_field 'work_group', 'type',:class=>'textBoxWidth' %>
+          <%= select( 'work_group','company_type', ["Internal","Subscriber","trial"],{:prompt => "--Select--"},:class=>"input_text") %>
+
+
+        </td>
+      </tr>
+
+
+
+LeaveRecord.where("employee_detail_id = 7038  AND status =approved  AND year=2017", 178,"approved", Time.now.year).order("from_date asc")   
+
+
+
+
+ <tr>
+        <td>
+          <label for="subscriber_first_name">
+         Active User:
+
+          </label>
+        </td>
+        <td>
+         
+          <%= select( 'work_group','active_user,', ["No","yes"],{:prompt => "--Select--"},:class=>"input_text") %>
+
+
+        </td>
+      </tr>
+
+
+
+ <tr>
+        <td>
+          <label for="subscriber_first_name">
+         Account Manager:
+
+          </label>
+        </td>
+        <td>
+         
+          <%= text_field 'work_group', 'account_manager',:class=>'textBoxWidth' %>
+
+
+
+        </td>
+      </tr>
+
+
+ <tr>
+        <td>
+          <label for="subscriber_first_name">
+        CRM Individual Responsible:
+
+          </label>
+        </td>
+        <td>
+         
+          <%= text_field 'work_group', 'crm_individual_responsible',:class=>'textBoxWidth' %>
+
+
+
+        </td>
+      </tr>
+
+
+
+
+ <tr>
+        <td>
+          <label for="subscriber_first_name">
+         Notes:
+
+          </label>
+        </td>
+        <td>
+         
+          <%= text_field 'work_group', 'notes',:class=>'textBoxWidth' %>
+
+
+
+        </td>
+      </tr>
+
+
+
+
+ def validations
+   
+    if self.type == "WorkGroup"
+      errors.add_to_base(" Name should not be blank") if self.name.blank?
+      errors.add_to_base("Subscription Type should not be blank") if self.type.blank?
+      errors.add_to_base("CompanyType should not be blank") if self.company_type.blank?
+   
+    errors.add_to_base("City should not be blank") if self.city.blank?
+    errors.add_to_base("Country should not be blank") if self.country.blank?
+    errors.add_to_base("InvoiceNumber should not be blank") if self.invoice_number.blank?
+    errors.add_to_base("StartDate should not be blank") if self.start_date.blank?
+    errors.add_to_base("EndDate should not be blank") if self.end_date.blank?
+    errors.add_to_base("ActiveUser should not be blank") if self.active_user.blank?
+    errors.add_to_base("AccountManager should not be blank") if self.account_manager.blank?
+    errors.add_to_base("CRM individual Responsible should not be blank") if self.crm_individual_responsible.blank?
+    errors.add_to_base("Notes should not be blank") if self.notes.blank?
+   
+
+
+    end
+  end
+
+
+
+  <%= autocompletion_field("asset_condition_tag", "tag_ids", @site.tags.find(:all,:order=>"name asc"), { :default_selection => "Enter the Tag", :empty_message => "Tag not found", :sort => true}) %>
+

@@ -1,0 +1,16 @@
+<div class="right_section_head">
+    <ul>
+   
+<%if params[:entity_type] == "static-fragment"%>
+<li class="button">
+
+<%= link_to("New Static Fragment" ,{:controller=>'admin/static_page',:action => 'new',:article_path=>"static_page",:entity_type=>"static-fragment"} ,:entity_type=>"static-fragment")%>
+</li>
+<%else%>
+<li class="button">
+<%= link_to("New Static Page",{:controller=>'admin/static_page',:action => 'new',:entity_type=>"static-page"},:entity_type=>"static-page") %>
+</li>
+<%end%>
+</ul>
+</div>
+

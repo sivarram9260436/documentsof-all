@@ -1,0 +1,107 @@
+<div id="container" style="padding-top: 20px;">
+	<div class="section_block full_section">
+		<h2>Edit Metadata</h2>
+       <div class="section_content">
+
+<%= form_tag({:action => 'update_imageset_metadata',:id=>@image.id},{:onSubmit=>"return upload_metadatstep2();",:id=>"upload_metadata",:class=>"fields_align",:name=>"upload_metadata",:multipart => true}) do %>
+
+	<div class="form_data">
+		<label for="text_head">Imageset Id :</label>
+		<label for="text_head"><%= @image.id %></label>
+	</div>				
+	
+    <div class="form_data">
+		<label for="text_head">Imageset Name <span>* </span>:</label>
+		<%= text_field 'image', 'image_name', :class => 'input_text' %>
+	</div>
+
+	<div class="form_data">
+		<label for="text_head">Tag :</label>
+		<%= text_field 'image', 'tag', :class => 'input_text' %>
+	</div>
+
+	<div class="form_data">
+		<label for="text_head">Alt/Title <span>* </span>:</label>
+		<%= text_field 'image', 'alt_tag', :class => 'input_text' %>
+	</div>
+
+	<div class="form_data">
+		<label for="text_head">Caption :</label>
+		<%= text_area 'image', 'caption', {:rows => 7, :cols => 40, :class => "input_text"} %>
+	</div>	
+		<%= hidden_field_tag 'id', @image.id %>
+		<%= hidden_field_tag 'commit', 'Save Metadata changes' %>
+
+	<div class="form_data">
+		<label for="text_head">License type :</label>
+		<%= select( "image", "licence_type", { "Universal rights granted to all users" => "Universal rights granted to all users", "Non-Commercial rights granted to all users" => "Non-Commercial rights granted to all users","Copyright Worldwide Media Pvt Ltd - all right reserved" => "Copyright Worldwide Media Pvt Ltd - all right reserved", "Copyright Worldwide Media Pvt Ltd - non-commercial rights granted" => "Copyright Worldwide Media Pvt Ltd - non-commercial rights granted", "Copyright held by third party - all right reserved" => "Copyright held by third party - all right reserved", "Copyright held by third party - non - commercial rights granted" => "Copyright held by third party - non -commercial rights granted", "Creative Commons commercial - attribution required" => "Creative Commons commercial - attribution required"}, {}, :class => "input_text") %>
+		<%#= select( "image", "licence_type", { "Universal rights granted to all users" => "Universal rights granted to all users", "Non-Commercial rights granted to all users" => "Non-Commercial rights granted to all users","Copyright Incisive Media - all right reserved" => "Copyright Incisive Media - all right reserved", "Copyright Incisive Media - non-commercial rights granted" => "Copyright Incisive Media - non-commercial rights granted", "Copyright held by third party - all right reserved" => "Copyright held by third party - all right reserved", "Copyright held by third party - non - commercial rights granted" => "Copyright held by third party - non -commercial rights granted", "Creative Commons commercial - attribution required" => "Creative Commons commercial - attribution required"}, {}, :class => "input_text") %>
+	</div>
+		
+		<% sites = User.find(session[:user_id]).sites.by_role_type(session[:role_type]).find(:all,:order=>"short_name").uniq #Site.all%>
+		<% selected_site_id = @image.site_id || session[:site_id]%>
+
+    <div class="form_data">
+		<label for="text_head">Site <span>* </span>:</label>
+		<%= select_tag "image[site_id]", options_for_select(sites.map {|u| [u.short_name,u.id]}, selected_site_id) ,:class=>'input_text' %>
+	</div>
+
+	
+		<% user = User.find(:first, :conditions => ["id = ?", @image.created_by]) %>
+
+	<div class="form_data">
+		<label for="text_head">Uploader :</label>
+		<% if @image.created_by %>
+		 <p><%= User.find(@image.created_by).full_name %></p>
+		<% end %>
+	</div>	
+		
+	<div class="form_data">
+		<label for="text_head">Upload date :</label>
+		<label for="text_head"><%= @image.created_at.strftime("%d/%m/%y") %></label>
+	</div>	
+		
+	<div class="button">
+		<%= submit_tag 'Save Metadata Changes'%>
+		</div>
+
+
+	<%#if params[:flag] and params[:flag]=="popup"%>
+	<!-- <tr>
+		<td></td>
+		<td><div class="adminLinkButton"><a href="javascript:void(0);" onclick="insert_image_from_edit_imageset(this,'<%=@image.get_image('120','120','square').image_path%>','<%=@image.get_image('120','120','square').image_path%>','<%=@image.id%>','<%=escape_javascript @image.alt_tag%>','<%=escape_javascript @image.caption%>')">Insert new changes to article form</a></div>
+		<div class="adminLinkButton">
+			<%#= link_to("Insert new changes to article form","javascript:void(0)",:class=>"add_img_article",:id=>@image.id,"data-imagename"=>@image.image_name,"data-update"=>"prev_image","data-imageid"=>@image.id,"data-imagepath"=>@image.get_image('120','120','square').image_path,"data-caption"=>@image.caption,"data-thumbnailpath"=>@image.get_image('120','120','square').image_path)%>
+		</div></td>
+	</tr> -->
+
+<%end%>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+    /* this is for image title in article form*/
+    $('.add_img_article').click(function() {
+        var id = $(this).attr("id");
+        var image = $("#" + id).data('imagename');
+        var image_path = $("#" + id).data('imagepath');
+        var thumbnail_path = $("#" + id).data('thumbnailpath');
+        var image_id = $("#" + id).data('imageid');
+        var caption = $("#" + id).data('caption');
+        confirmed = window.confirm("Do you want to make this image as title image");
+        if (confirmed) {
+            var img_pre = "<table class='title_image_table'><tr><td><img src=" + thumbnail_path + " " + " alt= /></td><td>Caption:<br/>" + caption + "</td></tr></table>";
+            window.opener.$('#prev_image').html(img_pre);
+            window.opener.$('#image_property_image_id').attr("value", image_id);
+            window.opener.$('#no_image').hide();
+            window.opener.$('#change_link').hide();
+            window.opener.$('#imageset_caption').show();
+            window.opener.$('#change_link123').show();
+            window.opener.$('#set_preference').show();
+            parent.close();
+        } else {
+        }
+    }); 
+</script>
+

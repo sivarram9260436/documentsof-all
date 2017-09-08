@@ -1,0 +1,48 @@
+Deal.find 340043
+  Deal Load (1.0ms)  SELECT "deals".* FROM "deals" WHERE "deals"."id" = $1 LIMIT 1  [["id", 340043]]
+ => #<Deal id: 340043, deal_parent_id: nil, status_id: 232, company_name: "Vanguard Healthcare Solutions", company_alternate_name: "", website: "www.vanguardhealthcare.co.uk", created_date: "2009-04-03 00:00:00", company_founded: "2002", staff_count: 70, currency_id: 76, company_status_id: 19, turnover: "0.0", ebit: "0.0", ebitda: "6.5", turnover_type: nil, ebit_type: nil, ebitda_type: nil, turnover_year: nil, ebit_year: nil, ebitda_year: 2008, sub_sector_id: 176, company_information: "\n  Manages mobile endoscopy units and wards within ...", life_science: nil, cleantech: nil, infrastructuree: nil, created_by: nil, updated_by: 363, created_at: "2009-04-03 00:00:00", updated_at: "2017-06-06 09:01:39", city_id: 15949, show_in_report: nil, include_in_email: true, country_id: 1024, region_id: 147, ebit_confidential: false, ebit_forecast: false, ebit_estimated: nil, ebitda_confidential: false, ebitda_forecast: false, ebitda_estimated: nil, turnover_confidential: false, turnover_forecast: false, turnover_estimated: nil, turnover_euro: "0.0", turnover_uk: "0.0", turnover_us: "0.0", turnover_yen: "0.0", ebit_euro: "0.0", ebit_uk: "0.0", ebit_us: "0.0", ebit_yen: "0.0", ebitda_euro: "7.09", ebitda_uk: "6.5", ebitda_us: "9.35", ebitda_yen: "925.73", data_proxy_id: 1, shown_in_reports: false, note_description: "http://www.healthinvestor.co.uk/ShowArticle.aspx?ID...", last_date: "2017-06-06 09:01:39", company_id: nil, new_ebit_year: nil, new_ebitda_year: nil, new_turnover_year: nil, sub_sector_name: "Medical Equipment", deal_value: 31.0, deal_type_name: "Buyout", deal_announced: "2009-04-01", country_name: "United Kingdom", deal_final_exit_date: "2014-07-01"> 
+1.9.3-p125 :010 > 
+1.9.3-p125 :011 >   
+1.9.3-p125 :012 >   
+1.9.3-p125 :013 >   c=_
+ => #<Deal id: 340043, deal_parent_id: nil, status_id: 232, company_name: "Vanguard Healthcare Solutions", company_alternate_name: "", website: "www.vanguardhealthcare.co.uk", created_date: "2009-04-03 00:00:00", company_founded: "2002", staff_count: 70, currency_id: 76, company_status_id: 19, turnover: "0.0", ebit: "0.0", ebitda: "6.5", turnover_type: nil, ebit_type: nil, ebitda_type: nil, turnover_year: nil, ebit_year: nil, ebitda_year: 2008, sub_sector_id: 176, company_information: "\n  Manages mobile endoscopy units and wards within ...", life_science: nil, cleantech: nil, infrastructuree: nil, created_by: nil, updated_by: 363, created_at: "2009-04-03 00:00:00", updated_at: "2017-06-06 09:01:39", city_id: 15949, show_in_report: nil, include_in_email: true, country_id: 1024, region_id: 147, ebit_confidential: false, ebit_forecast: false, ebit_estimated: nil, ebitda_confidential: false, ebitda_forecast: false, ebitda_estimated: nil, turnover_confidential: false, turnover_forecast: false, turnover_estimated: nil, turnover_euro: "0.0", turnover_uk: "0.0", turnover_us: "0.0", turnover_yen: "0.0", ebit_euro: "0.0", ebit_uk: "0.0", ebit_us: "0.0", ebit_yen: "0.0", ebitda_euro: "7.09", ebitda_uk: "6.5", ebitda_us: "9.35", ebitda_yen: "925.73", data_proxy_id: 1, shown_in_reports: false, note_description: "http://www.healthinvestor.co.uk/ShowArticle.aspx?ID...", last_date: "2017-06-06 09:01:39", company_id: nil, new_ebit_year: nil, new_ebitda_year: nil, new_turnover_year: nil, sub_sector_name: "Medical Equipment", deal_value: 31.0, deal_type_name: "Buyout", deal_announced: "2009-04-01", country_name: "United Kingdom", deal_final_exit_date: "2014-07-01"> 
+1.9.3-p125 :014 > c.deal_invserments
+NoMethodError: undefined method `deal_invserments' for #<Deal:0x0000000a392f60>
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activemodel-3.2.13/lib/active_model/attribute_methods.rb:407:in `method_missing'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/attribute_methods.rb:149:in `method_missing'
+	from (irb):14
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :015 > c.deal_invsetments
+NoMethodError: undefined method `deal_invsetments' for #<Deal:0x0000000a392f60>
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activemodel-3.2.13/lib/active_model/attribute_methods.rb:407:in `method_missing'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/attribute_methods.rb:149:in `method_missing'
+	from (irb):15
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :016 > c.deal_investments
+  Status Load (1.4ms)  SELECT "statuses".* FROM "statuses" WHERE (status_type = 'deal') AND (UPPER(name) = UPPER('SKELETAL')) LIMIT 1
+  DealInvestment Load (2.3ms)  SELECT "deal_investments".* FROM "deal_investments" WHERE "deal_investments"."deal_id" = 340043
+ => [#<DealInvestment id: 969324, deal_id: 340043, investment_type_id: 61, investor_group_component_id: 123677, fund_id: nil, currency_id: 76, equity: "", confidential: nil, created_by: 363, updated_by: 363, created_at: "2017-06-06 09:00:00", updated_at: "2017-06-06 09:01:09", amount: "10.00", investor_exited: true, deal_confidential: false>, #<DealInvestment id: 969323, deal_id: 340043, investment_type_id: 58, investor_group_component_id: 123677, fund_id: nil, currency_id: 76, equity: "", confidential: nil, created_by: 363, updated_by: 363, created_at: "2017-06-06 08:58:30", updated_at: "2017-06-06 08:59:24", amount: "7.50", investor_exited: false, deal_confidential: false>, #<DealInvestment id: 874055, deal_id: 340043, investment_type_id: 59, investor_group_component_id: 121326, fund_id: nil, currency_id: 76, equity: "", confidential: nil, created_by: nil, updated_by: 374, created_at: "2014-09-06 11:29:52", updated_at: "2016-11-04 08:37:42", amount: "0.0", investor_exited: true, deal_confidential: false>, #<DealInvestment id: 874056, deal_id: 340043, investment_type_id: 56, investor_group_component_id: 126453, fund_id: nil, currency_id: 76, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 11:29:52", updated_at: "2014-09-06 11:29:52", amount: "12.5", investor_exited: false, deal_confidential: false>, #<DealInvestment id: 874057, deal_id: 340043, investment_type_id: 68, investor_group_component_id: 121021, fund_id: nil, currency_id: 76, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 11:29:52", updated_at: "2014-09-06 11:29:52", amount: "5.0", investor_exited: false, deal_confidential: false>] 
+1.9.3-p125 :017 > c.deal_investments.count
+   (0.9ms)  SELECT COUNT(*) FROM "deal_investments" WHERE "deal_investments"."deal_id" = 340043
+ => 5 
+1.9.3-p125 :018 > c.deal_investments.first
+ => #<DealInvestment id: 969324, deal_id: 340043, investment_type_id: 61, investor_group_component_id: 123677, fund_id: nil, currency_id: 76, equity: "", confidential: nil, created_by: 363, updated_by: 363, created_at: "2017-06-06 09:00:00", updated_at: "2017-06-06 09:01:09", amount: "10.00", investor_exited: true, deal_confidential: false> 
+1.9.3-p125 :019 > c.deal_investments.second
+ => #<DealInvestment id: 969323, deal_id: 340043, investment_type_id: 58, investor_group_component_id: 123677, fund_id: nil, currency_id: 76, equity: "", confidential: nil, created_by: 363, updated_by: 363, created_at: "2017-06-06 08:58:30", updated_at: "2017-06-06 08:59:24", amount: "7.50", investor_exited: false, deal_confidential: false> 
+1.9.3-p125 :020 > m=_
+ => #<DealInvestment id: 969323, deal_id: 340043, investment_type_id: 58, investor_group_component_id: 123677, fund_id: nil, currency_id: 76, equity: "", confidential: nil, created_by: 363, updated_by: 363, created_at: "2017-06-06 08:58:30", updated_at: "2017-06-06 08:59:24", amount: "7.50", investor_exited: false, deal_confidential: false> 
+1.9.3-p125 :021 > c.deal_investments.second
+ => #<DealInvestment id: 969323, deal_id: 340043, investment_type_id: 58, investor_group_component_id: 123677, fund_id: nil, currency_id: 76, equity: "", confidential: nil, created_by: 363, updated_by: 363, created_at: "2017-06-06 08:58:30", updated_at: "2017-06-06 08:59:24", amount: "7.50", investor_exited: false, deal_confidential: false> 
+1.9.3-p125 :022 > c.deal_investments.second.update_column('investor_exited',true)
+  SQL (2.7ms)  UPDATE "deal_investments" SET "investor_exited" = 't' WHERE "deal_investments"."id" = 969323
+ => true 
+1.9.3-p125 :023 > 
+

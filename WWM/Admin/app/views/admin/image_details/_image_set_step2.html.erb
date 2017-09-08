@@ -1,0 +1,128 @@
+
+<%#= raw error_messages_for_text_changes 'image','image_detail'%>
+<%=raw error_messages(@image) if @image%>
+<div style="float:right;">
+	<table width="100%">
+	  
+	
+	
+	<tr>
+							<td style="padding-left:64px">Square:</td>	
+							<td><%= image_tag(@image.get_image('120','120',"square").image_path, :alt => @image.alt_tag, :class => "image_border") %></td>
+							<td><div class="adminLinkButton"><%= link_to 'Edit square' ,:action=>"edit_orientation",:id=>@image.get_image('120','120',"square").id %>	</div></td>
+			
+					</tr>
+					<tr>
+							<td style="padding-left:44px">Landscape:</td>	
+							<td><%= image_tag(@image.get_image('185','114',"landscape").image_path, :alt => @image.alt_tag, :class => "image_border") %></td>
+							<td><div class="adminLinkButton"><%= link_to 'Edit landscape' ,:action=>"edit_orientation",:id=>@image.get_image('185','114',"landscape").id %>	</div></td>
+			
+					</tr>
+					<tr>
+							<td style="padding-left:63px">Portrait:</td>	
+							<td><%= image_tag(@image.get_image('120','194',"portrait").image_path, :alt => @image.alt_tag, :class => "image_border") %></td>
+							<td><div class="adminLinkButton"><%= link_to 'Edit portrait' ,:action=>"edit_orientation",:id=>@image.get_image('120','194',"portrait").id %>	</div></td>
+			
+					</tr>
+			
+	 <tr>
+		<td style="padding-left:22px">Original Image:</td>
+		<td >
+			<%width,height=ImageManipulation.image_width_and_height("#{Rails.root}/public"+@image.get_orginal_image.image_path)%>
+			<%=image_tag(@image.get_orginal_image.image_path, :alt => @image.alt_tag, :class => "image_border", :width=> width > 300? "300" : "")%>
+		</td>
+		<td>
+			<% form_tag({:action => 'upload_new_imageset',:id=>@image.id},{:name=>"upload_form_right",:id=>"upload_form_right",:multipart => true}) do %>
+				<table>
+				  <% content_tag :tr do -%>
+					<%= content_tag(:td, (file_field :image_detail,:image_path,:size=>"10"))%>
+	 			 <% end -%>
+				
+		</td>
+		</tr>
+		<tr>
+			<td>
+				<%=hidden_field_tag 'id',@image.id%>
+				<%=hidden_field_tag 'flag','step2'%>
+				<div class="adminLinkButton">
+					<a href="javascript:void(0);" onclick="upload_alternateimage_right($('upload_form_right'));">Upload new original</a>
+				</div>
+			</td>
+		</tr>
+	</table>
+<%end%>
+</td>
+</tr>
+</table>
+</div>
+<div>
+
+<%= form_tag({:action => 'upload_new_imageset',:id=>@image.id},{:name=>"upload_form",:id=>"upload_form",:multipart => true}) do %>
+	<table>
+		<tr>
+			<td>Replace Image:</td>
+			<td><%=file_field :image_detail,:image_path%></td>
+		</tr>
+		<%=hidden_field_tag 'id',@image.id%>
+		<%=hidden_field_tag 'flag','step2'%>
+		<tr>
+			<td></td>
+			<td>
+				<div class="adminLinkButton"><a href="javascript:void(0);" onclick="upload_alternateimage($('upload_form'));">Upload new original</a></div>
+			</td>
+		</tr>
+	
+<%end%>
+
+	<tr>
+		<td>
+			<div style="font-size:1.4em !important;letter-spacing:2px;margin:11px 0 4px">Metadata</div>
+		</td>
+	</tr>
+
+<%= form_tag({:action => 'update_imageset_metadata',:id=>@image.id},{:onSubmit=>"return upload_metadatstep2();" ,:id=>"upload_metadata" ,:name=>"upload_metadata",:multipart => true}) do %>
+
+				<tr>
+					<td>Imageset Name*:</td>
+					<td><%=text_field 'image','image_name',:class=>'input_text'%></td>
+				</tr>
+				<tr>
+					<td>Tags:</td>
+					<td><%=text_field 'image','tag',:class=>'input_text'%></td>
+				</tr>
+				<tr>
+					<td>Alt/Title*:</td>
+					<td><%=text_field 'image','alt_tag',:class=>'input_text'%></td>
+				</tr>
+				<tr>
+					<td>Caption:</td>
+					<td><%=text_area 'image','caption',{:rows => 7, :cols => 40,:class=>"input_text"}%></td>
+				</tr>
+				<tr>
+					<%=hidden_field_tag 'id',@image.id%>
+					<%=hidden_field_tag 'commit','Save Metadata changes'%>
+					<td>License type:</td>
+					<td><%= select( "image", "licence_type", { "Universal rights granted to all users" => "Universal rights granted to all users", "Non-Commercial rights granted to all users" => "Non-Commercial rights granted to all users","Copyright Worldwide Media Pvt Ltd - all right reserved"=>"Copyright Worldwide Media Pvt Ltd - all right reserved","Copyright Worldwide Media Pvt Ltd- non-commercial rights granted"=>"Copyright Worldwide Media Pvt Ltd- non-commercial rights granted","Copyright held by third party - all right reserved"=>"Copyright held by third party - all right reserved","Copyright held by third party - non -commercial rights granted" => "Copyright held by third party - non -commercial rights granted","Creative Commons commercial - attribution required" => "Creative Commons commercial - attribution required"},{},:class=>"input_text") %></td>
+				</tr>
+				<tr>
+					<td>Site*:</td>
+					<td> <%= select_tag "image[site_id]", options_for_select(Site.find(:all).map {|u| [u.short_name,u.id]}, @image.site_id || session[:site_id]) ,:class=>'input_text'%>  </td>
+				</tr>
+				<tr>
+
+					<td>Uploader:</td>
+					<td><%=User.find(session[:user_id]).full_name%></td>
+				</tr>
+				<tr>
+					<td>Upload date:</td>
+					<td><%=Date.today%></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><div class="adminButton"><%=submit_tag 'Save Imageset'%></div></td>
+				</tr>
+			</table>
+	</div>
+<%end%>
+
+

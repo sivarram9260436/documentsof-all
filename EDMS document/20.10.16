@@ -1,0 +1,138 @@
+model
+
+=========================================================================================================================
+employeedetail.rb   lat v add
+=========================================================================================================================
+
+
+
+
+def self.export_leave_of_all_users(emp_list)
+
+  CSV.open("#{Rails.root}/public/leave_balance_for_users.csv", "w") do |csv|
+
+    #csv << ["EmployeeName","LeaveType","TotalLeaves","TotalLeaveBalance","Availed","balance"]
+
+    # csv << ["From Date", "To Date", "No Of Days", "Leave Type", "Status", "Reason"]
+    emp_list.each do |emp|
+      leave_detail = LeaveDetail.where("employee_detail_id = ? AND year =?",emp,Time.now.year-1)
+      csv << ["#{emp.emp_name}#{emp.last_name}","Total Leaves","Eligible Leaves","Availed","Available Balance"]
+    leave_detail.each do |emp_leave|
+      csv << [
+          "#{emp_leave.leave_type.leave_types}",
+          "#{emp_leave.total_leaves}",
+          "#{emp_leave.total_leave_balance}",
+          "#{emp_leave.availed}",
+          "#{emp_leave.balance}"]
+    end
+  end
+  end
+  end
+
+=========================================================================================================================
+
+
+controller
+
+=========================================================================================================================
+employeecontroller.rb   add before addleaveas after  fill mail
+
+=========================================================================================================================
+
+ def export_leave_of_all_users
+   EmployeeDetail.export_individual_leave(params[:emp_id])
+   redirect_to "/leave_of_all_users.csv"
+ end
+
+  def get_leave_balance
+    a = EmployeeDetail.find_by_id(session[:emp_id])
+    employee_list=EmployeeDetail.where("active =? and office_type_id =?","Active",a.office_type_id).order("emp_name asc")
+    EmployeeDetail.export_leave_of_all_users(employee_list)
+    redirect_to "/leave_balance_for_users.csv"
+  end
+
+  def leave_balance_of_all_employee
+
+      #@leave_detail= LeaveDetail.where("employee_detail_id IN (?) AND year =? ",employee_list.map(&:id),Time.now.year)
+  end
+=========================================================================================================================
+
+
+html
+
+
+
+layout welcomelayout.html.erb
+					after add leave in hr 
+=========================================================================================================================
+
+
+
+ <li id="leave_balance_of_all_employee">
+    <% a = EmployeeDetail.find_by_id(session[:emp_id]).office_type %>
+    <a class="contact" title="HR" href="/employee/leave_balance_of_all_employee"><%= "Leave balance of all #{a.name} employee"%></a>
+  </li>	
+
+
+=========================================================================================================================
+
+html views
+
+leave_balance_of_all_employee.html.erb
+
+=========================================================================================================================
+
+
+
+<style>
+  .arrange {
+    float: left;
+    width: 100%;
+    padding: 10px 0px;
+  }
+</style>
+
+<h3>Please select ..</h3>
+
+<%a=EmployeeDetail.find_by_id(session[:emp_id]).office_type %>
+
+ Office Type: <%= collection_select(:employee_detail, :office_type_id, [a], :id, :name) %>
+<div class="arrange">
+<%= link_to "Click Here #{a.name} Employees Leave Balance",:controller => "employee", :action => "get_leave_balance"%>
+</div>
+
+<script>
+
+//  $(".dummy").click(function(){
+//
+////    #a=employee_detail_office_type_id
+//
+//    var office_type = $('#employee_detail_office_type_id').val();
+//
+//    console.log(office_type)
+//
+//    $.ajax({
+//      type: "GET",
+//      url: "/employee/get_leave_balance?office_type= "+office_type ,
+//      datatype: "html",
+//      beforeSend: function (xhr) {
+//        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+//      },
+//
+//
+//      success: function (data) {
+//        $('.triuble').html(data);
+//      }
+//    });
+//
+//  });
+//
+
+
+</script>
+
+
+=========================================================================================================================
+
+
+

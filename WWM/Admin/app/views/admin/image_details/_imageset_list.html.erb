@@ -1,0 +1,92 @@
+	
+<% imageset_list.each do |image| %>
+               <%if File.exist?(Rails.root.to_s+"/public"+image.thumbnail.image_path)%>
+		<div class="image_content_block images-set">
+		<div class="image_details_list" id="image_details_list_<%= image.id%>">
+			<span class="preview"> <%= image_tag(image.thumbnail.image_path+"?#{rand(1000000)}", :alt => image.alt_tag,:width=>'112',:height=>'90') %> </span>
+			<div class="bottom"> 
+			<%= image.display_name[0..8].capitalize %>
+                                        <br/>
+			<span class="preview"><%= image.created_at.strftime("%d/%m/%y")%></span>		
+			<div class="images-set-search">
+			    <ul>
+			   		<li class="img-search">
+			   			<a href="javascript:void(0)">Preview</a>
+			   		</li>
+			<% if params[:type] == "gallery" %>
+			    <a class="insert_to_art" href="javascript:void(0)" onclick="insert_to_article('<%=image.get_image('80', '80', 'square').image_path%>', '<%=image.get_image('80', '80', 'square').image_path%>', '<%=image.id%>', '<%=escape_javascript image.alt_tag%>', '<%= image.caption.blank? ? CGI.escape("") : CGI.escape(image.caption) %>')">Insert to Gallery</a>
+			<% elsif params[:type] == "author_logo" %>
+			    <a class="insert_to_art" href="javascript:void(0)" onclick="insert_to_article('<%=image.get_image('80', '80', 'square').image_path%>', '<%=image.get_image('80', '80', 'square').image_path%>', '<%=image.id%>', '<%=escape_javascript image.alt_tag%>', '<%= image.caption.blank? ? CGI.escape("") : CGI.escape(image.caption) %>', 'author_logo')">Insert this as Logo</a>
+			<% elsif params[:type] == "tiny_mce" %>
+			    <%= link_to "Insert this Image", {:action => "show_image_list_step2", :id => image.id}, {:class => "insert_to_art"} %>
+			<% elsif params[:popup] && params[:popup] == "true" %>
+    			<a class="insert_to_art" href="javascript:void(0)" onclick="insert_to_article('<%=image.get_image('80', '80', 'square').image_path%>', '<%=image.get_image('80', '80', 'square').image_path%>', '<%=image.id%>', '<%=escape_javascript image.alt_tag%>', '<%= image.caption.blank? ? CGI.escape("") : CGI.escape(image.caption) %>')">Insert </a>
+			<% else %>
+					<li class="img-edit">
+			   			<a href="javascript:void(0)"> Edit</a>
+			   		</li>
+			   		
+			   		<li class="img-crop">
+			   			<a href="javascript:void(0)">Crop</a>
+					</li>
+			 
+			<% end %>
+			
+			  	</ul>
+			</div>
+		
+			</div>
+		</div>
+	</div>
+<% end %>
+<% end %>
+
+
+<%= hidden_field_tag "current_page", params[:page].blank? ? 1 : params[:page] %>
+<%= hidden_field_tag "previous_page", "#{(params[:page].to_i - 1) if params[:page] and params[:page].to_i > 1}" %>
+<%= hidden_field_tag "next_page", "#{params[:page].blank? ? (2 if (imageset_list.total_entries/params[:per_page].to_i) >= 1) : (params[:page].to_i + 1 if params[:page].to_i <= (imageset_list.total_entries / params[:per_page].to_i))}" %>
+<%= hidden_field_tag "search_page", params[:image_detail_search].blank? ? "false" : "true" %>
+<%= hidden_field_tag "popup", params[:popup] %>
+<%= hidden_field_tag "type", params[:type] %>
+
+<% if not params[:image_detail_search].blank? %>
+  <%= hidden_field_tag "licence_type", "#{ params[:image_detail_search][:licence_type]}" %>
+  <%= hidden_field_tag "to", "#{params[:image_detail_search][:to]}" %>
+  <%= hidden_field_tag "site_id", "#{params[:image_detail_search][:site_id]}" %>
+  <%= hidden_field_tag "order_by", "#{params[:image_detail_search][:order_by]}" %>
+  <%= hidden_field_tag "created_by", "#{params[:image_detail_search][:created_by]}" %>
+  <%= hidden_field_tag "name", "#{params[:image_detail_search][:name]}" %>
+  <%= hidden_field_tag "from", "#{params[:image_detail_search][:from]}" %>
+            <% end %>
+</div>
+<!-- <div class="imageset_pagination">
+ <span id="previous" class="previous_page">
+    <a class="previous_page">← Previous</a>
+ </span>
+ <span id="next" class="next_page">
+   <a class="next_page">Next → </a>
+ </span>
+</div> -->
+
+<div class="imageset_pagination image-set-pagination">
+ <span id="previous">
+    <a class="previous_page"> Previous</a>
+ </span>
+ <span id="next">
+   <a class="next_page">Next  </a>
+ </span>
+</div>
+
+
+
+
+<script type="text/javascript">
+    var pr = $(".active_page #previous_page").val();
+    var ne = $(".active_page #next_page").val();
+    if (pr == "") {
+        $(".active_page #previous").hide();
+    }
+    if (ne == "") {
+        $(".active_page #next").hide();
+    }
+</script>

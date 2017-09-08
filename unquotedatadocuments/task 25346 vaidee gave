@@ -1,0 +1,67 @@
+
+app/controllers/wps/uq_home_controller.rb
+def verify_login
+    if !params[:username].blank? && !params[:username][:email_id].blank? || !params[:password].blank?
+     # user = Subscriber.by_user_name(params[:username][:email_id]).by_password(PrivateEncryptDecrypt.encryption(params[:password])).by_inactive(false).by_site_id(@site.id)
+      user = Subscriber.by_user_name(params[:username][:email_id]).by_inactive(false).by_site_id(@site.id)
+      if user.present?
+        if user.first.work_group && (user.first.work_group.end_date >= Time.zone.now.to_date)
+          session[:user_id] = user.first.id
+          SubscriberLog.create(:subscriber_id => session[:user_id], :log_type => "login")
+          if params[:remember_me]
+            present_time = Time.zone.now.to_s
+            cookies[:remember_me_key] = { value: (Digest::MD5.hexdigest("#{user.first.id}" + present_time)), expires: 10.years.from_now }
+            user.first.update_attributes(:remember_me_key => (Digest::MD5.hexdigest("#{user.first.id}" + "#{present_time}")))
+          end
+          if !session[:return_to].blank?
+            logger.info"===aaa==#{session.inspect}====="
+            redirect_to session.delete(:return_to)
+            logger.info"===ccc==#{session.inspect}====="
+           else
+            logger.info"===bbb===="
+          cookies[:o_uid] = session[:user_id]
+          redirect_to :controller => "uq_home", :action => "home"
+          end
+        else
+          flash[:login_error] = "Your Subscription has expired"
+          redirect_to root_url
+        end
+      else
+        flash[:login_error] = "Please Enter Valid Email ID or Password"
+        redirect_to root_url
+      end
+    else
+      flash[:login_error] = "Please Enter Valid Email ID or Password"
+      redirect_to root_url
+    end
+  end
+
+
+
+app/controllers/application_controller.rb
+
+ def subscriber_authentication
+    if session[:user_id].blank?
+      logger.info"=====req====#{request.referer}=====#{request.referrer}=====#{request["HTTP_REFERER"]}====#{request["HTTP_REFERRER"]}======="
+      session[:return_to] = request.url
+      logger.info"====return=====#{session.inspect}====="
+      redirect_to root_url
+    else
+      @user = Subscriber.find(session[:user_id])
+      if @user and (@user.work_group.end_date < Date.today || @user.inactive )
+        @user.remember_me_key = ""
+        @user.save
+        SubscriberLog.create(:subscriber_id => session[:user_id], :log_type => "logout")
+        cookies.delete :remember_me_key
+        cookies.delete :o_uid
+        session.clear
+        redirect_to root_url
+      else
+        @subscriber = @user
+        Ambient.init
+        Ambient.current_user = @user
+      end
+    end
+  end
+
+

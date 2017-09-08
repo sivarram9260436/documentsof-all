@@ -1,0 +1,331 @@
+
+
+
+[DEPRECATION] requiring "RMagick" is deprecated. Use "rmagick" instead
+DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /home/ruby/Unquote_data/Admin/config/environment.rb:5)
+DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /home/ruby/Unquote_data/Admin/config/environment.rb:5)
+DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /home/ruby/Unquote_data/Admin/config/environment.rb:5)
+DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /home/ruby/Unquote_data/Admin/config/environment.rb:5)
+DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /home/ruby/Unquote_data/Admin/config/environment.rb:5)
+DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /home/ruby/Unquote_data/Admin/config/environment.rb:5)
+DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /home/ruby/Unquote_data/Admin/config/environment.rb:5)
+DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/1/4/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /home/ruby/Unquote_data/Admin/config/environment.rb:5)
+==================================Component Start loading Time => 2017-04-26 14:10:41 UTC ===============================
+==================================End loading Time =2017-04-26 14:10:41 UTC=============================================
+/home/ruby/Unquote_data/Admin/config/initializers/general_site_properties.rb:1: warning: already initialized constant SITES_ROOT
+/home/ruby/Unquote_data/Admin/config/initializers/image_properties.rb:1: warning: already initialized constant THUMBNAIL_WIDTH
+/home/ruby/Unquote_data/Admin/config/initializers/image_properties.rb:2: warning: already initialized constant THUMBNAIL_HEIGHT
+/home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/actionpack-3.2.13/lib/action_dispatch/http/mime_type.rb:102: warning: already initialized constant PDF
+/home/ruby/Unquote_data/Admin/config/initializers/search_engine.rb:1: warning: already initialized constant RULES_FOR_SEARCH_ENGINE
+/home/ruby/Unquote_data/Admin/config/initializers/search_engine.rb:31: warning: already initialized constant APPLICATIONNAME
+/home/ruby/Unquote_data/Admin/config/initializers/search_engine.rb:32: warning: already initialized constant DIRECTORY_APPLICATIONNAME
+/home/ruby/Unquote_data/Admin/config/initializers/search_engine.rb:33: warning: already initialized constant CATEGORY_APPLICATIONNAME
+/home/ruby/Unquote_data/Admin/config/initializers/search_engine.rb:34: warning: already initialized constant TAG_APPLICATIONNAME
+/home/ruby/Unquote_data/Admin/config/initializers/search_engine.rb:35: warning: already initialized constant OTHER_ENTITY_APPLICATIONNAME
+/home/ruby/Unquote_data/Admin/config/initializers/search_engine.rb:36: warning: already initialized constant INCLUDE_GRAPESHOT
+/home/ruby/Unquote_data/Admin/config/initializers/search_engine.rb:37: warning: already initialized constant RELEVANCE
+/home/ruby/Unquote_data/Admin/config/initializers/search_engine.rb:38: warning: already initialized constant SETTINGS_FOR_AUTONOMY_JOB
+/home/ruby/Unquote_data/Admin/config/initializers/search_engine.rb:39: warning: already initialized constant SORT_FILTER_MAPPING
+/home/ruby/Unquote_data/Admin/config/initializers/search_engine.rb:42: warning: already initialized constant FILTER_MAPPING_SOLR
+/home/ruby/Unquote_data/Admin/config/initializers/search_engine.rb:43: warning: already initialized constant SEARCH_DATE_OPTIONS_SOLR
+/home/ruby/Unquote_data/Admin/config/initializers/search_engine.rb:45: warning: already initialized constant SEARCH_DATE_OPTIONS
+/home/ruby/Unquote_data/Admin/config/initializers/search_engine.rb:46: warning: already initialized constant FILTER_MAPPING
+/home/ruby/Unquote_data/Admin/config/initializers/search_engine.rb:47: warning: already initialized constant DIRECTORY_FILTER_MAPPING
+/home/ruby/Unquote_data/Admin/config/initializers/search_engine.rb:49: warning: already initialized constant STRING_FILTER
+/home/ruby/Unquote_data/Admin/config/initializers/unquote_search_engine.rb:2: warning: already initialized constant FILTER_MAPPING
+Loading development environment (Rails 3.2.13)
+1.9.3-p125 :001 > 
+1.9.3-p125 :002 >   
+1.9.3-p125 :003 >   
+1.9.3-p125 :004 >   
+1.9.3-p125 :005 >   
+1.9.3-p125 :006 >   
+1.9.3-p125 :007 >   Deal.find 77837
+  InvestmentType Load (2.7ms)  SELECT "investment_types".* FROM "investment_types" WHERE (name in ('Equity Syndicate')) LIMIT 1
+  InvestmentType Load (0.8ms)  SELECT "investment_types".* FROM "investment_types" WHERE (name in ('Equity Lead')) LIMIT 1
+  InvestmentType Load (1.5ms)  SELECT "investment_types".* FROM "investment_types" WHERE (name in ('Equity Lead','Equity Syndicate','Unspecified Equity'))
+  InvestmentType Load (0.7ms)  SELECT "investment_types".* FROM "investment_types" WHERE (name in ('Mezzanine Syndicate')) LIMIT 1
+  InvestmentType Load (0.8ms)  SELECT "investment_types".* FROM "investment_types" WHERE (name in ('Debt Syndicate')) LIMIT 1
+  InvestmentType Load (4.7ms)  SELECT "investment_types".* FROM "investment_types" WHERE (name in ('Equity Lead','Equity Syndicate','Corporate Investor','Unspecified Equity'))
+  InvestmentType Load (0.8ms)  SELECT "investment_types".* FROM "investment_types" WHERE (name in ('Convertible Loan','High-yield Bonds','Mezzanine Syndicate','Mezzanine Lead'))
+  InvestmentType Load (0.6ms)  SELECT "investment_types".* FROM "investment_types" WHERE (name in ('Bridging Loan','Corporate Loan','Debt Lead','Debt Syndicate','Shareholder loan','State Loan','Unspecified Debt','Vendor loan'))
+  AdviceType Load (3.9ms)  SELECT "advice_types".* FROM "advice_types" WHERE (UPPER(name) LIKE UPPER('%%LEGAL%%')) LIMIT 1
+  AdviceType Load (0.9ms)  SELECT "advice_types".* FROM "advice_types" WHERE (UPPER(name) LIKE UPPER('%%CORPORATE FINANCE%%')) LIMIT 1
+  AdviceType Load (1.6ms)  SELECT "advice_types".* FROM "advice_types" WHERE (UPPER(name) LIKE UPPER('%%COMMERCIAL DUE DILIGENCE%%')) LIMIT 1
+  AdviceType Load (0.7ms)  SELECT "advice_types".* FROM "advice_types" WHERE (UPPER(name) LIKE UPPER('%%ENVIRONMENTAL DUE DILIGENCE%%')) LIMIT 1
+  AdviceType Load (1.4ms)  SELECT "advice_types".* FROM "advice_types" WHERE (UPPER(name) LIKE UPPER('%%FINANCIAL DUE DILIGENCE%%')) LIMIT 1
+  AdviceType Load (9.1ms)  SELECT "advice_types".* FROM "advice_types" WHERE (UPPER(name) LIKE UPPER('%%INSURANCE DUE DILIGENCE%%')) LIMIT 1
+  AdviceType Load (4.5ms)  SELECT "advice_types".* FROM "advice_types" WHERE (UPPER(name) LIKE UPPER('%%OTHER DUE DILIGENCE%%')) LIMIT 1
+   (11.9ms)  SELECT id FROM "advice_types" WHERE "advice_types"."name" IN ('Accounting')
+   (4.1ms)  SELECT id FROM "advice_types" WHERE "advice_types"."name" IN ('Tax')
+   (0.5ms)  SELECT id FROM "advice_types" WHERE "advice_types"."name" IN ('Sponsor/Broker')
+   (0.5ms)  SELECT id FROM "advice_types" WHERE "advice_types"."name" IN ('Actuarial')
+  AdviceType Load (0.6ms)  SELECT "advice_types".* FROM "advice_types" WHERE (UPPER(name) LIKE UPPER('%%OTHER CONSULTING%%')) LIMIT 1
+  Status Load (0.6ms)  SELECT "statuses".* FROM "statuses" WHERE (status_type = 'deal') AND (UPPER(name) = UPPER('PUBLISH')) LIMIT 1
+  Status Load (0.6ms)  SELECT "statuses".* FROM "statuses" WHERE (status_type = 'deal') AND (UPPER(name) = UPPER('PENDING QC')) LIMIT 1
+  Status Load (0.4ms)  SELECT "statuses".* FROM "statuses" WHERE (status_type = 'deal') AND (UPPER(name) = UPPER('DELETE')) LIMIT 1
+  Deal Load (18.6ms)  SELECT "deals".* FROM "deals" WHERE "deals"."id" = $1 LIMIT 1  [["id", 77837]]
+ActiveRecord::RecordNotFound: Couldn't find Deal with id=77837
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:343:in `find_one'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:314:in `find_with_ids'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:107:in `find'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/querying.rb:5:in `find'
+	from (irb):7
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :008 > Deal.find 77837
+  Deal Load (0.8ms)  SELECT "deals".* FROM "deals" WHERE "deals"."id" = $1 LIMIT 1  [["id", 77837]]
+ActiveRecord::RecordNotFound: Couldn't find Deal with id=77837
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:343:in `find_one'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:314:in `find_with_ids'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:107:in `find'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/querying.rb:5:in `find'
+	from (irb):8
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :009 > Deal.last
+  Deal Load (1.3ms)  SELECT "deals".* FROM "deals" ORDER BY "deals"."id" DESC LIMIT 1
+ => #<Deal id: 380141, deal_parent_id: nil, status_id: 232, company_name: "Dreamcheaper", company_alternate_name: "", website: "www.dreamcheaper.com", created_date: "2017-04-26 00:00:00", company_founded: "2014", staff_count: nil, currency_id: 67, company_status_id: 19, turnover: "", ebit: "", ebitda: "", turnover_type: nil, ebit_type: nil, ebitda_type: nil, turnover_year: nil, ebit_year: nil, ebitda_year: nil, sub_sector_id: 202, company_information: "<p>Developer of an online software that allows gues...", life_science: false, cleantech: false, infrastructuree: false, created_by: 362, updated_by: 362, created_at: "2017-04-26 12:06:13", updated_at: "2017-04-26 12:12:43", city_id: 14374, show_in_report: nil, include_in_email: true, country_id: 1116, region_id: 26, ebit_confidential: false, ebit_forecast: false, ebit_estimated: false, ebitda_confidential: false, ebitda_forecast: false, ebitda_estimated: false, turnover_confidential: false, turnover_forecast: false, turnover_estimated: false, turnover_euro: nil, turnover_uk: nil, turnover_us: nil, turnover_yen: nil, ebit_euro: nil, ebit_uk: nil, ebit_us: nil, ebit_yen: nil, ebitda_euro: nil, ebitda_uk: nil, ebitda_us: nil, ebitda_yen: nil, data_proxy_id: 1, shown_in_reports: false, note_description: nil, last_date: "2017-04-26 12:12:43", company_id: nil, new_ebit_year: nil, new_ebitda_year: nil, new_turnover_year: nil, sub_sector_name: "Software", deal_value: 1.5, deal_type_name: "Expansion", deal_announced: "2017-04-01", country_name: "Germany", deal_final_exit_date: nil> 
+1.9.3-p125 :010 > Deal.find 336923
+  Deal Load (1.6ms)  SELECT "deals".* FROM "deals" WHERE "deals"."id" = $1 LIMIT 1  [["id", 336923]]
+ => #<Deal id: 336923, deal_parent_id: 360357, status_id: 232, company_name: "Fratelli Elia", company_alternate_name: "", website: "www.eliambrosetti.it", created_date: "2013-12-17 05:38:58", company_founded: "1946", staff_count: 0, currency_id: 67, company_status_id: 19, turnover: "0.0", ebit: "0.0", ebitda: "0.0", turnover_type: nil, ebit_type: nil, ebitda_type: nil, turnover_year: nil, ebit_year: nil, ebitda_year: nil, sub_sector_id: 210, company_information: "\n  <font face=\"Arial\" size=\"1\">Provider of vehicle ...", life_science: false, cleantech: false, infrastructuree: false, created_by: nil, updated_by: 363, created_at: "2013-12-17 05:38:58", updated_at: "2017-04-26 12:02:47", city_id: 15032, show_in_report: nil, include_in_email: false, country_id: 982, region_id: 17, ebit_confidential: false, ebit_forecast: false, ebit_estimated: false, ebitda_confidential: false, ebitda_forecast: false, ebitda_estimated: false, turnover_confidential: false, turnover_forecast: false, turnover_estimated: false, turnover_euro: "0.0", turnover_uk: "0.0", turnover_us: "0.0", turnover_yen: "0.0", ebit_euro: "0.0", ebit_uk: "0.0", ebit_us: "0.0", ebit_yen: "0.0", ebitda_euro: "0.0", ebitda_uk: "0.0", ebitda_us: "0.0", ebitda_yen: "0.0", data_proxy_id: 1, shown_in_reports: false, note_description: "www.eliambrosetti.it", last_date: "2017-04-26 12:02:47", company_id: 346392, new_ebit_year: nil, new_ebitda_year: nil, new_turnover_year: nil, sub_sector_name: "Transportation Services", deal_value: 3.0, deal_type_name: "Restructuring", deal_announced: "2013-09-01", country_name: "Italy", deal_final_exit_date: nil> 
+1.9.3-p125 :011 > 
+1.9.3-p125 :012 >   
+1.9.3-p125 :013 >   
+1.9.3-p125 :014 >   
+1.9.3-p125 :015 >   Deal.find 360357
+  Deal Load (1.2ms)  SELECT "deals".* FROM "deals" WHERE "deals"."id" = $1 LIMIT 1  [["id", 360357]]
+ => #<Deal id: 360357, deal_parent_id: 360357, status_id: 232, company_name: "Fratelli Elia", company_alternate_name: "", website: "", created_date: "2006-08-01 00:00:00", company_founded: "", staff_count: nil, currency_id: 67, company_status_id: nil, turnover: "91.0", ebit: "", ebitda: "22.75", turnover_type: nil, ebit_type: nil, ebitda_type: nil, turnover_year: nil, ebit_year: nil, ebitda_year: nil, sub_sector_id: 210, company_information: "\n  Handles shipment processes of foreign products a...", life_science: nil, cleantech: nil, infrastructuree: nil, created_by: nil, updated_by: 363, created_at: "2006-08-01 00:00:00", updated_at: "2017-04-26 11:59:19", city_id: 15032, show_in_report: nil, include_in_email: false, country_id: 982, region_id: 17, ebit_confidential: nil, ebit_forecast: nil, ebit_estimated: nil, ebitda_confidential: nil, ebitda_forecast: nil, ebitda_estimated: nil, turnover_confidential: nil, turnover_forecast: nil, turnover_estimated: nil, turnover_euro: "91.0", turnover_uk: "62.1985", turnover_us: "116.12964999999998", turnover_yen: "13289.245060000001", ebit_euro: "", ebit_uk: "", ebit_us: "", ebit_yen: "", ebitda_euro: "22.75", ebitda_uk: "15.55", ebitda_us: "29.03", ebitda_yen: "3322.31", data_proxy_id: 1, shown_in_reports: nil, note_description: "", last_date: "2017-04-26 11:59:19", company_id: 346392, new_ebit_year: nil, new_ebitda_year: nil, new_turnover_year: nil, sub_sector_name: "Transportation Services", deal_value: 185.0, deal_type_name: "Buyout", deal_announced: "2006-08-01", country_name: "Italy", deal_final_exit_date: "2015-05-01"> 
+1.9.3-p125 :016 > 
+1.9.3-p125 :017 >   
+1.9.3-p125 :018 >   c=_
+ => #<Deal id: 360357, deal_parent_id: 360357, status_id: 232, company_name: "Fratelli Elia", company_alternate_name: "", website: "", created_date: "2006-08-01 00:00:00", company_founded: "", staff_count: nil, currency_id: 67, company_status_id: nil, turnover: "91.0", ebit: "", ebitda: "22.75", turnover_type: nil, ebit_type: nil, ebitda_type: nil, turnover_year: nil, ebit_year: nil, ebitda_year: nil, sub_sector_id: 210, company_information: "\n  Handles shipment processes of foreign products a...", life_science: nil, cleantech: nil, infrastructuree: nil, created_by: nil, updated_by: 363, created_at: "2006-08-01 00:00:00", updated_at: "2017-04-26 11:59:19", city_id: 15032, show_in_report: nil, include_in_email: false, country_id: 982, region_id: 17, ebit_confidential: nil, ebit_forecast: nil, ebit_estimated: nil, ebitda_confidential: nil, ebitda_forecast: nil, ebitda_estimated: nil, turnover_confidential: nil, turnover_forecast: nil, turnover_estimated: nil, turnover_euro: "91.0", turnover_uk: "62.1985", turnover_us: "116.12964999999998", turnover_yen: "13289.245060000001", ebit_euro: "", ebit_uk: "", ebit_us: "", ebit_yen: "", ebitda_euro: "22.75", ebitda_uk: "15.55", ebitda_us: "29.03", ebitda_yen: "3322.31", data_proxy_id: 1, shown_in_reports: nil, note_description: "", last_date: "2017-04-26 11:59:19", company_id: 346392, new_ebit_year: nil, new_ebitda_year: nil, new_turnover_year: nil, sub_sector_name: "Transportation Services", deal_value: 185.0, deal_type_name: "Buyout", deal_announced: "2006-08-01", country_name: "Italy", deal_final_exit_date: "2015-05-01"> 
+1.9.3-p125 :019 > 
+1.9.3-p125 :020 >   c.inv
+c.invalid?                 c.investor_component_ids   c.investor_components=     c.investor_name            
+c.invest_equity            c.investor_component_ids=  c.investor_ids             c.investors                
+c.investment_type_name     c.investor_components      c.investor_ids=            c.investors=               
+1.9.3-p125 :020 >   c.inv
+c.invalid?                 c.investor_component_ids   c.investor_components=     c.investor_name            
+c.invest_equity            c.investor_component_ids=  c.investor_ids             c.investors                
+c.investment_type_name     c.investor_components      c.investor_ids=            c.investors=               
+1.9.3-p125 :020 >   c.invest
+c.invest_equity            c.investor_component_ids=  c.investor_ids             c.investors                
+c.investment_type_name     c.investor_components      c.investor_ids=            c.investors=               
+c.investor_component_ids   c.investor_components=     c.investor_name            
+1.9.3-p125 :020 >   c.investors
+  Status Load (1.0ms)  SELECT "statuses".* FROM "statuses" WHERE (status_type = 'deal') AND (UPPER(name) = UPPER('SKELETAL')) LIMIT 1
+  Status Load (0.7ms)  SELECT "statuses".* FROM "statuses" WHERE (status_type = 'investor') AND (UPPER(name) = UPPER('PUBLISH')) LIMIT 1
+  Status Load (0.3ms)  SELECT "statuses".* FROM "statuses" WHERE (status_type = 'investor') AND (UPPER(name) = UPPER('PENDING QC')) LIMIT 1
+  InvestorGroup Load (6.7ms)  SELECT "investor_groups".* FROM "investor_groups" INNER JOIN "investor_group_components" ON "investor_groups"."id" = "investor_group_components"."investor_group_id" INNER JOIN "deal_investments" ON "investor_group_components"."id" = "deal_investments"."investor_group_component_id" WHERE "deal_investments"."deal_id" = 360357
+ => [#<InvestorGroup id: 67523, created_at: "1979-12-31 18:30:00", updated_at: "1979-12-31 18:30:00", group_name: "IKB Deutsche Industriebank AG", investor_company_type_id: 24, city_id: 13591, email: "private-equity@ikb.de", web: "www.ikb.de", status_id: 201, show_vc_tab: false, show_in_reports: false, vc_updated: false, list_in_vc_guide: nil, show_in_ma_guide_and_report: false, company_description: "\n  IKB Deutsche Industriebank is a specialist bank ...", created_by: nil, updated_by: 268, old_wsw_id: nil, data_proxy_id: 1, wsw_profile: nil, country_id: 1116, phone: "+49 211 8221 0", fax: "+49 211 8221 3959", note_description: "", last_date: nil, deal_value_euro_f: nil, deal_value_us_f: nil, deal_value_uk_f: nil, deal_value_yen_f: nil>, #<InvestorGroup id: 66368, created_at: "1979-12-31 18:30:00", updated_at: "2017-03-08 05:28:08", group_name: "San Paolo IMI", investor_company_type_id: 25, city_id: 14998, email: "info@intesasanpaolo.com", web: "www.group.intesasanpaolo.com", status_id: 201, show_vc_tab: nil, show_in_reports: nil, vc_updated: nil, list_in_vc_guide: nil, show_in_ma_guide_and_report: nil, company_description: "\n  <font size=\"1\" face=\"Arial\">Founded in 2007, Int...", created_by: nil, updated_by: 363, old_wsw_id: 1830, data_proxy_id: 1, wsw_profile: true, country_id: 982, phone: "+39 011 555 1", fax: "", note_description: "", last_date: "2017-03-08 05:28:08", deal_value_euro_f: nil, deal_value_us_f: nil, deal_value_uk_f: nil, deal_value_yen_f: nil>, #<InvestorGroup id: 65424, created_at: "1979-12-31 18:30:00", updated_at: "2016-12-13 08:55:39", group_name: "UniCredit", investor_company_type_id: 24, city_id: 14310, email: "", web: "www.unicreditgroup.eu", status_id: 201, show_vc_tab: false, show_in_reports: false, vc_updated: false, list_in_vc_guide: nil, show_in_ma_guide_and_report: false, company_description: "\n  <p><font size=\"1\" face=\"Arial\">UniCredit is a pr...", created_by: nil, updated_by: 362, old_wsw_id: nil, data_proxy_id: 1, wsw_profile: nil, country_id: 982, phone: "+39 045 808 1111", fax: "+39 045 867 9770", note_description: "", last_date: "2016-12-13 08:55:39", deal_value_euro_f: nil, deal_value_us_f: nil, deal_value_uk_f: nil, deal_value_yen_f: nil>, #<InvestorGroup id: 63765, created_at: "1979-12-31 18:30:00", updated_at: "2017-01-30 15:18:41", group_name: "Clessidra Capital Partners", investor_company_type_id: 25, city_id: 14310, email: "info@clessidrasgr.it ", web: "www.clessidrasgr.it", status_id: 201, show_vc_tab: nil, show_in_reports: nil, vc_updated: nil, list_in_vc_guide: nil, show_in_ma_guide_and_report: nil, company_description: "\n  <font size=\"1\" face=\"Arial\">Established in 2003,...", created_by: nil, updated_by: 394, old_wsw_id: 1956, data_proxy_id: 1, wsw_profile: true, country_id: 982, phone: "+39 0286 9522 1 ", fax: "+39 0286 9522 522", note_description: "", last_date: "2017-01-30 15:18:41", deal_value_euro_f: nil, deal_value_us_f: nil, deal_value_uk_f: nil, deal_value_yen_f: nil>] 
+1.9.3-p125 :021 > c.investors.count
+   (1.6ms)  SELECT COUNT(*) FROM "investor_groups" INNER JOIN "investor_group_components" ON "investor_groups"."id" = "investor_group_components"."investor_group_id" INNER JOIN "deal_investments" ON "investor_group_components"."id" = "deal_investments"."investor_group_component_id" WHERE "deal_investments"."deal_id" = 360357
+ => 4 
+1.9.3-p125 :022 > c.investors.all.collect(&:group_name)
+  InvestorGroup Load (6.3ms)  SELECT "investor_groups".* FROM "investor_groups" INNER JOIN "investor_group_components" ON "investor_groups"."id" = "investor_group_components"."investor_group_id" INNER JOIN "deal_investments" ON "investor_group_components"."id" = "deal_investments"."investor_group_component_id" WHERE "deal_investments"."deal_id" = 360357
+ => ["IKB Deutsche Industriebank AG", "San Paolo IMI", "UniCredit", "Clessidra Capital Partners"] 
+1.9.3-p125 :023 > 
+1.9.3-p125 :024 >   c.investors.all.collect(&:updated_by)
+  InvestorGroup Load (3.2ms)  SELECT "investor_groups".* FROM "investor_groups" INNER JOIN "investor_group_components" ON "investor_groups"."id" = "investor_group_components"."investor_group_id" INNER JOIN "deal_investments" ON "investor_group_components"."id" = "deal_investments"."investor_group_component_id" WHERE "deal_investments"."deal_id" = 360357
+ => [nil, nil, nil, nil] 
+1.9.3-p125 :025 > c.investors.all.collect(&:country_id)
+  InvestorGroup Load (3.9ms)  SELECT "investor_groups".* FROM "investor_groups" INNER JOIN "investor_group_components" ON "investor_groups"."id" = "investor_group_components"."investor_group_id" INNER JOIN "deal_investments" ON "investor_group_components"."id" = "deal_investments"."investor_group_component_id" WHERE "deal_investments"."deal_id" = 360357
+ => [1116, 982, 982, 982] 
+1.9.3-p125 :026 > 
+1.9.3-p125 :027 >   
+1.9.3-p125 :028 >   
+1.9.3-p125 :029 >   c.deal_investment
+NoMethodError: undefined method `deal_investment' for #<Deal:0x0000000a12c3c0>
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activemodel-3.2.13/lib/active_model/attribute_methods.rb:407:in `method_missing'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/attribute_methods.rb:149:in `method_missing'
+	from (irb):29
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :030 > c.deal_investments
+  DealInvestment Load (1.0ms)  SELECT "deal_investments".* FROM "deal_investments" WHERE "deal_investments"."deal_id" = 360357
+ => [#<DealInvestment id: 920720, deal_id: 360357, investment_type_id: 57, investor_group_component_id: 127846, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 14:14:45", updated_at: "2014-09-06 14:14:45", amount: "21.0", investor_exited: false, deal_confidential: false>, #<DealInvestment id: 920721, deal_id: 360357, investment_type_id: 56, investor_group_component_id: 125522, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 14:14:45", updated_at: "2014-09-06 14:14:45", amount: "", investor_exited: false, deal_confidential: false>, #<DealInvestment id: 920722, deal_id: 360357, investment_type_id: 56, investor_group_component_id: 123881, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 14:14:45", updated_at: "2014-09-06 14:14:45", amount: "", investor_exited: false, deal_confidential: false>, #<DealInvestment id: 920723, deal_id: 360357, investment_type_id: 58, investor_group_component_id: 120874, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: 363, created_at: "2014-09-06 14:14:45", updated_at: "2017-04-26 11:59:00", amount: "", investor_exited: true, deal_confidential: false>] 
+1.9.3-p125 :031 > c.deal_investments.count
+   (0.9ms)  SELECT COUNT(*) FROM "deal_investments" WHERE "deal_investments"."deal_id" = 360357
+ => 4 
+1.9.3-p125 :032 > 
+1.9.3-p125 :033 >   
+1.9.3-p125 :034 >    Deal.find 336923
+  Deal Load (2.0ms)  SELECT "deals".* FROM "deals" WHERE "deals"."id" = $1 LIMIT 1  [["id", 336923]]
+ => #<Deal id: 336923, deal_parent_id: 360357, status_id: 232, company_name: "Fratelli Elia", company_alternate_name: "", website: "www.eliambrosetti.it", created_date: "2013-12-17 05:38:58", company_founded: "1946", staff_count: 0, currency_id: 67, company_status_id: 19, turnover: "0.0", ebit: "0.0", ebitda: "0.0", turnover_type: nil, ebit_type: nil, ebitda_type: nil, turnover_year: nil, ebit_year: nil, ebitda_year: nil, sub_sector_id: 210, company_information: "\n  <font face=\"Arial\" size=\"1\">Provider of vehicle ...", life_science: false, cleantech: false, infrastructuree: false, created_by: nil, updated_by: 363, created_at: "2013-12-17 05:38:58", updated_at: "2017-04-26 12:02:47", city_id: 15032, show_in_report: nil, include_in_email: false, country_id: 982, region_id: 17, ebit_confidential: false, ebit_forecast: false, ebit_estimated: false, ebitda_confidential: false, ebitda_forecast: false, ebitda_estimated: false, turnover_confidential: false, turnover_forecast: false, turnover_estimated: false, turnover_euro: "0.0", turnover_uk: "0.0", turnover_us: "0.0", turnover_yen: "0.0", ebit_euro: "0.0", ebit_uk: "0.0", ebit_us: "0.0", ebit_yen: "0.0", ebitda_euro: "0.0", ebitda_uk: "0.0", ebitda_us: "0.0", ebitda_yen: "0.0", data_proxy_id: 1, shown_in_reports: false, note_description: "www.eliambrosetti.it", last_date: "2017-04-26 12:02:47", company_id: 346392, new_ebit_year: nil, new_ebitda_year: nil, new_turnover_year: nil, sub_sector_name: "Transportation Services", deal_value: 3.0, deal_type_name: "Restructuring", deal_announced: "2013-09-01", country_name: "Italy", deal_final_exit_date: nil> 
+1.9.3-p125 :035 > p=_
+ => #<Deal id: 336923, deal_parent_id: 360357, status_id: 232, company_name: "Fratelli Elia", company_alternate_name: "", website: "www.eliambrosetti.it", created_date: "2013-12-17 05:38:58", company_founded: "1946", staff_count: 0, currency_id: 67, company_status_id: 19, turnover: "0.0", ebit: "0.0", ebitda: "0.0", turnover_type: nil, ebit_type: nil, ebitda_type: nil, turnover_year: nil, ebit_year: nil, ebitda_year: nil, sub_sector_id: 210, company_information: "\n  <font face=\"Arial\" size=\"1\">Provider of vehicle ...", life_science: false, cleantech: false, infrastructuree: false, created_by: nil, updated_by: 363, created_at: "2013-12-17 05:38:58", updated_at: "2017-04-26 12:02:47", city_id: 15032, show_in_report: nil, include_in_email: false, country_id: 982, region_id: 17, ebit_confidential: false, ebit_forecast: false, ebit_estimated: false, ebitda_confidential: false, ebitda_forecast: false, ebitda_estimated: false, turnover_confidential: false, turnover_forecast: false, turnover_estimated: false, turnover_euro: "0.0", turnover_uk: "0.0", turnover_us: "0.0", turnover_yen: "0.0", ebit_euro: "0.0", ebit_uk: "0.0", ebit_us: "0.0", ebit_yen: "0.0", ebitda_euro: "0.0", ebitda_uk: "0.0", ebitda_us: "0.0", ebitda_yen: "0.0", data_proxy_id: 1, shown_in_reports: false, note_description: "www.eliambrosetti.it", last_date: "2017-04-26 12:02:47", company_id: 346392, new_ebit_year: nil, new_ebitda_year: nil, new_turnover_year: nil, sub_sector_name: "Transportation Services", deal_value: 3.0, deal_type_name: "Restructuring", deal_announced: "2013-09-01", country_name: "Italy", deal_final_exit_date: nil> 
+1.9.3-p125 :036 > p.deal_invsetments
+NoMethodError: undefined method `deal_invsetments' for #<Deal:0x0000000a793538>
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activemodel-3.2.13/lib/active_model/attribute_methods.rb:407:in `method_missing'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/attribute_methods.rb:149:in `method_missing'
+	from (irb):36
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :037 > p.deal_investments
+  DealInvestment Load (1.0ms)  SELECT "deal_investments".* FROM "deal_investments" WHERE "deal_investments"."deal_id" = 336923
+ => [#<DealInvestment id: 866660, deal_id: 336923, investment_type_id: 58, investor_group_component_id: 120874, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 11:04:03", updated_at: "2014-09-06 11:04:03", amount: "0.0", investor_exited: false, deal_confidential: false>, #<DealInvestment id: 866661, deal_id: 336923, investment_type_id: 58, investor_group_component_id: 125526, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: 363, created_at: "2014-09-06 11:04:03", updated_at: "2017-04-26 12:02:30", amount: "0.0", investor_exited: true, deal_confidential: false>] 
+1.9.3-p125 :038 > p.deal_investments.count
+   (0.8ms)  SELECT COUNT(*) FROM "deal_investments" WHERE "deal_investments"."deal_id" = 336923
+ => 2 
+1.9.3-p125 :039 > c.deal_investments.count
+   (2.9ms)  SELECT COUNT(*) FROM "deal_investments" WHERE "deal_investments"."deal_id" = 360357
+ => 4 
+1.9.3-p125 :040 > c.deal_investments
+ => [#<DealInvestment id: 920720, deal_id: 360357, investment_type_id: 57, investor_group_component_id: 127846, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 14:14:45", updated_at: "2014-09-06 14:14:45", amount: "21.0", investor_exited: false, deal_confidential: false>, #<DealInvestment id: 920721, deal_id: 360357, investment_type_id: 56, investor_group_component_id: 125522, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 14:14:45", updated_at: "2014-09-06 14:14:45", amount: "", investor_exited: false, deal_confidential: false>, #<DealInvestment id: 920722, deal_id: 360357, investment_type_id: 56, investor_group_component_id: 123881, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 14:14:45", updated_at: "2014-09-06 14:14:45", amount: "", investor_exited: false, deal_confidential: false>, #<DealInvestment id: 920723, deal_id: 360357, investment_type_id: 58, investor_group_component_id: 120874, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: 363, created_at: "2014-09-06 14:14:45", updated_at: "2017-04-26 11:59:00", amount: "", investor_exited: true, deal_confidential: false>] 
+1.9.3-p125 :041 > c.deal_investments(&:deal_id)
+ => [#<DealInvestment id: 920720, deal_id: 360357, investment_type_id: 57, investor_group_component_id: 127846, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 14:14:45", updated_at: "2014-09-06 14:14:45", amount: "21.0", investor_exited: false, deal_confidential: false>, #<DealInvestment id: 920721, deal_id: 360357, investment_type_id: 56, investor_group_component_id: 125522, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 14:14:45", updated_at: "2014-09-06 14:14:45", amount: "", investor_exited: false, deal_confidential: false>, #<DealInvestment id: 920722, deal_id: 360357, investment_type_id: 56, investor_group_component_id: 123881, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 14:14:45", updated_at: "2014-09-06 14:14:45", amount: "", investor_exited: false, deal_confidential: false>, #<DealInvestment id: 920723, deal_id: 360357, investment_type_id: 58, investor_group_component_id: 120874, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: 363, created_at: "2014-09-06 14:14:45", updated_at: "2017-04-26 11:59:00", amount: "", investor_exited: true, deal_confidential: false>] 
+1.9.3-p125 :042 > 
+1.9.3-p125 :043 >   
+1.9.3-p125 :044 >   c.deal_investments.collect(&:deal_id)
+ => [360357, 360357, 360357, 360357] 
+1.9.3-p125 :045 > 
+1.9.3-p125 :046 >   
+1.9.3-p125 :047 >   p.deal_investments.collect(&:deal_id)
+ => [336923, 336923] 
+1.9.3-p125 :048 > 
+1.9.3-p125 :049 >   
+1.9.3-p125 :050 >   
+1.9.3-p125 :051 >   
+1.9.3-p125 :052 >   a= Deal.find 312205
+  Deal Load (3.2ms)  SELECT "deals".* FROM "deals" WHERE "deals"."id" = $1 LIMIT 1  [["id", 312205]]
+ActiveRecord::RecordNotFound: Couldn't find Deal with id=312205
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:343:in `find_one'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:314:in `find_with_ids'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:107:in `find'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/querying.rb:5:in `find'
+	from (irb):52
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :053 >  a= Deal.find 312205
+  Deal Load (0.8ms)  SELECT "deals".* FROM "deals" WHERE "deals"."id" = $1 LIMIT 1  [["id", 312205]]
+ActiveRecord::RecordNotFound: Couldn't find Deal with id=312205
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:343:in `find_one'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:314:in `find_with_ids'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:107:in `find'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/querying.rb:5:in `find'
+	from (irb):53
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :054 > Deal.find 312205
+  Deal Load (0.7ms)  SELECT "deals".* FROM "deals" WHERE "deals"."id" = $1 LIMIT 1  [["id", 312205]]
+ActiveRecord::RecordNotFound: Couldn't find Deal with id=312205
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:343:in `find_one'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:314:in `find_with_ids'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:107:in `find'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/querying.rb:5:in `find'
+	from (irb):54
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :055 > DealInvestment.find 312205
+  DealInvestment Load (1.6ms)  SELECT "deal_investments".* FROM "deal_investments" WHERE "deal_investments"."id" = $1 LIMIT 1  [["id", 312205]]
+ActiveRecord::RecordNotFound: Couldn't find DealInvestment with id=312205
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:343:in `find_one'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:314:in `find_with_ids'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:107:in `find'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/querying.rb:5:in `find'
+	from (irb):55
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :056 > DealInvestment.find 312205
+  DealInvestment Load (0.6ms)  SELECT "deal_investments".* FROM "deal_investments" WHERE "deal_investments"."id" = $1 LIMIT 1  [["id", 312205]]
+ActiveRecord::RecordNotFound: Couldn't find DealInvestment with id=312205
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:343:in `find_one'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:314:in `find_with_ids'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/finder_methods.rb:107:in `find'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/querying.rb:5:in `find'
+	from (irb):56
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :057 > Deal.where("company_name=?","Fratelli Elia")
+  Deal Load (1.8ms)  SELECT "deals".* FROM "deals" WHERE (company_name='Fratelli Elia')
+ => [#<Deal id: 336923, deal_parent_id: 360357, status_id: 232, company_name: "Fratelli Elia", company_alternate_name: "", website: "www.eliambrosetti.it", created_date: "2013-12-17 05:38:58", company_founded: "1946", staff_count: 0, currency_id: 67, company_status_id: 19, turnover: "0.0", ebit: "0.0", ebitda: "0.0", turnover_type: nil, ebit_type: nil, ebitda_type: nil, turnover_year: nil, ebit_year: nil, ebitda_year: nil, sub_sector_id: 210, company_information: "\n  <font face=\"Arial\" size=\"1\">Provider of vehicle ...", life_science: false, cleantech: false, infrastructuree: false, created_by: nil, updated_by: 363, created_at: "2013-12-17 05:38:58", updated_at: "2017-04-26 12:02:47", city_id: 15032, show_in_report: nil, include_in_email: false, country_id: 982, region_id: 17, ebit_confidential: false, ebit_forecast: false, ebit_estimated: false, ebitda_confidential: false, ebitda_forecast: false, ebitda_estimated: false, turnover_confidential: false, turnover_forecast: false, turnover_estimated: false, turnover_euro: "0.0", turnover_uk: "0.0", turnover_us: "0.0", turnover_yen: "0.0", ebit_euro: "0.0", ebit_uk: "0.0", ebit_us: "0.0", ebit_yen: "0.0", ebitda_euro: "0.0", ebitda_uk: "0.0", ebitda_us: "0.0", ebitda_yen: "0.0", data_proxy_id: 1, shown_in_reports: false, note_description: "www.eliambrosetti.it", last_date: "2017-04-26 12:02:47", company_id: 346392, new_ebit_year: nil, new_ebitda_year: nil, new_turnover_year: nil, sub_sector_name: "Transportation Services", deal_value: 3.0, deal_type_name: "Restructuring", deal_announced: "2013-09-01", country_name: "Italy", deal_final_exit_date: nil>, #<Deal id: 360357, deal_parent_id: 360357, status_id: 232, company_name: "Fratelli Elia", company_alternate_name: "", website: "", created_date: "2006-08-01 00:00:00", company_founded: "", staff_count: nil, currency_id: 67, company_status_id: nil, turnover: "91.0", ebit: "", ebitda: "22.75", turnover_type: nil, ebit_type: nil, ebitda_type: nil, turnover_year: nil, ebit_year: nil, ebitda_year: nil, sub_sector_id: 210, company_information: "\n  Handles shipment processes of foreign products a...", life_science: nil, cleantech: nil, infrastructuree: nil, created_by: nil, updated_by: 363, created_at: "2006-08-01 00:00:00", updated_at: "2017-04-26 11:59:19", city_id: 15032, show_in_report: nil, include_in_email: false, country_id: 982, region_id: 17, ebit_confidential: nil, ebit_forecast: nil, ebit_estimated: nil, ebitda_confidential: nil, ebitda_forecast: nil, ebitda_estimated: nil, turnover_confidential: nil, turnover_forecast: nil, turnover_estimated: nil, turnover_euro: "91.0", turnover_uk: "62.1985", turnover_us: "116.12964999999998", turnover_yen: "13289.245060000001", ebit_euro: "", ebit_uk: "", ebit_us: "", ebit_yen: "", ebitda_euro: "22.75", ebitda_uk: "15.55", ebitda_us: "29.03", ebitda_yen: "3322.31", data_proxy_id: 1, shown_in_reports: nil, note_description: "", last_date: "2017-04-26 11:59:19", company_id: 346392, new_ebit_year: nil, new_ebitda_year: nil, new_turnover_year: nil, sub_sector_name: "Transportation Services", deal_value: 185.0, deal_type_name: "Buyout", deal_announced: "2006-08-01", country_name: "Italy", deal_final_exit_date: "2015-05-01">] 
+1.9.3-p125 :058 > Deal.where("company_name=?","Fratelli Elia").count
+   (0.9ms)  SELECT COUNT(*) FROM "deals" WHERE (company_name='Fratelli Elia')
+ => 2 
+1.9.3-p125 :059 > Deal.where("company_name=?","Fratelli Elia").first.deal_invetments
+  Deal Load (1.2ms)  SELECT "deals".* FROM "deals" WHERE (company_name='Fratelli Elia') LIMIT 1
+NoMethodError: undefined method `deal_invetments' for #<Deal:0x0000000a72a628>
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activemodel-3.2.13/lib/active_model/attribute_methods.rb:407:in `method_missing'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/attribute_methods.rb:149:in `method_missing'
+	from (irb):59
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :060 > Deal.where("company_name=?","Fratelli Elia").first.deal_investments
+  Deal Load (0.9ms)  SELECT "deals".* FROM "deals" WHERE (company_name='Fratelli Elia') LIMIT 1
+  DealInvestment Load (0.6ms)  SELECT "deal_investments".* FROM "deal_investments" WHERE "deal_investments"."deal_id" = 336923
+ => [#<DealInvestment id: 866660, deal_id: 336923, investment_type_id: 58, investor_group_component_id: 120874, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 11:04:03", updated_at: "2014-09-06 11:04:03", amount: "0.0", investor_exited: false, deal_confidential: false>, #<DealInvestment id: 866661, deal_id: 336923, investment_type_id: 58, investor_group_component_id: 125526, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: 363, created_at: "2014-09-06 11:04:03", updated_at: "2017-04-26 12:02:30", amount: "0.0", investor_exited: true, deal_confidential: false>] 
+1.9.3-p125 :061 > Deal.where("company_name=?","Fratelli Elia").first.deal_investments.collect(&:investor_group_component)
+  Deal Load (1.2ms)  SELECT "deals".* FROM "deals" WHERE (company_name='Fratelli Elia') LIMIT 1
+  DealInvestment Load (0.4ms)  SELECT "deal_investments".* FROM "deal_investments" WHERE "deal_investments"."deal_id" = 336923
+  InvestorGroupComponent Load (1.2ms)  SELECT "investor_group_components".* FROM "investor_group_components" WHERE "investor_group_components"."id" = 120874 LIMIT 1
+  InvestorGroupComponent Load (1.4ms)  SELECT "investor_group_components".* FROM "investor_group_components" WHERE "investor_group_components"."id" = 125526 LIMIT 1
+ => [#<InvestorGroupComponent id: 120874, investor_group_id: 63765, name: "Clessidra", office: "Milan", city_id: nil, address_1: "", address_2: "", address_3: "Milan", phone: "", fax: "", email: "", web: "", additional_offices: "", funds_under_management: nil, invest_range_min: nil, invest_range_max: nil, ave_invest_size: nil, ave_no_per_year: nil, amount_left_to_invest: nil, postcode: nil, comments: "", company_description: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 05:29:06", updated_at: "2014-09-06 05:29:06", generic: false, country_id: 982, town: "">, #<InvestorGroupComponent id: 125526, investor_group_id: 66368, name: "Intesa Sanpaolo", office: "", city_id: nil, address_1: "", address_2: "", address_3: "", phone: "", fax: "", email: "", web: "", additional_offices: "", funds_under_management: nil, invest_range_min: nil, invest_range_max: nil, ave_invest_size: nil, ave_no_per_year: nil, amount_left_to_invest: nil, postcode: nil, comments: "", company_description: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 05:35:47", updated_at: "2014-09-06 05:35:47", generic: nil, country_id: nil, town: "">] 
+1.9.3-p125 :062 > Deal.where("company_name=?","Fratelli Elia").first.deal_investments.collect(&:investor_group_component).first.collect(&:investor_group)
+  Deal Load (1.4ms)  SELECT "deals".* FROM "deals" WHERE (company_name='Fratelli Elia') LIMIT 1
+  DealInvestment Load (0.6ms)  SELECT "deal_investments".* FROM "deal_investments" WHERE "deal_investments"."deal_id" = 336923
+  InvestorGroupComponent Load (0.6ms)  SELECT "investor_group_components".* FROM "investor_group_components" WHERE "investor_group_components"."id" = 120874 LIMIT 1
+  InvestorGroupComponent Load (0.6ms)  SELECT "investor_group_components".* FROM "investor_group_components" WHERE "investor_group_components"."id" = 125526 LIMIT 1
+NoMethodError: undefined method `collect' for #<InvestorGroupComponent:0x0000000a4ea098>
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activemodel-3.2.13/lib/active_model/attribute_methods.rb:407:in `method_missing'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/attribute_methods.rb:149:in `method_missing'
+	from (irb):62
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :063 > Deal.where("company_name=?","Fratelli Elia").first.deal_investments.collect(&:investor_group_component).collect(&:investor_group)  Deal Load (1.5ms)  SELECT "deals".* FROM "deals" WHERE (company_name='Fratelli Elia') LIMIT 1
+  DealInvestment Load (0.7ms)  SELECT "deal_investments".* FROM "deal_investments" WHERE "deal_investments"."deal_id" = 336923
+  InvestorGroupComponent Load (1.0ms)  SELECT "investor_group_components".* FROM "investor_group_components" WHERE "investor_group_components"."id" = 120874 LIMIT 1
+  InvestorGroupComponent Load (4.0ms)  SELECT "investor_group_components".* FROM "investor_group_components" WHERE "investor_group_components"."id" = 125526 LIMIT 1
+  InvestorGroup Load (1.2ms)  SELECT "investor_groups".* FROM "investor_groups" WHERE "investor_groups"."id" = 63765 LIMIT 1
+  InvestorGroup Load (0.8ms)  SELECT "investor_groups".* FROM "investor_groups" WHERE "investor_groups"."id" = 66368 LIMIT 1
+ => [#<InvestorGroup id: 63765, created_at: "1979-12-31 18:30:00", updated_at: "2017-01-30 15:18:41", group_name: "Clessidra Capital Partners", investor_company_type_id: 25, city_id: 14310, email: "info@clessidrasgr.it ", web: "www.clessidrasgr.it", status_id: 201, show_vc_tab: nil, show_in_reports: nil, vc_updated: nil, list_in_vc_guide: nil, show_in_ma_guide_and_report: nil, company_description: "\n  <font size=\"1\" face=\"Arial\">Established in 2003,...", created_by: nil, updated_by: 394, old_wsw_id: 1956, data_proxy_id: 1, wsw_profile: true, country_id: 982, phone: "+39 0286 9522 1 ", fax: "+39 0286 9522 522", note_description: "", last_date: "2017-01-30 15:18:41", deal_value_euro_f: nil, deal_value_us_f: nil, deal_value_uk_f: nil, deal_value_yen_f: nil>, #<InvestorGroup id: 66368, created_at: "1979-12-31 18:30:00", updated_at: "2017-03-08 05:28:08", group_name: "San Paolo IMI", investor_company_type_id: 25, city_id: 14998, email: "info@intesasanpaolo.com", web: "www.group.intesasanpaolo.com", status_id: 201, show_vc_tab: nil, show_in_reports: nil, vc_updated: nil, list_in_vc_guide: nil, show_in_ma_guide_and_report: nil, company_description: "\n  <font size=\"1\" face=\"Arial\">Founded in 2007, Int...", created_by: nil, updated_by: 363, old_wsw_id: 1830, data_proxy_id: 1, wsw_profile: true, country_id: 982, phone: "+39 011 555 1", fax: "", note_description: "", last_date: "2017-03-08 05:28:08", deal_value_euro_f: nil, deal_value_us_f: nil, deal_value_uk_f: nil, deal_value_yen_f: nil>] 
+1.9.3-p125 :064 > Deal.where("company_name=?","Fratelli Elia").first.deal_investments
+  Deal Load (1.4ms)  SELECT "deals".* FROM "deals" WHERE (company_name='Fratelli Elia') LIMIT 1
+  DealInvestment Load (0.8ms)  SELECT "deal_investments".* FROM "deal_investments" WHERE "deal_investments"."deal_id" = 336923
+ => [#<DealInvestment id: 866660, deal_id: 336923, investment_type_id: 58, investor_group_component_id: 120874, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 11:04:03", updated_at: "2014-09-06 11:04:03", amount: "0.0", investor_exited: false, deal_confidential: false>, #<DealInvestment id: 866661, deal_id: 336923, investment_type_id: 58, investor_group_component_id: 125526, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: 363, created_at: "2014-09-06 11:04:03", updated_at: "2017-04-26 12:02:30", amount: "0.0", investor_exited: true, deal_confidential: false>] 
+1.9.3-p125 :065 > Deal.find Clessidra Capital Partners^C
+1.9.3-p125 :065 > Deal.find 336923
+  Deal Load (1.8ms)  SELECT "deals".* FROM "deals" WHERE "deals"."id" = $1 LIMIT 1  [["id", 336923]]
+ => #<Deal id: 336923, deal_parent_id: 360357, status_id: 232, company_name: "Fratelli Elia", company_alternate_name: "", website: "www.eliambrosetti.it", created_date: "2013-12-17 05:38:58", company_founded: "1946", staff_count: 0, currency_id: 67, company_status_id: 19, turnover: "0.0", ebit: "0.0", ebitda: "0.0", turnover_type: nil, ebit_type: nil, ebitda_type: nil, turnover_year: nil, ebit_year: nil, ebitda_year: nil, sub_sector_id: 210, company_information: "\n  <font face=\"Arial\" size=\"1\">Provider of vehicle ...", life_science: false, cleantech: false, infrastructuree: false, created_by: nil, updated_by: 363, created_at: "2013-12-17 05:38:58", updated_at: "2017-04-26 12:02:47", city_id: 15032, show_in_report: nil, include_in_email: false, country_id: 982, region_id: 17, ebit_confidential: false, ebit_forecast: false, ebit_estimated: false, ebitda_confidential: false, ebitda_forecast: false, ebitda_estimated: false, turnover_confidential: false, turnover_forecast: false, turnover_estimated: false, turnover_euro: "0.0", turnover_uk: "0.0", turnover_us: "0.0", turnover_yen: "0.0", ebit_euro: "0.0", ebit_uk: "0.0", ebit_us: "0.0", ebit_yen: "0.0", ebitda_euro: "0.0", ebitda_uk: "0.0", ebitda_us: "0.0", ebitda_yen: "0.0", data_proxy_id: 1, shown_in_reports: false, note_description: "www.eliambrosetti.it", last_date: "2017-04-26 12:02:47", company_id: 346392, new_ebit_year: nil, new_ebitda_year: nil, new_turnover_year: nil, sub_sector_name: "Transportation Services", deal_value: 3.0, deal_type_name: "Restructuring", deal_announced: "2013-09-01", country_name: "Italy", deal_final_exit_date: nil> 
+1.9.3-p125 :066 > a=_
+ => #<Deal id: 336923, deal_parent_id: 360357, status_id: 232, company_name: "Fratelli Elia", company_alternate_name: "", website: "www.eliambrosetti.it", created_date: "2013-12-17 05:38:58", company_founded: "1946", staff_count: 0, currency_id: 67, company_status_id: 19, turnover: "0.0", ebit: "0.0", ebitda: "0.0", turnover_type: nil, ebit_type: nil, ebitda_type: nil, turnover_year: nil, ebit_year: nil, ebitda_year: nil, sub_sector_id: 210, company_information: "\n  <font face=\"Arial\" size=\"1\">Provider of vehicle ...", life_science: false, cleantech: false, infrastructuree: false, created_by: nil, updated_by: 363, created_at: "2013-12-17 05:38:58", updated_at: "2017-04-26 12:02:47", city_id: 15032, show_in_report: nil, include_in_email: false, country_id: 982, region_id: 17, ebit_confidential: false, ebit_forecast: false, ebit_estimated: false, ebitda_confidential: false, ebitda_forecast: false, ebitda_estimated: false, turnover_confidential: false, turnover_forecast: false, turnover_estimated: false, turnover_euro: "0.0", turnover_uk: "0.0", turnover_us: "0.0", turnover_yen: "0.0", ebit_euro: "0.0", ebit_uk: "0.0", ebit_us: "0.0", ebit_yen: "0.0", ebitda_euro: "0.0", ebitda_uk: "0.0", ebitda_us: "0.0", ebitda_yen: "0.0", data_proxy_id: 1, shown_in_reports: false, note_description: "www.eliambrosetti.it", last_date: "2017-04-26 12:02:47", company_id: 346392, new_ebit_year: nil, new_ebitda_year: nil, new_turnover_year: nil, sub_sector_name: "Transportation Services", deal_value: 3.0, deal_type_name: "Restructuring", deal_announced: "2013-09-01", country_name: "Italy", deal_final_exit_date: nil> 
+1.9.3-p125 :067 > a.deal_investments
+  DealInvestment Load (1.0ms)  SELECT "deal_investments".* FROM "deal_investments" WHERE "deal_investments"."deal_id" = 336923
+ => [#<DealInvestment id: 866660, deal_id: 336923, investment_type_id: 58, investor_group_component_id: 120874, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 11:04:03", updated_at: "2014-09-06 11:04:03", amount: "0.0", investor_exited: false, deal_confidential: false>, #<DealInvestment id: 866661, deal_id: 336923, investment_type_id: 58, investor_group_component_id: 125526, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: 363, created_at: "2014-09-06 11:04:03", updated_at: "2017-04-26 12:02:30", amount: "0.0", investor_exited: true, deal_confidential: false>] 
+1.9.3-p125 :068 > a.deal_investments.first.update_column('investor_exited',true)
+  SQL (2.1ms)  UPDATE "deal_investments" SET "investor_exited" = 't' WHERE "deal_investments"."id" = 866660
+ => true 
+

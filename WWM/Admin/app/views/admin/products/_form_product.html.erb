@@ -1,0 +1,106 @@
+
+<div class="form_data">
+        <label for="text_head">Product Name :</label>
+        <%= text_field :product,:name,:class=>'input_text',:size=>30,:flash=>true %>
+ </div>
+ <div class="form_data">
+        <label for="text_head">Description :</label>
+        <%= text_area :product,:description, {:rows =>5, :cols => 40,:class=>"input_text"} %>
+ </div>
+ <div class="form_data">
+        <label for="text_head">Product Type <span>* </span>:</label>
+        <%=select(:product,:product_type,PRODUCT_TYPE,{},html_options={:class=>"input_text"})%>
+        <%if @product and @product.product_type=="Questionnaires"%>
+             <%auth_hide="display:none"%>
+        <%else%>
+            <%quest_hide="display:none"%>
+        <%end%>
+ </div>
+ <div class="form_data">
+        <label for="text_head">Questionnairy name :</label>
+        <%=collection_select(:product,:questionnaire_id,@site.questionnaires,:id,:name,{:prompt=>"select"},:class=>"input_text")%>
+ </div>
+ <div class="form_data">
+        <label for="text_head">Product Criteria <span>* </span>:</label>
+        <%= text_field :asset,:id ,:class=>'input_text',:size=>30 %>        
+        <%unless @product%>    
+                <script type="text/javascript">
+                    document.whenReady(function() {
+                    ac2 = new UI.AutoComplete('asset_id', { shadow: "auto_complete",infoMessage:'Enter Product Criteria',progressMessage:'Request Processing.. Please Wait',noMatchMessage:'Asset Group Not Found',ul_holder_id:'ul_author_id',sort:true});
+                    ac2.setAutocompleteList(<%=@asset_group %>);
+                    });
+                </script>
+             <%else%>
+                <script type="text/javascript">
+                    document.whenReady(function() {
+                    ac3 = new UI.AutoComplete('asset_id', { shadow: "auto_complete",infoMessage:'Enter Product Criteria',progressMessage:'Request Processing.. Please Wait',noMatchMessage:'Asset Group Not Found',ul_holder_id:'ul_author_id',sort:true});
+                    ac3.setAutocompleteList(<%=@asset_group %>);
+                    <%for asset_group in @product.asset_groups%>
+                    ac3.add('<%=asset_group.name%>',{ids:'<%=asset_group.id%>',name:'asset_group[id][]'}); 
+                    <%end%> 
+                    });
+                  </script>
+             <%end%>
+</div> 
+<div class="form_data">
+        <label for="text_head">Teaser Type <span>* </span>:</label>
+        <%= collection_select :product,:teaser_type_id,@teaser_types,:id,:name,options={:prompt=>'Select Teaser Type'},:class=>"input_text" %>
+ </div>
+ <div class="form_data">
+        <label for="text_head">Key Icon :</label>
+        <%= radio_button( :product, :key_icon.to_s, true )%> Yes
+        <%= radio_button( :product, :key_icon, false )%> No
+ </div>
+ <div class="form_data">
+        <label for="text_head">Play Video :</label>
+        <%= radio_button( :product, :play_video.to_s, true )%> Yes
+        <%= radio_button( :product, :play_video, false )%> No
+ </div>
+ <div class="form_data">
+        <label for="text_head">New user action headline :</label>
+        <%= text_field :product,:action_headline,:class=>'input_text',:size=>30%>
+ </div>
+ <div class="form_data">
+        <label for="text_head">New user action content :</label>
+        <%= text_field :product,:action_headline,:class=>'input_text',:size=>30%>
+ </div>
+ <div class="form_data">
+        <label for="text_head">Asset Text :</label>
+         <%= text_area :product,:product_action_content, {:rows =>15, :cols =>50,:class=>"input_text"}%>
+ </div>
+ <div class="form_data">
+        <label for="text_head">Expired action headline :</label>
+         <%= text_field :product,:expired_action_headline,:class=>'input_text',:size=>30%>
+ </div>
+ <div class="form_data">
+        <label for="text_head">Expired action content :</label>
+          <%= text_area :product,:expired_action_content, {:rows =>15, :cols =>50,:class=>"input_text"}%>
+ </div>
+  <div class="form_data">
+        <label for="text_head">Automatic Email Setting :</label>        
+ </div>
+ <div class="form_data">
+        <label for="text_head">Subject prefix :</label>
+        <%= text_field :product,:subject_prefix,:class=>'input_text',:size=>30,:flash=>true %>
+ </div>
+  <div class="form_data">
+        <label for="text_head">Sender Address :</label>
+         <%= text_field :product,:sender_address,:class=>'input_text',:size=>30,:flash=>true %>
+ </div>
+ <div class="form_data">
+        <label for="text_head">Friendly Sender :</label>
+         <%= text_field :product,:friendly_sender,:class=>'input_text',:size=>30,:flash=>true %>
+ </div>
+ <div class="form_data">
+        <label for="text_head">Site address :</label>
+         <%= text_field :product,:site_address,:class=>'input_text',:size=>30,:flash=>true %>
+ </div>
+ <div class="form_data">
+        <label for="text_head">Signation :</label>
+         <%= text_field :product,:signation,:class=>'input_text',:size=>30,:flash=>true %>
+ </div>
+ <div class="form_data">
+        <label for="text_head">PS :</label>
+         <%= text_area :product,:ps,:rows=>3,:cols=>40 %>
+ </div>
+

@@ -1,0 +1,34 @@
+@deal= Deal.all
+headers = "Deal Id, Deal company name, Duplicate investor"
+file = "#{Rails.root}/public/dealsman.csv"
+CSV.open(file, 'w' ) do |csv|
+@deal.each do |c|
+begin
+if c.deal_investments.first.investor_exited == false
+column=[]
+column[0] = c.id if c.id
+column[1] = c.company_name
+column[2] = c.deal_investments.first.investor_exited
+csv << column
+end
+rescue 
+end
+end 
+end
+
+
+
+
+column[1] = c.authors.first.firstname if c.authors && c.authors.first && c.authors.first.firstname
+
+
+
+User.find(:all, :group => [:id, :investor_exited], :having => "count(*) > 1" )
+
+
+Deal.first(20)(:all, :having => "count(*) > 1" )
+
+
+Deal.find(:all, :group => [:id, :company_name], :having => "count(*) > 1" )
+
+Deal.joins(:deal_investments).find(:all, :having => "count(*) > 1" )

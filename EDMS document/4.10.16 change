@@ -1,0 +1,132 @@
+task
+
+   to dispaly the anniversary and dob in the home 
+============================-=========================================
+html change
+==============================================================================================
+<html>
+  <div class="welcome_header">
+    <h2>Welcome to EDMS & LMS <%#= @employee_detail%></h2>
+    </br>
+   </div>
+
+
+
+    <div class="welcome_home"
+      <p></p><p>KREATIO EDMS is a sophisticated employee database that helps to manage employee data with ease, consistency and accuracy. It centralizes employee records,and leave details within one easy to use window where employees can view and update their profile.They can also apply for leave, check leave status and leave balance..
+      </p>
+    </div>
+   <h3 style="visibility: hidden;" align="right"><%= link_to 'SignOut',:controller=>"employee", :action=>"logout" %></h3>
+
+ </html>
+
+<% if @employee.role_id == 2 %>
+    <div class="bdays">
+      <% if !@birth_today.blank? %>
+
+          <% @birth_today.each do |bt| %>
+              <% if !bt.employee_detail.blank? && !bt.employee_detail.official_mailid.blank? %>
+                  <h3> Today is <%= bt.employee_detail.official_mailid %>'s birthday </h3>
+
+              <% end %>
+
+          <% end %>
+      <% end %>
+      <% if !@birth_tomorrow.blank?%>
+          <% @birth_tomorrow.each do |bt| %>
+              <% if !bt.employee_detail.blank? && !bt.employee_detail.official_mailid.blank? %>
+                  <h3> Tomorrow will be <%= bt.employee_detail.official_mailid %>'s birthday </h3>
+
+              <% end %>
+
+          <% end %>
+      <% end%>
+
+      <%if !@birth_yesterday.blank?%>
+          <% @birth_yesterday.each do |bt| %>
+              <% if !bt.employee_detail.blank? && !bt.employee_detail.official_mailid.blank? %>
+                  <h3> Yesterday was <%= bt.employee_detail.official_mailid %>'s birthday </h3>
+
+              <% end %>
+
+          <% end %>
+      <%end%>
+    </div>
+<% end %>
+
+
+<% if !@annivers_today.blank?%>
+    <div class="bdays">
+      <% @annivers_today.each do |bt| %>
+          <% if !bt.employee_detail.blank? && !bt.employee_detail.official_mailid.blank? %>
+              <h3> Today is <%= bt.employee_detail.official_mailid %>'s anniversary day </h3>
+          <% end %>
+      <% end %>
+    </div>
+<% end %>
+
+<% if !@annivers_tomorrow.blank?%>
+    <div class="bdays">
+      <% @annivers_today.each do |bt| %>
+          <% if !bt.employee_detail.blank? && !bt.employee_detail.official_mailid.blank? %>
+              <h3> Tomorrow will be <%= bt.employee_detail.official_mailid %>'s anniversary day </h3>
+          <% end %>
+      <% end %>
+    </div>
+<% end %>
+
+<% if !@annivers_yesterday.blank?%>
+    <div class="bdays">
+      <% @annivers_today.each do |bt| %>
+          <% if !bt.employee_detail.blank? && !bt.employee_detail.official_mailid.blank? %>
+              <h3> yesterday was <%= bt.employee_detail.official_mailid %>'s anniversary day </h3>
+          <% end %>
+      <% end %>
+    </div>
+<% end %>
+
+ 
+=======================================================================================
+controller 
+===========================
+def welcome
+    @employee = EmployeeDetail.find(session[:emp_id])
+    @employee_detail = EmployeeDetail.find(session[:emp_id]).emp_name
+    @birth_today = PersonalDetail.by_bday_today_month
+    #@birth_today.where(:dob => 2.days.ago .. 2.days.from_now)
+    @birth_tomorrow = PersonalDetail.by_bday_tomorrow_month
+   @birth_yesterday = PersonalDetail.by_bday_yesterday_month
+    @annivers_today = PersonalDetail.by_anniversary_today_day_month
+    @annivers_tomorrow = PersonalDetail.by_anniversary_tommorow_day_month
+    @annivers_yesterday = PersonalDetail.by_anniversary_yesterday_day_month
+
+  end
+====================================================
+
+
+model
+
+
+===============================================
+
+
+
+class PersonalDetail < ActiveRecord::Base
+	belongs_to :employee_detail
+	validates :father_name,:presence => true
+	validates :mother_name,:presence => true 
+	validates :personalmail_id, :presence => true, :uniqueness => true
+	validates :local_address, :presence => true
+	validates :permanent_address, :presence => true
+	validates :emergency_contact, :presence => true, :numericality => true, :length => 5..32
+	validates :blood_group,:presence => true
+	#scope :by_bday_month,where('extract(day  from p_dob) = ? AND extract(month  from p_dob) = ?', (Date.today+3.days).day,Date.today.month)
+	scope :by_bday_today_month, where('extract(day  from p_dob) = ? AND extract(month  from p_dob) = ?', Date.today.day,Date.today.month)
+	scope :by_bday_tomorrow_month, where('extract(day  from p_dob) = ? AND extract(month  from p_dob) = ?', Date.today.day+1,Date.today.month)
+	scope :by_bday_yesterday_month, where('extract(day  from p_dob) = ? AND extract(month  from p_dob) = ?', Date.today.day-1,Date.today.month)
+
+	scope :by_anniversary_today_day_month, where('extract(day  from anniversary_date) = ? AND extract(month  from anniversary_date) = ?', Date.today.day,Date.today.month)
+	scope :by_anniversary_tommorow_day_month, where('extract(day  from anniversary_date) = ? AND extract(month  from anniversary_date) = ?', Date.today.day+1,Date.today.month)
+	scope :by_anniversary_yesterday_day_month, where('extract(day  from anniversary_date) = ? AND extract(month  from anniversary_date) = ?', Date.today.day-1,Date.today.month)
+end
+=========================================================

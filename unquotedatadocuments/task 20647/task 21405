@@ -1,0 +1,257 @@
+1.9.3-p125 :026 >   InstitutionPeiData.last
+
+
+InstitutionPeiData
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_pei_data.html.erb 
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/models/institution_pei_data.rb
+ model added in attr _accesible
+
+
+
+######ActiveRecord::Migration.add_column :fund_performances, :date_of_commitment, :date
+
+ActiveRecord::Migration.add_column :institution_pei_datas, :primary_funds, :string
+
+ActiveRecord::Migration.add_column :institution_pei_datas, :secondary_funds, :string
+
+ActiveRecord::Migration.add_column :institution_pei_datas, :co_investment_managed_accounts, :string
+
+ActiveRecord::Migration.add_column :institution_pei_datas, :direct_investments, :string
+
+ActiveRecord::Migration.add_column :institution_pei_datas, :funds_of_funds, :string
+
+ActiveRecord::Migration.add_column :institution_pei_datas, :debut_funds, :string
+
+Fund size preference
+
+ActiveRecord::Migration.add_column :institution_pei_datas, :fund_size_preference_from, :string
+
+ActiveRecord::Migration.add_column :institution_pei_datas, :fund_size_preference_to, :string
+
+ <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Consider Co-investments:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, select(:pei_data, :co_investments,[["Yes","yes"] ,["No", "no"]],{:include_blank => "select" })) %>
+        <% end %><!--tr -->
+
+
+
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Primary Funds:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, select(:pei_data, :primary_funds,[["Yes","yes"] ,["No", "no"]],{:include_blank => "select" })) %>
+        <% end %><!--tr -->
+
+
+
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Secondary Funds:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, select(:pei_data, :secondary_funds,[["Yes","yes"] ,["No", "no"]],{:include_blank => "select" })) %>
+        <% end %><!--tr -->
+
+
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Co-Investment/Managed Accounts:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, select(:pei_data, :co_investment_managed_accounts,[["Yes","yes"] ,["No", "no"]],{:include_blank => "select" })) %>
+        <% end %><!--tr -->
+
+
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Direct Investments:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, select(:pei_data, :direct_investments,[["Yes","yes"] ,["No", "no"]],{:include_blank => "select" })) %>
+        <% end %><!--tr -->
+
+
+
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Funds of Funds:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, select(:pei_data, :funds_of_funds,[["Yes","yes"] ,["No", "no"]],{:include_blank => "select" })) %>
+        <% end %><!--tr -->
+
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Debut Funds:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, select(:pei_data, :debut_funds,[["Yes","yes"] ,["No", "no"]],{:include_blank => "select" })) %>
+        <% end %><!--tr -->
+
+
+
+
+InstitutionPeiData id: 3243, 
+hot_lead: false, 
+hot_lead_date: nil, 
+next_anticipated_month: "",
+ next_anticipated_year: nil, 
+active_mandate: false,
+ active_mandate_date: nil,
+ pei_data_investment_status_id: nil, 
+consider_debut: "", 
+co_investments: "",
+ amount_invested_per_fund_min: nil, 
+amount_invested_per_fund_max: nil, 
+average_commitment_size_per_fund: nil, 
+
+average_commitment_size_per_year: nil, 
+
+private_equity_investment_history: "",
+
+ current_investment_plans: "", 
+
+latest_strategic_update: nil, 
+
+summary: "",
+
+ currency_id: nil, 
+
+institution_company_info_id: 24861, 
+
+created_at: "2017-04-11 13:27:59", 
+
+updated_at: "2017-04-11 17:36:04",
+
+ next_anticipated_quarter: "",
+
+geo_pref_text: "",
+
+ announced_date: nil, 
+
+
+amount_invested_per_fund_min_uk: nil
+
+, amount_invested_per_fund_max_uk: nil, 
+
+average_commitment_size_per_fund_uk: nil, 
+
+amount_invested_per_fund_min_yen: nil, 
+
+amount_invested_per_fund_max_yen: nil, 
+
+average_commitment_size_per_fund_yen: nil, 
+
+amount_invested_per_fund_min_euro: nil, 
+
+amount_invested_per_fund_max_euro: nil,
+
+ average_commitment_size_per_fund_euro: nil,
+
+ amount_invested_per_fund_min_us: nil,
+
+ amount_invested_per_fund_max_us: nil, 
+
+average_commitment_size_per_fund_us: nil,
+
+ geo_name: "",
+
+
+ primary_funds: nil, secondary_funds: nil, co_investment_managed_accounts: nil, direct_investments: nil, funds_of_funds: nil, debut_funds: nil> 
+
+
+
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td,  content_tag(:label,"Minimum invest per fund (#{@pei_data.currency.name if @pei_data.currency}):"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :amount_invested_per_fund_min,:value => (@pei_data.amount_invested_per_fund_min.to_f > 0 ? @pei_data.amount_invested_per_fund_min : nil)),{:class => "b-size n-size"}) %>
+        <% end %><!--tr -->
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td,  content_tag(:label,"Max invest per fund (#{@pei_data.currency.name if @pei_data.currency}): "), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :amount_invested_per_fund_max,:value => (@pei_data.amount_invested_per_fund_max.to_f > 0 ? @pei_data.amount_invested_per_fund_max : nil)),{:class => "b-size n-size"}) %>
+        <% end %><!--tr -->
+
+
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Commitments per year :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :commitments_per_year,:value => (@pei_data.commitments_per_year.to_f > 0 ? @pei_data.commitments_per_year: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Fund size preference From :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :fund_size_preference_from,:value => (@pei_data.fund_size_preference_from.to_f > 0 ? @pei_data.fund_size_preference_from: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Fund size preference To :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :fund_size_preference_to,:value => (@pei_data.fund_size_preference_to.to_f > 0 ? @pei_data.fund_size_preference_to: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+ActiveRecord::Migration.add_column :institution_pei_data, :commitments_per_year_us, :float
+ActiveRecord::Migration.add_column :institution_pei_data, :commitments_per_year_euro, :float
+ActiveRecord::Migration.add_column :institution_pei_data, :commitments_per_year_uk, :float
+ActiveRecord::Migration.add_column :institution_pei_data, :commitments_per_year_yen, :float
+
+	ActiveRecord::Migration.add_column :institution_pei_data, :commitments_per_year, :float
+
+ 	ActiveRecord::Migration.add_column :institution_pei_data, :market_value_of_investments, :float
+         	ActiveRecord::Migration.add_column :institution_pei_data, :funded_commitments, :float
+                      	ActiveRecord::Migration.add_column :institution_pei_data, :unfunded_commitments, :float
+                            	ActiveRecord::Migration.add_column :institution_pei_data, :net_irr_inception, :string
+  
+                                                       	ActiveRecord::Migration.add_column :institution_pei_data, :net_irr_year, :string
+                                                                                                    	ActiveRecord::Migration.add_column :institution_pei_data, :tvpi, :string
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Market value of investments(#{@pei_data.currency.name if @pei_data.currency}) :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :market_value_of_investments,:value => (@pei_data.market_value_of_investments.to_f > 0 ? @pei_data.market_value_of_investments : nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Funded commitments (#{@pei_data.currency.name if @pei_data.currency}) :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :funded_commitments,:value => (@pei_data.funded_commitments.to_f > 0 ? @pei_data.funded_commitments : nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Unfunded commitments(#{@pei_data.currency.name if @pei_data.currency}) :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :unfunded_commitments,:value => (@pei_data.unfunded_commitments.to_f > 0 ? @pei_data.unfunded_commitments : nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Net IRR (since inception):"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :net_irr_inception,:value => (@pei_data.net_irr_inception.to_f > 0 ? @pei_data.net_irr_inception: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Net IRR (1 year):"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :net_irr_year,:value => (@pei_data.net_irr_year.to_f > 0 ? @pei_data.net_irr_year: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"TVPI:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :tvpi,:value => (@pei_data.tvpi.to_f > 0 ? @pei_data.tvpi: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+fund_portfolio_funds_in_pei_data
+
+
+       <%= render "manage_accounts_in_pei_data"%>
+
+
+
+app/controllers/institutions_controller.rb:1034:      @institu_pei_data.average_commitment_size_per_fund_us = nil
+
+

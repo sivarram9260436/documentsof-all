@@ -1,0 +1,149 @@
+
+
+
+
+
+/////////////////////Started GET "/fund/73673" for 127.0.0.1 at 2017-01-28 10:53:42 +0530
+Processing by Wps::UqFundsController#show_fund as HTML
+  Parameters: {"fund_id"=>"73673"}
+=========ssssssaaaaaaa======{:text=>"", :page=>1, :per_page=>20, :filters=>{:fund_filter_id=>[["73673"], "ary"]}, :sort=>"Relevance", :gt_filters=>{}, :lt_filters=>{}, :not_by_filters=>{}, :not_by_gt_filters=>{}, :not_by_lt_filters=>{}, :dy_sort=>{}, :facets=>[], :fields=>[], :include_models=>[Fund(id: integer, name: string, investor_group_component_id: integer, currency_id: integer, city_id: integer, target_size: string, vintage: integer, basic_fund_type_id: integer, fund_status: string, status_id: integer, fund_overview: text, new_investor_percent: string, existing_investor_percent: string, created_by: integer, updated_by: integer, created_at: datetime, updated_at: datetime, fund_check: boolean, proprietary_capital: boolean, fund_target_amount: string, investor_id: integer, country_id: integer, fund_target_amount_usd: string, data_proxy_id: integer, investor_group_id: integer, note_description: string, fund_target_amount_uk: float, fund_target_amount_us: float, fund_target_amount_euro: float, fund_target_amount_yen: float, fund_target_size_uk: float, fund_target_size_us: float, fund_target_size_euro: float, fund_target_size_yen: float, last_date: datetime, geo_name: string)]}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd1xxxxxxxxxxxxxfalse
+WARNING: User#current is nil, are you including SentientController on your ApplicationController?
+WARNING: User#current is nil, are you including SentientController on your ApplicationController?
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_recently_viewed_funds.html.erb (68.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_profile_top_link.html.erb (3.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_currency_selection.html.erb (2.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_basic_company_info.html.erb (9.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_company_information.html.erb (12.7ms)
+===========fund_event============#<FundEvent id: 37409, fund_id: 73673, fund_event_type_id: 1, event_date: "2008-12-01", amount_closed: "0.0", target: "200.0", final_close: "false", created_by: nil, updated_by: nil, created_at: "2014-09-06 07:12:43", updated_at: "2014-09-06 07:12:43">========
+===========fund_event============#<FundEvent id: 37410, fund_id: 73673, fund_event_type_id: 5, event_date: "2010-09-01", amount_closed: "88.0", target: "200.0", final_close: "true", created_by: nil, updated_by: nil, created_at: "2014-09-06 07:12:43", updated_at: "2014-09-06 07:12:43">========
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_fund_data.html.erb (110.6ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_fund_description.html.erb (0.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_investment_strategy.html.erb (20.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_lps_in_fund.html.erb (132.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_advisers_in_fund.html.erb (388.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_feedback_comments.html.erb (1.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/common/_personal_notes.html.erb (1.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/fund_profile.html.erb within /layouts/post_login (1826.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_seo_keys.html.erb (0.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_stylesheets.html.erb (3.0ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_head_scripts.html.erb (4.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/authentication/_header_logout.html.erb (1.0ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/listing_pages/partials/_post_login_menu.erb (27.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_header.html.erb (35.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/listing_pages/partials/_post_login_menu.erb (6.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_footer.html.erb (43.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_javascript.html.erb (0.4ms)
+Completed 200 OK in 2296ms (Views: 1835.8ms | ActiveRecord: 221.0ms | Solr: 25.2ms)
+
+
+
+
+
+
+
+
+
+
+======================================================================================================================================================
+
+no change
+
+/////////////Started GET "/funds/fetch_all_geographic_prefs_window?fund_id=73673&geographic_pref_id=geographic_prefs&popup=true&site_id=1" for 127.0.0.1 at 2017-01-27 15:24:42 +0530
+Processing by FundsController#fetch_all_geographic_prefs_window as HTML
+  Parameters: {"fund_id"=>"73673", "geographic_pref_id"=>"geographic_prefs", "popup"=>"true", "site_id"=>"1"}
+  Rendered funds/fetch_all_geographic_prefs_window.html.erb within layouts/application (411.3ms)
+  Rendered unquote/_css_image.html.erb (1.1ms)
+Completed 200 OK in 1557ms (Views: 368.3ms | ActiveRecord: 737.0ms | Solr: 0.0ms)
+
+ def fetch_all_geographic_prefs_window
+    #@geographic_prefs = GeographicPref.all
+    @form_action = "edit_fund"
+    @continents = Continent.all
+        @regions = Region.all
+        @sub_regions = SubRegion.all
+        @countries = Country.all
+        @cities = City.all
+  end
+
+======================================================================================================================================================
+
+ruby@merger-market-stage:~/Unquote_data/WPS$ cat /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_investment_strategy.html.erb
+
+
+
+
+
+ <td width="3%" class="border_left">&nbsp;</td>
+                                <%= content_tag(:td,@investment_preference.fund.geo_name ? @investment_preference.fund.geo_name.gsub(',',', ') : "n/d" ,:width=>"53%")%>
+                                <% end %>
+                                <% end %>
+
+
+<%if !@investment_preference.blank? && !@investment_preference.fund.blank? and !@investment_preference.fund.geo_name.blank? %>
+                                <%= content_tag (:tr) do %>
+                                <%= content_tag(:td,"Geographic Preferences:",:width=>"44%" )%>
+                                <td width="3%" class="border_left">&nbsp;</td>
+                                <%= content_tag(:td,@investment_preference.fund.geo_name ? @investment_preference.fund.geo_name.gsub(',',', ') : "n/d" ,:width=>"53%")%>
+                                <% end %>
+
+
+
+@lp.institution_pei_data.geo_pref_text.blank?
+
+
+
+
+
+
+
+
+<%if !@investment_preference.blank? && !@investment_preference.countries.blank? %>
+                                <%= content_tag (:tr) do %>
+                                <%= content_tag(:td,"Geographic Preferences:",:width=>"44%" )%>
+                                <td width="3%" class="border_left">&nbsp;</td>
+                                <%= content_tag(:td,@investment_preference.fund.geo_name ? @investment_preference.fund.geo_name.gsub(',',', ') : "n/d" ,:width=>"53%")%>
+                                <% end %>
+                                <% end %>
+======================================================================================================================================================
+
+
+
+
+
+
+in admin selected value is added 
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin/app/views/funds$ cat fetch_all_geographic_prefs_window.html.erb
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ref url:-http://research.unqdata.mergermarket.kreatio.info/funds/edit_fund?fund_id=72051&site_id=1&tab=Key_fund_specifics  ---site 
+
+http://stage.unqdata.mergermarket.kreatio.info/fund/72051?search_id=117263&source=fund_search---admin
+

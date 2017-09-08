@@ -1,0 +1,311 @@
+/*this section is only for top menu system start */
+.navigation_for_top_menu {
+    width:100%;
+    text-align: left;
+    margin:0 0 0 0px;
+    /*Set to "left" or "right" to position menu accordingly*/
+    /*border-bottom: 1px solid #999e87; uncomment this line to add bottom border*/
+}
+div.header_second div.navigation_for_top_menu ul{
+	font-family: Verdana !important;
+	font-size: 12px !important;
+	font-weight:normal;
+	text-decoration: none;
+	margin: 0 0 0 0px;
+	padding: 0;
+	list-style:none;
+}
+div.header_second div.navigation_for_top_menu ul li{
+	display:inline;
+	background: #E6E6E6;
+    text-align: center;
+    height:38px;
+    width:179px;
+    margin:0 0px 0 0px;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li a {
+    text-align:left;
+	color:#FFFFFF;
+	background:#70635F;
+	padding: 5px 0 0 5px;
+	margin:0 1px 0 1px;
+	text-decoration: none;
+    float:left;
+    width:179px!important; 
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li a:hover,div.header_second div.navigation_for_top_menu ul li.active a{
+    text-align:left;
+	color:#FFFFFF;
+	background:#75A9D9;
+    padding: 5px 0 0 5px;
+	text-decoration: none;
+    float:left;
+    width:179px!important; 
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li a:link{
+    text-align:left;
+	color:#FFFFFF;
+	
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+    width:179px!important; 
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li a:visited{
+    text-align:left;
+	color:#FFFFFF;
+	
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+    width:179px!important; 
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+
+/*this section is only for top menu system  end */
+div.header_second div.navigation_for_top_menu ul li.last{
+	display: inline;
+	background: #E6E6E6;
+    text-align: center;
+    height:38px;
+    width:179px;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.last a {
+    text-align:left;
+	color:#FFFFFF;
+	background:#70635F;
+	display:block;
+	
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+    width:180px!important; 
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.last a:hover,div.header_second div.navigation_for_top_menu ul li.active a{
+    text-align:left;
+	color:#FFFFFF;
+	background:#75A9D9;
+	
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+    width:180px!important; 
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.last a:link{
+    text-align:left;
+	color:#FFFFFF;
+	
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+    width:180px!important; 
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.last a:visited{
+    text-align:left;
+	color:#FFFFFF;
+    
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+    width:180px!important; 
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+
+/*************************/
+div.header_second div.navigation_for_top_menu ul li.first_menu{
+	display: inline;
+	background: #E6E6E6;
+    text-align: center;
+    height:32px;
+    width:181px;
+    margin: 0 1px 0 0px;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.first_menu a {
+    text-align:left;
+	color:#FFFFFF;
+	background:#70635F;
+	display:block;
+	margin:	0px 1px 0px 0px;
+	padding: 5px 0 0 5px;
+	text-decoration: none; 
+    height:32px!important;
+    width:181px!important; 
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.first_menu a:hover{
+    text-align:left;
+	color:#FFFFFF;
+	background:#75A9D9;
+	margin:	0px 1px 0px 0px;
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+    width:180px!important; 
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.active a{
+    text-align:left;
+	color:#FFFFFF;
+	background:#75A9D9;
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+    width:179px!important; 
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.non_active_last{
+	display:inline;
+	background: #E6E6E6 !important;
+    text-align: center;
+    height:38px;
+    width:182px !important;
+    margin:0 0px 0 0px;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.non_active_last a{
+    text-align:left;
+	color:#FFFFFF;
+	background:#70635F !important;
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+  
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+	width:182px!important;
+	margin:0 0 0 1px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.non_active_last a:hover{
+    text-align:left;
+	color:#FFFFFF;
+	background:#75A9D9 !important;
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+   
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+	width:182px!important;
+	margin:0 0 0 1px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.non_active_last a:link{
+    text-align:left;
+	color:#FFFFFF;
+	
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+    width:182px!important; 
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.non_active_last a:visited{
+    text-align:left;
+	color:#FFFFFF;
+	
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+    width:182px!important; 
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.active_last a{
+    text-align:left;
+	color:#FFFFFF;
+	background:#75A9D9;
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+   
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+	width:182px!important;
+	margin:0 0 0 1px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.active_last a:link{
+    text-align:left;
+	color:#FFFFFF;
+	
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+    width:182px!important; 
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.active_last a:visited{
+    text-align:left;
+	color:#FFFFFF;
+	
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+    width:182px!important; 
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.first_menu a:link{
+text-align:left;
+	color:#FFFFFF;
+	margin:	0px 1px 0px 0px;
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+    width:179px!important; 
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}
+div.header_second div.navigation_for_top_menu ul li.first_menu a:visited{
+    text-align:left;
+	color:#FFFFFF;
+    margin:	0px 1px 0px 0px;
+	padding: 5px 0 0 5px;
+	text-decoration: none;
+    height:32px!important;
+    width:179px!important; 
+    float:left;
+    font-family: Verdana !important;
+	font-size: 12px !important;
+}

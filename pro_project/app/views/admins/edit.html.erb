@@ -1,0 +1,33 @@
+<h1>Editing the details</h1>
+
+
+<%= form_for @user,:url => {:controller => "admins" ,:action => "update"} do |f| %>
+
+<p>
+  <%= f.label :title %><br>
+  <%= f.text_field :name %>
+</p>
+
+<p>
+  <%= f.label :email %><br>
+  <%= f.text_field :email %>
+</p>
+
+<p>
+  <%= f.label :password %><br>
+  <%= f.text_field :password %>
+</p>
+
+<p>
+
+  Role<br>
+  <%= f.radio_button :role, 'Admin' %>
+  <%= f.label :role, 'Admin', :value => 'Admin' %>
+  <%= f.radio_button :role, 'others' %>
+  <%= f.label :role, 'others', :value => 'others' %>
+
+</p>
+<p>
+  <%= f.submit "submit" %>
+</p>
+<% end %>

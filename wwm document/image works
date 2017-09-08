@@ -1,0 +1,67 @@
+Started GET "/admin/image_details/imageset_list?popup=true&type=tiny_mce" for 192.168.209.31 at 2016-12-22 19:35:31 +0530
+  Processing by Admin::ImageDetailsController#imageset_list as HTML
+  Parameters: {"popup"=>"true", "type"=>"tiny_mce"}
+Rendered admin/image_details/_upload_multiple_image.html.erb (4.4ms)
+Rendered admin/image_details/_imageset_list.html.erb (216.0ms)
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Rendered admin/image_details/_upload_search.html.erb (233.9ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/decoration/_decoration_image_set.html.erb (240.2ms)
+Rendered admin/image_details/_images_list.html.erb (505.7ms)
+Rendered admin/image_details/imageset_list.html.erb within layouts/application (516.8ms)
+Completed 200 OK in 568ms (Views: 508.6ms | ActiveRecord: 28.4ms | Solr: 0.0ms)
+
+
+Started GET "/javascripts/jquery/addedit_admin.js" for 192.168.209.31 at 2016-12-22 19:35:32 +0530
+
+ActionController::RoutingError (No route matches [GET] "/javascripts/jquery/addedit_admin.js"):
+  
+
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p547@ruby-1.9.3-p547/gems/actionpack-3.1.3/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (1.5ms)
+
+
+
+
+
+
+
+after insert
+
+
+
+
+//////////////
+
+Started GET "/admin/image_details/show_image_list_step2/262" for 192.168.209.31 at 2016-12-22 19:36:34 +0530
+  Processing by Admin::ImageDetailsController#show_image_list_step2 as HTML
+  Parameters: {"id"=>"262"}
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/image_details/_all_imagelist.html.erb (335.0ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/image_details/show_image_list_step2.html.erb (348.4ms)
+Completed 200 OK in 383ms (Views: 348.0ms | ActiveRecord: 10.3ms | Solr: 0.0ms)
+
+
+
+
+
+after tat came 
+
+
+
+Started GET "/admin/image_details/select_inline_image?id=262&width=60&height=60&image_type=square&path=article" for 192.168.209.31 at 2016-12-22 19:36:50 +0530
+  Processing by Admin::ImageDetailsController#select_inline_image as HTML
+  Parameters: {"id"=>"262", "width"=>"60", "height"=>"60", "image_type"=>"square", "path"=>"article"}
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/image_details/select_inline_image.html.erb (18.5ms)
+Completed 200 OK in 58ms (Views: 23.5ms | ActiveRecord: 6.9ms | Solr: 0.0ms)
+
+
+
+
+
+
+
+
+
+
+
+
+

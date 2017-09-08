@@ -1,0 +1,44 @@
+  def get_subcategory_children
+    if !params[:directory_listing_search][:sub_category].blank?
+      sub_category = @site.directory_listing_categories.where("name=?",params[:directory_listing_search][:sub_category]).last
+      if !sub_category.blank?
+        @sub_category_children =  sub_category.children
+end
+
+end
+
+
+
+
+                                                          
+
+
+"Manufacturers, Suppliers >> Finishing"
+
+
+
+"Manufacturers, Suppliers" "Finishing"
+
+
+
+@site.directory_listing_categories.where("full_name=?",params[:directory_listing_search][:main_category]+" >> "+params[:directory_listing_search][:sub_category])
+
+
+params[:directory_listing_search][:sub_category]  = "Finishing"
+
+params[:directory_listing_search][:main_category] = "Manufacturers, Suppliers"
+
+
+
+
+  def get_subcategory_children
+   if !params[:directory_listing_search][:sub_category].blank?
+     sub_category = @site.directory_listing_categories.where("name=?",params[:directory_listing_search][:sub_category]).last
+     if !sub_category.blank?
+      @sub_category_children =  sub_category.children
+     end
+    render :partial => "/directory/sub_category_children"
+   end
+  end
+
+

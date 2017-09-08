@@ -1,0 +1,8 @@
+
+console.log("$$$$$$$$$$$$$$$$$$$$");
+<% unless params[:search_data].blank? %>
+
+console.log("JS page");
+$("#news_export").html('<%= j component_table_list(SrComponent.find_component_by_name('NewsletterSubscriberReport')) %>');
+<%end%>
+

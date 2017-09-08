@@ -1,0 +1,32 @@
+<input id="countryTrigger" title="Country" class="input_btn thickbox editAjaxone" value="Edit" type="button" data-jsonurl="/equitydebt/get_country_json" data-dropdown="#continentList" data-updatejson="#country_json" data-model="#country">
+
+<input id="targetcountryTrigger" title="target_Country" class="input_btn thickbox editAjaxone" value="Edit" type="button" data-jsonurl="/equitydebt/get_target_country_json" data-dropdown="#target_continentList" data-updatejson="#target_country_json" data-model="#target_country">
+
+   <%= content_tag (:fieldset) do %>
+        <%= content_tag(:legend,"Target Country",:style=>"width:100px;")%>
+        <%= text_field_tag 'equitydebt[country_name]','',:id=>"target_Country_Type",:class=>'uploadlist tooltip',:title=>"Click on Edit to select value",:readonly=>"readonly" %>
+        <input id="targetcountryTrigger" title="target_Country" class="input_btn thickbox editAjaxone" value="Edit" type="button" data-jsonUrl="/equitydebt/get_target_country_json" data-dropdown="#target_continentList" data-updateJson="#target_country_json" data-model="#target_country">
+        <%= hidden_field_tag 'equitydebt[country]','',:id=>'target_Country_Type1',:readonly=>"readonly"%>
+        <%end%>
+
+
+  def get_country_json
+    @continents = Continent.where(:name => "Europe")
+    @regions = Region.all
+    @sub_regions = SubRegion.all
+    @countries = Country.all
+    render :partial => "equity_debt/partials/country_json"
+  end
+
+
+
+
+def get_target_country_json
+    @continents = Continent.where(:name => "Europe")
+  #  @regions = Region.all
+   # @sub_regions = SubRegion.all
+    @countries = Country.all
+    render :partial => "equity_debt/partials/target_country_json"
+  end
+
+

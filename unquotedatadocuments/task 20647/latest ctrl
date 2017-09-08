@@ -1,0 +1,134 @@
+ActiveRecord::Migration.change_column :institution_general_asset_allocations, :target_private_equity_allocation_max, :float
+
+  def add_hedge_fund_portfolios
+    @form_action = "create_hedge_fund_portfolios"
+     @hedge_fund_portfolio = InstitutionHedgeFundManagerPortfolio.new
+     @hedge_fund_portfolio.still_investing = "unknown"
+  end
+
+  def create_hedge_fund_portfolios
+    inst_company_data = InstitutionCompanyInfo.find(params[:institution_company_id])
+     inst_hedge_data  = inst_company_data.institution_hedge_fund_data
+    inst_hedge_data.transaction do
+       hedge_portfolios = inst_hedge_data.institution_hedge_fund_manager_portfolios.create(params[:hedge_fund_portfolio])
+       inst_company_data.update_attributes(last_date: Time.zone.now)
+    end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+  def edit_hedge_fund_portfolios
+    @form_action = "update_hedge_fund_portfolios"
+    @hedge_fund_portfolio = InstitutionHedgeFundManagerPortfolio.find(params[:hedge_fund_portfolio_id])
+     @hedge_fund_portfolio.still_investing = @hedge_fund_portfolio.still_investing.blank? ? "unknown" : @hedge_fund_portfolio.still_investing
+  end
+
+  def update_hedge_fund_portfolios
+    hedge_portfolio = InstitutionHedgeFundManagerPortfolio.find(params[:hedge_fund_portfolio_id])
+    hedge_portfolio.transaction do
+       hedge_portfolio.update_attributes(params[:hedge_fund_portfolio])
+    end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+    def remove_hedge_fund_portfolio
+     InstitutionCompanyInfo.transaction do
+       params[:portfolio_source].split(",").each do |portfolio|
+         institution_portfolio = InstitutionHedgeFundManagerPortfolio.find(portfolio)
+         institution_portfolio.delete
+      end
+     end
+     render :text => "deleted"
+  end
+
+
+
+  def add_managed_accounts
+    @form_action1 = "create_managed_accounts"
+     @managed_account = ManagedAccount.new
+     #@managed_account.still_investing = "unknown"
+  end
+
+  def create_managed_accounts
+    institution = InstitutionCompanyInfo.find(params[:institution_company_id])
+     institution_managed  = institution.institution_managed_account
+    institution_managed.transaction do
+       institution_account = institution_managed.institution_managed_accounts.create(params[:managed_account])
+       institution.update_attributes(last_date: Time.zone.now)
+    end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+  def edit_managed_accounts
+    @form_action1 = "update_managed_accounts"
+    @managed_account = ManagedAccount.find(params[:managed_account_id])
+    #@managed_account.still_investing = @managed_account.still_investing.blank? ? "unknown" : @managed_account.still_investing
+  end
+
+  def update_managed_accounts
+    managed_account = ManagedAccount.find(params[:managed_account_id])
+    managed_account.transaction do
+       managed_account.update_attributes(params[:managed_account])
+    end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+
+#### not edited#####
+    def remove_managed_account
+    # InstitutionCompanyInfo.transaction do
+       #params[:portfolio_source].split(",").each do |portfolio|
+         institution_portfolio = InstitutionHedgeFundManagerPortfolio.find(portfolio)
+         institution_portfolio.delete
+      end
+     end
+     render :text => "deleted"
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def new_managed_account
+    @form_action = "create_manged_account"
+    @managed_account = ManagedAccount.new
+  end
+
+  def create_managed_account
+    institution  = InstitutionCompanyInfo.find(params[:institution_company_id])
+        @managed_account= institution.managed_accounts.create(params[:managed_account])
+       institution.update_attributes(last_date: Time.zone.now)
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+  def edit_managed_account
+    @managed_account = ManagedAccount.find(params[:managed_account_id])
+    @form_action = "update_managed_account"
+  end
+
+  def update_managed_account
+    @managed_account = ManagedAccount.find(params[:managed_account_id])
+    @managed_account.update_attributes(params[:managed_account])
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+

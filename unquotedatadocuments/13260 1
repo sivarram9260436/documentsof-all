@@ -1,0 +1,242 @@
+<!--country type start-->
+<div id="country" data-trigger="#countryTrigger" class="jqmDialog jqdialogm jqmID3 jqmID4" style="width:550px;">
+	<div class="jqmdTL">
+		<div class="jqmdTR">
+			<div class="jqmdTC jqDrag">
+				Country
+			</div>
+		</div>
+	</div>
+	<div class="jqmdBL">
+		<div class="jqmdBR">
+			<div class="jqmdBC">
+				<div class="jqmdMSG">
+					<div class="form_box_main">
+							<div class="form_box form_box_width">
+								<div class="form_box_inner">
+									<div class="country-text">
+										<p>
+											<label>
+												Continent
+											</label>
+										</p>
+									</div><!--country-text-->
+									<select multiple="multiple" class="field_design2" size="8" name="continentList" id="continentList">
+
+										<% @continents.sort_by{|e| e.name}.each do |continent| %>
+											<%= content_tag(:option, continent.name, { :value => continent.id }) %>
+										<% end %> <!-- continet end -->
+
+									</select>
+									<div class="select_btn">
+										<a class="select_all_country_box" data-selectdropdown="continentList" data-callfunction="fillRegion_SubRegion" href="javascript:void(0)">Select All</a>
+										<a class="cleardropdownslist" href="javascript:void(0)" data-cleardropdown="#continentList,#regionList,#subregionList,#countryList" style="float:right">Clear All</a>
+									</div>
+									<div class="clear"></div>
+								</div>
+								<div class="form_box_inner">
+									<div class="country-text">
+										<p>
+											<label>
+												Region
+											</label>
+										</p>
+									</div><!--country-text-->
+									<select multiple="multiple" class="field_design2" size="8" name="regionList" id="regionList">
+										
+										<% @regions.sort_by{|e| e.name}.each do |region| %>
+											<%= content_tag(:option, region.name, { :value => region.id }) %>
+										<% end %> <!-- region end -->
+
+									</select>
+									<div class="select_btn">
+										<a class="select_all_country_box" data-selectdropdown="regionList" data-callfunction="fillSubRegion_Country_onRegionClick" href="javascript:void(0)">Select All</a>
+										<a class="cleardropdownslist" href="javascript:void(0)" data-cleardropdown="#regionList,#subregionList,#countryList" style="float:right">Clear All</a>
+									</div>
+									<div class="clear"></div>
+								</div>
+							</div>
+							
+							<div class="form_box form_box_width">
+								<div class="form_box_inner">
+									<div class="country-text">
+										<p>
+											<label>
+												Sub Region
+											</label>
+										</p>
+									</div><!--country-text-->
+									<select multiple="multiple" class="field_design2" size="8" name="subregionList" id="subregionList">
+										
+										<% @sub_regions.sort_by{|e| e.name}.each do |subregion| %>
+											<%= content_tag(:option, subregion.name, { :value => subregion.id }) %>
+										<% end %> <!-- subregion end -->
+
+									</select>
+									<div class="select_btn">
+										
+										<a class="select_all_country_box" data-selectdropdown="subregionList" data-callfunction="fillSubRegion_Country" href="javascript:void(0)">Select All</a>
+										<a class="cleardropdownslist" href="javascript:void(0)" data-cleardropdown="#subregionList,#countryList" style="float:right">Clear All</a>
+									</div>
+									<div class="clear"></div>
+								</div>
+								<div class="form_box_inner">
+									<div class="country-text">
+										<p>
+											<label>
+												Country:
+											</label>
+                                            <%= text_field_tag "put_selected_block",nil,:readonly => true %>
+                                            <%= hidden_field_tag "country_geo"%>
+										</p>
+									</div><!--country-text-->
+									<select multiple="multiple" class="field_design2" size="8" name="countryList" id="countryList">
+										
+										<% @countries.sort_by{|e| e.name}.each do |country| %>
+											<%= content_tag(:option, country.name, { :value => country.id }) %>
+										<% end %> <!-- country end -->
+
+									</select>
+									<div class="select_btn">
+										
+										<a class="select_all_country_box" data-selectdropdown="countryList" data-callfunction="" href="javascript:void(0)">Select All</a>
+										<a class="cleardropdownslist" href="javascript:void(0)" data-cleardropdown="#countryList" style="float:right">Clear All</a>
+									</div>
+									<div class="clear"></div>
+								</div>
+							</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+				<div class="spacer" style="background:#D9E8FB; margin-bottom:5px;"></div>
+				
+				<!--<input style="float:right; margin-right:0" class="new_btn jqmClose" value="Cancel" type="reset">
+				<input style="float:right;" id=" country_select_input" class="new_btn set_value_type f-button" value="Save" type="button" />-->
+
+
+   <%= content_tag(:div,{:class=> "selected_text"} ) do %>
+                               <%= label_tag("Selected Value", nil, {:class => "check_text"}) %>
+                               <%= text_field(:fund_selected, :geo_name, { :class =>"b-size "}) %>
+                                <% end %>
+
+				<%= content_tag(:div, link_to( "Save" , {}, { :id => "country_select_input",:class=>"before_add", :href => "javascript:void(0)" }), { :class => "f-button align-button-right"}) %>
+				<%= content_tag(:div, link_to( "Add" , {}, { :id => "add_country", :href => "javascript:void(0)" }), { :class => "f-button align-button-right"}) %>
+				<div class="clear"></div>
+				<div class="spacer_10"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%#= hidden_field_tag "country_values", ""%>
+
+<!--country type end-->
+<%= content_tag(:script) do %>
+    var Continent = <%= raw @continents.inject({}) { |hsh,continent|  hsh[continent.id] = [{ "id" => continent.id, "name" => continent.name}]; hsh }.to_json %>
+
+	var Continent_Region = <%= raw @continents.uniq.inject({}) { |h, f| h[f.id] = f.regions.uniq.sort_by{ |q| q.name }.collect { |re| { "id" => re.id, "name" => re.name } }; h }.to_json %>
+	
+	var Region_SubRegion = <%= raw @regions.uniq.inject({}) { |h, f| h[f.id] = f.sub_regions.uniq.sort_by{ |q| q.name }.collect { |re| { "id" => re.id, "name" => re.name } }; h }.to_json %>
+	
+	var Region_country = <%= raw @regions.uniq.inject({}) { |h, f| h[f.id] = f.countries.uniq.sort_by{ |q| q.name }.collect { |re| { "id" => re.id, "name" => re.name } }; h }.to_json %>
+	
+	var SubRegion_Country = <%= raw @sub_regions.uniq.inject({}) { |h, f| h[f.id] = f.countries.uniq.sort_by{ |q| q.name }.collect { |re| { "id" => re.id, "name" => re.name } }; h }.to_json %>
+	
+	var continentWithSubRegion = <%= raw @continents.uniq.sort_by{ |q| q.name }.collect{|c| { :id => c.id}}.to_json  %>
+	
+	var regionWithSubRegion = <%= raw @regions.uniq.sort_by{ |q| q.name }.collect{|c| { :id => c.id}}.to_json%>
+<% end %> <!-- script tag end -->
+
+<script type="text/javascript">
+  $(function(){
+  	var countrList = [];
+	$.each(window.opener.$('#geographic_prefs').tokenInput("get"),function(i,val){
+ 		countrList.push(window.opener.$('#geographic_prefs').tokenInput("get")[i].name)
+	});
+	$('#country_geo').val(countrList);
+    $('#put_selected_block').val(window.opener.$("#pei_data_geo_pref_text").val())
+  });
+</script>
+<script type="text/javascript">
+    var countinents = [];
+    $(document).on("click", '#add_country', function() {
+        $("#put_selected_block").val(countinents);
+        $('#country_select_input').removeClass('before_add')
+    });
+
+    $(document).off('click','#country_select_input')
+    $(document).on('click','#country_select_input',function(){
+        if($(this).hasClass('before_add')){
+            alert('Please select any data and click Add button');
+            return false;
+        }else{
+            window.opener.$('#geographic_prefs').tokenInput("clear");
+            $("#countryList option:selected").each(function (i, op) {
+                window.opener.$('#geographic_prefs').tokenInput('add',{"id":$(this).val(),"name":$(this).text()});
+            });
+            window.opener.$('#pei_data_geo_pref_text').val("");
+            window.opener.$('#pei_data_geo_pref_text').val($("#put_selected_block").val());
+            self.close();
+        }
+    });
+    $(document).on("change", '#continentList', function() {
+        countinents = []
+        $("#continentList option:selected").each(function() {
+            countinents.push(this.text);
+        });
+        if(countinents.length > 1){
+            countinents = []
+            countinents.push("Global")
+        }else if (countinents.length == 1 && countinents.indexOf("Others") > -1) {
+            countinents = []
+            countinents.push("Rest of World excluding Europe")
+        }
+    });
+    $(document).on("click", '#continentList', function() {
+        countinents = []
+        $("#continentList option:selected").each(function() {
+            countinents.push(this.text);
+        });
+        if(countinents.length > 1){
+            countinents = []
+            countinents.push("Global")
+        }else if (countinents.length == 1 && countinents.indexOf("Others") > -1) {
+            countinents = []
+            countinents.push("Rest of World excluding Europe")
+        }
+    });
+    $(document).on("change", '#regionList', function() {
+        countinents = []
+        $("#regionList option:selected").each(function() {
+            countinents.push(this.text);
+        });
+    });
+    $(document).on("click", '#regionList', function() {
+        countinents = []
+        $("#regionList option:selected").each(function() {
+            countinents.push(this.text);
+        });
+    });
+    $(document).on("change", '#subregionList', function() {
+        countinents = []
+        $("#countryList option:selected").each(function() {
+            countinents.push(this.text);
+        });
+    });
+    $(document).on("click", '#subregionList', function() {
+        countinents = []
+        $("#countryList option:selected").each(function() {
+            countinents.push(this.text);
+        });
+    });
+    $(document).on("change", '#countryList', function() {
+        countinents = []
+        $("#countryList option:selected").each(function() {
+            countinents.push(this.text);
+        });
+    });
+</script>
+
+
+
+vi app/views/institutions/fetch_geographfic_pref_pei_data.html.erb ---addd this file to live while moving

@@ -1,0 +1,56 @@
+@investor_group = @site.investor_groups.find(params[:investor_group_id])
+
+
+       @investor_exit = ActiveRecord::Base.connection.select_values("(#{@investor_group.direct_deals.not_by_status_delete.to_sql}) UNION (#{@investor_group.exit_deals_partial.by_not_ids(@investor_group).where("deals.status_id != ?", Status.by_type("deal").by_name("Delete").first.id).to_sql}) ORDER BY deal_announced DESC")
+
+
+    <%Deal.where(:id => @investor_exit).order("#{params[:sort].blank? ? 'deal_announced' : params[:sort]}  #{params[:order].blank? ? 'desc' : params[:order]}").each do |deal|%>
+
+
+
+
+
+
+63365
+
+    @investor_group = @site.investor_groups.by_investor_id(params[:id]).first
+
+
+     @exit_investor_true = Deal.where(:id => ActiveRecord::Base.connection.select_values("(#{@investor_group.exit_deals.by_statuses(Status.where(:name => ["Publish","Pending QC"]).pluck("id")).to_sql})  ORDER BY deal_announced DESC limit 20 OFFSET 0"))
+
+
+     @exit_investor_true = Deal.where(:id => ActiveRecord::Base.connection.select_values("(#{@investor_group.exit_deals.by_statuses(Status.where(:name => ["Publish","Pending QC"]).pluck("id")).to_sql})  ORDER BY deal_announced DESC limit 20 OFFSET 0"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+==========================
+
+@investor_exit = ActiveRecord::Base.connection.select_values("(#{@investor_group.direct_deals.not_by_status_delete.to_sql}) UNION (#{@investor_group.exit_deals_partial.by_not_ids(@investor_group).where("deals.status_id != ?", Status.by_type("deal").by_name("Delete").first.id).to_sql}) ORDER BY deal_announced DESC")
+ @investor_group = @site.investor_groups.find(params[:investor_group_id])
+
+find the deal id 
+Deal.where(:id => @investor_exit).first
+
+
+63765
+
+
+=======
+
+
+find the deal id  Deal.find 336923
+a=_
+
+ a.deal_investments  check its tru or false
+
+a.deal_investments.first.update_column('investor_exited',true)

@@ -1,0 +1,88 @@
+<%= hidden_field_tag "featured_set" ,"id",:value=>featured_list[:featured_set_id]%>
+<div class="drag_drop_list" class="test">
+	<ul class="fe_pui-autocomplete-holder" id="listTaken">
+		<li style="height:35px;"></li>
+		<%if featured_list[:articles].class.to_s!="String"%>
+		<% for featured_article in  featured_list[:articles]%>
+		<% article = featured_article.article %>
+		<%if article!=nil%>
+		<%= puts article.inspect%>
+		<li class="fe_pui-autocomplete-box" id="fe_<%= article.id%>" data-listid='fe_<%= "#{article.id}"%>'>
+			<p>
+				<%=hidden_field_tag "listtaken" , "#{article.id}"%>
+				<span id="tip_<%= article.id %>"><%= article.id %>. <%= characters_by_count(article.title,25,"...") %></span>
+				<%= link_to('', 'javascript:void(0)', :onclick => "javascript: create_req('fe_#{article.id}');",:class=>"closebutton") %>
+				<%= link_to('Preview', 'javascript:void(0)',:class=>"featured_preview", :onclick => "javascript:article_preview('http://#{request.host=="localhost" ? request.host_with_port : request.host}/admin/articles/preview_article?id=#{article.id}');")%>
+			</p>
+		</li>
+		
+		<%end%>
+		<%end %>
+		<%end %>
+	</ul>
+</div>
+<div id="save_return_list_value" style="display:none">
+	<input type="hidden" value="list" name="path">
+</div>
+<div id="save_item" style="display:none">
+	<input type="hidden" value="edit" name="path">
+</div>
+<%unless @featured_type.blank?%>
+<div class="ranked_list_button">
+	<div class="button" id="save_collections">
+		<%= link_to('Save', 'javascript:void(0)',"data-type" => 'edit',"data-url" => "/admin/ranked_list/service_create?path=edit&featured_set=#{featured_list[:featured_set_id]}","data-returnurl" => "#{request.referer}","class" => "dataedit_form button","data_edit_fun" => "ranklist", :id=>"update_rank_list_03") %>
+	</div>
+</div>
+<%else%>
+<%if params[:type] == "site"%>
+<div class="ranked_list_button">
+	<div class="button" id="save_collections">
+		<%= link_to('Save', 'javascript:void(0)',"data-type" => 'edit',"data-url" => "/admin/ranked_list/update?path=edit&featured_set=#{featured_list[:featured_set_id]}","data-returnurl" => "#{request.referer}","class" => "dataedit_form button","data_edit_fun" => "ranklist", :id=>"update_rank_list_03") %>
+	</div>
+	<%else%>
+	<div class="ranked_list_button">
+		<div class="button" id="save_return_list">
+			<%if params[:action] == "new" %>
+			<%= link_to('Save & Return To List', 'javascript:void(0)',"data-type" => 'new',"data-url" => "/admin/ranked_list/create?path=list","class" => "" ,"data-fname" => "ranklist", :id=>"save_rank_list_01") %>
+			<%else%>
+
+			<%= link_to('Save & Return To List', 'javascript:void(0)',"data-type" => 'edit',"data-url" => "/admin/ranked_list/update?path=list","class" => " ","data-fname" => "ranklist", :id=>"update_rank_list_02") %>
+			<%end%>
+		</div>
+
+		<div class="button" id="save_collections">
+			<%= link_to('Save', 'javascript:void(0)',"data-type" => 'edit',"data-url" => "/admin/ranked_list/update?path=edit","class" => "","data-fname" => "ranklist", :id=>"update_rank_list_03") %>
+		</div>
+		<div class="button">
+			<%= link_to("Cancel",{:controller=>"admin/ranked_list",:action => "index"}) %>
+		</div>
+	</div>
+	<%end%>
+	<%end%>
+
+	<script type="text/javascript">
+		$(function() {
+			jQuery("#update_rank_list_02").click(function() {
+				$("#save_return_list_value input").attr({
+					'name' : 'path',
+					'value' : 'list'
+				});
+				$('#save_item input').removeAttr('name');
+			});
+			jQuery("#update_rank_list_03").click(function() {
+				$("#save_item input").attr({
+					'name' : 'path',
+					'value' : 'edit'
+				});
+				$('#save_return_list_value input').removeAttr('name');
+			});
+
+			jQuery("#save_rank_list_01").click(function() {
+				$("#save_return_list_value input").attr({
+					'name' : 'path',
+					'value' : 'list'
+				});
+				$('#save_item input').removeAttr('name');
+			});
+		});
+	</script>

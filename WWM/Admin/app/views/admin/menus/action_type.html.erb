@@ -1,0 +1,173 @@
+<%if @action_type=="PredefinedListing"%>
+<tr id="Pre Defined List">
+	<td colspan="2">
+	<table id="hide_on_select">
+		<td><label for="article_title">Pre Defined List: </label></td>
+		<%if params[:id]!="undefined" and params[:id]==@menu.page_id%>
+		<td><%= collection_select(:page, :id, @site.predefined_listings,:id,:page_name,options={:selected => @menu.page.id})%></td>
+		<%else%> <td><%= collection_select(:page, :id, @site.predefined_listings,:id,:page_name,{:prompt => true})%></td>
+		<%end%>
+	</table><div id="update_action"></div></td>
+</tr>
+<%elsif @action_type=="UserDefinedListing"%>
+<tr id="User Defined List">
+	<td colspan="2">
+	<table id="hide_on_select">
+		<td><label for="article_title">User Defined List: </label></td>
+		<%if not p=Page.where(:id=>@menu.page_id).first.blank?%>
+		<td><%= raw collection_select_with_current_obj("page","id",@site.all_complex_pages.flatten.compact.uniq,"id","page_name", Page.where(:id=>@menu.page_id).first.id,"Create New",{:id=>"page_id"})%> </td>
+		<%else%>
+		<td><%= raw collection_select_with_current_obj("page","id",@site.all_complex_pages,"id","page_name","","Create New",{:id=>"page_id"})%></td>
+		<%end%>
+	</table><div id="update_action"></div></td>
+</tr>
+<%elsif  @action_type=="Static"%>
+<tr id="Static">
+	<td><label for="menus_static_page_name"> Page Name: </label></td>
+	<% @site.static_pages.inspect%>
+	<%if params[:id]=="undefined"%>
+	<td><%= collection_select(:menu, :static_page_name, @site.static_pages,:url_part,:title,{:selected => @menu.static_page_name})%></td>
+	<%else%>
+	<td><%= collection_select(:menu, :static_page_name,@site.static_pages,:url_part,:title,{:prompt => true})%></td>
+	<%end%>
+</tr>
+<%elsif  @action_type=="Article"%>
+<tr id="Static">
+	<td><label for="menus_static_page_name">Article Id: </label></td>
+	<td> <%= text_field 'menu', 'article_id',:class=>'input_text' %> </td>
+</tr>
+<%elsif  @action_type=="External"%>
+<tr id="External">
+	<td><label for="menus_url"> External Path: </label></td>
+	<td> <%= text_field 'menu', 'url',:class=>'input_text' %> </td>
+</tr>
+
+<%elsif  @action_type=="Others"%>
+<tr id="External">
+	<td><label for="menus_url"> Other Path: </label></td>
+	<td> <%= text_field 'menu', 'url',:class=>'input_text' %> </td>
+</tr>
+
+
+Article
+<%elsif  @action_type=="SpecialPage"%>
+<tr id="Special_page">
+	<td colspan="2">
+	<table>
+		<tr>
+			<td><label for="article_title">Special Page: </label></td>
+			<%if not p=Page.where(:id=>@menu.page_id).first.blank?%>
+			 <td><%= raw collection_select_with_current_obj("page","id",@site.all_special_pages.flatten.compact.uniq,"id","page_name", Page.where(:id=>@menu.page_id).first.id,"Create New",{:id=>"page_id"})%></td>
+			<%else%>
+			 <td>
+			 	<%= raw collection_select_with_current_obj("page","id",@site.all_special_pages,"id","page_name","","Create New",{:id=>"page_id"})%></td>
+			<%end%>
+		</tr>
+	</table><div id="update_action"></div></td>
+</tr>
+<%end%>
+<script type="text/javascript">
+	/*jQuery('#show_hidden_special').click(function() {
+		jQuery('#special_page_hide').show();
+		jQuery('#hide_on_select').hide();
+	});*/
+
+</script>
+<script type="text/javascript">
+/*	jQuery('#back_hidden_special').click(function() {
+		jQuery('#special_page_hide').hide();
+		jQuery('#hide_on_select').show();
+	});*/
+
+</script>
+<script type="text/javascript">
+	$('.assest_group_select').change(function() {
+		var str = $("form").serialize();
+		jQuery.ajax({
+			type : "GET",
+			url : "/admin/page/dynamic_url_generate",
+beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+			data : str,
+			dataType : "html",
+			success : function(data) {
+				jQuery(".dynamic_url").html(data);
+
+			}
+		});
+	});
+
+</script>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+jQuery("#show_hidden_special").change(function(){
+var id = jQuery("#menu_id").val();
+var entity_type  = jQuery("#menu_entity_type option:selected").attr("value");
+jQuery.ajax({
+                    type:'POST',
+                    data:"entity_type="+entity_type+'&id='+id,
+beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                    dataType:'html',
+                    url:'/admin/menus/entity_type',
+					beforeSend:function(){
+					jQuery("#load_indicatior").show();
+					},
+                    success:function(update_data){
+                    	  jQuery("#load_indicatior").hide();
+                                 jQuery("#update_action").html(update_data);
+                                    jQuery("#back_hidden_special").show();
+                                    jQuery("#show_hidden_special").show();
+          			}
+       });
+    });
+});
+</script>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+jQuery("#page_id option:selected").each(function(){
+var id = jQuery("#menu_id").val();
+var entity_type  = jQuery("#menu_entity_type option:selected").attr("value");
+var page_id  = jQuery("#page_id option:selected").attr("value");
+jQuery.ajax({
+                    type:'POST',
+                    data:"entity_type="+entity_type+"&page_id="+page_id+'&id='+id+'&change='+'true',
+                    dataType:'html',
+beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                    url:'/admin/menus/entity_type',
+					beforeSend:function(){
+					jQuery("#load_indicatior").show();
+					},
+                    success:function(update_data){
+                    	  jQuery("#load_indicatior").hide();
+                                 jQuery("#update_action").html(update_data);
+                                    jQuery("#back_hidden_special").show();
+                                    jQuery("#show_hidden_special").show();
+
+          			}
+       });
+    });
+});
+</script>
+<script type="text/javascript">
+//jQuery(document).ready(function() {
+jQuery("#page_id").change(function(){
+var id = jQuery("#menu_id").val();
+var entity_type  = jQuery("#menu_entity_type option:selected").attr("value");
+var page_id  = jQuery("#page_id option:selected").attr("value");
+jQuery.ajax({
+                    type:'POST',
+                    data:"entity_type="+entity_type+"&page_id="+page_id+'&id='+id+'&change='+'true',
+                    dataType:'html',
+                    url:'/admin/menus/entity_type',
+beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                    success:function(update_data){
+                    	  jQuery("#load_indicatior").hide();
+                                 jQuery("#update_action").html(update_data);
+                                    jQuery("#back_hidden_special").show();
+                                    jQuery("#show_hidden_special").show();
+
+          			}
+       });
+    });
+//});
+</script>
+

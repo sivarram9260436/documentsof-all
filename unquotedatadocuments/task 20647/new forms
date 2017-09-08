@@ -1,0 +1,46 @@
+<%# @tinymce_required = true %>
+<%= form_tag({ :controller => "institutions", :action => @form_action }, { :id => "institution_form" }) do %>
+
+   <%= content_tag(:table, {:class => "form-left fundraiser"}) do %>
+    <%= content_tag(:tr) do %>
+       <%= content_tag(:td , content_tag(:h3 ,"manged account" ) )%>
+    <% end %> <!-- tr -->
+    <%=  hidden_field_tag "institution_company_id",params[:institution_company_id]%>
+    <%=  hidden_field_tag "managed_account_id",(@managed_account.new_record? ? nil : @managed_account.id)%> 
+    <%=  hidden_field_tag "tab", params[:tab]%>
+     <%= content_tag(:tr) do%>
+		  <%= content_tag(:td,  label_tag("manager:"), { :class => "lab-field" }) %>
+ <%= content_tag(:td, text_field(:managed_account, :manager )) %>
+		  
+	  <% end %><!--tr -->
+	  
+	  <%= content_tag(:tr) do%>
+		  <%= content_tag(:td,  label_tag("size:"), { :class => "lab-field" }) %>
+ <%= content_tag(:td, text_field(:managed_account, :size )) %>
+
+	  <% end %><!--tr -->
+	  
+	 
+     
+
+        <% end %> <!-- tr -->
+	    <% end %><!--table -->
+     <%= content_tag(:div, { :class => "bussiness-descp" }) do %>
+	        <%= content_tag(:div, { :class => "descp-content" }) do %>
+	            <%= content_tag(:div, { :class => "center" }) do %>
+	                <%= content_tag(:div, { :class => "f-button" }) do %>
+	                    <%= submit_tag("Save") %>
+	                <% end %> <!-- f-button end -->
+	            <% end %> <!-- center end -->
+	            <% if params[:institution_company_id] %>
+	            <%#= content_tag(:div ,(link_to "Back",edit_institution_institutions_path(:institution_company_id => params[:institution_company_id])),{:class=>"f-button"})%>
+	           <%else%>
+	            <%#= content_tag(:div ,(link_to "Back",edit_institution_institutions_path(:institution_company_id => @institution_contact.institution_company_info.id)),{:class=>"f-button"})%>
+	           <%end%>
+	        <% end %> <!-- descp-content end -->
+	    <% end %> <!--f-button-->
+   <% end %><!--form -->
+   
+     
+
+

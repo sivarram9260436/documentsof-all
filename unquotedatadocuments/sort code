@@ -1,0 +1,69 @@
+<%= javascript_include_tag "jquery.dataTables.min.js"%>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var dataSet= <%= @arr_lp_trade_trades.to_json.html_safe%>;
+        console.log(dataSet);
+        $('.cls_table_style7').DataTable( {
+            data: dataSet,
+            "order": [[ 0, "desc" ]],
+            columns: [
+                { title: "Trade Date" },
+                { title: "Seller" },
+                { title: "Acquirer " },
+                { title: "Commitment" },
+                { title: "Currency" },
+                { title: "% sold" },],
+            "paging":   false,
+            "searching": false,
+            "info":  false,
+            "scrollY": "425px",
+            "scrollCollapse": true,
+            "aoColumns": [ {title:"Trade Date","sType": "stringMonthYear"}, { title:"Seller"},{title:"Acquirer"},{title:"Commitment"}, {title: "Currency"}, {title:"% sold"} ]
+        } );
+        $.extend(jQuery.fn.dataTableExt.oSort, {
+            "stringMonthYear-pre": function (s) {
+                var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                var dateComponents = s.split(" ");
+                dateComponents[0] = dateComponents[0].replace(",", "");
+                dateComponents[1] = jQuery.trim(dateComponents[1]);
+                var year = dateComponents[1];
+                var month = 0;
+                for (var i = 0; i < months.length; i++) {
+                    if (months[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                        month = i;
+                        break;
+                    }
+                }
+                var allMonths = ['Jan','Feb','Mar', "Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+                for (var i = 0; i < allMonths.length; i++) {
+                    if (allMonths[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                        month = i;
+                        break;
+                    }
+                }
+                return new Date(year, month, 1);
+            },
+            "stringMonthYear-asc": function (a, b) {
+                return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+            },
+            "stringMonthYear-desc": function (a, b) {
+                return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+            },
+
+            "NumericOrBlank-pre": function (s){
+                var a = parseFloat($.trim(s).replace(/,/,''));
+                if(a==0){return "0";}else if(a>0){return a;}else{return " "}
+            },
+            "NumericOrBlank-asc": function(a,b) {
+                return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+            },
+            "NumericOrBlank-desc": function(b,a) {
+                return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+            }
+
+        });
+    });
+</script>
+<style>
+

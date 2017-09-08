@@ -1,0 +1,17 @@
+
+
+ruby@HaymarketStage:~/CMS/Admin$ vi app/controllers/common_controller.rb 
+
+def get_state_directory
+   @page_properties = {:page_type => 'get_state_directory'}
+    country = Country.find(params[:id])
+    @states = country.counties
+    render :partial=>"directory/partials/statedir",:layout=>false
+  end
+
+
+match '/get_state_directory/:id' => "common#get_state_directory", :id => /(\d+)/
+
+
+ruby@HaymarketStage:~/CMS/WPS/config$ vi routes.rb 
+

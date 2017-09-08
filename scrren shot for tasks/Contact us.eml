@@ -1,0 +1,170 @@
+Return-Path: <bounce+5f5a80.8fe954-sivaram=kreatio.com@clients.kreatio.com>
+Delivered-To: sivaram@kreatio.com
+Received: from basemail.kreatio.com (localhost [127.0.0.1])
+	by basemail.kreatio.com (Postfix) with UTF8SMTP id 84BB32607F5
+	for <sivaram@kreatio.com>; Mon,  4 Sep 2017 21:25:41 +0530 (IST)
+X-Virus-Scanned: Debian amavisd-new at basemail.kreatio.com
+Authentication-Results: basemail.kreatio.com (amavisd-new); dkim=neutral
+	reason="invalid (public key: unsupported version)"
+	header.d=clients.kreatio.com; domainkeys=neutral
+	reason="invalid (public key: unsupported version)"
+	header.sender=no-reply=kreatio.com@clients.kreatio.com
+	header.d=clients.kreatio.com
+Received: from basemail.kreatio.com ([127.0.0.1])
+	by basemail.kreatio.com (basemail.kreatio.com [127.0.0.1]) (amavisd-new, port 10024)
+	with UTF8SMTP id OQsgkL9Mh5Op for <sivaram@kreatio.com>;
+	Mon,  4 Sep 2017 21:25:39 +0530 (IST)
+Received: from so254-48.mailgun.net (so254-48.mailgun.net [198.61.254.48])
+	by basemail.kreatio.com (Postfix) with UTF8SMTP id 0504926070A
+	for <sivaram@kreatio.com>; Mon,  4 Sep 2017 21:25:38 +0530 (IST)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=clients.kreatio.com;
+ q=dns/txt; s=smtp; t=1504540538; h=Content-Transfer-Encoding:
+ Content-Type: Mime-Version: Subject: Message-ID: To: From: Date:
+ Sender; bh=KfSsQpQgLz+74u3yXxzj8+scZ2OtIE6/ptzsY8+/v9U=; b=dFTrOZxjVfo6fnp5RXi5g8E/zSMNj6lMBW7rO2qikmtdJlxWsNAiVOe4llWBtag3h6FeGhPs
+ QnLJo9YOWIPB2tkacTddRYo/ian52AJQCVQaXbGSGccByknveEwxGjvu7/cbxL2lbFuvCejC
+ lp69ApZiyDyFlgB2T0pyFg9bjjw=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=clients.kreatio.com;
+ s=smtp; q=dns; h=Sender: Date: From: To: Message-ID: Subject:
+ Mime-Version: Content-Type: Content-Transfer-Encoding;
+ b=Kn0ztUyJuVRPDUxRY35CjQZ1kYvqsCBR8gtF6bk8puOKuH0/LDk1IWN+VkTaFV+HO67f1R
+ KX9KqfPO5p6LQAAO4Xxi2LbG9LFv96RN1Cj0jQvQFCEZAyRcb8AF9rLV1iA/eBKGPCHwtA8V
+ JeNMEehQxrCgN2eyYGEjRjypGgYiA=
+Sender: no-reply=kreatio.com@clients.kreatio.com
+X-Mailgun-Sending-Ip: 198.61.254.48
+X-Mailgun-Sid: WyI2ZGNjMSIsICJzaXZhcmFtQGtyZWF0aW8uY29tIiwgIjhmZTk1NCJd
+Received: from clients.kreatio.com (Unknown [103.38.240.27])
+ by mxa.mailgun.org with ESMTP id 59ad7779.7f19c824b3e8-smtp-out-n02;
+ Mon, 04 Sep 2017 15:55:37 -0000 (UTC)
+Date: Mon, 04 Sep 2017 15:55:34 +0000
+From: no-reply@kreatio.com
+To: sivaram@kreatio.com
+Message-ID: <59ad77764b822_332ad0a9a2b990906ec@6a31255842a1.mail>
+Subject: Contact us
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<cfoutput>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=2.0,minimum-scale=1.0" />
+	<style>
+		* {
+			padding: 0px;
+			outline: none;
+			line-height: normal;
+		}
+		img {
+			border: none;
+		}
+		.header_top {
+			color: #25A8E0;
+
+		}
+		.ReadMsgBody, .ExternalClass {
+			width: 100%;
+		}
+		td {
+			vertical-align: top;
+		}
+		body, h1, h2, h3, h4, h5, p, li {
+			font-family: Helvetica, Arial, sans-serif;
+			-webkit-font-smoothing: antialiased;
+			margin: 0px;
+		}
+		table{border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;}
+		@media only screen and (max-width: 599px) {
+			.common_width {
+				width: 96%;
+			}
+			.footer {
+				width: 32%;
+				padding-right: 2% !important;
+			}
+			.footer:last-child {
+				padding-right: 0px;
+			}
+		}
+		@media only screen and (max-width: 499px) {
+			.col-2{width:100%;display:block;text-align: center;}
+		}
+		@media only screen and (max-width: 399px) {
+			.footer {
+				width: 100%;
+				padding: 0px 0px 10px 0px !important;
+				text-align: center;
+			}
+		}
+
+	</style>
+</head>
+<body marginheight="0" topmargin="0" marginwidth="0" leftmargin="0" >
+<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+	<tr>
+		<td style="padding:10px 0px 0px 0px" valign="top"></td>
+	</tr>
+	<tr>
+		<td valign="top">
+			<table width="600" cellpadding="0" cellspacing="0" border="0" align="center" style="border:1px solid #ddd;margin:0px auto" class="common_width">
+				<tr>
+					<td valign="top" style="padding:5px 10px 10px 10px;border-bottom:1px solid #ddd;border-top:5px solid #25a8e0">
+						<table align="left" width="100%">
+							<tr>
+								<td>
+									<table width="100%" align="left">
+										<tr>
+											<td valign="top" align="left" class="col-2" style="margin:3px;">
+											</td>
+											<td valign="top" align="right" class="col-2">&nbsp;</td>
+										</tr>
+									</table></td>
+							</tr>
+						</table></td>
+				</tr>
+				<tr>
+					<td valign="top" style="padding:10px 10px 10px 10px ">
+						<table width="100%">
+							<tr>
+								<td style="padding:10px 0px; font-size: 18px;"><font face="Helvetica, Arial, sans-serif;">
+									<b>  Questionarrie Form Submitted for   </b>
+								</font></td>
+							</tr>
+
+									<tr>
+										<td style="padding:10px 0px;"><font face="Helvetica, Arial, sans-serif;">Describe yourself here... : test </font> </td>
+									</tr>
+									<tr>
+										<td style="padding:10px 0px;"><font face="Helvetica, Arial, sans-serif;">Name : sivaram </font> </td>
+									</tr>
+									<tr>
+										<td style="padding:10px 0px;"><font face="Helvetica, Arial, sans-serif;">Email Address : sivaram@kreatio.com </font> </td>
+									</tr>
+									<tr>
+										<td style="padding:10px 0px;"><font face="Helvetica, Arial, sans-serif;">City : bangalore  </font> </td>
+									</tr>
+							<tr></tr>
+							<tr>
+								<td style="padding:10px 0px;">
+									<font face=" Helvetica, Arial, sans-serif;">Thank you,<br>Team Kreatio.</font>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+				</tr>
+									</table></td>
+							</tr>
+						</table><!--common-width--></td>
+				</tr>
+			</table></td>
+	</tr>
+</table>
+</body>
+</html>
+</cfoutput>
+<!--<cfabort>-->

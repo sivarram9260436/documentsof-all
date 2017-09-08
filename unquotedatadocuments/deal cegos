@@ -1,0 +1,13 @@
+[#<DealInvestment id: 971035, deal_id: 358226, investment_type_id: 58, investor_group_component_id: 121152, fund_id: 72411, currency_id: 67, equity: "15.0", confidential: nil, created_by: 363, updated_by: 363, created_at: "2017-08-03 05:49:32", updated_at: "2017-08-03 05:50:44", amount: "", investor_exited: true, deal_confidential: false>, #
+
+<DealInvestment id: 915887, deal_id: 358226, investment_type_id: 57, investor_group_component_id: 122244, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 13:57:09", updated_at: "2014-09-06 13:57:09", amount: "0.0", investor_exited: false, deal_confidential: false>, 
+
+
+<DealInvestment id: 915888, deal_id: 358226, investment_type_id: 57, investor_group_component_id: 127138, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 13:57:09", updated_at: "2014-09-06 13:57:09", amount: "0.0", investor_exited: false, deal_confidential: false>, #
+
+<DealInvestment id: 915889, deal_id: 358226, investment_type_id: 57, investor_group_component_id: 123191, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 13:57:09", updated_at: "2014-09-06 13:57:09", amount: "0.0", investor_exited: false, deal_confidential: false>, #
+
+
+<DealInvestment id: 915890, deal_id: 358226, investment_type_id: 56, investor_group_component_id: 123580, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 13:57:09", updated_at: "2014-09-06 13:57:09", amount: "0.0", investor_exited: false, deal_confidential: false>, #
+
+<DealInvestment id: 915892, deal_id: 358226, investment_type_id: 57, investor_group_component_id: 127026, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 13:57:09", updated_at: "2014-09-06 13:57:09", amount: "0.0", investor_exited: false, deal_confidential: false>] 

@@ -1,0 +1,183 @@
+
+
+
+/////////
+
+Started GET "/latest_issue/worldwidemedia/2015-Jan" for 192.168.15.55 at 2017-04-06 13:07:22 +0530
+  Processing by Wps::IssuesController#show_issue_page as HTML
+  Parameters: {"issue"=>"latest_issue", "source_name"=>"worldwidemedia", "month_year"=>"2015-Jan"}
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_article_summary.html.erb (3.7ms)
+==========@@@===========#<MagazineIssue id: 15, source_id: 1, created_by: 3, updated_by: 3, short_name: "Jan 2015", description: "", date_of_publication: "2014-12-31 19:30:00", created_at: "2015-04-01 10:40:03", updated_at: "2015-04-01 11:46:32", title: "The Machinist Jan 2015">=========={"controller"=>"wps/issues", "action"=>"show_issue_page", "issue"=>"latest_issue", "source_name"=>"worldwidemedia", "month_year"=>"2015-Jan"}======
+Rendered /home/ruby/CMS/Sites/the_machinist/views/issue/issue_page.html.erb within /layouts/the_machinist (72.9ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_seo_key.html.erb (4.0ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_style.html.erb (4.8ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_google_analytics.html.erb (0.5ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_device_menu.html.erb (562.9ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_top_banner_fragment.html.erb (19.2ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (8.2ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_top_banner_fragment.html.erb (17.0ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (6.4ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_menu.html.erb (369.4ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_header.html.erb (536.7ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_header_latest_news.html.erb (57.6ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (7.7ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/home/_simple_text.html.erb (0.2ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (9.3ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_home_video.html.erb (405.2ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (6.7ms)
+====={:menu_title=>"worldwidemedia - [Jan 2015]", :entities=>#<MagazineIssue id: 15, source_id: 1, created_by: 3, updated_by: 3, short_name: "Jan 2015", description: "", date_of_publication: "2014-12-31 19:30:00", created_at: "2015-04-01 10:40:03", updated_at: "2015-04-01 11:46:32", title: "The Machinist Jan 2015">, :page_type=>"issue_page", :context=>#<MagazineIssue id: 15, source_id: 1, created_by: 3, updated_by: 3, short_name: "Jan 2015", description: "", date_of_publication: "2014-12-31 19:30:00", created_at: "2015-04-01 10:40:03", updated_at: "2015-04-01 11:46:32", title: "The Machinist Jan 2015">}================{"controller"=>"wps/issues", "action"=>"show_issue_page", "issue"=>"latest_issue", "source_name"=>"worldwidemedia", "month_year"=>"2015-Jan"}=====================
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_right_newsletter.html.erb (16.1ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_right_gallery_fragment.html.erb (11.7ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (9.9ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/home/_simple_text.html.erb (0.1ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (6.7ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/home/_simple_text.html.erb (0.1ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (6.6ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/home/_simple_text.html.erb (0.1ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (6.9ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_right.html.erb (688.5ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_fragment_content.html.erb (3.6ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (7.3ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_container.html.erb (50.1ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_javascript.html.erb (2.2ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_newsletter_popup.html.erb (5.5ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_unsubscribe_newsletter_popup.html.erb (3.2ms)
+Completed 200 OK in 2109ms (Views: 1627.0ms | ActiveRecord: 446.7ms | Solr: 0.0ms)
+
+
+
+
+
+
+
+
+Started GET "/latest_issue/worldwidemedia/2017-Jan" for 192.168.15.55 at 2017-04-06 13:07:59 +0530
+  Processing by Wps::IssuesController#show_issue_page as HTML
+  Parameters: {"issue"=>"latest_issue", "source_name"=>"worldwidemedia", "month_year"=>"2017-Jan"}
+Rendered /home/ruby/CMS/Sites/the_machinist/views/exception_handling/404.html.erb within /layouts/the_machinist (0.8ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_seo_key.html.erb (3.7ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_style.html.erb (5.8ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_google_analytics.html.erb (0.5ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_device_menu.html.erb (500.7ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_top_banner_fragment.html.erb (18.5ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (8.1ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_top_banner_fragment.html.erb (17.0ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (6.3ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_menu.html.erb (368.8ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_header.html.erb (521.9ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_header_latest_news.html.erb (45.0ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (6.7ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/home/_simple_text.html.erb (0.1ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (9.3ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_home_video.html.erb (407.5ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (6.6ms)
+====={:menu_title=>"Hmmm, we can't seem to find the page you're looking for", :page_type=>"404_page"}================{"controller"=>"wps/issues", "action"=>"show_issue_page", "issue"=>"latest_issue", "source_name"=>"worldwidemedia", "month_year"=>"2017-Jan"}=====================
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_right_newsletter.html.erb (16.1ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_right_gallery_fragment.html.erb (3.2ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (6.7ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/home/_simple_text.html.erb (0.1ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (6.5ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/home/_simple_text.html.erb (0.1ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (6.5ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/home/_simple_text.html.erb (0.1ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (9.2ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_right.html.erb (672.8ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_fragment_content.html.erb (3.2ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (6.7ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_container.html.erb (46.9ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_javascript.html.erb (1.8ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_newsletter_popup.html.erb (4.9ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_unsubscribe_newsletter_popup.html.erb (3.1ms)
+Completed 404 Not Found in 1910ms (Views: 1667.3ms | ActiveRecord: 212.7ms | Solr: 0.0ms)
+
+
+
+
+
+class Wps::IssuesController < WpsController
+  include Rails.application.routes.url_helpers
+  def show_issue_page
+    @source=@site.sources.find_by_alais_name(params[:source_name])
+    find_magazine_issues
+    #@selected_menu=@site.get_selected_menu(:others=>"Home")
+    @selected_menu = @site.get_listing_selected_menu(request.path) || @site.get_selected_menu(:others=>"Home")
+    if @source and @magazine_issue
+      @page_properties={:menu_title=>"#{@source.alias_name} - [#{@magazine_issue.short_name.capitalize}]",  :entities => @magazine_issue , :page_type => "issue_page",:context =>@magazine_issue}
+      #@actual_url=url_for_issue_page_path(@magazine_issue.short_name.capitalize,@source,@magazine_issue,nil,{:only_path=>true})
+      render :template=>@site.get_issue_page,:layout=>@site.get_layout
+    #@actual_url=url_for_issue_page_path_for_rss(@source,@magazine_issue,{:only_path=>true})
+    #redirect_if_different_url || (render :template=>"#{@site.get_issue_page}-rss",:layout=>false)
+    else
+      render_404
+    end
+  end
+
+end
+
+
+
+
+ def find_magazine_issues
+    if params[:issue_name]
+      @magazine_issue=MagazineIssue.find_by_short_name(params[:issue_name])
+    elsif params[:month_year]
+       if @source.magazine_issues.by_month_year(params["month_year"]).first.date_of_publication.strftime("%Y-%b")
+                   @magazine_issue=@source.magazine_issues.by_month_year(params[:month_year])
+          else
+      @magazine_issue=@source.magazine_issues.by_month_year(params[:month_year]).first
+    end
+    elsif @source
+    @magazine_issue=MagazineIssue.find(@source.current_issue_id)
+    end
+  end
+
+
+
+
+
+///////////////////////////////
+
+Started GET "/tag/dr-pragnya-ram" for 157.55.39.65 at 2017-04-12 19:23:45 +0530
+  Processing by Wps::PagesController#listing as */*
+  Parameters: {"path"=>"/tag/dr-pragnya-ram"}
+-------------------@context = {:@tag=>#<Tag id: 2888, name: "Dr. Pragnya Ram", entity_type: nil, entity_id: nil, alias_name: "dr-pragnya-ram", type_temp: nil, created_at: nil, created_by: nil, updated_at: nil, updated_by: nil, copied_from: nil>}----------------
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_article_summary.html.erb (4.0ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_section_listing.html.erb (62.3ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (12.8ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_container.html.erb (148.0ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/tag_page.html.erb within /layouts/the_machinist (154.1ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_seo_key.html.erb (4.2ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_style.html.erb (6.6ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_google_analytics.html.erb (9.8ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_device_menu.html.erb (599.5ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_top_banner_fragment.html.erb (101.6ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (11.4ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_top_banner_fragment.html.erb (30.5ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (11.8ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_menu.html.erb (319.7ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_header.html.erb (882.4ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_header_latest_news.html.erb (34.8ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (5.5ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_ads_fragment.html.erb (13.1ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (5.6ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_home_video.html.erb (338.4ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (5.9ms)
+====={:context=>{:@tag=>#<Tag id: 2888, name: "Dr. Pragnya Ram", entity_type: nil, entity_id: nil, alias_name: "dr-pragnya-ram", type_temp: nil, created_at: nil, created_by: nil, updated_at: nil, updated_by: nil, copied_from: nil>}, :page_type=>"tag_page"}================{"controller"=>"wps/pages", "action"=>"listing", "path"=>"/tag/dr-pragnya-ram"}=====================
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_right_newsletter.html.erb (13.3ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_right_gallery_fragment.html.erb (64.8ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (6.1ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_right_gallery_fragment.html.erb (16.4ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (136.9ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_right_gallery_fragment.html.erb (15.3ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (5.7ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_right_gallery_fragment.html.erb (16.7ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (6.1ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_right.html.erb (840.8ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_fragment_content.html.erb (40.7ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/decoration/_decoration_without_heading.html.erb (13.7ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_container.html.erb (111.8ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/layouts/_javascript.html.erb (4.0ms)
+Rendered /home/ruby/CMS/Sites/the_machinist/views/listing_pages/partials/_newsletter_popup.html.erb (10.0ms)
+cache ---- true ---- true ---- true ---- true ---- 200
+
+

@@ -1,0 +1,16 @@
+ @deal_investment = DealInvestment.find(params[:deal_investment_id])  ----------- 0.9ms
+ deal = @deal_investment.deal    				      ------------4.0ms
+ investor = @deal_investment.investor_group_component.investor_group  ----------5.3ms
+ @deal_investment.deal_investment_executives.delete_all                --------- 0.4ms
+ @deal_investment.delete				               ---------- 11.9ms 
+ investor.index_to_search_engine				       --------
+  (time started =2017-07-28 15:56:46 +0530      time.end ==2017-07-28 15:57:39 +0530 )
+   deal.update_attributes(updated_by: @user.id,last_date: Time.zone.now)  --------489.0ms
+  deal.index_to_search_engine						--------0.9ms
+
+
+
+in console total 2591ms
+
+
+ in terminal execusion 1352ms

@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="/images/favicon.ico?1377157589" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+<meta content="authenticity_token" name="csrf-param" />
+<meta content="NOI+UGe/1AafpzTRleAx8sTuvvGhi3tpNpQVqpRIGzY=" name="csrf-token" />
+
+  <title>:: unquote data ::</title>
+  <link href="/stylesheets/unquote.css?1476343251" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/advanced-search.css?1482401202" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/lightbox.css?1379325553" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/tipTip.css?1377157589" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/chart_lightbox.css?1383043380" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/unq.css?1490354924" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/buttons.css?1398671965" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/adv-tab.css?1382681880" media="screen" rel="stylesheet" type="text/css" />
+<!--scroll css-->
+<!--[if IE]>
+	<link href="/stylesheets/ie8.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<!-- sub menu js & css-->
+
+<style type="text/css">
+			.marquee {
+				white-space: nowrap;
+				overflow: hidden;
+				visibility: hidden;
+			}
+			#marq_kill_marg_bord {
+				border: none !important;
+				margin: 0 !important;
+			}
+</style>
+
+  <script src="/javascripts/jquery-1.9.1.js?1377157589" type="text/javascript"></script>
+<script src="/javascripts/jquery_migrate.js?1377157589" type="text/javascript"></script>
+<script src="/javascripts/jqueryui-1.10.js?1377157589" type="text/javascript"></script>
+<script src="/javascripts/jquery_tipTip.js?1377157589" type="text/javascript"></script>
+<script src="/javascripts/jtruncate.js?1377162745" type="text/javascript"></script>
+<script src="/javascripts/jqModal.js?1377157589" type="text/javascript"></script>
+<script src="/javascripts/jquery.noty.packaged.js?1398671965" type="text/javascript"></script>
+<script src="/javascripts/crawler.js?1377157589" type="text/javascript"></script>
+<script src="/javascripts/form_clear.js?1380869927" type="text/javascript"></script>
+<script src="/javascripts/deal_redesign.js?1491833621" type="text/javascript"></script>
+<script src="/javascripts/unquote-data-site.js?1476796251" type="text/javascript"></script>
+<script src="/javascripts/fund_redesign.js?1385811779" type="text/javascript"></script>
+<script src="/javascripts/jquery.carouFredSel-6.2.1.js?1377157589" type="text/javascript"></script>
+<!-- DO NOT REMOVE TAGS BELOW - QUBIT OpenTag (5:OP:UD: unquotedata.com (Unquote Data) -->
+<script src='//d3c3cq33003psk.cloudfront.net/opentag-53775-597699.js' async defer></script>
+<meta name="google-site-verification" content="oLfshTqSC_itgG1doeiU8K9fDd4D4E3jGNaMjwkRDuo" />
+
+
+
+<html>
+
+</head>
+<body>
+<% logger.info"=====fund=========#{@fund.inspect}================="%>
+<% if !@fund.dry_powders.blank? %>
+<% dry_object = @fund.dry_powders.order("updated_at desc").first  %>
+<% if !dry_object.blank? %>
+ <% percentage_val = dry_object.percentage_deployed.strip.blank? ? "0" : dry_object.percentage_deployed.strip %>
+ <% if ("0".."19").to_a.include?(percentage_val.to_i) %>
+  <% colur_code_value = '#488214' %>
+ <% elsif ("20".."54").to_a.include?(percentage_val) %>
+  <% colur_code_value = '#ffff00' %>
+ <% elsif ("55".."69").to_a.include?(percentage_val)%>
+  <% colur_code_value = '#ffa500' %>
+ <% elsif ("70".."100").to_a.include?(percentage_val) %>
+ <% colur_code_value = '#ff0000' %>
+<% elsif ("101".."1000").to_a.include?(percentage_val) %>
+ <% colur_code_value = '#488224' %>
+
+<% end %> 
+<%= javascript_include_tag 'fusioncharts-xt-ol/js/fusioncharts.js' %>
+<%= content_tag (:fieldset) do %>
+    <%= content_tag(:legend, "Charts", :style => "width:165px;") %>
+   <div class="graph"></div>
+    <%= content_tag(:div, '', :class => "clear") %>
+<script type="text/javascript">
+  FusionCharts.ready(function(){
+    var fusioncharts = new FusionCharts({
+          type: 'stackedbar2d',
+          renderAt: 'chart-container',
+          width: '500',
+          height: '200',
+          dataFormat: 'json',
+          dataSource: {
+            "chart": {
+              "caption": "Percentage Deployed",
+              "subCaption": "Dry powder",
+              "xAxisname": "Amount Raised",
+              "yAxisName": "Fund Overview",
+              "paletteColors": "<%= colur_code_value %>",
+              "bgColor": "#ffffff",
+              "borderAlpha": "20",
+              "showCanvasBorder": "0",
+              "usePlotGradientColor": "0",
+              "plotBorderAlpha": "10",
+              "legendBorderAlpha": "0",
+              "legendShadow": "0",
+              "valueFontColor": "#ffffff",
+              "showXAxisLine": "1",
+              "xAxisLineColor": "#999999",
+              "divlineColor": "#999999",
+              "divLineDashed": "1",
+              "showAlternateVGridColor": "0",
+              "subcaptionFontBold": "0",
+              "subcaptionFontSize": "14",
+              "showHoverEffect": "1"
+            },
+
+            "categories": [{
+              "category": [{
+                "label": "value"
+              }]
+            }],
+
+            "dataset": [{
+                "seriesname": "percentage <%= dry_object.percentage_deployed %>(%)",
+                "data": [{
+                  "value": "<%= dry_object.percentage_deployed %>(%)"
+                }  
+{
+                  "value": 100
+                } ]
+              }]
+          }
+        }
+    );
+    fusioncharts.render();
+  });
+</script>
+<div id="chart-container">
+</div>
+<%end%>
+<% end %>
+<% end %>
+<style>
+#chart-container {  float: left; width: 100%;  text-align: center;}
+</style>
+
+</body>
+
+</html>
+

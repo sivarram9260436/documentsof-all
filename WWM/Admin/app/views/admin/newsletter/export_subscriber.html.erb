@@ -1,0 +1,139 @@
+<div id="container" style="padding-top: 20px;">
+        <div class="section_block full_section">
+                <h2>Subscriber Search</h2>
+
+<% if flash[:notice] %><div class="article_notice"><%= flash[:notice] %></div><% end %>
+<div class="section_content">
+ <%= form_tag({:controller=>"admin/newsletter",:action => 'export_subscriber'},{method: 'get'}) do %>
+<%#= form_tag(:controller=>"admin/newsletter",:action => 'export_subscriber',:method => :get) do %>
+   <div class="article_search_box text_box_fix print_boxes">
+  <%=hidden_field 'search_data','site_id',:value=>@site.id%>
+
+  <div class="form_design">
+	  <div class="form_data">  
+  		<label for="subscriber_report">Status:</label>
+         <%if params[:search_data] and not params[:search_data][:status].blank?%>
+                       <%= select('search_data','status',[['All',''],['Active','Active'],['InActive','InActive']],{:selected=> params[:search_data][:status]},:class=>"input_text news_status") %>
+                 <%else%>
+                       <%= select_tag('search_data[status]',options_for_select([['All',''],['Active','Active'],['InActive','InActive']]),:class=>"input_text news_status") %>
+                  <%end%>
+          </div>
+
+                      <div  class="form_data">  
+                        <label for="article_display_date_id">Start Date:</label>
+                     <%if params[:search_data] and not params[:search_data][:start_date].blank?%>
+                        <%= raw datetimepicker_input(:search_data, :start_date,{:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70,:value=>(params[:search_data][:start_date])}) %>
+                     <%else%>
+                        <%= raw datetimepicker_input(:search_data, :start_date,{:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70,:value=>((Time.now - 1.week).strftime("%B%e, %Y %H:%M %P"))}) %>
+                      <%end%>
+                  </div>                        
+
+                   <div  class="form_data">
+                        <label for="article_expiry_date_id">End Date:</label>
+                     <%if params[:search_data] and not params[:search_data][:end_date].blank?%>
+                        <%= raw datetimepicker_input(:search_data, :end_date, {:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70,:value=>(params[:search_data][:end_date])}) %>
+                       <%else%>
+                       <%= raw datetimepicker_input(:search_data, :end_date, {:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70,:value=>(Time.now.strftime("%B%e, %Y %H:%M %P"))}) %>
+                       <%end%>
+      
+                  </div>
+      </div>
+
+ <div class="form_design">
+    <div  class="form_data">
+               <label for="search_data_to_date_id" class="label_publish_date">Email Id:</label>
+         <%if params[:search_data] and not params[:search_data][:email_id].blank?%>
+                       <%= text_field(:search_data,:email_id, class: "create_input",:value=>params[:search_data]["email_id"]) %>
+                 <%else%>
+                      <%= text_field(:search_data,:email_id, class: "create_input") %>
+                 <%end%>
+     </div>
+     <div class="form_data">
+            <label for="search_data_to_date_id" class="label_aligns_news">Company Name:</label>
+         <%if params[:search_data] and not params[:search_data][:company_name].blank?%>
+                       <%= text_field(:search_data,:company_name, class: "create_input",:value=>params[:search_data]["company_name"]) %>
+                 <%else%>
+                      <%= text_field(:search_data,:company_name, class: "create_input") %>
+                 <%end%>
+       </div>       
+
+       <div class="form_data">
+         <label for="search_data_to_date_id" class="label_aligns_news">Job Title:</label>
+                 <%if params[:search_data] and not params[:search_data][:job_title].blank?%>
+                       <%= text_field(:search_data,:job_title, class: "create_input",:value=>params[:search_data]["job_title"]) %>
+                 <%else%>
+                      <%= text_field(:search_data,:job_title, class: "create_input") %>
+                 <%end%>
+       </div>
+
+</div> 
+</div>
+       <div class="form_design button_align1">
+              <div class="button news_search">
+                  <%=submit_tag "Search"%>
+              </div>
+             <div class="button report_author">
+                 <%= submit_tag("Generate Report") %>
+             </div>
+       </div>
+    </div>
+<%end%>
+  </div>
+</div>
+
+</div>
+
+<div id="news_export">
+<% unless params[:search_data].blank? %>      
+<%= component_table_list(SrComponent.find_component_by_name('NewsletterSubscriberReport')) %>
+<%end%>
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+ $("#news_export div:first h2").after("<%= escape_javascript("#{render :partial => 'newsletter_change_status_form'}").html_safe %>");
+
+$("#btn_change_status").click(function(){
+var ids= [];
+var all_status= [];
+$('.chk_status:checkbox:checked').each(function() {
+   ids.push($(this).val());
+   all_status.push($(this).attr("data-status"));
+});
+
+if(ids.length === 0)
+{
+	alert("Please select at least one status.");
+}
+
+else if(all_status.allValuesSame() == false)
+{
+	alert("Please select only one type of status.");
+}
+
+else
+{
+$("#change_status_form").append("<input type='hidden' name='ids' value= '" + ids + "' /><input type='hidden' name='status' value='"+ all_status[0] +"' />");
+console.log($(".next_page").attr("href", '<%= request.url%>'));
+$("#change_status_form").submit();
+
+}
+});
+
+Array.prototype.allValuesSame = function() {
+
+    for(var i = 1; i < this.length; i++)
+    {
+        if(this[i] !== this[0])
+            return false;
+    }
+
+    return true;
+}
+});
+</script>
+
+
+
+

@@ -1,0 +1,66 @@
+
+//managedaccount
+
+function add_managed_account(params)
+{
+        var path = window.location;
+        $.ajax({
+        type: 'POST',
+         url: path.protocol + "//" + path.host + "/institutions/create_managed_account",
+        dataType: 'html',
+        data: params,
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        success: function(data) {
+
+                $.colorbox.close();
+                //$(".fund_events:last").after(data);
+                window.location.reload()
+        }
+    });
+
+}
+
+function update_managed_account(params,event_id)
+{
+        var fund_performance_id = event_id;
+        var path = window.location;
+        alert("me");
+        $.ajax({
+        type: 'POST',
+         url: path.protocol + "//" + path.host + "/institutions/update_managed_account",
+        dataType: 'html',
+        data: params,
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        success: function(data) {
+                $.colorbox.close();
+                window.location.reload()
+        }
+    });
+
+}
+$(function() {
+    $(document).on("click", '.delete_managed_account', function() {
+        var path = window.location;
+        var $this = $(this);
+        var params = "event_id=" + $(this).attr("managed-account-id") + "&institution_id=" + $("#institution_id").val();
+
+        var deleteConfirm = confirm("Are you sure?");
+                        if (deleteConfirm == true)
+                         {
+                        $.ajax({
+                            type: 'POST',
+                            url: path.protocol + "//" + path.host + "/institutions/remove_event_from_managed_account",
+                            dataType: 'html',
+                            data: params,
+                            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                            success: function(data) {
+                                window.location.reload()
+                            }
+                        });
+                    }// confirm do
+    });
+});
+
+
+
+/* end managedaccounts*/

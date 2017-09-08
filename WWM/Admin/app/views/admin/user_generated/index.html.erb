@@ -1,0 +1,123 @@
+<style>
+	.text_style {
+		width: 168px;
+	}
+</style>
+<div id="container" style="padding-top: 20px;">
+	<!--<div class="search_block">
+	<div class="search_fields">-->
+	<div class="section_block full_section">
+		<h2><%= "Comment Search"%></h2>
+		<div class="section_content">
+			<div class="article_search_box text_box_fix comment_moderation" style="float: left;">
+
+				<%= form_tag({:action => 'index'},{:name=>'comment_moderation',:method => 'get'}) do %>
+				<%= hidden_field_tag :entity_type,@comment_type%>
+
+				<%#=content_tag :tr do %>
+				<div class="form_design">
+
+					<div class="form_data">
+						<label for="search_data_entity_id">Article ID:</label>
+
+						<%=content_tag :div,text_field("search_data","entity_id")%>
+					</div>
+
+					<div class="form_data">
+						<label for="search_data_article_title">Article Type:</label>
+
+						<%= content_tag :div,text_field("search_data","#{@comment_type ? @comment_type.downcase : 'article' }_title")%>
+					</div>
+
+					<%#end%>
+
+					<%#=content_tag :tr do %>
+
+					<div class="form_data">
+						<label for="search_data_comment_id">Comment ID:</label>
+
+						<%=content_tag :div,text_field("search_data","comment_id")%>
+					</div>
+
+				</div>
+				<div class="form_design">
+
+					<div class="form_data">
+						<label for="search_data_title">Comment Title:</label>
+						<%= content_tag :div,text_field("search_data","title")%>
+					</div>
+
+					<div class="form_data">
+						<label for="search_data_description">Comment Text:</label>
+
+						<%= content_tag :div,text_field("search_data","description" )%>
+					</div>
+
+					<%#end%>
+
+					<%#=content_tag :tr do %>
+
+					<%#=content_tag :tr do %>
+
+					<div class="form_data">
+						<label for="search_data_status">Comment Status:</label>
+
+						<%=content_tag :div,select("search_data","status", [['All',''],['Live','live'],['Reported','reported'],['Spam','spam'],['Submitted','submitted'],['Archived','archived'],['Deleted','delete']],{},{:class=>"select_box_small"} )%>
+					</div>
+				</div>
+				<div class="form_design">
+
+					<div class="form_data">
+						<label for="search_data_from_date_id">From:</label>
+
+						<%= content_tag :div,(raw datetimepicker_input(:search_data, :from_date, :minDate => -20, :maxDate => "+1M +10D", :tabindex => 70))%>
+					</div>
+
+					<div class="form_data">
+						<label for="search_data_to_date_id">To:</label>
+
+						<%= content_tag :div,(raw datetimepicker_input(:search_data, :to_date, :minDate => -20, :maxDate => "+1M +10D", :tabindex => 70)) %>
+					</div>
+
+					<%#end%>
+
+					<%#=content_tag :tr do %>
+
+					<div class="form_data">
+						<label for="search_data_user_name">Author Name:</label>
+
+						<%=content_tag :div,text_field("search_data","user_name")%>
+					</div>
+				</div>
+				<div class="form_design">
+
+					<div class="form_data">
+						<label for="search_data_email">Author Email:</label>
+
+						<%= content_tag :div,text_field("search_data","email")%>
+					</div>
+
+					<div class="form_data">
+						<label for="search_data_ip_address">Author IP:</label>
+
+						<%= content_tag :div,text_field("search_data","ip_address")%>
+					</div>
+
+					<%#end%>
+
+					<div class="button">
+						<%= submit_tag "Search"%>
+					</div>
+				</div>
+
+				<% end %>
+
+			</div>
+		</div>
+	</div>
+	<%= form_tag({:action => 'bulk_comment_moderation'},{:name=>'user_generated'}) do %>
+	<% @path="user_generated"%>
+	<%= render :partial=>"admin/user_generated/mod_com_list",:locals=>{:path=>@path} %>
+	<%end%>
+</div>
+</div>

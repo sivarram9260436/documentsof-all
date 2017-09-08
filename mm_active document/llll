@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Edms Forgot</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="/bootstrap/js/jquery-3.1.0.js"></script>
+  <script src="//https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" href="/font-awesome-4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/login.css">
+  <link rel="stylesheet" href="/css/checkbox.css">
+  <script>
+    $(document).ready(function (){
+      $('#showlike').addClass( 'animated fadeInDownBig');
+    });
+  </script>
+</head>
+<body>
+<div class="container">
+  <div class="row" style="width:90%">
+    <div id="loginbox" class="col-md-6 col-md-offset-4 col-sm-8 col-sm-offset-4">
+      <!-- This is for logo-->
+      <div id="showlike">
+        <div  class="text-center logo-display" >
+          <img src="/images/logotransparent.png" alt="Kreatio_logo" >
+        </div>
+        <!-- End of logo-->
+        <!--form body -->
+        <%= form_tag :cotroller=>"admin",:action=>"password_filling_form" do%>
+
+        <div class="panel">
+          <div class="panel-heading" style="border-bottom-color:lightgrey;">
+            <div class="panel-title"><h3 class="text-center"><strong>Forgot Password ?</strong> </h3></div>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <div class="input-group margin-bottom-sm">
+                    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                    <!--<input class="form-control " type="text" placeholder="Email address">-->
+                    <%= text_field :employee_detail,:official_mailid,:class=>"form-control",:placeholder=>"Email address"%>	
+
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <div class="col-sm-12">
+
+                  <%= submit_tag"Reset password",:class=> "btn btn-success btn-block "%>
+
+                  <!--<button type="button" class="btn btn-success btn-block "><i class="fa fa-lock"></i> Reset Password</button>-->
+                </div>
+
+                <!--
+                    <div class="col-sm-6">
+                        <a href="registration.html" class="btn btn-default btn-block "><i class="fa fa-rocket"></i> Register</a>
+                    </div>
+                   -->
+              </div>
+              <!--
+              <p class="text-center"><strong>-or-</strong></p>
+                  <div class="form-group" >
+                      <div class="col-sm-12" id="facebookbtn"  >
+                          <button  type="button" class="btn btn-primary btn-block btn-facebook" style="border-radius: 10px;"><i class="fa fa-facebook"></i> Login with Facebook account</button>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="col-sm-12" id="twitterbtn">
+                          <button  type="button" class="btn btn-info btn-block btn-twitter"><i class="fa fa-twitter"></i> Login with Twitter account</button>
+                      </div>
+                  </div>-->
+              </form>
+            </div>
+          </div>
+        </div>
+        <!--<p class="text-center"><a href="login.html"><i class="fa fa-sign-in"></i> Back To login?</a></p>-->
+            <p class="text-center">
+            <a href="/employee/logout">
+            <i class="fa fa-sign-in"></i>
+              Back To login?
+            </a>
+            </p>
+
+        <%end%>
+        <!--Form Ends-->
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

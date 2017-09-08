@@ -1,0 +1,7 @@
+@deal = Deal.find_by_id (example 35656)
+@deal.deal_investments
+@deal.deal_investments.count
+@deal.deal_investments.first  (collect the correct id of  that based on the duplicate scenario)
+@deal.deal_investments.first.update_column('investor_exited',true)
+
+

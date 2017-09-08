@@ -1,0 +1,48 @@
+<%#= javascript_include_tag :defaults, 'lowpro', 'jquery.min', 'jquery-ui', 'jquery.colorbox', 'jquery.popupWindow', 'jquery_ujs', 'jquery.tokeninput', 'ddsmoothmenu', 'new_admin', 'admin_new', 'admin', 'tabs', 'jquery.fcbkcomplete', 'jstree', 'jquery.Jcrop', 'jquery-ui-timepicker', 'tiny_mce', 'jquery.jcarousel.min', 'authentication', 'scriptaculous' %>
+
+<%= csrf_meta_tag %>
+<%= form_tag({:controller => '/admin/media_details', :action => 'update_audio_detail', :id => @audio.id}, {:name => 'audio_multi', :multipart => true}) do %>
+
+
+    <!--<div class="section_block full_section">-->
+    <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+    <div class="section_block">
+      <h2 class="headBG">Edit Audio</h2>
+
+      <div class="section_content">
+        <div class="form_data">
+          <label for="text_head">Name :</label>
+          <%= @audio.name %>
+        </div>
+
+        <div class="form_data">
+          <label for="text_head">Id :</label>
+          <%= @audio.id %>
+        </div>
+
+        <div class="form_data">
+          <label for="text_head">Title :</label>
+          <%= text_field :audio, :title, :class => 'input_text' %>
+        </div>
+
+        <div class="form_data">
+          <label for="text_head">Description :</label>
+          <%= text_area 'audio', 'description', {:rows => 4, :cols => 40, :class => "textarea_text"} %>
+        </div>
+
+
+        <div class="form_data">
+          <label for="text_head">Audio caption :</label>
+          <%= @audio.caption %>
+
+        </div>
+
+
+        <div class="button">
+          <%= submit_tag "Submit" %>
+        </div>
+
+      </div>
+    </div>
+    <!--</div>--><!--section_block full_section>-->
+<% end %>

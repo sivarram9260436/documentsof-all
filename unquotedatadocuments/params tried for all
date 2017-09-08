@@ -1,0 +1,151 @@
+Parameters: {"deal_id"=>"377027", "site_id"=>"1", "tab"=>"deal_advisor"}
+
+
+=================================================================================================================================
+
+#<Deal id: 377027, deal_parent_id: nil, status_id: 232, company_name: "tamiltest123", company_alternate_name: "", website: "", created_date: "2016-12-02 00:00:00", company_founded: "", staff_count: nil, currency_id: 67, company_status_id: nil, turnover: "", ebit: "", ebitda: "", turnover_type: nil, ebit_type: nil, ebitda_type: nil, turnover_year: nil, ebit_year: nil, ebitda_year: nil, sub_sector_id: nil, company_information: "", life_science: false, cleantech: false, infrastructuree: false, created_by: 370, updated_by: 370, created_at: "2016-12-02 07:48:56", updated_at: "2016-12-02 14:23:01", city_id: 16103, show_in_report: nil, include_in_email: false, country_id: 1024, region_id: 142, ebit_confidential: false, ebit_forecast: false, ebit_estimated: false, ebitda_confidential: false, ebitda_forecast: false, ebitda_estimated: false, turnover_confidential: false, turnover_forecast: false, turnover_estimated: false, turnover_euro: nil, turnover_uk: nil, turnover_us: nil, turnover_yen: nil, ebit_euro: nil, ebit_uk: nil, ebit_us: nil, ebit_yen: nil, ebitda_euro: nil, ebitda_uk: nil, ebitda_us: nil, ebitda_yen: nil, data_proxy_id: 1, shown_in_reports: false, note_description: nil, last_date: "2016-12-02 14:23:01", company_id: nil, new_ebit_year: nil, new_ebitda_year: nil, new_turnover_year: nil, sub_sector_name: nil, deal_value: nil, deal_type_name: nil, deal_announced: nil, country_name: "United Kingdom"> 
+
+
+
+=================================================================================================================================
+
+Processing by DealsController#update_deal as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"nxaZjDvVbe6KQKOYFWlfvFwpMT0YMn/R4s5LL3Qr5ak=", "deal_id"=>"377027", "tab"=>"debt_data", "debt_data"=>{"total_amount_of_debt_in_deal"=>"200", "total_mezzanine_amount"=>"200", "total_net_debt_to_ebitda"=>"120", "senior_debt_to_ebitda"=>"35"}, "site_id"=>"1"}
+
+
+=================================================================================================================================
+Processing by DealsController#edit_deal as HTML
+  Parameters: {"deal_id"=>"377027", "site_id"=>"1", "tab"=>"debt_data"}
+
+=================================================================================================================================
+
+
+Parameters: {"deal_id"=>"377027"}
+
+
+
+=================================================================================================================================
+
+Started GET "/deals/get_investor_group_for_exits?site_id=1&q=1" for 127.0.0.1 at 2016-12-05 11:49:47 +0530
+Processing by DealsController#get_investor_group_for_exits as JSON
+  Parameters: {"site_id"=>"1", "q"=>"1"}
+Completed 200 OK in 37ms (Views: 3.5ms | ActiveRecord: 19.8ms | Solr: 0.0ms)
+Started GET "/deals/get_exit_for_investor?investor_group_id=68581&deal_exit_id=168979" for 127.0.0.1 at 2016-12-05 11:49:48 +0530
+Processing by DealsController#get_exit_for_investor as HTML
+  Parameters: {"investor_group_id"=>"68581", "deal_exit_id"=>"168979"}
+  Rendered deals/_get_exit_for_investor.html.erb (16.3ms)
+Completed 200 OK in 39ms (Views: 20.8ms | ActiveRecord: 5.0ms | Solr: 0.0ms)
+Started GET "/deals/get_exit_investor_executive?site_id=1&investor_group_id=68581&q=1" for 127.0.0.1 at 2016-12-05 11:49:55 +0530
+Processing by DealsController#get_exit_investor_executive as JSON
+  Parameters: {"site_id"=>"1", "investor_group_id"=>"68581", "q"=>"1"}
+Completed 200 OK in 34ms (Views: 0.4ms | ActiveRecord: 9.3ms | Solr: 686.2ms)
+Started GET "/deals/get_advisor_component_for_exits?site_id=1&q=2" for 127.0.0.1 at 2016-12-05 11:50:01 +0530
+Processing by DealsController#get_advisor_component_for_exits as JSON
+  Parameters: {"site_id"=>"1", "q"=>"2"}
+Completed 200 OK in 34ms (Views: 2.1ms | ActiveRecord: 22.8ms | Solr: 0.0ms)
+Started GET "/deals/get_advisor_component?advisor_group_component_id=130616&deal_exit_id=168979" for 127.0.0.1 at 2016-12-05 11:50:05 +0530
+Processing by DealsController#get_advisor_component as HTML
+  Parameters: {"advisor_group_component_id"=>"130616", "deal_exit_id"=>"168979"}
+  Rendered deals/_get_advisor_component.html.erb (18.9ms)
+Completed 200 OK in 50ms (Views: 19.2ms | ActiveRecord: 8.6ms | Solr: 519.3ms)
+Started GET "/deals/get_exit_advistor_executive?site_id=1&advisor_comp_id=130616&q=22" for 127.0.0.1 at 2016-12-05 11:50:11 +0530
+Processing by DealsController#get_exit_advistor_executive as JSON
+  Parameters: {"site_id"=>"1", "advisor_comp_id"=>"130616", "q"=>"22"}
+Completed 200 OK in 24ms (Views: 0.5ms | ActiveRecord: 9.0ms | Solr: 0.0ms)
+
+
+ Parameters: {"site_id"=>"1", "investor_group_id"=>"68581", "q"=>"1"}
+
+
+=================================================================================================================================
+
+
+
+Processing by InvestorGroupsController#new_investor_group as HTML
+  Parameters: {"site_id"=>"1", "status"=>"researched"}	
+
+
+
+=================================================================================================================================
+Started POST "/investor_groups/update_investor_group?site_id=1" for 127.0.0.1 at 2016-12-05 13:01:54 +0530
+Processing by InvestorGroupsController#update_investor_group as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"nxaZjDvVbe6KQKOYFWlfvFwpMT0YMn/R4s5LL3Qr5ak=", "investor_group_id"=>"68765", "tab"=>"company_info", "investor_group"=>{"group_name"=>"123", "investor_company_type_id"=>"25", "city_id"=>"18243", "country_id"=>"969", "email"=>"sss@ss.com", "web"=>"", "company_description"=>""}, "selected_button"=>"save_investor", "site_id"=>"1"}
+Redirected to http://research.unqdata.mergermarket.kreatio.info/investor_groups/edit_investor_group?investor_group_id=68765&site_id=1&tab=company_info
+Completed 302 Found in 1490ms (ActiveRecord: 119.3ms)
+Started GET "/investor_groups/edit_investor_group?investor_group_id=68765&site_id=1&tab=company_info" for 127.0.0.1 at 2016-12-05 13:01:55 +0530
+
+
+=================================================================================================================================
+
+
+
+
+.Started POST "/investor_groups/update_investor_group?site_id=1" for 127.0.0.1 at 2016-12-05 13:01:54 +0530
+Processing by InvestorGroupsController#update_investor_group as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"nxaZjDvVbe6KQKOYFWlfvFwpMT0YMn/R4s5LL3Qr5ak=", "investor_group_id"=>"68765", "tab"=>"company_info", "investor_group"=>{"group_name"=>"123", "investor_company_type_id"=>"25", "city_id"=>"18243", "country_id"=>"969", "email"=>"sss@ss.com", "web"=>"", "company_description"=>""}, "selected_button"=>"save_investor", "site_id"=>"1"}
+Redirected to http://research.unqdata.mergermarket.kreatio.info/investor_groups/edit_investor_group?investor_group_id=68765&site_id=1&tab=company_info
+Completed 302 Found in 1490ms (ActiveRecord: 119.3ms)
+Started GET "/investor_groups/edit_investor_group?investor_group_id=68765&site_id=1&tab=company_info" for 127.0.0.1 at 2016-12-05 13:01:55 +0530
+Processing by InvestorGroupsController#edit_investor_group as HTML
+  Parameters: {"investor_group_id"=>"68765", "site_id"=>"1", "tab"=>"company_info"}
+  Rendered investor_groups/_investor_group_tabs.html.erb (4.5ms)
+  Rendered investor_groups/_company_info.html.erb (18.9ms)
+  Rendered investor_groups/edit_investor_group.html.erb within layouts/application (39.6ms)
+  Rendered unquote/_css_image.html.erb (1.5ms)
+  Rendered unquote/_secondary_menu.html.erb (3.6ms)
+  Rendered unquote/_menu_container.html.erb (6.2ms)
+Completed 200 OK in 66ms (Views: 52.8ms | ActiveRecord: 6.4ms | Solr: 739.4ms)
+
+
+=================================================================================================================================
+
+
+
+Parameters: {"investor_group_id"=>"68765", "order"=>"asc", "site_id"=>"1", "sort"=>"deal_announced", "tab"=>"deals_portfolio"}
+
+
+
+=================================================================================================================================
+
+
+
+'''''''Started GET "/investor_groups/edit_investor_group?investor_group_id=68765&site_id=1&tab=fund_raised" for 127.0.0.1 at 2016-12-06 10:41:21 +0530
+Processing by InvestorGroupsController#edit_investor_group as HTML
+  Parameters: {"investor_group_id"=>"68765", "site_id"=>"1", "tab"=>"fund_raised"}
+  Rendered investor_groups/_investor_group_tabs.html.erb (48.3ms)
+  Rendered investor_groups/_fund_raised.html.erb (158.0ms)
+  Rendered investor_groups/edit_investor_group.html.erb within layouts/application (277.3ms)
+  Rendered unquote/_css_image.html.erb (13.9ms)
+  Rendered unquote/_secondary_menu.html.erb (26.2ms)
+  Rendered unquote/_menu_container.html.erb (38.7ms)
+Completed 200 OK in 523ms (Views: 362.1ms | ActiveRecord: 69.9ms | Solr: 0.0ms)
+=================================================================================================================================
+
+
+
+
+
+
+///////////////Started GET "/exits/exit_search?site_id=1&status=researched" for 127.0.0.1 at 2016-12-06 11:03:26 +0530
+Processing by ExitsController#exit_search as HTML
+  Parameters: {"site_id"=>"1", "status"=>"researched"}
+=========ssssssaaaaaaa======{:text=>"", :not_by_filters=>{:status_name=>[["Delete"], "ary"]}, :dy_sort=>{:updated_at=>:desc}, :page=>1, :per_page=>20, :fields=>["id", "name", "alternate_name"], :sort=>"Relevance", :filters=>{}, :gt_filters=>{}, :lt_filters=>{}, :not_by_gt_filters=>{}, :not_by_lt_filters=>{}, :facets=>[], :include_models=>[Exit(id: integer, name: string, alternate_name: string, city_id: integer, sub_sector_id: integer, exit_description: text, business_description: text, exit_type_id: integer, exit_value: string, exit_value_type: string, currency_id: integer, exit_date: date, market: string, acquirer: string, staff_count: integer, turnover: string, ebit: string, ebitda: string, turnover_type: string, ebit_type: string, ebitda_type: string, turnover_year: integer, ebit_year: integer, ebitda_year: integer, created_by: integer, updated_by: integer, created_at: datetime, updated_at: datetime, country_id: integer, exitvalue_confidential: boolean, exitvalue_estimated: boolean, ebit_confidential: boolean, ebit_forecast: boolean, ebit_estimated: boolean, ebitda_confidential: boolean, ebitda_forecast: boolean, ebitda_estimated: boolean, turnover_confidential: boolean, turnover_forecast: boolean, turnover_estimated: boolean, status_id: integer, exit_value_euro: string, exit_value_uk: string, exit_value_us: string, exit_value_yen: string, data_proxy_id: integer, note_description: string, exit_value_euro_f: float, exit_value_uk_f: float, exit_value_us_f: float, exit_value_yen_f: float, last_date: datetime, active: boolean)]}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd15xxxxxxxxxxxxxfalse
+  Rendered exits/exit_search.html.erb within layouts/application (555.0ms)
+  Rendered unquote/_css_image.html.erb (1.2ms)
+  Rendered unquote/_secondary_menu.html.erb (2.4ms)
+  Rendered unquote/_menu_container.html.erb (5.2ms)
+Completed 200 OK in 859ms (Views: 356.2ms | ActiveRecord: 478.8ms | Solr: 8.9ms)
+
+=================================================================================================================================
+
+Processing by ExitsController#link_exits_to_deals as HTML
+  Parameters: {"site_id"=>"1", "status"=>"researched"}
+  Rendered exits/link_exits_to_deals.html.erb within layouts/application (515.2ms)
+  Rendered unquote/_css_image.html.erb (1.4ms)
+  Rendered unquote/_secondary_menu.html.erb (3.2ms)
+  Rendered unquote/_menu_container.html.erb (5.9ms)
+Completed 200 OK in 547ms (Views: 534.9ms | ActiveRecord: 1.5ms | Solr: 0.0ms)
+
+
+

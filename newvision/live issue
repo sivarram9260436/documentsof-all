@@ -1,0 +1,12 @@
+I, [2017-04-11T18:09:18.836892 #25452]  INFO -- : Processing by Webdackimage::GalleriesController#upload as JSON
+
+
+parsms ={"id"=>"012d02d1-eb14-4f60-a5e4-c96166b5b26f", "version"=>"2", "name"=>"TRANSFORMER-BY-JMUTEBI34", "dimension"=>"80x80"}
+
+
+
+I, [2017-04-11T18:13:26.559758 #25452]  INFO -- : Processing by Webdackimage::ImagesWpsController#view as JPEG
+
+
+I, [2017-04-11T18:13:27.121652 #27120]  INFO -- : Processing by Webdackimage::GalleriesController#upload as JSON
+

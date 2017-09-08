@@ -1,0 +1,154 @@
+<div class="section_block full_section">
+	<h2 class="headBG">Digital Search</h2>
+		<div class="search_fields">
+		
+		<%if params[:action]=="popup_digital_asset_manager" or (params[:article_doc] and params[:article_doc][:search]=="title_asset_search") %>
+		<% @flag="title_asset_search"%>
+		<%= csrf_meta_tags %>
+		<%end%>
+		
+				<%= form_tag({:action => 'search'},{:name=>'multi',:method=>'get'}) do %>
+				<%= hidden_field "article_doc","search",:value=>"#{@flag if @flag}"%>
+				
+							<p>
+							<label for="text_head">Name :</label>
+							<%= text_field "digital_assets","name",:class=>'input_text',:size=>"30" %>
+						</p>
+						
+						<!--<p>
+						 <label for="text_head">Site :</label>
+						<%#= collection_select('digital_assets','site_id', Site.order("short_name"), :id, :short_name, {:include_blank => true}) %>
+						</p>-->
+						
+						<div class="button">
+							<input name="commit" type="submit" value="Search" />
+						</div>
+					
+				<%end %>
+			</div>
+			
+			<!--div class="search_fields">
+				<%#= form_tag({:action => 'search'},{:name=>'multi',:method=>'get'}) do %>
+				<%#= hidden_field "article_doc","search",:value=>"#{@flag if @flag}"%>
+				
+							<p>
+							<label for="text_head"> Document Size :</label>
+							<%#= text_field :digital_assets, :file_size,:class=>'input_text',:size=>"30" %>
+						</p>
+						
+						<div class="button">
+							<input name="commit" type="submit" value="Search" />
+						</div>
+					
+				<%#end %>
+			</div-->
+		</div>
+		
+		
+
+
+
+
+<div class="pagination_bar">
+	<div class="pagination">
+		<%= will_paginate(list_asset) if list_asset%>
+	</div>
+</div>
+
+
+<div id="container">
+	<div class="section_block full_section">
+		<h2 class="headBG">Digital List</h2>
+	
+	<div class="right_section_head">
+						<div class="button">
+							<%#= link_to('Upload', 'javascript:void(0)', :onclick => "javascript:assets_upload();") %>
+							<a rel=1  href="javascript:void(0)" data-url="/admin/digital_assets/upload?popup=true" onclick="image_popup(this)">Upload</a>
+						</div>
+	</div>
+	
+		<div class="box_image_search">
+			<div class="image_video_manager" >
+				<% if list_asset%>
+				<%for docment_detail in list_asset %>
+				<div class="align_video">
+					<div class="media_below_image_for_loop">
+						<td id="image_details_list_<%= docment_detail.id%>" class=""></td>
+						<%if params[:action]=="popup_digital_asset_manager" or (params[:article_doc] and params[:article_doc][:search]=="title_asset_search")%>
+						<% icon=docment_detail.document_icon(docment_detail.name.split('.')[-1])%>
+						<a href="javascript:void(0)" onclick="select_document('<%=escape_javascript(docment_detail.name)%>','<%= escape_javascript(docment_detail.document_path)%>','<%=escape_javascript(icon)%>','<%=docment_detail.id%>');"> <%else%> <a href="javascript:void(0)" onclick="assets_image('<%= docment_detail.id%>');"> <%end%> 
+					    <%= image_tag(docment_detail.document_icon(docment_detail.name.split('.')[-1]), :width=>"28",:height=>"28" ,:border=>"0"  ,:alt=>"wordicon" )%>
+					</div>
+					<%= docment_detail.name.length > 5 ? docment_detail.name[0..5]+"..." : docment_detail.name %>
+					<%= docment_detail.file_size%> bytes
+					<p class="download_buttons">
+						<a href="/admin/digital_assets/download/<%= docment_detail.id%>">Download</a>
+					</p>
+				</div>
+				<%end %>
+				<%end%>
+			</div>
+		</div>
+	</div>
+	<div class="pagination_bar">
+		<div class="pagination">
+			<%= will_paginate(list_asset) if list_asset%>
+		</div>
+	</div>
+</div>
+
+<style type="text/css">
+	.tab_manager {
+		float: left;
+		margin: 10px;
+		width: 960px;
+	}
+	.box_image_search {
+		float: left;
+		padding: 20px 10px;
+		width: 960px;
+		margin-top: 28px;
+	}
+	.image_video_manager {
+		float: left;
+		width: 100%;
+	}
+	.image_video_manager .align_video {
+		border: 1px solid #CCCCCC;
+		float: left;
+		height: 125px;
+		margin-bottom: 10px;
+		margin-right: 20px;
+		text-align: center;
+		width: 135px;
+		padding: 10px 0;
+	}
+	.edit_download_buttons {
+		padding-top: 10px;
+	}
+	.download_buttons {
+		padding-top: 10px;
+	}
+	.media_below_image_for_loop {
+		font-size: 1.2em;
+		color: #000;
+		padding-bottom: 5px;
+	}
+	.edit_download_buttons a {
+		padding-right: 30px;
+		text-align: left;
+	}
+	.edit_download_buttons a:last-child {
+		text-align: right;
+		padding-right: 0px;
+	}
+	.section_content_new {
+		float: left;
+		/*width: 500px;
+		padding-top: 35px */
+	}
+	.box_image_search_new {
+		float: left;
+		width: 100%;
+	}
+</style>

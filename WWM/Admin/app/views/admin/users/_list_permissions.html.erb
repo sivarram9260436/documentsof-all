@@ -1,0 +1,38 @@
+<div class = 'titleBar' style = 'margin-top:18px !important;'>
+</div>
+
+<h1 style="margin-bottom: 20px;">
+	<span class="settextcolor" style="font-size: 13px ! important;">  Permissions </span>
+</h1>
+
+
+<div style="width: 49%; float: left;">
+	<%= render :partial => 'current_permissions' %>
+</div>
+
+<div style="width: 49%; float: right;">
+
+	<div class = 'titleBar' style="width: 90%; float: left; font-size: 13px;">
+		<p style="margin-bottom: 5px;">Add New Permission ( a "permission" is a site plus a role )</p>
+	</div>
+
+	<div style="clear: both;">
+		<%= form_tag(:action => 'add_permission', :id => @user.id) do%>
+			
+					<div class="form_data">
+						<label><%= content_tag(:td, 'Site:') %></label>
+								<%= content_tag(:td, select(:role, :site_id, Site.find(:all,:conditions => ["active = ? and site_type = ? ", true, "Site"],:order=>"short_name asc").collect{|site| [site.short_name, site.id]}, {:prompt => '--Choose Site--'},{:class=>"select_box"}) ) %>
+					</div>
+				    <div class="form_data">
+					    <label><%= content_tag(:td, 'Role:') %></label>
+								<%= content_tag(:td, select(:role, :id, Role.find(:all,:order=>"name asc").collect{|role| [role.name, role.id]}, {:prompt => '--Choose Role--'},{:class=>"select_box"})) %>
+	                </div>
+	                <div class="button">			
+						<%= content_tag(:td, content_tag(:div, submit_tag('Add Permission'), :class => 'button'), :colspan => 2) %>
+					</div>
+				
+		<% end %>
+	</div>
+	<div class="titleBar" style="width: 90%; float: left; font-size: 13px; margin-top: 12px;">  
+	</div>	
+</div

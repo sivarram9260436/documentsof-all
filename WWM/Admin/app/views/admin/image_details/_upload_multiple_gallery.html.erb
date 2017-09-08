@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/multiple_image.css" media="screen" />
+		<%if params[:gallery_type]=="gallery" || params[:gallery_type]=="article"%>
+		<%= javascript_include_tag "multiple_image_for_gallery.js" %>
+		<%end%>
+		<%= stylesheet_link_tag "multiple_image" %>
+		<%= csrf_meta_tag %>
+		<title>FileAPI nad XHR 2 ajax uploading</title>
+	</head>
+	<body>
+		<div id="wrap" style="float:left;">
+			<h1>Choose images or drag them onto drop zone below</h1>
+			<%= error_messages_for_text_changes 'image','image_detail'%>
+			<%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+			<!-- <form action="save_multiple_gallery" method="post" enctype="multipart/form-data">-->
+			<input style="margin-bottom:30px;position:relative;" type="file" id="fileField" name="fileField" multiple />
+			<!--<div class="adminLinkButton"><a href="/admin/image_details/gallery_list">Go Back</a></div>-->
+			<input type="hidden" id="gallery_type" name="gallery_type" value="<%= "#{params[:gallery_type]}"%>" />
+			<input type="hidden" id="form_authen" name="csrf_token" value="<%= form_authenticity_token.to_s %>">
+			<input id="gallery_form_action" type="hidden"  value="/admin/image_details/save_multiple_gallery">
+			<input id="title" type="hidden"  value="<%= "#{params[:title]}"%>">
+			<input id="description" type="hidden"  value="<%= "#{params[:description]}"%>">
+			<input id="gallery_list" type="hidden"  value="gallery_list">
+			<input id="gallery_path_id" type="hidden" value="<%= "#{params[:image_sequence_id]}"%>" />
+			<input id="image_path" type="hidden"  value="">
+			<!--  <input id="redirect" type="hidden"  value="http://localhost:5000/admin/image_details/gallery_list">-->
+			<%= hidden_field "image_sequence","id",:value=>"#{params[:image_sequence_id]}"%>
+			<%= hidden_field "image","site_id",:value=>"#{@site.id}" %>
+			<input type="hidden" value="Universal rights granted to all users" name="image[licence_type]" id="image_licence_type" class="hidden_style">
+			<!--</form>-->
+			<div id="fileDrop" style="position:absolute;">
+				<p>
+					Drop images here
+				</p>
+			</div>
+			<div id="files">
+				IMAGE LIST
+				<a id="reset" href="#" title="Remove all files from list">Remove Images</a>
+				<ul id="fileList"></ul>
+				<a id="upload" href="#" title="Upload all files in list">Upload Images</a>
+			</div>
+
+			<div class="common_right_align "/>
+			<div class="button" id="submit_validate">
+				<%if params[:gallery_type]=="article"%>
+
+				<a href="javascript:void(0)">Submit</a>
+				<%else%>
+				<li class="button">
+
+					<a href="/admin/image_details/gallery_list">Submit</a>
+				</li>
+				<%end%>
+			</div>
+		</div>
+		</div>
+	
+<!--script type="text/javascript" src="/javascripts/multiple_image.js"></script-->
+<!-- Please do not copy any code from below this point -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-10142508-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script type="text/javascript">
+jQuery(function () {
+        jQuery('#submit_validate').click(function () {
+        	    var seq_name = jQuery("#image_sequence_name").attr('value')
+                var filelist = jQuery('#fileList li').size();
+                var image_loading = $('#fileList .loader').size();
+//alert(seq_name+' '+filelist);
+               // var orientation = jQuery("#image_sequence_image_orientation option:selected").attr('value')
+                        
+                        if(seq_name == ''){
+                            alert('* Gallery title should not be blank');
+                            return false;
+                        }
+                        else if(filelist==0){
+                        	alert('* Image list should not be blank');
+                            return false;
+                        }
+                        else if(image_loading==0){
+                        	alert('* Please upload images');
+                            return false;
+                        }
+                       else{
+//alert('test con');
+                   insert_gallery_to_article(document.getElementById("image_path").value,document.getElementById("gallery_path_id").value)
+                        }
+       
+        });
+});
+
+</script>
+<script type="text/javascript">
+function insert_gallery_to_article(image_path,gallery_id){
+    var img_pre='<table class="img_block"><tr><td><img src='+image_path+' '+' alt= width=60 height=60 /></td></tr></table>';
+    $('#gallery_link',window.parent.document).hide();   
+    $('#gallery_link123',window.parent.document).show();
+    //$('#prev_gallery',window.parent.document).hide();
+    $('#prev_gallery',window.parent.document).show();
+    if ($('#no_gallery',window.parent.document)!=null){
+    	 $('#no_gallery',window.parent.document).hide();
+   	  }    
+      if ($('#gen_gallery',window.parent.document)!=null){
+    		//$('#gen_gallery',window.parent.document).hide();
+    	   $('#no_gallery_div5',window.parent.document).hide();
+           $('#gen_gallery',window.parent.document).hide();
+           $('#gallery_link123',window.parent.document).show();
+   	   }    
+       $('#prev_gallery',window.parent.document).html(img_pre); 
+       $('#gallery_property_image_sequence_id',window.parent.document).attr("value",gallery_id);    
+	 parent.$.fn.colorbox.close();
+   }
+
+</script>
+</body>
+

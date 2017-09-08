@@ -1,0 +1,117 @@
+Processing by DealsController#add_investor_to_deal as HTML
+  Parameters: {"investor"=>{"investor_group_component_id"=>"129833", "investment_type_id"=>"", "fund_id"=>"", "currency_id"=>"", "amount"=>"200", "equity"=>"", "deal_confidential"=>"false"}, "executives"=>"", "deal_id"=>"377027"}
+  Rendered deals/_add_investor_to_deal.html.erb (24.0ms)
+
+
+rocessing by InvestorGroupsController#edit_investor_group as HTML
+  Parameters: {"investor_group_id"=>"68764", "site_id"=>"1", "tab"=>"deals_portfolio"}
+
+
+
+
+
+
+
+Deal.last
+
+
+Deal.last.deal_investments
+
+
+
+Deal.last.deal_investments.investor_group_component_id
+
+Deal.last.deal_investments.class	
+
+Deal.last.deal_investments.first
+
+Deal.last.deal_investments.first.investor_group_component_id
+
+
+Deal.last.deal_investments.first.investor_group_component
+
+
+Deal.last.deal_investments.first.investor_group_component.investor_group
+
+
+params = {"investor_group_id"=>"68764", "site_id"=>"1", "tab"=>"deals_portfolio"}.with_indifferent_access
+
+
+@form_action = "update_investor_group"
+
+ @site = Site.find 1
+
+ @investor_group = @site.investor_groups.find(params[:investor_group_id])
+
+ params[:tab]
+
+@investor_group.direct_deals.not_by_status_delete
+
+
+@investor_group.direct_deals
+
+@investor_group.deal_investments_not_exited
+
+
+
+Status.by_type("deal").by_name("Delete").first.id
+
+
+@investor_group.direct_deals.not_by_status_delete
+
+
+investor_investments = @investor_group.direct_deals.not_by_status_delete
+
+
+deal_exit_investors = @investor_group.exit_deals_partial.by_not_ids(@investor_group).where("deals.status_id != ?", Status.by_type("deal").by_name("Delete").first.id)
+
+
+
+
+@investor_exit_count = (investor_investments + deal_exit_investors).count
+
+
+@exit_investor_true_count = @investor_group.exit_deals.count
+
+
+ @investor_investments_all_count = @investor_group.deal_investments.not_by_skeletal_deals.count
+
+ @investor_exit = ActiveRecord::Base.connection.select_values("(#{@investor_group.direct_deals.not_by_status_delete.to_sql}) UNION (#{@investor_group.exit_deals_partial.by_not_ids(@investor_group).where("deals.status_id != ?", Status.by_type("deal").by_name("Delete").first.id).to_sql}) ORDER BY deal_announced DESC LIMIT 50 OFFSET 0")
+	
+
+@exit_investor_true = ActiveRecord::Base.connection.select_values("(#{@investor_group.exit_deals.to_sql})  ORDER BY deal_announced DESC LIMIT 50 OFFSET 0")
+
+
+@investor_investments_all =  @investor_group.deal_investments.not_by_skeletal_deals.blank? ? [] : @investor_group.deal_investments.not_by_skeletal_deals.sort_by { |invest| invest.deal.deal_announced.blank? ? 100.years.since : invest.deal.deal_announced }.reverse[0..50].collect(&:deal_id)
+
+
+
+
+
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/controllers/institutions_controller.rb 
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/models/institution_company_info.rb 
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/controllers/institutions_controller.rb /search_institution_export_wdxlsx
+
+
+
+vi app/controllers/institutions_controller.rb 
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/models/institution_company_info.rb 
+ruby@merger-market-stage:~/Unquote_data/Admin$ 
+ruby@merger-market-stage:~/Unquote_data/Admin$ 
+ruby@merger-market-stage:~/Unquote_data/Admin$ 
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/controllers/institutions_controller.rb 
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/models/institution_company_info.rb 
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/models
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/models/investor_group.rb 
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/models/deal.rb 
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/models/investor_group.rb 
+
+
+
+
+
+

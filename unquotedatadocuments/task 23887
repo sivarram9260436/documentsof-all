@@ -1,0 +1,47 @@
+
+ <%= content_tag (:fieldset) do %>
+        <%= content_tag(:legend,"Target Country",:style=>"width:100px;")%>
+        <%= text_field_tag 'equitydebt[country_name]','',:id=>"Country_Type",:class=>'uploadlist tooltip',:title=>"Click on Edit to select value",:readonly=>"readonly" %>
+        <input id="countryTrigger" title="Country" class="input_btn thickbox editAjaxone" value="Edit" type="button" data-jsonUrl="/equitydebt/get_country_json" data-dropdown="#continentList" data-updateJson="#country_json" data-model="#country">
+        <%= hidden_field_tag 'equitydebt[country]','',:id=>'Country_Type1',:readonly=>"readonly"%>
+        <%end%>
+
+
+
+
+
+def get_country_json
+    @continents = Continent.where(:name => "Europe")
+    @regions = Region.all
+    @sub_regions = SubRegion.all
+    @countries = Country.all
+    render :partial => "equity_debt/partials/country_json"
+  end
+
+
+
+def get_target_country_json
+    @continents = Continent.where(:name => "Europe")
+    @regions = Region.all
+    @sub_regions = SubRegion.all
+    @countries = Country.all
+    render :partial => "equity_debt/partials/target_country_json"
+  end
+
+
+<script type="text/javascript">
+        var Continent = <%= raw @continents.inject({}) { |hsh,continent|  hsh[continent.id] = [{ "id" => continent.id, "name" => continent.name}]; hsh }.to_json %>
+
+        var Continent_Region = <%= raw @continents.uniq.inject({}) { |h, f| h[f.id] = f.regions.uniq.sort_by{ |q| q.name }.collect { |re| { "id" => re.id, "name" => re.name } }; h }.to_json %>
+
+        var Region_SubRegion = <%= raw @regions.uniq.inject({}) { |h, f| h[f.id] = f.sub_regions.uniq.sort_by{ |q| q.name }.collect { |re| { "id" => re.id, "name" => re.name } }; h }.to_json %>
+
+        var Region_country = <%= raw @regions.uniq.inject({}) { |h, f| h[f.id] = f.countries.uniq.sort_by{ |q| q.name }.collect { |re| { "id" => re.id, "name" => re.name } }; h }.to_json %>
+
+        var SubRegion_Country = <%= raw @sub_regions.uniq.inject({}) { |h, f| h[f.id] = f.countries.uniq.sort_by{ |q| q.name }.collect { |re| { "id" => re.id, "name" => re.name } }; h }.to_json %>
+
+        var continentWithSubRegion = <%= raw @continents.uniq.sort_by{ |q| q.name }.collect{|c| { :id => c.id}}.to_json  %>
+
+        var regionWithSubRegion = <%= raw @regions.uniq.sort_by{ |q| q.name }.collect{|c| { :id => c.id}}.to_json%>
+</script>
+~            

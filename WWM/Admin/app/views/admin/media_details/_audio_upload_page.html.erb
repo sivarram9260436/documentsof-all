@@ -1,0 +1,56 @@
+<%= form_tag({:controller => '/admin/media_details', :action => 'audio_upload_save'}, {:name => 'audio_multi', :id => 'audio_submit', :multipart => true}) do %>
+
+    <div class="section_block">
+      <h2>Upload Audio</h2>
+
+      <div class="section_content">
+        <div class="form_data">
+          <label for="text_head">Title:</label>
+          <%= text_field :audio, :title, :class => 'input_text' %>
+
+        </div>
+
+        <div class="form_data">
+          <label for="text_head">Description:</label>
+          <%= text_area 'audio', 'description', {:rows => 4, :cols => 40, :class => "textarea_text"} %>
+        </div>
+
+        <div class="form_data">
+          <label for="text_head">Audio caption:</label>
+          <%= text_field 'audio', 'caption', {:rows => 4, :cols => 40, :class => "textarea_text"} %>
+        </div>
+
+        <div class="form_data">
+          <label for="text_head">Upload Audio:</label>
+          <%= file_field :audio, :audio_path, :class => 'input_text' %>
+          <% if @flag=="popup" %>
+              <%= hidden_field_tag 'flag', @flag %>
+          <% end %>
+        </div>
+        <% if not params[:flag]== "popup" %>
+            <div class="button">
+              <%= link_to('Cancel', {:controller => 'admin/media_details', :action => 'audio'}) %>
+            </div>
+        <% else %>
+            <div class="button">
+              <%= link_to('Cancel', "javascript:void(0)", :class => "close_upload") %>
+            </div>
+        <% end %>
+        <div class="button" id="audio_upload">
+          <%= link_to('Upload', 'javascript:void(0)') %>
+        </div>
+
+
+      </div>
+    </div>
+<% end %>
+
+
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery(".close_upload").click(function () {
+            window.close()
+
+        });
+    });
+</script>

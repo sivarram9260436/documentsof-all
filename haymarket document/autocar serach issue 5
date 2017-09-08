@@ -1,0 +1,252 @@
+
+Started GET "/directory" for 192.168.209.31 at 2017-01-05 10:18:07 +0530
+  Processing by Wps::PagesController#listing as HTML
+  Parameters: {"path"=>"/directory"}
+ ---- rem checking
+ -- rem -- nil -- nil --- nil
+-------------------@listing_page = #<SpecialPage id: 91, site_id: nil, template_type: nil, page_name: "directory_page", layout: "/layouts/autocar_pro", menu_id: nil, asset_group_id: nil, presentation_proxy_id: 3, active: true, url: "/directory", template: "directory_page", type: "SpecialPage", copied_from: nil, blog_id: nil, layout_required: true, created_at: "2014-02-26 05:39:32", updated_at: "2014-02-26 05:41:54", cache: false>----------------
+-------------------@context = {}----------------
+============+#<Site:0x0000000c8f3958>===============
+============false==================
+====check_direc====[#<DirectoryListing id: 6537, data_proxy_id: 3, created_by: nil, updated_by: 1, image_id: nil, name: "kreatio56789", description: "", premium: false, created_at: "2016-10-21 14:00:34", updated_at: "2016-10-21 14:15:15", is_sponsor: nil, status: true, average_rating: nil, ses_company: nil, directory_id: 3, classified_id: nil, display_date: nil, start_date: "2016-10-28 12:00:00", end_date: "2017-10-28 12:00:00", company_name: nil, company_short_profile: "", profile_strength: 50.0, county_id: 16, subscriber_id: 468, county_name: nil, city_name: nil, description1: nil, restriction_type: "Premium", video_url: "", testimonial: "", paid_status: true, person_title: "Mr", new_contact_person: "", active: nil, country_id: 340>, #<DirectoryListing id: 6563, data_proxy_id: 3, created_by: nil, updated_by: 1, image_id: nil, name: "neema comps", description: "<p>test</p>", premium: false, created_at: "2016-10-24 10:26:35", updated_at: "2016-10-24 11:39:59", is_sponsor: nil, status: true, average_rating: nil, ses_company: nil, directory_id: 3, classified_id: nil, display_date: nil, start_date: "2016-10-25 02:56:00", end_date: nil, company_name: nil, company_short_profile: "", profile_strength: 130.0, county_id: 16, subscriber_id: 495, county_name: nil, city_name: nil, description1: nil, restriction_type: "Premium", video_url: "https://www.youtube.com/watch?v=vLR_kN2jgpU", testimonial: "<p>good have a great time</p>", paid_status: true, person_title: "Mrs", new_contact_person: "", active: nil, country_id: 340>, #<DirectoryListing id: 4087, data_proxy_id: 3, created_by: nil, updated_by: 1, image_id: nil, name: "Zylog Systems Ltd.,", description: "<p>Zylog System is a IT Company which deals with al...", premium: true, created_at: "2014-03-06 06:35:03", updated_at: "2016-09-27 07:58:51", is_sponsor: nil, status: true, average_rating: nil, ses_company: nil, directory_id: 3, classified_id: nil, display_date: nil, start_date: "2016-09-26 23:05:00", end_date: "2017-09-26 23:05:00", company_name: nil, company_short_profile: "Zylog System is a IT Clompany which was established...", profile_strength: 90.0, county_id: 16, subscriber_id: nil, county_name: nil, city_name: nil, description1: nil, restriction_type: "Premium", video_url: "", testimonial: "", paid_status: true, person_title: nil, new_contact_person: nil, active: true, country_id: nil>, #<DirectoryListing id: 6632, data_proxy_id: 3, created_by: 31, updated_by: 31, image_id: nil, name: "tamilt333qqdqwdwq", description: "<p>test</p>", premium: nil, created_at: "2016-12-08 08:02:40", updated_at: "2016-12-08 09:26:11", is_sponsor: nil, status: true, average_rating: nil, ses_company: nil, directory_id: 3, classified_id: nil, display_date: nil, start_date: "2016-12-09 09:00:00", end_date: "2017-12-09 09:00:00", company_name: nil, company_short_profile: "tt23", profile_strength: 90.0, county_id: 34, subscriber_id: nil, county_name: nil, city_name: nil, description1: nil, restriction_type: "Premium", video_url: "", testimonial: "<p>test</p>", paid_status: true, person_title: nil, new_contact_person: nil, active: nil, country_id: 340>]===========
+======page11================nameeeeee======
+====page2====vpageproperties===={:context=>{}, :page_type=>"directory_page"}=======nameeeeee======
+=====page3===={:context=>{}, :page_type=>"directory_page"}====="listing"=======vvvvvvvvvv======
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/directory/partials/_search_form.html.erb (894.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/special_pages/directory_page.html.erb within /layouts/autocar_pro (912.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_seo_keys.html.erb (2.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_styles.html.erb (4.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_open_graph.html.erb (1.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_google_analytics.html.erb (1.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_social_media_script.html.erb (0.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_header_script_for_ad.html.erb (5.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_header_ad_responsive.html.erb (0.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_header_search.html.erb (2.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_login_links.html.erb (14.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_vertical_page_pusher.html.erb (29.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/comp/_fragment_description.html.erb (4.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/decoration/_decoration_yield.html.erb (0.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_page_peel_script.html.erb (48.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/comp/_fragment_description.html.erb (3.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/decoration/_decoration_yield.html.erb (0.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_first_impression.html.erb (36.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_top_leaderboard.html.erb (1.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_header_leader_banner.html.erb (9.6ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_menus.html.erb (120.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_header_top_leader.html.erb (2.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_header.html.erb (315.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/comp/_fragment_description.html.erb (3.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/decoration/_decoration_yield.html.erb (0.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_middle_banner.html.erb (214.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_footer_leader_banner.html.erb (2.6ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/_subscribe_newsletter.html.erb (0.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/comp/_fragment_description.html.erb (2.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/decoration/_decoration_yield.html.erb (0.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_adding_text_links.html.erb (35.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_footer_small_device.html.erb (2.5ms)
+=========2222222222222222222111v===============
+===666666666======111111111111v===============
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/_fragment_content.html.erb (3.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/decoration/_decoration_yield.html.erb (0.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/_container.html.erb (47.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_footer.html.erb (77.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_javascripts.html.erb (15.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/authentication/_login_form.html.erb (3.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/authentication/_forget_password_form.html.erb (3.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/authentication/_registration_form.html.erb (29.6ms)
+cache ---- false ---- true ---- nil ---- nil ---- 200
+Completed 200 OK in 2768ms (Views: 1666.0ms | ActiveRecord: 825.6ms | Solr: 7.5ms)
+
+
+Started GET "/verify-site-login" for 192.168.209.31 at 2017-01-05 10:18:13 +0530
+  Processing by CommonController#verify_authentication as HTML
+ ---- rem checking
+ -- rem -- nil -- nil --- nil
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_header_search.html.erb (2.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_login_links.html.erb (7.1ms)
+Completed 200 OK in 61ms (Views: 21.1ms | ActiveRecord: 11.6ms | Solr: 0.0ms)
+
+
+
+
+
+
+
+
+
+
+
+
+see details
+
+
+
+
+
+
+
+//////////////////
+
+Started GET "/directory/company/6537/kreatio56789" for 192.168.209.31 at 2017-01-05 10:18:44 +0530
+  Processing by Wps::DirectoryController#show_directory_listing_page as HTML
+  Parameters: {"directory_name"=>"directory", "directory_listing_id"=>"6537", "directory_listing_name"=>"kreatio56789"}
+ ---- rem checking
+ -- rem -- nil -- nil --- nil
+======seemore1================nameeeeee======
+====seemore2====vpageproperties===={:menu_title=>"kreatio56789"}=======nameeeeee======
+======seemore3===={:menu_title=>"kreatio56789"}====="show_directory_listing_page"=======vvvvvvvvvv======
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/directory/directory_listing_page.html.erb within /layouts/autocar_pro (306.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_seo_keys.html.erb (4.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_styles.html.erb (3.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_open_graph.html.erb (1.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_google_analytics.html.erb (0.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_social_media_script.html.erb (0.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_header_script_for_ad.html.erb (3.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_header_ad_responsive.html.erb (0.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_header_search.html.erb (1.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_login_links.html.erb (4.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_vertical_page_pusher.html.erb (23.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/comp/_fragment_description.html.erb (3.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/decoration/_decoration_yield.html.erb (0.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_page_peel_script.html.erb (35.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/comp/_fragment_description.html.erb (3.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/decoration/_decoration_yield.html.erb (0.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_first_impression.html.erb (30.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_top_leaderboard.html.erb (2.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_header_leader_banner.html.erb (3.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_menus.html.erb (110.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_header_top_leader.html.erb (1.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_header.html.erb (217.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/comp/_fragment_description.html.erb (1.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/decoration/_decoration_yield.html.erb (0.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_middle_banner.html.erb (25.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_footer_leader_banner.html.erb (1.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/_subscribe_newsletter.html.erb (0.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/comp/_fragment_description.html.erb (1.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/decoration/_decoration_yield.html.erb (0.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_adding_text_links.html.erb (20.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_footer_small_device.html.erb (1.5ms)
+=========2222222222222222222111v===============
+===666666666======111111111111v===============
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/_fragment_content.html.erb (2.6ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/decoration/_decoration_yield.html.erb (0.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/_container.html.erb (277.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_footer.html.erb (292.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_javascripts.html.erb (13.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/authentication/_login_form.html.erb (2.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/authentication/_forget_password_form.html.erb (2.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/authentication/_registration_form.html.erb (31.6ms)
+Completed 200 OK in 1004ms (Views: 846.4ms | ActiveRecord: 127.4ms | Solr: 0.0ms)
+
+
+Started GET "/verify-site-login" for 192.168.209.31 at 2017-01-05 10:18:46 +0530
+  Processing by CommonController#verify_authentication as HTML
+ ---- rem checking
+ -- rem -- nil -- nil --- nil
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_header_search.html.erb (2.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_login_links.html.erb (7.0ms)
+Completed 200 OK in 49ms (Views: 8.8ms | ActiveRecord: 12.3ms | Solr: 0.0ms)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+error page
+
+
+Started GET "/category/otheressentialproducts/aftermarket" for 192.168.209.31 at 2017-01-05 10:19:10 +0530
+  Processing by Wps::PagesController#listing as HTML
+  Parameters: {"path"=>"/category/otheressentialproducts/aftermarket"}
+ ---- rem checking
+ -- rem -- nil -- nil --- nil
+======================pagename============="404_page"==============="listing"=======================
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/exception_handling/404.html.erb within /layouts/autocar_pro (0.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_seo_keys.html.erb (2.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_styles.html.erb (4.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_open_graph.html.erb (1.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_google_analytics.html.erb (0.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_social_media_script.html.erb (0.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_header_script_for_ad.html.erb (3.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_header_ad_responsive.html.erb (0.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_header_search.html.erb (1.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/layouts/_login_links.html.erb (4.6ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/advers/_vertical_page_pusher.html.erb (22.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/listing_pages/partials/comp/_fragment_description.html.erb (2.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro_responsive/views/deco
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

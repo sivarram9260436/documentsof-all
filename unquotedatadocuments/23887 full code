@@ -1,0 +1,648 @@
+.admin site
+
+1. app/controllers/wps/uq_equity_debt_controller.rb
+
+
+def get_target_country_json
+    @continents = Continent.where(:name => "Europe")
+   @regions = Region.all
+    @sub_regions = SubRegion.all
+   @countries = Country.all
+   render :partial => "equity_debt/partials/target_country_json"
+  end
+
+
+def get_custom_json
+       @target_countries = Country.order("name asc")
+
+
+
+2.ruby@merger-market-stage:~/Unquote_data/Admin$ vi  app/models/investor_export_data.rb
+
+
+:target_country_origin_name 
+
+add atlast
+
+3.ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/models/investor_group.rb
+
+def inv_target_country
+self.country.name if self.country && self.country.name
+end
+
+
+:array_filter => [:inv_country_name] line 77 add atlast 
+
+
+selected_params +=  "and ig.country_id in (#{search_params[:equitydebt][:target_country]})" if !search_params[:equitydebt][:target_country].blank? # country
+
+add at  2502 line 
+
+above this
+
+ if !search_params[:equitydebt][:start_month].blank? && !search_params[:equitydebt][:start_year].blank?
+      selected_params +=  "and ds.deal_announced >= '#{Date.civil(search_params[:equitydebt][:start_year].to_i, search_params[:equitydebt][:start_month].to_i).strftime("%Y-%m-%d")}'"
+
+    
+4.ruby@merger-market-stage:~/Unquote_data/Admin$ vi config/initializers/export_data.rb
+
+      :Target_country => "target_country_origin_name", line 454 
+
+above this 
+        :Name_of_Equity_Debt_Provider => "investor_name",
+
+
+5.ruby@merger-market-stage:~/Unquote_data/Admin$ vi config/routes/sites.rb
+
+  match "/equitydebt/get_target_country_json" => "wps/uq_equity_debt#get_target_country_json" add it on  187 line
+
+add above this 
+  match "/equitydebt/get_sector_json" => "wps/uq_equity_debt#get_sector_json"
+
+6.ruby@merger-market-stage:~/Unquote_data/Admin$ vi lib/export_data_migration.rb
+
+add
+:target_country_origin_name => dd.inv_target_country line 187 add at last
+
+add after above this
+
+:turnover_euro => dd.turnover_euro_export,
+ 
+	
+site side
+
+1.ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site$ vi  public/javascripts/deal_redesign.js	
+
+add at 235 line 
+
+var fillContinent_Country = function(){
+
+         $('#target_countryList,#target_regionList,#target_subregionList').empty();
+        $('#target_continentList option:selected').each(function(){
+                    fillRegion(Continent_Region[$(this).attr('value')]);
+        });
+        $('#target_regionList option:selected').each(function(){
+                //if (checkExistance(continentWithSubRegion,$(this).attr('value')) == "true"){
+                        fillSubRegion(Region_SubRegion[$(this).attr('value')]);
+                //}
+        });
+        $('#target_regionList option:selected').each(function(){
+                fillCountry(Region_country[$(this).attr('value')]);
+                //fillCountryByRegion(Region_country[$(this).attr('value')])
+        });
+
+
+/*       $('#target_continentList option:selected').each(function(){
+                fillCountry(SubRegion_Country[$(this).attr('value')]);
+                //fillCountryByRegion(Region_country[$(this).attr('value')])
+        });*/
+
+
+}
+
+below this line  //fillCountryByRegion(Region_country[$(this).attr('value')])
+
+add at line 140
+
++       $('#target_continentList').on('change',fillContinent_Country);
+
+add above this
+$('#regionList').on('change',fillSubRegion_Country_onRegionClick);
+
+
+2.ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site$ vi public/javascripts/unquote-data-site.js
+
+						if (thisId == "countryTrigger"){
+                                                selected_ids=$("#Country_Type1").val();
+                                        }
+
+                                        else if (thisId == "targetcountryTrigger") {               added at 128 line only this elseif 
+
+                                                selected_ids=$("#target_Country_Type1").val();
+                                        
+}
+                                        else if (thisId == "sectorTrigger") {
+                                                selected_ids=$("#Sector_Type1").val();
+                                        };
+
+
+3.ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site$ vi views/deals/partials/_custom_search.html.erb
+
+228 line 
+||select_fill=="target_Country_Type"
+
+
+add the above line after select_fill=="IG_cntry" || this 
+
+
+4. ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site$ vi  views/deals/partials/_custom_search_json.html.erb
+
+var target_Country_Type =  <%= raw @europe_countries.sort_by{ |q| q.name }.collect{|c| { :id => c.name,:name => c.name }}.uniq.to_json %>
+var Country = IG_cntry = <%= raw @europe_countries.sort_by{ |q| q.name }.collect{|c| { :id => c.name,:name => c.name }}.uniq.to_json %>
+
+add both at top
+
+
+5.ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site$ vi   views/deals/partials/_target_country.html.erb
+
+
+<!--country type start-->
+<div id="target_country" data-trigger="#targetcountryTrigger" class="jqmDialog jqdialogm jqmID3 jqmID4" style="width:550px;">
+  <div class="jqmdTL">
+    <div class="jqmdTR">
+      <div class="jqmdTC jqDrag">
+       Target Country
+      </div>
+    </div>
+  </div>
+  <div class="jqmdBL">
+    <div class="jqmdBR">
+      <div class="jqmdBC">
+        <div class="jqmdMSG">
+          <div class="form_box_main">
+            <fieldset>
+              <div class="form_box form_box_width">
+                <div class="form_box_inner">
+                  <h1>Continent</h1>
+                  <select multiple="multiple" class="field_design2" size="8" name="target_continentList" id="target_continentList">
+
+                    <% @continents.sort_by { |e| e.name }.each do |continent| %>
+                        <%= content_tag(:option, continent.name, {:value => continent.id}) %>
+                    <% end %> <!-- continet end -->
+
+                  </select>
+
+                  <div class="select_btn">
+                    <a class="select_all_country_box" data-selectdropdown="continentList" data-callfunction="fillRegion_SubRegion" href="javascript:void(0)">Select
+                      All</a>
+                    <a class="cleardropdownslist" href="javascript:void(0)" data-cleardropdown="#continentList,#regionList,#subregionList,#countryList" style="float:right">Clear
+                      All</a>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+              <div class="form_box2 form_box_width">
+                <div class="form_box_inner">
+                  <h1>Region</h1>
+                  <select multiple="multiple" class="field_design2" size="8" name="target_regionList" id="target_regionList">
+
+                    <%# @regions.sort_by{|e| e.name}.each do |region| %>
+                    <%#= content_tag(:option, region.name, { :value => region.id }) %>
+                    <%# end %> <!-- region end -->
+
+                  </select>
+
+                  <div class="select_btn">
+                    <a class="select_all_country_box" data-selectdropdown="regionList" data-callfunction="fillSubRegion_Country_onRegionClick" href="javascript:void(0)">Select
+                      All</a>
+                    <a class="cleardropdownslist" href="javascript:void(0)" data-cleardropdown="#regionList,#subregionList,#countryList" style="float:right">Clear
+                      All</a>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <div class="form_box form_box_width">
+                <div class="form_box_inner">
+                  <h1>Sub Region</h1>
+                  <select multiple="multiple" class="field_design2" size="8" name="target_subregionList" id="target_subregionList">
+
+                    <%# @sub_regions.sort_by{|e| e.name}.each do |subregion| %>
+                    <%#= content_tag(:option, subregion.name, { :value => subregion.id }) %>
+                    <%# end %> <!-- subregion end -->
+
+                  </select>
+
+                  <div class="select_btn">
+
+                    <a class="select_all_country_box" data-selectdropdown="subregionList" data-callfunction="fillSubRegion_Country" href="javascript:void(0)">Select
+                      All</a>
+                    <a class="cleardropdownslist" href="javascript:void(0)" data-cleardropdown="#subregionList,#countryList" style="float:right">Clear
+                      All</a>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+              <div class="form_box2 form_box_width">
+                <div class="form_box_inner">
+                  <h1>Country</h1>
+                  <select multiple="multiple" class="field_design2" size="8" name="target_countryList" id="target_countryList">
+                    <%# @countries.sort_by{|e| e.name}.each do |country| %>
+                    <%#= content_tag(:option, country.name, { :value => country.id }) %>
+                    <%# end %> <!-- country end -->
+
+                  </select>
+
+                  <div class="select_btn">
+
+                    <a class="select_all_country_box" data-selectdropdown="targetcountryList" data-callfunction="" href="javascript:void(0)">Select
+                      All</a>
+                    <a class="cleardropdownslist" href="javascript:void(0)" data-cleardropdown="#targetcountryList" style="float:right">Clear
+                      All</a>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <div class="clear"></div>
+        <div class="spacer" style="background:#D9E8FB; margin-bottom:5px;"></div>
+
+        <input style="float:right; margin-right:0" class="new_btn jqmClose" value="Cancel" type="reset">
+        <input style="float:right;" class="new_btn jqmClose set_value_type" value="Save" data-getdropdown="target_countryList" data-displayInput="target_Country_Type" data-hiddenInput="target_Country_Type1" type="button" data-clearfield="true" data-clearInputfields="#target_Country_Type,#target_Country_Type1">
+        <div class="clear"></div>
+        <div class="spacer_10"></div>
+      </div>
+    </div>
+  </div>
+  <%= image_tag("close.gif",:alt=>"first",:class=>"jqmdX jqmClose") %>
+  <div id="target_country_json"></div>
+  <div class="loading_indicator_json" style="display:none;">
+    <img alt="loading" src="/images/ajax-loader_josn.gif">
+  </div>
+</div>
+<!--country type end-->
+
+
+
+
+6.ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site$ vi  views/equity_debt/equity_debt_search.html.erb
+
+add at line 39
+<%= render :partial => "/deals/partials/target_country" %>
+
+above of this 
+
+<%= render :partial =>"/equity_debt/partials/funding_type"%>
+
+
+7.ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site$ vi  views/equity_debt/partials/_chart.html.erb
+
+  replace  Country of Origin
+   to Target Country
+
+8.ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site$ vi  views/equity_debt/partials/_custom_search_json.html.erb
+
+var target_Country_Type = <%= raw @europe_countries.sort_by{ |q| q.name }.collect{|c| { :id => c.name,:name => c.name }}.uniq.to_json %>
+
+add above line at first
+
+9.ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site$ vi  views/equity_debt/partials/_default_standard_tab.html.erb
+
+<%= content_tag (:fieldset) do %>
+        <%= content_tag(:legend,"Target Country",:style=>"width:100px;")%>
+        <%= text_field_tag 'equitydebt[target_country_name]','',:id=>"target_Country_Type",:class=>'uploadlist tooltip',:title=>"Click on Edit to select value",:readonly=>"readonly" %>
+        <input id="targetcountryTrigger" title="target_Country" class="input_btn thickbox editAjaxone" value="Edit" type="button" data-jsonUrl="/equitydebt/get_target_country_json" data-dropdown="#target_continentList" data-updateJson="#target_country_json" data-model="#target_country">
+        <%= hidden_field_tag 'equitydebt[target_country]','',:id=>'target_Country_Type1',:readonly=>"readonly"%>
+        <%end%>
+
+add above at 41 line
+ below country
+
+
+10.ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site$  vi  views/equity_debt/partials/_export.html.erb
+
+      <option value="Country">Target Country</option>
+add at 65 line below 
+
+          <option value="Country">Country</option>
+
+3. adding new lines
+
+
+ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site$ vi views/common/_target_country.html.erb
+
+<!-- target country type start-->
+<div id="country" data-trigger="#targetcountryTrigger" class="jqmDialog jqdialogm jqmID3 jqmID4" style="width:550px;">
+  <div class="jqmdTL">
+    <div class="jqmdTR">
+      <div class="jqmdTC jqDrag">
+    Target  Country
+      </div>
+    </div>
+  </div>
+  <div class="jqmdBL">
+    <div class="jqmdBR">
+      <div class="jqmdBC">
+        <div class="jqmdMSG">
+          <div class="form_box_main">
+            <fieldset>
+              <div class="form_box form_box_width">
+                <div class="form_box_inner">
+                  <h1>Continent</h1>
+                  <select multiple="multiple" class="field_design2" size="8" name="targetcontinentList" id="continentList">
+
+                    <% @continents.sort_by { |e| e.name }.each do |continent| %>
+                        <%= content_tag(:option, continent.name, {:value => continent.id}) %>
+                    <% end %> <!-- continet end -->
+
+                  </select>
+
+                  <div class="select_btn">
+                    <a class="select_all_country_box" data-selectdropdown="continentList" data-callfunction="fillRegion_SubRegion" href="javascript:void(0)">Select
+                      All</a>
+                    <a class="cleardropdownslist" href="javascript:void(0)" data-cleardropdown="#continentList,#regionList,#subregionList,#countryList" style="float:right">Clear
+                      All</a>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+              <div class="form_box2 form_box_width">
+                <div class="form_box_inner">
+                  <h1>Region</h1>
+                  <select multiple="multiple" class="field_design2" size="8" name="regionList" id="regionList">
+
+                    <%# @regions.sort_by{|e| e.name}.each do |region| %>
+                    <%#= content_tag(:option, region.name, { :value => region.id }) %>
+                    <%# end %> <!-- region end -->
+
+                  </select>
+
+                  <div class="select_btn">
+                    <a class="select_all_country_box" data-selectdropdown="regionList" data-callfunction="fillSubRegion_Country_onRegionClick" href="javascript:void(0)">Select
+                      All</a>
+                    <a class="cleardropdownslist" href="javascript:void(0)" data-cleardropdown="#regionList,#subregionList,#countryList" style="float:right">Clear
+                      All</a>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <div class="form_box form_box_width">
+                <div class="form_box_inner">
+                  <h1>Sub Region</h1>
+                  <select multiple="multiple" class="field_design2" size="8" name="subregionList" id="subregionList">
+
+                    <%# @sub_regions.sort_by{|e| e.name}.each do |subregion| %>
+                    <%#= content_tag(:option, subregion.name, { :value => subregion.id }) %>
+                    <%# end %> <!-- subregion end -->
+
+                  </select>
+
+                  <div class="select_btn">
+
+                    <a class="select_all_country_box" data-selectdropdown="subregionList" data-callfunction="fillSubRegion_Country" href="javascript:void(0)">Select
+                      All</a>
+                    <a class="cleardropdownslist" href="javascript:void(0)" data-cleardropdown="#subregionList,#countryList" style="float:right">Clear
+                      All</a>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+              <div class="form_box2 form_box_width">
+                <div class="form_box_inner">
+                  <h1>Country</h1>
+                  <select multiple="multiple" class="field_design2" size="8" name="countryList" id="countryList">
+
+                    <%# @countries.sort_by{|e| e.name}.each do |country| %>
+                    <%#= content_tag(:option, country.name, { :value => country.id }) %>
+                    <%# end %> <!-- country end -->
+
+                  </select>
+
+                  <div class="select_btn">
+
+                    <a class="select_all_country_box" data-selectdropdown="countryList" data-callfunction="" href="javascript:void(0)">Select
+                      All</a>
+                    <a class="cleardropdownslist" href="javascript:void(0)" data-cleardropdown="#countryList" style="float:right">Clear
+                      All</a>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+        <div class="clear"></div>
+        <div class="spacer" style="background:#D9E8FB; margin-bottom:5px;"></div>
+
+        <input style="float:right; margin-right:0" class="new_btn jqmClose" value="Cancel" type="reset">
+        <input style="float:right;" class="new_btn jqmClose set_value_type" value="Save" data-getdropdown="target_countryList" data-displayInput="target_Country_Type" data-hiddenInput="target_Country_Type1" type="button" data-clearfield="true" data-clearInputfields="#target_Country_Type,#target_Country_Type1">
+
+        <div class="clear"></div>
+        <div class="spacer_10"></div>
+      </div>
+    </div>
+  </div>
+  <%= image_tag("close.gif", :alt => "first", :class => "jqmdX jqmClose") %>
+  <div id="country_json"></div>
+  <div class="loading_indicator_json" style="display:none;">
+    <img alt="loading" src="/images/ajax-loader_josn.gif">
+  </div>
+</div>
+
+
+
+2.ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site$ vi views/deals/partials/_target_country_json.html.erb
+
+<script type="text/javascript">
+
+        var Continent = <%= raw @continents.inject({}) { |hsh,continent|  hsh[continent.id] = [{ "id" => continent.id, "name" => continent.name}]; hsh }.to_json %>
+
+     //   var Continent_Region = <%= raw @continents.uniq.inject({}) { |h, f| h[f.id] = f.regions.uniq.sort_by{ |q| q.name }.collect { |re| { "id" => re.id, "name" => re.name } }; h }.to_json %>
+
+      //  var Region_SubRegion = <%= raw @regions.uniq.inject({}) { |h, f| h[f.id] = f.sub_regions.uniq.sort_by{ |q| q.name }.collect { |re| { "id" => re.id, "name" => re.name } }; h }.to_json %>
+
+      //  var Region_country = <%= raw @regions.uniq.inject({}) { |h, f| h[f.id] = f.countries.uniq.sort_by{ |q| q.name }.collect { |re| { "id" => re.id, "name" => re.name } }; h }.to_json %>
+
+      //  var SubRegion_Country = <%= raw @sub_regions.uniq.inject({}) { |h, f| h[f.id] = f.countries.uniq.sort_by{ |q| q.name }.collect { |re| { "id" => re.id, "name" => re.name } }; h }.to_json %>
+
+        var continentWithSubRegion = <%= raw @continents.countries.uniq.sort_by{ |q| q.name }.collect{|c| { :id => c.id}}.to_json  %>
+
+   //     var regionWithSubRegion = <%= raw @regions.uniq.sort_by{ |q| q.name }.collect{|c| { :id => c.id}}.to_json%>
+</script>
+
+
+
+3.ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site$ cat views/equity_debt/partials/_target_country_json.html.erb
+
+<script type="text/javascript">
+
+        var Continent = <%= raw @continents.inject({}) { |hsh,continent|  hsh[continent.id] = [{ "id" => continent.id, "name" => continent.name}]; hsh }.to_json %>
+
+        var Continent_Region = <%= raw @continents.uniq.inject({}) { |h, f| h[f.id] = f.regions.uniq.sort_by{ |q| q.name }.collect { |re| { "id" => re.id, "name" => re.name } }; h }.to_json %>
+
+       var Region_SubRegion = <%= raw @regions.uniq.inject({}) { |h, f| h[f.id] = f.sub_regions.uniq.sort_by{ |q| q.name }.collect { |re| { "id" => re.id, "name" => re.name } }; h }.to_json %>
+
+       var Region_country = <%= raw @regions.uniq.inject({}) { |h, f| h[f.id] = f.countries.uniq.sort_by{ |q| q.name }.collect { |re| { "id" => re.id, "name" => re.name } }; h }.to_json %>
+
+        var SubRegion_Country = <%= raw @sub_regions.uniq.inject({}) { |h, f| h[f.id] = f.countries.uniq.sort_by{ |q| q.name }.collect { |re| { "id" => re.id, "name" => re.name } }; h }.to_json %>
+
+        var continentWithSubRegion = <%= raw @continents.uniq.sort_by{ |q| q.name }.collect{|c| { :id => c.id}}.to_json  %>
+
+       var regionWithSubRegion = <%= raw @regions.uniq.sort_by{ |q| q.name }.collect{|c| { :id => c.id}}.to_json%>
+</script>
+
+
+
+last 2 changes
+
+ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site$ vi public/javascripts/deal_redesign.js
+add full taget code in java refer ravi code in local
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/assets/javascripts/target_country_selection.js 
+
+$(function(){
+	$('#continentList').on('change',fillRegion_SubRegion);
+	$('#regionList').on('change',fillSubRegion_Country_onRegionClick);
+	$('#subregionList').on('change',fillSubRegion_Country);
+	$('.select_all_country_box').on('click',selectAllforCountrybox);
+	$('.cleardropdownslist').on('click',clearAllDropdownlist);
+});
+
+
+$(document).on('click','#add_country',function(){
+   var countryText = [],countryValue = [];
+   $('#countryList option:selected').each(function(){
+   	countryText.push($(this).text());
+   	countryValue.push($(this).val());
+   });
+   $('input#country_geo').val(countryText);
+   $('#country_values').val(countryValue);
+   $('#country_select_input').removeClass('before_add')
+})
+
+$(document).on('click','#country_select_input',function(){
+	if($(this).hasClass('before_add')){
+		alert('Please select country and click Add button');
+		return false;
+	}else{
+		window.opener.$('#geographic_prefs').tokenInput("clear");
+		$("#countryList option:selected").each(function (i, op) {
+			window.opener.$('#geographic_prefs').tokenInput('add',{"id":$(this).val(),"name":$(this).text()});
+              /*window.opener.$('#fund_geo_name').val("");
+              window.opener.$('#pei_data_geo_name').val("");
+              var sel_val = $('#fund_selected_geo_name').val();*/
+              window.opener.$('#fund_geo_name').val($('#fund_selected_geo_name').val());
+              self.close();    
+	    });
+           
+   }
+});
+
+
+//country model box Continent country select
+var fillRegion_SubRegion = function(){
+	$('#countryList,#regionList,#subregionList').empty();
+	$('#continentList option:selected').each(function(){
+		    fillRegion(Continent_Region[$(this).attr('value')]); 
+	});
+	$('#regionList option:selected').each(function(){
+		//if (checkExistance(continentWithSubRegion,$(this).attr('value')) == "true"){
+			fillSubRegion(Region_SubRegion[$(this).attr('value')]); 
+		//}
+	});
+	$('#subregionList option:selected').each(function(){
+		fillCountry(SubRegion_Country[$(this).attr('value')]); 
+		//fillCountryByRegion(Region_country[$(this).attr('value')])
+	});
+}
+
+
+
+var selectAllforCountrybox = function(){
+	var select_dropdown_block = $(this).attr('data-selectdropdown');
+	$('#'+select_dropdown_block+' option').prop('selected',true);
+	if($(this).attr('data-callfunction')!=""){
+		window[$(this).attr('data-callfunction')]();
+	}
+}
+
+var clearAllDropdownlist = function(){
+	var dropdownList = $(this).attr('data-cleardropdown');
+		if($(this).attr('data-clearfield')=="true")	{
+			$($(this).attr('data-clearinputfields')).attr('value','');
+		}
+   		$(dropdownList).find('option').removeAttr('selected');
+}
+
+var fillRegion = function(arrVal){
+	if(arrVal!=null || arrVal!=""){
+		$.each(arrVal,function(i){
+			var option_add = "<option value='"+arrVal[i].id+"'>"+arrVal[i].name+"</option>"
+			$('#regionList').append(option_add)
+		});
+		$('#regionList option').attr('selected','selected')
+	}
+}
+
+var fillCountry = function(arrVal){	
+		$.each(arrVal,function(i){
+			var option_add = "<option value='"+arrVal[i].id+"'>"+arrVal[i].name+"</option>"
+			$('#countryList').append(option_add)
+		});
+		$('#countryList option').attr('selected','selected')
+}
+
+var fillCountryByRegion = function(arrVal){
+	$.each(arrVal,function(i){
+		var option_add = "<option value='"+arrVal[i].id+"'>"+arrVal[i].name+"</option>"
+			$('#countryList').append(option_add)
+	});
+	$('#countryList option').attr('selected','selected')
+}
+
+var checkExistance = function(str,val){
+	var flag = "false";
+    $.each(str,function(i){
+    	if (str[i].id == val)  {
+             flag = "true";
+        }
+    });
+    return flag;
+}
+
+var fillSubRegion = function(arrVal){
+	if(arrVal!=null || arrVal!=""){
+		$.each(arrVal,function(i){
+			var option_add = "<option value='"+arrVal[i].id+"'>"+arrVal[i].name+"</option>"
+			var flag = true;
+			$('#subregionList option').each(function(){
+			    if($(this).val()==arrVal[i].id){
+			    	flag = false;
+			    }
+			})
+			if(flag==true){
+				$('#subregionList').append(option_add)
+			}
+		});
+		$('#subregionList option').attr('selected','selected')
+	}
+}
+
+var fillSubRegion_Country_onRegionClick = function(){
+	$('#subregionList,#countryList').empty();
+	$('#regionList option:selected').each(function(){
+		if (checkExistance(regionWithSubRegion,$(this).attr('value')) == "true"){
+			fillSubRegion(Region_SubRegion[$(this).attr('value')]); 
+		}
+	});
+	$('#regionList option:selected').each(function(){
+		fillCountry(Region_country[$(this).attr('value')]); 
+	});
+	showOptionsSelected("subregionList");
+	showOptionsSelected("countryList");
+}
+
+var showOptionsSelected = function(select_dropdown){
+	$('#'+select_dropdown+' option').attr('selected','selected')
+}
+
+var fillSubRegion_Country = function(){
+	$('#countryList').empty()
+	$('#subregionList option:selected').each(function(){
+		fillCountry(SubRegion_Country[$(this).attr('value')]);
+	});
+	showOptionsSelected("countryList");
+}
+/* Country Block end*/
+
+
+
+
+
+

@@ -1,0 +1,412 @@
+<div id="container">
+	<div class="section_block full_section">
+		<h2><%= @page_properties[:menu_title] %></h2>
+
+		<div class="article_new_main">
+			<div class="validation_box">
+				<%= raw error_messages(@author)%>
+			</div>
+
+			<%= semantic_form_for ([:admin,@author]),:url=> @author.new_record? ? {:action=>"create", :controller=>"admin/authors"} : {:action=>"update", :controller=>"admin/authors",:id=>@author.id} do |f| %>
+
+			<div class="article_top_links">
+				<li class="button">
+					<%= f.commit_button  %>
+				</li>
+				<div class="button">
+					<%= link_to('Cancel',{:controller=>'admin/authors',:action=>"index"}) %>
+				</div>
+			</div>
+
+			<div class="article_left_section">
+
+				<div class="form_data">
+						<label for="author_active">Active :</label>
+                                                <% if params[:id] %>
+                                               <%= check_box "author", 'active', {}, "1", "0" %>
+                                              <% else %>
+						<%= check_box("author", 'active', :checked => true) %>
+                                               <% end %>
+
+				</div>
+
+				<div class="form_data">
+					<label for="author_firstname">First name <span>*</span>:</label>
+					<%= text_field 'author', 'firstname',:class=>"input_text" %>
+				</div>
+				<div class="form_data">
+					<label for="author_middle_name">Middle Name:</label>
+					<%= text_field 'author', 'middle_name' ,:class=>"input_text" %>
+				</div>
+				<div class="form_data">
+					<label for="author_lastname">Last name:</label>
+					<%= text_field 'author', 'lastname' ,:class=>"input_text" %>
+				</div>
+				<div class="form_data">
+					<label for="author_email">Email <span>*</span>:</label>
+					<%= text_field 'author', 'email',:class=>"input_text" %>
+				</div>
+				<div class="form_data">
+					<label for="token-input-author_site_id">Site access <span>*</span>:</label>
+					<% @site_name = Site.find(session[:site_id]) %>
+					<% selected_source = @author.blank? ? [] : @author.sites%>
+					<%= raw autocompletion_field("author_sites",{:default_selection=>"Enter the Site",:empty_message=>"Site not found",:sort=>"true",:selected=>selected_source}) %>
+				</div>
+				</br>
+				<%#=f.input :active%>
+				<%#=f.input :firstname, :label=>"Site Access"%>
+				<%= semantic_form_for ([:admin,@author_profile]),:url =>"admin" do |df| %>
+
+				<div class="form_data">
+					<label for="author_profile_company_name">Company:</label>
+					<%= text_field 'author_profile', 'company_name',:class=>"input_text" %>
+				</div>
+				<div class="form_data">
+					<label for="author_profile_company_website_url">Company Website:</label>
+					<%= text_field 'author_profile', 'company_website_url',:class=>"input_text" %>
+				</div>
+				<div class="form_data">
+					<label for="author_profile_company_linkedin_url">Company LinkedIn:</label>
+					<%= text_field 'author_profile', 'company_linkedin_url',:class=>"input_text" %>
+				</div>
+				<div class="form_data">
+					<label for="author_profile_twitter_url">Company Twitter:</label>
+					<%= text_field 'author_profile', 'twitter_url',:class=>"input_text" %>
+				</div>
+				<div class="form_data">
+					<label for="author_profile_facebook_url">Company Facebook:</label>
+					<%= text_field 'author_profile', 'facebook_url',:class=>"input_text" %>
+				</div>
+				<div class="form_data">
+					<label for="author_profile_youtube_url">Company youtube:</label>
+					<%= text_field 'author_profile', 'youtube_url',:class=>"input_text" %>
+				</div>
+				<div class="form_data">
+					<label for="author_profile_title">Title:</label>
+					<%= text_field 'author_profile', 'title',:class=>"input_text" %>
+				</div>
+				<div class="form_data">
+					<label for="author_profile_professional_title">Professional Title:</label>
+					<%= text_field 'author_profile', 'professional_title',:class=>"input_text" %>
+				</div>
+				<div class="form_data">
+					<label for="author_profile_description">Description:</label>
+					<%= text_area 'author_profile', 'description',:class=>"textarea_text" %>
+				</div>
+				<div class="form_data">
+					<label for="author_profile_meta_title">Meta Title:</label>
+					<%= text_field 'author_profile', 'meta_title',:class=>"input_text" %>
+				</div>
+				<div class="form_data">
+					<label for="author_profile_meta_description">Meta Description:</label>
+					<%= text_area 'author_profile', 'meta_description',:class=>"textarea_text"%>
+				</div>
+				<div class="form_data">
+					<label for="author_profile_meta_keywords">Meta Keywords:</label>
+					<%= text_field 'author_profile', 'meta_keywords',:class=>"input_text" %>
+				</div>
+				
+				<div class="form_data">
+					<label for="author_profile_blog_url">Blog URL:</label>
+					<%= text_field 'author_profile', 'blog_url',:class=>"input_text" %>
+				</div>
+				<div class="form_data">
+					<label for="author_profile_twitter_user_name">Twitter Handle:</label>
+					<%= text_field 'author_profile', 'twitter_user_name',:class=>"input_text" %>
+				</div>
+				<div class="form_data">
+					<label for="author_profile_linkedin_url">LinkedIn Url :</label>
+					<%= text_field 'author_profile', 'linkedin_url',:class=>"input_text" %>
+				</div>
+				<div class="form_data">
+					<label for="author_profile_google_plus">Google Profile URL :</label>
+					<%= text_field 'author_profile', 'google_plus',:class=>"input_text" %>
+				</div>
+
+				<!--div class="form_data">
+					<label for="text_head">Author's Articles :</label>
+					<a class="further_reading" data-url="/admin/articles/further_reading?" data-id=<%#= @author.new_record? ? "new" : @author.id%> href="javascript:void(0);">Click to Select Author's Article</a>
+				</div -->
+
+				
+				<div class="form_data">
+					<label for="token-input-author_category_id">Category :</label>
+					<% selected_source = @author.blank? ? [] : @author.categories%>
+					<%= raw autocompletion_field("author_category",{:default_selection=>"Enter the Taxonomy Name",:selected=>selected_source})%>
+				</div>
+
+				<%if not @type=="retailer"%>
+				<div class="form_data">
+					<label for="text_head">Author Image :</label>
+					<div class="article_title_rgt">
+						<div class="no_image">
+							<div class="img_block">
+								<%if @author and @author.image %>
+								<div id="no_image" style="display:none;">
+									<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+								<img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+								</div>
+								<div id="prev" style="vertical-align:center;width:100px" >
+									<% @image=@author.image if @author %>
+									<% img=Image.find(:first,:conditions=>["id=?",@author.image.image_id]) %>
+									<%= image_tag(img.thumbnail.image_path, :alt => @image.alt_tag) %>
+								</div>
+								<%end%>
+								<%if not @author %>
+								<div id="no_image">
+									<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+									<img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+								</div>
+								<div id="prev" style="vertical-align:center;width:296px" ></div>
+								<%end %>
+								<%if @author and not @author.image %>
+								<div id="no_image">
+									<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+									<img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+								</div>
+								<div id="prev" style="vertical-align:center;width:296px" ></div>
+								<%end %>								
+							</div><!--img_block-->
+						</div><!--no_image-->
+
+						<div class="article_img_text">
+							<% @image=@author.image if @author %>
+							<%if @image==nil %>
+							<%= hidden_field 'image_property','image_id',:name=>'author[image_property][image_id]' %>
+							<%else %>
+							<%= hidden_field 'image_property','image_id',:value=>@author.image.image_id,:name=>'author[image_property][image_id]' %>
+							<%end %>
+							<div id="prev" style="vertical-align:center;width:296px"></div>
+							<div id="prev_author" style="vertical-align:center;"></div>
+							<%if @author %>
+							<%if @author.image!=nil and @author.image.image_id!=nil %>
+							<span id="gen_image" style="vertical-align:center;"> <% img=Image.find(:first,:conditions=>["id=?",@author.image.image_id]) %>
+								<%if img and img.thumbnail %>
+								<table>
+									<tr>
+										<td> <%#= image_tag(img.thumbnail.image_path, :alt => @image.alt_tag) %> </td>
+									</tr>
+								</table>
+								 <%end %> 
+						   </span>
+
+							<!-- <a rel=1 class="newWindow"><%#= image_tag("/images/no_image_available_large.gif", :alt => "no_image_available", :width=>'100', :height=>'80') %></a> -->
+
+							<div id="change_link_add_image" style="display:none;">
+								<a href="javascript:void(0);" data-url="/admin/image_details/add_image_from_article?popup=true" onclick="image_popup(this)">Browse my Computer</a>
+							</div>
+							<div id="change_link" style="display:none;">
+								<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Upload from Repository</a>
+							</div>
+							<div id="change_link123">
+								<a href="javascript:void(0)" class="remove_image">Remove</a>&nbsp;&nbsp;<a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Change</a>
+							</div>
+						<%else %>
+						<div id="change_link_add_image" >
+							<a href="javascript:void(0);" data-url="/admin/image_details/add_image_from_article?popup=true" onclick="image_popup(this)">Browse my Computer</a>
+						</div>
+						<div id="change_link" >
+							<p >
+								<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Add from Repository</a>
+							</p>
+						</div>
+						<div id="change_link123" style="display:none;">
+							<a href="javascript:void(0)" class="remove_image">Remove</a>&nbsp;&nbsp;<a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Change</a>
+						</div>
+						<%end %>
+						<%else %>
+						<div id="change_link_add_image" >
+							<a href="javascript:void(0);" data-url="/admin/image_details/add_image_from_article?popup=true" onclick="image_popup(this)">Browse my Computer</a>
+						</div>
+						<div id="change_link" >
+							<a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Upload from Repository</a>
+						</div>
+						<div id="change_link123" style="display:none;">
+							<a href="javascript:void(0)" class="remove_image">Remove</a>&nbsp;&nbsp;<a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Change</a>
+						</div>
+						<%end %>
+
+						</td>
+						</tr>
+					</div>
+
+				</div>
+
+				<%else%>
+				<div id="no_image"></div>
+				<%end%>
+
+				<div class="form_data">
+					<label for="text_head">Company Logo :</label>
+					<div class="article_title_rgt">
+						<div class="no_image">
+							<div class="img_block">
+								<%if @author and @author.company_logo %>
+								<div id="no_image_company_logo" style="display:none;">
+									<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+									<img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+								</div>	
+								<div id="prev_company_logo" style="vertical-align:center;width:100px;">
+									<% @image=@author.company_logo if @author %>
+									<% img=Image.find(:first,:conditions=>["id=?",@author.company_logo.image_id]) if @author.company_logo%>
+									<%= image_tag(img.thumbnail.image_path, :alt => @image.alt_tag ) if @image %>
+								</div>
+								<%end%>
+
+								<%if not @author %>
+								<div id="no_image ">
+									<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+									<img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+								</div>
+								<div id="prev_company_logo" style="vertical-align:center;width:100px;"></div>
+								<%end %>
+
+								<%if @author and not @author.company_logo %>
+								<div id="no_image_company_logo">
+									<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+									<img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+								</div>
+								<div id="prev_company_logo" style="vertical-align:center;width:100px;"></div>
+								<%end %>								
+							</div><!--image block-->
+						</div><!--no_image-->
+						<div class="article_img_text">
+
+							<% @image=@author.company_logo if @author %>
+							<%if @image==nil %>
+							<%= hidden_field 'company_logo','image_id' ,:name=>'author[company_logo][image_id]'%>
+							<%else %>
+							<%= hidden_field 'company_logo','image_id',:value=>@author.company_logo.image_id ,:name=>'author[company_logo][image_id]'%>
+							<%end %>
+							<%if @author %>
+							<%if @author.company_logo!=nil and @author.company_logo.image_id!=nil %>
+							<span id="gen_image_company_logo" style="vertical-align:center;"><% img=Image.find(:first,:conditions=>["id=?",@author.company_logo.image_id]) %>
+								<%if img and img.thumbnail %>
+								<table>
+									<tr>
+										<td> <%#= image_tag(img.thumbnail.image_path, :alt => @image.alt_tag) %> </td>
+									</tr>
+								</table> 
+								<%end %> 
+							</span>
+							<div id="change_link_company_logo" style="display:none;">
+								<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true&type=author_logo" onclick="image_popup(this)">Add Company Logo</a>
+							</div>
+							<div id="change_link123_company_logo">
+								<a href="javascript:void(0)" class="remove_companylogo_image">Remove</a>&nbsp;&nbsp;<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true&type=author_logo" onclick="image_popup(this)">Change</a>
+							</div>
+							<%else %>
+							<div id="change_link_company_logo">
+								<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true&type=author_logo" onclick="image_popup(this)">Add from Repository</a>
+							</div>
+							<div id="change_link123_company_logo" style="display:none;">
+								<a href="javascript:void(0)" class="remove_companylogo_image">Remove</a>&nbsp;&nbsp;<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true&type=author_logo" onclick="image_popup(this)">Change</a>
+							</div>
+							<%end %>
+							<%else %>
+							<div id="change_link_company_logo">
+								<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true&type=author_logo" onclick="image_popup(this)">Add Company Logo</a>
+							</div>
+							<div id="change_link123_company_logo" style="display:none;">
+								<a href="javascript:void(0)" class="remove_companylogo_image">Remove</a>&nbsp;&nbsp;<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true&type=author_logo" onclick="image_popup(this)">Change</a>
+							</div>
+							<%end %>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--<div class="form_data">
+
+					<%#=f.input :active , :input_html=>{:class=>'input_text'}, :wrapper_html => { :style => "list-style:none;" }%>
+					<label for="author_active">Active :</label>
+					<%#= check_box("author", 'active') %>
+
+				</div>-->
+				<div class="form_data">
+					<label for="author_profile_elected_to_speak">Invite To Speak:</label>
+					<%= check_box("author_profile", 'elected_to_speak') %>
+				</div>
+		</div>
+
+<div class="article_right_section">
+<div class="articlecolumnRight" id="parentTinymce">
+    
+       <div class="form_data">
+            <label>Biography :</label> 
+    <!--<script type="text/javascript" src="/javascripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>-->
+    <!--<script type="text/javascript"> -->
+
+                <!--</script>-->
+                <form method="post" action="somepage">
+                <textarea id="tinyid_2" name="author_profile[biography]" rows ="10" cols ="1" class="mceEditor" style='width:10%;'><%=@author_profile.biography if @author_profile.biography%></textarea>
+           <!--     <textarea id="author_mce1" class="mceEditor">This will be an editor.</textarea> --> 
+                </form>
+       </div>
+      
+        <div class="form_data">
+            <label>Supplementary :</label>
+             <!--<script type="text/javascript" src="/javascripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>-->
+
+
+
+
+					<textarea id="tinyid_3" name="author_profile[recommendation]" rows ="10" cols ="1" class="mceEditor"   style='width:10%;'><%=@author_profile.recommendation if @author_profile.recommendation%></textarea>
+           <!--     <textarea id="author_mce2" class="mceEditor">This will be an editor.</textarea> --> 
+                
+         </div>
+      
+    </div>
+  </div>
+  </div>
+   <%end%>
+   
+ <%end%>
+</div>
+</div>
+<style type="text/css">
+
+/* please dont add this in css file*/
+.title_image_table td:first-child {
+    float: left;
+    padding-left: 8px;
+}
+.title_image_table td:last-child {
+    display: none;
+}
+</style>
+<script>
+ $(window).scroll(function(){
+ if($(this).scrollTop()>175)
+ {
+ $(".article_top_links").css({"left":$(".article_new_main").offset().left})
+  $(".article_top_links").addClass('fixed_button');
+ }
+ else
+ {
+  $(".article_top_links").removeClass('fixed_button');
+ }
+});
+</script>
+
+<script type="text/javascript" >
+	tinyMCEOnDemand("tinyid_3",400,150)
+</script>
+
+
+
+<script type="text/javascript" >
+	tinyMCEOnDemand("tinyid_2",400,150)
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#tinyid_2").css("display", "inline-block");
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#tinyid_3").css("display", "inline-block");
+	});
+</script>

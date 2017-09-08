@@ -1,0 +1,779 @@
+<div id="container" style="padding-top: 20px;">
+	<div class="section_block full_section">
+		<h2><%= @page_properties[:menu_title] %></h2>
+		<%= stylesheet_link_tag "multiple_image" %>
+		
+		
+			<% if @article_content and @article.created_at %>
+        <div class="article_author_box edit_article">
+          <p class="author_description">
+            <span class="fontbold">Created:</span>
+            <%= @article.created_at.strftime("%d.%m.%y") %> at <%= @article.created_at.strftime("%H:%M") %>
+            <span class="settextcolor">
+        <% if @article.created_by %>
+          by <%= "#{User.find(@article.created_by).firstname} #{User.find(@article.created_by).lastname}" %>.
+        <% else %>
+            <% article_author=@article.authors.first %>
+                  <% if article_author!=nil %>
+                  by  <%= "#{article_author.firstname} #{article_author.lastname}" %>.
+             <% end %>
+        <% end %>
+        </span>
+
+            <span class="fontbold">Last modified:</span>
+            <%= @article.updated_at.strftime("%d.%m.%y") if @article.updated_at %>
+            at <%= @article.updated_at.strftime("%H:%M") if @article.updated_at %> <span class="settextcolor">
+        <% if @article.updated_by %>
+           by <%= "#{User.find(@article.updated_by).firstname} #{User.find(@article.updated_by).lastname}" %>.
+        <% else %>
+           <% article_author=@article.authors.first %>
+                <% if article_author!=nil %>
+                 by   <%= "#{article_author.firstname} #{article_author.lastname}" %>.
+             <% end %>
+        <% end %>
+        </span>
+          </p>
+        </div>
+    <% end %>
+		
+			
+		<div class="article_top_links">
+			<%= render :partial => 'create_edit_buttons'%>
+		</div>
+		<div class="article_new_main">
+			
+		<div class="validation_box">
+			<%= raw error_messages_sorted(@article)%>
+		</div>
+			<%= semantic_form_for  ([:admin, @article]),:method => "post",:html =>{:name =>"article"} do |f| %>
+
+			<input type="hidden" value= <%= @article.id%>
+			name="article[id]" class="hidden_style">
+			<input type="hidden" value=<%= @site.id%> name="article[site_ids]" id="article_site_ids" class="hidden_style">
+			<!-- <div class="article_main_section"> -->
+			<div class="article_left_section">
+				<div class="article_form_section">
+					<div class="article_primary_med">
+						<div class="form_data">
+							<label for="text_head">Primary medium:</label>
+							<p class="inner_radio_list">
+								<%if @article_content and @article_content.primary_medium!=nil%>
+								<%= radio_button(:article,:primary_medium,"video",:class=>"radio_button") %><label for="article_primary_medium_video">Video</label><%= radio_button(:article,:primary_medium,"audio",:class=>"radio_button") %><label for="article_primary_medium_audio">Audio</label>
+								<%= radio_button(:article,:primary_medium,"text",:class=>"radio_button") %><label for="article_primary_medium_text">Text</label> <%= radio_button(:article,:primary_medium,"gallery",:class=>"radio_button") %><label for="article_primary_medium_gallery">Gallery</label>
+								<%else%>
+								<%= radio_button(:article,:primary_medium,"video",:class=>"radio_button") %><label for="article_primary_medium_video">Video</label><%= radio_button(:article,:primary_medium,"audio",:class=>"radio_button") %><label for="article_primary_medium_audio">Audio</label>
+								<%= radio_button(:article,:primary_medium,"text",:checked=>true,:class=>"radio_button") %><label for="article_primary_medium_text">Text</label> <%= radio_button(:article,:primary_medium,"gallery",:class=>"radio_button") %><label for="article_primary_medium_gallery">Gallery</label>
+								<%end%>
+							</p>
+						</div><!--form_data-->
+					</div><!--article_primary_med-->
+					<div class="form_data">
+						<label for="article_title">Title <span>*</span>:</label>
+						<%= text_field 'article', 'title',:class=>'input_text',:size=>30,:flash=>true,:value=>(@article and @article.title) %>
+						
+						<!--  <img src="/images/question-mark.png" alt="logo" class="helptext"> -->	
+					</div><!--form_data-->
+					
+					<div class="form_data">
+						<label for="article_sub_title">Sub Title:</label>
+						<%= text_field 'article','sub_title', :class=>'input_text',:size=>24%>
+						<!--<img width= 15 height=19 src="/images/Question_Mark_Icon.jpg" alt="logo" class="helptext" title="Please click and see the help text">-->
+					</div><!--form_data-->
+					<div class="form_data">
+						<label for="text_head">Summary:</label>
+						<!--<textarea id="text_head" class="textarea_text"></textarea>-->
+						<%= text_area 'article', 'description', {:rows => 2, :cols => 40,:id=>"text_head",:class=>"textarea_text",:value=>(@article and @article.description)} %>
+						<!--<img width= 15 height=19 src="/images/Question_Mark_Icon.jpg" alt="logo" class="helptext" title="Please click and see the help text">-->
+					</div><!--form_data-->
+				
+					<div class="form_data">
+						<label for="token-input-article_author_id">Author <span>*</span>:</label>
+						<% selected_authors = ( @article_content and !@article_content.article_content_authors.blank?) ? @article_content.article_content_authors.collect{|aa| Author.find(aa.author_id) unless aa.author_id.blank?}.uniq : Array(@site.authors.find_by_user_id(session[:user_id]))  %>
+						<%= raw autocompletion_field("article_author",{:selected=>selected_authors,:default_selection=>"Enter the Author Name"})%>
+						<!--<img width= 15 height=19 src="/images/Question_Mark_Icon.jpg" alt="logo" class="helptext" title="Please click and see the help text">-->
+					</div><!--form_data-->
+                <div class="form_data">
+							<label for="article_author_alias"> Author Alias: </label>
+			 				<%= text_field 'article', 'author_alias',:class=>'input_text',:size=>30,:value=>(@article and @article.author_alias) %> 
+		         </div>
+		         
+		         <%#= hidden_field_tag  "article[source_id]",@site.sources.first.id %>
+					
+					<div class="form_data">
+						<%if @site.sources.map(&:name).uniq.count >1%>
+						
+						<label for="article_source_id">Source <span>*</span>:</label>
+						<%= collection_select :article, :source_id,@site.sources, :id,:alais_name,options={:include_blank => '--- Please select ---'},{:class=>"select_box"}%>
+						<%else%>
+							<%= hidden_field_tag  "article[source_id]",@site.sources.first.id %>
+						<%end%>
+						
+					</div>
+					<!--form_data-->
+
+					<div class="form_data">
+						<label for="article_section_id"> Content Type<span> *</span>:</label>
+
+						<%if @article and @article.article_contents.last.section%>
+
+						<%= collection_select 'article', 'section_id',@site.sections.order_by_name,:id,:alias_name,{:prompt => '--- Please select --- '},{:class=>"select_box"}%>
+						<%else%>
+
+						<%= collection_select 'article', 'section_id',@site.sections.order_by_name,:id,:alias_name,{:prompt => '--- Please select --- '},{:class=>"select_box"}%>
+						<%end%>
+					</div>
+                    <div class="form_data">
+                      <label for="token-input-article_category_id">Category <span>*</span>:</label>
+                      <% selected_cat = (@article_content and !@article_content.article_contents_categories.blank?) ? @article_content.article_contents_categories.collect{|aa| Category.find(aa.category_id) unless aa.category_id.blank?} : []%>
+                      <%= raw autocompletion_field("article_category",{:selected=>selected_cat,:default_selection=>"Enter the Taxonomy Name",:sort=>true})%>
+                    </div><!--form_data-->
+					<div class="form_data">
+						<label for="text_head">Tags:</label>
+						<% selected = ( @article_content and @article_content.tags ).blank? ? Tag.find( ( params[:article] and params[:article][:tag_ids] ).to_a ) : @article_content.tags %>
+						<%= raw autocompletion_field("article_tag",{:selected=> selected, :default_selection=>"Enter the Tag Name",:allow_new=>true,:url=>"/admin/articles/tag_creation"})%>
+					</div><!--form_data-->
+
+			 <div class="form_data">
+		               <label for="text_head">Meta Keywords :</label>
+		                 <%= text_field 'article', 'meta_keywords',:class=>'input_text',:size=>30,:maxlength => 1200,:flash=>true,:value=>(@article_content and @article_content.meta_keywords) %>
+	                </div><!--form_data-->
+	                
+	                <div class="form_data">
+		                 <label for="text_head">Meta Description :</label>
+		                 <%= text_field 'article', 'meta_description',:class=>'input_text',:size=>30,:flash=>true,:value=>(@article_content and @article_content.meta_description) %>
+	                </div><!--form_data-->
+					<!--<div class="form_data">
+					<%#= f.input :premium,:as => :boolean,:input_html=>{:class=>'input_text'}, :wrapper_html => { :style => "list-style:none;" }%>
+					</div>--><!--form_data-->
+					<div class="form_data">
+						<%= f.input :pullquote,:label=>"Pullquote:",:input_html=>{:class=>'input_text'} , :wrapper_html => { :style => "list-style:none;" }%>
+					</div><!--form_data-->
+                    <div class="form_data">
+                      <label for="further_reading_list">Further Reading:</label>
+                      <div id="further_reading_list"></div>
+                      <a class="further_reading" data-url="/admin/articles/further_reading?" data-id=<%= @article.new_record? ? "new" : @article.id%> href="javascript:void(0);">Click to Select further Article</a>
+                    </div>
+					<!--	<div class="form_data">
+					<%#= f.input :title_of_feed, :input_html=>{:class=>'input_text'}, :wrapper_html => { :style => "list-style:none;" }%>
+					</div>--><!--form_data-->
+					<!--	<div class="form_data">
+					<%#= f.input :link_to_title_of_feed, :input_html=>{:class=>'input_text'}, :wrapper_html => { :style => "list-style:none;" }%>
+					</div>--><!--form_data-->
+					<div class="form_data">
+						<label for="article_magazine_issue_id">Volume And Issue:</label>
+						<% @specif_magazine_issues = []
+              (@article ? Array(@article.source) : @site.sources).collect{ |source| @specif_magazine_issues << source.magazine_issues }%>
+						<%= render :partial=>'volumn_issue_form'%>
+					</div><!--form_data-->
+					
+					<div class="form_data" id="article_title_image">
+						<label for="text_head">Article Title Image:</label>
+						<div class="article_title_rgt">
+							<div class="no_image">
+								<div class="img_block">
+									<% if @article && @article.image %>
+									<% @image = @article.image if @article%>
+									<% img=Image.find(:first,:conditions=>["id=?",@article.image.image_id])%>
+									<%if img and img.thumbnail%>
+									<div id="prev" style="vertical-align:center;width:100px" >
+										<% @image = @article.image if @article%>
+										<% img=Image.find(:first,:conditions=>["id=?",@article.image.image_id])%>
+										<%= image_tag(img.get_image(80, 80, 'square').image_path, :alt => @image.alt_tag)%>
+									</div>
+
+									<%else%>
+									<div id="prev" style="vertical-align:center;width:100px"></div>
+									<div id="no_image">
+										<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+										<img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+									</div>
+
+									<% end %>
+									<div id="no_image"style="display:none;">
+										<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+										<img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+									</div>
+									<%end%>
+
+									<% if !@article %>
+									<div id="no_image">
+										<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+										<img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+									</div>
+									<div id="prev" style="vertical-align:center;width:296px" ></div>
+									<% end %>
+									<% if @article && !@article.image %>
+									<div id="no_image">
+										<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+										<img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+									</div>
+									<div id="prev" style="vertical-align:center;width:296px" >
+
+									</div>
+									<% end %>
+
+								</div><!--img_block-->
+							</div><!--no_image-->
+							<div class="article_img_text">
+								<% @image = @article.image if @article%>
+								<%if @image == nil%>
+								<% style = "block"%>
+								<%= hidden_field 'image_property','image_id',:name=>'article[image_property][image_id]' %>
+								<%else%>
+								<% style = "none"%>
+								<%= hidden_field 'image_property','image_id',:value=>@article.image.image_id,:name=>'article[image_property][image_id]' %>
+								<%end%> <div id="prev_image"></div>
+								<% if @article %>
+								<%if @article.image!=nil%>
+								<%if @article.image!=nil and @article.image.image_id!=nil%> <span id="gen_image"> <% img=Image.find(:first,:conditions=>["id=?",@article.image.image_id])%>
+									<%if img and img.thumbnail%>
+									<table>
+										<!--tr>
+											<td> <%#= image_tag(img.get_image(80, 80, 'square').image_path, :alt => @image.alt_tag)%> </td>
+											<td class="alter_caption">Caption :</label> </td>
+											<td> <%#= img.caption%> </td>
+										</tr-->
+									</table> <%end%> </span>
+								<div id="change_link_add_image" style="display:none;">
+									<a href="javascript:void(0);" data-url="/admin/image_details/add_image_from_article?popup=true" onclick="image_popup(this)">Browse My Computer</a>
+								</div>
+								<div id="change_link" style="display:none;">
+
+									<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Add from Repository</a>
+
+								</div>
+								<div id="imageset_caption" style="display: block;">
+									Title ImageSet Caption override :
+									<%= text_field "image_property","caption",:class=>"input_text",:value=>@article.image.caption,:onclick => "DisplayMessage();",:name=>'article[image_property][caption]'%>
+                                                                  <a id="img_cap" style='pointer-events: none;'></a>
+								</div>
+								<div id="change_link123" style="display: block;">
+									<a href="javascript:void(0);" class="remove_image" >Remove</a>&nbsp;&nbsp; <a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" class="change">Change</a>
+									<!-- <a href="/admin/image_details/edit_imageset/?flag=popup&id="  rel="1" class="title_image_newwindow">Edit</a> -->
+								</div>
+								<!--div id="set_preference" style="display: block;">
+									<a href="javascript:void(0);" onclick="set_preference()">Set ImageSet display preferences</a>
+								</div-->
+								<% @image_property = @article.image%>
+								<!--div id="preference_setup" style="display:none">
+									<div class="image_checkbox">
+										<%#= check_box(:image_property,:display_preference,{:id=>"dont_display",:name=>"dont_display"},"hide_image") %><label>Don't display on article page</label>
+									</div>
+									<div class="image_checkbox">
+										<%#= check_box(:image_property,:display_preference,{:id=>"cust_img",:name=>"cust_img"},"customise_image") %><label>Customise on article page</label>
+									</div>
+								</div-->
+								<div id="image_customise" style="<% if @image_property.display_preference != "customise_image"%>display:none;<%end%>">
+									<div style="margin-bottom:10px;margin-top:10px;">
+										<%= select( 'image_property', 'customise_scenery', ["Landscape","Portrait","Square"],{},:class=>"input_text",:name=>"article[image_property][customise_scenery]") %>
+									</div>
+									<div style="margin-top:10px;">
+										<%= select( 'image_property', 'customise_size', ["Large","Medium","Small"],{},:class=>"input_text",:name=>"article[image_property][customise_size]") %>
+									</div>
+								</div>
+								<%end%>
+								<%else%> <!-- article image not nil -->
+								<div id="change_link_add_image" >
+									<a href="javascript:void(0);" data-url="/admin/image_details/add_image_from_article?popup=true" onclick="image_popup(this)">Browse My Computer</a>
+								</div>
+								<div id="change_link" >
+									<p>
+										<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Add from Repository</a>
+
+									</p>
+								</div>
+								<div id="imageset_caption"  style="display: none;">
+									Title ImageSet Caption override :<%= text_field "image_property","caption",:class=>"input_text",:onclick => "DisplayMessage();",:name=>'article[image_property][caption]'%>
+                                                                 <a id="img_cap" style='pointer-events: none;'></a>
+								</div>
+								<div id="change_link123"  style="display: none;">
+									<a class="remove_image" >Remove</a>&nbsp;&nbsp; <a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" class="change">Change</a>
+									<!-- <a href="/admin/image_details/edit_imageset/?flag=popup&id="  rel="1" class="title_image_newwindow">Edit</a> -->
+								</div>
+								<!--div id="set_preference" style="display: none;">
+									<a href="javascript:void(0);" >Set ImageSet display preferences</a>
+								</div-->
+								<!--div id="preference_setup" style="display: none;">
+									<div class="image_checkbox">
+										<%#= check_box(:image_property,:display_preference,{:id=>"dont_display",:name=>"dont_display"},"hide_image") %><label>Don't display on article page</label>
+									</div>
+									<div class="image_checkbox">
+										<%#= check_box(:image_property,:display_preference,{:id=>"cust_img",:name=>"cust_img"},"customise_image") %><label>Customise on article page</label>
+									</div>
+								</div-->
+								<div id="image_customise" style="display:none;">
+									<div style="margin-bottom:10px;margin-top:10px;">
+										<%= select( 'image_property', 'customise_scenery', ["Landscape","Portrait","Square"],{},:class=>"input_text",:name=>"article[image_property][customise_scenery]") %>
+									</div>
+									<div style="margin-top:10px;">
+										<%= select( 'image_property', 'customise_size', ["Large","Medium","Small"],{},:class=>"input_text",:name=>"article[image_property][customise_size]") %>
+									</div>
+								</div>
+								<%end%> <!--<p><a href="/">Add ImageSet</a></p>-->
+								<% else %>
+								<div id="change_link_add_image" >
+									<a href="javascript:void(0);" data-url="/admin/image_details/add_image_from_article?popup=true" onclick="image_popup(this)">Browse My Computer</a>
+								</div>
+								<div id="change_link" >
+									<a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Add from Repository</a>
+
+								</div>
+								<div id="imageset_caption" style="display:none;">
+									Override the image caption :<%= text_field "image_property","caption",:class=>"input_text",:name=>'article[image_property][caption]'%>
+								</div>
+								<div id="change_link123" style="display:none;">
+									<a href="javascript:void(0);" onclick="remove_image()">Remove</a>&nbsp;&nbsp; <a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Change</a>
+								</div>
+								<!--div id="set_preference" style="display:none;">
+									<a href="javascript:void(0);" onclick="set_preference()">Set ImageSet display preferences</a>
+								</div-->
+								<!--div id="preference_setup" style="display:none;" >
+									<div class="image_checkbox">
+										<%#= check_box(:image_property,:display_preference,{:id=>"dont_display",:name=>"dont_display"},"hide_image") %><label>Don't display on article page</label>
+									</div>
+									<div class="image_checkbox">
+										<%#= check_box(:image_property,:display_preference,{:id=>"cust_img",:name=>"cust_img"},"customise_image") %><label>Customise on article page</label>
+									</div>
+								</div-->
+								<div id="image_customise" style="display:none;">
+									<div style="margin-bottom:10px;margin-top:10px;">
+										<%= select( 'image_property', 'customise_scenery', ["Landscape","Portrait","Square"],{},:class=>"input_text",:name=>"article[image_property][customise_scenery]") %>
+									</div>
+									<div style="margin-top:10px;">
+										<%= select( 'image_property', 'customise_size', ["Large","Medium","Small"],{},:class=>"input_text",:name=>"article[image_property][customise_size]") %>
+									</div>
+								</div>
+								<% end %>
+							</div>
+						</div>
+					</div><!--form_data-->
+
+					<!--Gallery Changes Start -->
+					<div class="form_data" id="article_gallery">
+						<label>Gallery:</label>
+						<div class="article_title_rgt">
+
+							<div class="gallery_img_text">
+								<%if @article and not @article.gallery.blank?%>
+								<% @gallery=@article.gallery.image_sequence if @article%>
+								<%elsif params[:article] and !params[:article][:gallery_property][:image_sequence_id].blank?%>
+								<% @gallery=ImageSequence.find(params[:article][:gallery_property][:image_sequence_id])%>
+								<%end%>
+								<div id="prev_gallery" style="vertical-align:center;display:none;" class="img_block" ></div>
+								<%if @gallery==nil%>
+								<%= hidden_field 'gallery_property','image_sequence_id',:name=>'article[gallery_property][image_sequence_id]' %>
+								<%else%>
+								<%= hidden_field 'gallery_property','image_sequence_id',:value=>@gallery.id,:name=>'article[gallery_property][image_sequence_id]' %>
+								<%end%>
+							</div>
+							<div style="display:none;" id="no_gallery_div5">
+								<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/popup_image_gallery?popup=true&gallery_type=article" onclick="image_popup(this)" class="img_block"> <img width="100" height="80" src="/images/no_image_available_large.gif?1233918189" alt="no_image_available"></a>
+								<div class="no_gallery_browse" id="no_gallery_div5">
+									<a rel=1  href="javascript:void(0)" data-url="/admin/image_details/new_gallery?popup=true&gallery_type=article" onclick="image_popup(this)">Browse My Computer</a>
+
+									<div id="no_gallery_div5">
+
+										<a rel=1  href="javascript:void(0)" data-url="/admin/image_details/popup_image_gallery?popup=true&gallery_type=article" onclick="image_popup(this)">Add from Repository</a></br>
+
+									</div>
+								</div>
+							</div>
+							<div id="gallery_link123" style="display:none;">
+								<a href="javascript:void(0);"  id="remove_abc" class= "remove_g remove_gallery_1" >Remove</a>&nbsp;&nbsp;<a id="change_1" rel="1" href="javascript:void(0)" data-url="/admin/image_details/popup_image_gallery?popup=true&gallery_type=article" onclick="image_popup(this)" class="change_gallery">Change</a>
+							</div>
+						<div class="video_right">
+							<div id="no_gallery">
+								<%if  @gallery.blank?%>
+								<p class="img_block">
+									<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/popup_image_gallery?popup=true&gallery_type=article" onclick="image_popup(this)" ><img width="100" height="80" src="/images/no_image_available_large.gif?1233918189" alt="no_image_available"></a>
+
+								</p>
+								<%end%>
+							</div>
+							<%if @article%>
+							<%if @gallery%>
+							<span id="gen_gallery" style="vertical-align:center;">
+								<table class="img_block" style="width:100px!important">
+									<tr>
+										<td><%= image_tag(@gallery.image_properties.first.image.get_image(80,80,'square').image_path, :alt => "no_image_available")%></td>
+									</tr>
+								</table>
+								 <a href="javascript:void(0);"  id="remove_1" class= "remove_g remove_gallery" >Remove</a>&nbsp;&nbsp;<a id="change_1" rel="1" href="javascript:void(0)" data-url="/admin/image_details/popup_image_gallery?popup=true&gallery_type=article" onclick="image_popup(this)" class="edit_gallery">Change</a>
+							<%end%>
+							<%end%>
+							<%if  @article== nil || @gallery==nil %>
+							<div class="gallery_browse"id="no_gallery_div">
+								<a id ="browse_b" rel=1  href="javascript:void(0)" data-url="/admin/image_details/new_gallery?popup=true&gallery_type=article" onclick="image_popup(this)">Browse my Computer</a>
+							</div>
+							<div class="gallery_Rep"id="no_gallery_div">
+
+								<a id="repsitory_r" rel=1  href="javascript:void(0)" data-url="/admin/image_details/popup_image_gallery?popup=true&gallery_type=article" onclick="image_popup(this)">Add from Repository</a>
+
+							</div>
+                           <%end%>
+                      </div>
+                      </div>     
+					</div><!--articl title right-->
+			</div><!--form_data-->
+
+		<div class="external_article_imgs">
+			<div class="section_three_block">
+
+				<div class="detail_block video_block" id="article_audio">
+					<div>
+						<label>Audio:</label>
+						<br>
+						</br>
+						<%if @article and not @article.audio.blank?%>
+						<% @audio=@article.audio if @article%>
+						<%end%>
+						<div class="audio">
+							<div class="audio_right">
+								<div id="no_audio">
+									<%if @audio.blank?%>
+									<a rel=1 href="/admin/media_details/popup_audio_manager" class="newWindow img_block"><img width="100" height="80" src="/images/no_image_available_large.gif?1233918189" alt="no_image_available"></a>
+									<div id="add_audio1">
+										 	<a rel=1 href="/admin/media_details/popup_audio_upload?flag=popup" class="newWindow browse_audio1">Browse my Computer</a> 
+										<a rel=1 href="/admin/media_details/popup_audio_manager" class="newWindow browse_audio1">Add from Repository</a>
+
+									</div>
+									<%end%>
+								</div>
+								<div id="no_audio1" style="display: none;">
+									<a rel=1 href="/admin/media_details/popup_audio_manager" class="newWindow img_block"><img width="100" height="80" src="/images/no_image_available_large.gif?1233918189" alt="no_image_available"></a>
+									<div id="add_audio1">
+											<a rel=1 href="/admin/media_details/popup_audio_upload?flag=popup" class="newWindow browse_video">Browse my Computer</a> 
+										<a rel=1 href="/admin/media_details/popup_audio_manager" class="newWindow browse_video">Add from Repository</a>
+
+									</div>
+								</div>
+								<div id="prev_audio" style="vertical-align:center;display:none;" class="img_block"></div>
+								<%if @audio!=nil%>
+								<%= hidden_field 'article','audio_id',:value=>@audio.id %>
+								<%else%>
+								<%= hidden_field 'article','audio_id',:value=>"" %>
+								<%end%>
+								<%if @article%>
+								<%if not @audio.blank?%>
+								<div id="gen_audio" style="vertical-align:center;" class="img_block">
+									<%= image_tag("/images/music.png", :alt => "no_image_available", :alt => "no_image_available", :width=>'80', :height=>'80')%>
+									<%if @article.audio==nil and params[:article][:audio_id]%> <td><%= Audio.find(params[:article][:audio_id]).name%></td>
+									<%else%> <td><%= @article.audio.name%></td>
+									<%end%>
+								</div>
+								<%end%>
+								</table>
+								<%end%>
+
+								<%if @article and @article.audio != nil%>
+								<div style="display: block;" id="no_aid">
+									<a href="javascript:void(0);" class="remove_audio">Remove</a>&nbsp;&nbsp;<a rel=1 href="/admin/media_details/popup_audio_manager" class="newWindow">Change</a>
+								</div>
+								<%else%>
+								<div style="display: none;" id= "no_aid">
+									<a href="javascript:void(0);" class="remove_audio">Remove</a>&nbsp;&nbsp;<a rel=1 href="/admin/media_details/popup_audio_manager" class="newWindow">Change</a>
+								</div>
+								<%end%>
+							</div><!--audio_right-->
+						</div><!--audio-->
+					</div><!--img_block-->
+				</div><!--detail_block-->
+
+				<!--Video funtionality START-->
+				<div class="detail_block video_block" id="article_video">
+					<div>
+						<label class="video_label">Video:</label>
+						<br>
+						</br>
+						<div class="video">
+							<div class="video_right">
+								<% @media_detail=@article.media_detail if @article%>
+								<% @media_detail=MediaDetail.find(:first,:conditions=>["id=?",@article.media_detail_id]) if @article_content and @media_detail.blank?%>
+								<% @media_detail=MediaDetail.find(params[:media_id]) if params[:media_id]%>
+								<div style="display: block;" id="no_video">
+									<%if not @article and not @media_detail%>
+									<a rel=1 href="/admin/media_details/popup_media_manager" class="newWindow"> <img width="100" height="80" src="/images/no_image_available_large.gif?1233918189" alt="no_image_available"> </a>
+									<%end%>
+								</div>
+								<div style="display: none;" id="vid_close">
+									<a rel=1 href="/admin/media_details/popup_media_manager" class="newWindow img_block"> <img width="100" height="80" src="/images/no_image_available_large.gif?1233918189" alt="no_image_available"> </a>
+									<a rel=1 href="/admin/media_details/popup_media_upload?flag=popup" class="newWindow browse_video">Browse my Computer</a>
+									<a rel=1 href="/admin/media_details/popup_media_manager" class="newWindow browse_video">Add from Repository</a>									
+
+								</div>
+								<%if @media_detail!=nil%>
+								<%= hidden_field 'article','media_detail_id',:value=>(params[:media_id] ? @media_detail.id : (@article.media_detail_id ? @article.media_detail_id : "")) %>
+								<%else%>
+								<%= hidden_field 'article','media_detail_id',:value=>"" %>
+								<%end%>
+								<div>
+									<div class="img_block" style="display: none;vertical-align:center;" id="prev_video"></div>
+									<%if @article%>
+									<%if not @media_detail.blank?%>
+									<div id="gen_video" style="vertical-align:center;" class="img_block">
+										<%= image_tag(@media_detail.image.thumbnail.image_path, :alt => "no_image_available", :width=>'80', :height=>'80')%>
+									</div>
+									<%else%>
+									<div  id="no_video"></div>
+									<div style="display: block;" id="add_video_div">
+										<div id="add_audio2">
+											<a rel=1 href="/admin/media_details/popup_media_manager" class="newWindow img_block"> <img width="100" height="80" src="/images/no_image_available_large.gif?1233918189" alt="no_image_available"> </a>
+											<a rel=1 href="/admin/media_details/popup_media_upload?flag=popup" class="newWindow browse_video">Browse my Computer</a> 
+											<a rel=1 href="/admin/media_details/popup_media_manager" class="newWindow browse_video">Add from Repository</a>
+											
+										</div>
+									</div>
+									<%end%>
+									<%end%>
+									<%if @article and @article.media_detail != nil or !@media_detail.blank?%>
+									<div style="display: block;" id="no_vid">
+										<a href="javascript:void(0);" class="remove_video">Remove</a>&nbsp;&nbsp; <a rel=1 href="/admin/media_details/popup_media_manager" class="newWindow">Change</a>
+									</div>
+									<%else%>
+									<div style="display: none;" id="no_vid">
+										<a href="javascript:void(0);" class="remove_video">Remove</a>&nbsp;&nbsp; <a rel=1 href="/admin/media_details/popup_media_manager" class="newWindow">Change</a>
+									</div>
+									<%end%>
+
+								</div><!--video_right-->
+							</div><!--video-->
+						</div><!--img_block-->
+					</div><!--detail_block-->
+				</div><!--detail_block-->
+			</div><!--section_three_block-->
+		</div><!--external_article_imgs-->
+	</div><!--article_left_section-->
+
+	<div class="article_right_section article_tiny_right">
+		<div class="articlecolumnRight" id="parentTinymce">
+			<!--<script type="text/javascript" src="/javascripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>-->
+			<!--<script type="text/javascript" src="/javascripts/tinymce/tinymce_split_update.js"></script>-->
+			<div id="tinymceholder">
+				<input type="hidden" class="hidden_title" name="article[pages_content][][title]" value="first_page" />
+				<% @contents=@article_content.get_pages_for_article if @article_content%>
+				<%if @contents %>
+				<%= render :partial => "article_content_edit",:object=>@contents%>
+				<%#= render :partial => "article_content_edit",:collection=>@contents,:as=>:content%>
+				<%else%>
+				<%= render :partial => "article_content_new" %>
+				<%end%>
+			</div>
+			<div class="tin_bottom_links">
+				<ul>
+					<!--<div class="adminLinkButton">-->
+					<!--<li class="button">
+					<a data-articleid='<%= @article.id%>' class="start" href="javascript:void(0)">Split article in multiple pages</a>
+					</li>-->
+					<li class="button">
+						<a id="add_article_tiny" href="#">Add another article page</a>
+					</li>
+			</div>
+		</div>
+		<% @additional_data_required = nil %>
+		<%= content_tag( :div, :id => :additional_data, :style => 'margin:12px 0px 12px 0px;') do %>
+		<% @additional_data_required =  ( @article and @article.additional_data_required and @article.additional_data_required.id  ) %>
+		<% if @additional_data_required %>
+		<% section =  @article_content.section %>
+		<% subsection = (section.subsections.find( ( @article and @article.subsection ) ) if section) rescue nil %>
+		<%= render( :partial => 'article_additional_data', :locals => { :section =>  section, :subsection => subsection } ) %>
+		<% end %>
+		<% end %>
+		<%= hidden_field_tag('article_additional_data_required', @additional_data_required, :name => 'article[additional_data_required]'  ) %>
+		<% additional_data_button_text = @additional_data_required ? "Don't publish additional data" : 'Publish additional data' %>
+		<%= content_tag(:div, link_to( additional_data_button_text, 'javascript:void(0)', :id => 'add_additional_data' ), :class => 'button', :style => 'margin-top:15px;') %>
+	</div><!--article_right_section-->
+
+	<div class="section_block full_section footer_full_section_block article_footer">
+		<div class="footer_editing_notes">
+			<div class="footer_editing_top">
+				<ul>
+					<li>
+						<label for="article_premium">Restriction Type:</label>
+						<%= select( "article","premium", {"Free"=>false,"Premium" => true,"Default" => ""},:class=>"select_box") %>
+					</li>
+				
+					<li class="publish_li">
+						<label for="article_publish_date_id">Publish Date:</label>
+					</li>
+					<li>
+						<%= raw datetimepicker_input(:article, :publish_date, {:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70}) %>
+					</li>
+					</ul>
+			</div><!--footer_editing_top-->
+			<div class="footer_editing_second">
+				<ul>
+					<li>
+						<label for="article_display_date_id">Display Date:</label>
+					</li>
+					<li>
+						<%= raw datetimepicker_input(:article, :display_date,{:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70}) %>
+					</li>
+					<li>
+						<label for="article_expiry_date_id">Expiry Date:</label>
+					</li>
+					<li>
+						<%= raw datetimepicker_input(:article, :expiry_date, {:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70}) %>
+					</li>
+				</ul>
+			</div><!--footer_editing_second-->
+			<div class="footer_editing_middle">
+				<ul>
+					<li>
+						<label for="article_editing_notes">Editing Notes:</label>
+					</li>
+					<%= text_area 'article', 'editing_notes', {:rows => 7, :cols => 40,:class=>"textarea_text"} %>
+				</ul>
+			</div><!--footer_editing_middle-->
+		</div><!--footer_editing_notes-->
+	</div><!--article_form_section-->
+</div>
+</div><!--article_left_section-->
+<%#end%>
+</div><!--section_block-->
+</div><!--article_main_section-->
+</div><!-- section_block full_section -->
+<!--</div><!--article_new_main-->
+<!--</div><!-- container -->
+<%end%> </div><!--article_new_main-->
+</div><!-- container -->
+
+
+<script>
+$(window).scroll(function(){
+ if($(this).scrollTop()>175)
+ {
+  $(".article_top_links").addClass('fixed_button');
+ }
+ else
+ {
+  $(".article_top_links").removeClass('fixed_button');
+ }
+});
+
+</script>
+<script type="text/javascript">
+        function DisplayMessage()
+     {
+   
+       document.getElementById("img_cap").innerHTML = "Enter maximum of 1000 characters ";
+     }
+</script>
+
+	<script type="text/javascript">
+	$(".start").live("click", function() {
+	var article_id = $(this).data("articleid");
+	var content = tinyMCE.activeEditor.getContent();
+	if(content == "") {
+	alert("Content should not be blank");
+	} else {
+	$(this).attr("onclick", "return false");
+	var article_act = "/admin/articles/split_article_into_pages?id=" + article_id;
+	$("#edit_article_" + article_id).attr("action", article_act);
+	$("#edit_article_" + article_id).submit();
+	}
+	});
+	</script>
+	<script type="text/javascript">
+	$( function() {
+	$('#article_expiry_date_id').datetimepicker({
+	dateFormat : 'MM d, yy',
+	changeMonth : true,
+	changeYear : true,
+	showOn : 'button',
+	buttonImage : '/images/calendar_date_select/calendar.gif ',
+	buttonImageOnly : true,
+	ampm : true
+	});
+	});
+	</script>
+	<script type="text/javascript">
+	jQuery("#copy").click( function() {
+	jQuery('#copy_article').show()
+	});
+	</script>
+	<script type="text/javascript">
+	$( function() {
+	$('#article_display_date_id').datetimepicker({
+	dateFormat : 'MM d, yy',
+	changeMonth : true,
+	changeYear : true,
+	showOn : 'button',
+	buttonImage : '/images/calendar_date_select/calendar.gif ',
+	buttonImageOnly : true,
+	ampm : true
+	});
+	});
+	</script>
+	<script type="text/javascript">
+	jQuery(document).ready( function() {
+	jQuery('#txtarea1').bind('keyup', function() {
+	var cnt = $(this).val().length;
+	jQuery('#counter1').html(cnt);
+	});
+	});
+	</script>
+	<script type="text/javascript">
+$('.helptext').mouseover(function(){
+    var t = $(this).prev().attr('name');
+    var id = $(this).prev().attr('id');
+		jQuery.ajax({
+			type : 'POST',
+			dataType : 'json',
+beforeSend : function(xhr) {
+				xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+			},
+			url : '/helptext?name='+t+ '&id=' + id,
+			success : function(update_data) {
+				jQuery(".helptext").attr("title",update_data.help_text);
+			}
+		});
+
+});
+	</script>
+	<%= render :partial => "additional_data.js.erb" %> 
+
+
+
+<script type="text/javascript">
+// function myFunction()
+// {
+// document.getElementById("title").innerHTML="Articl Title";
+// }
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.inner_radio_list input[type="radio"].radio_button').click(function() {
+			if ($(this).is(':checked')) {
+				confirmed = window.confirm("Are you sure to change the primary medium?");
+				if (confirmed) {
+					primarSelectEdit($(this).attr('value'))
+					$("#errorExplanation").hide();
+				} else {
+					$('#' + default_checked).attr('checked', 'checked');
+				}
+			}
+		});
+
+		var primarSelectEdit = function(select) {
+			switch (select) {
+				case 'text':
+					jQuery('#article_video,#article_audio,#article_gallery,#article_title_image').show();
+					break;
+				case 'gallery':
+					jQuery('#article_video,#article_audio,#article_title_image').hide();
+					jQuery('#article_gallery').show();
+					break;
+				case 'audio':
+					jQuery('#article_video,#article_gallery,#article_title_image').hide();
+					jQuery('#article_audio').show();
+					break;
+				case 'video':
+					jQuery('#article_video').show();
+					jQuery('#article_audio,#article_gallery,#article_title_image').hide();
+					break;
+			}
+		}
+		primarSelectEdit($('.inner_radio_list input[type="radio"].radio_button:checked').val())
+
+	}); 
+</script>

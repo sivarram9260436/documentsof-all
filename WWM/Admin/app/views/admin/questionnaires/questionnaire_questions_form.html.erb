@@ -1,0 +1,63 @@
+ <div class="section_block full_section">
+	<h2 class="headBG">Questionnaire Preview</h2>
+  <div class="section_content">
+
+<%=form_tag :action => "save_questionnaire_form", :id => questionnaire.id do %>
+
+	<% questions = questionnaire.questions %>
+
+	<div class="validation_box">
+	    <%= raw error_messages_for_text_changes :questionnaire_submission %>
+	</div>
+
+	<%= hidden_field_tag(:company_id, params[:company_id]) if params[:company_id] %>
+	<div class="questionnarie_questions">
+				<p><%= questionnaire.introduction %></p>
+    </div>
+	
+	
+		
+
+		<% questions.each do |question| %>
+		
+				
+				<% if question.type.eql?("BooleanQuestion")%>
+					<div class="form_data ques_form">
+					<label><%= question.name %></label>	
+							<p><%= question_elements(question)%></p>
+							
+					</div>
+				<%else%>
+
+				  <div class="form_data ques_form">	
+				    <label for="text_head">			
+						<%= question.name + ( question.is_mandatory?(questionnaire.id) ? ' *' : '') + ': ' %></label>	
+					
+						<%= question_elements(question) %>
+					
+				 </div>	
+				<%end%>
+			
+		<% end %>
+      
+
+
+	<div class="questionnarie_questions">
+		<p><%= questionnaire.end_message_text %></p>
+	</div>
+
+	<%=  show_captcha  if questionnaire.show_captcha? %>
+	
+	<div class="button">
+	   <%=submit_tag (questionnaire.submit_label.blank? ? 'Submit' : questionnaire.submit_label), :style=>"cursor:pointer" %>
+	</div>
+
+<% end %>
+</div>
+</div>
+
+
+<style>
+.ques_form input{float: left;}
+#questionnaire_submission_new_answers_BooleanAnswer_2{}
+</style>

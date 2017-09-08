@@ -1,0 +1,4 @@
+     if @subscriber.update_attributes(params[:subscriber]) && @subscriber.subscriber_property.update_attributes(params[:subscriber_property])
+
+
+/etc/init.d/unicorn start inc_admin

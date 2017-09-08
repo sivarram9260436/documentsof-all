@@ -1,0 +1,5 @@
+
+/home/ruby/bin/unicorn_wps.sh start
+
+
+/home/ruby/bin/unicorn_wps.sh stop

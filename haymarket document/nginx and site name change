@@ -1,0 +1,625 @@
+   ruby@HaymarketStage:~/CMS/WPS$ cd ../Sites/
+lsruby@HaymarketStage:~/CMS/Sites$ ls
+autocar_pro		autocar_pro.tar  printweek_india	      printweek_india_old	      staging-autocarproresponsive.kreatio.com
+autocar_pro_responsive	Core		 printweek_india.kreatio.com  staging-autocarpro.kreatio.com
+ruby@HaymarketStage:~/CMS/Sites$ cd ../
+ruby@HaymarketStage:~/CMS$ cd
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx
+nginx/          nginx_soft/     nginx_soft.tgz  
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/
+conf/       html/       logs/       nginx_conf/ proxy_temp/ sbin/       tmp1/       tmp2/       
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/
+conf/       html/       logs/       nginx_conf/ proxy_temp/ sbin/       tmp1/       tmp2/       
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/
+conf1/ conf2/ .git/  
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf
+conf1/ conf2/ 
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/
+detectmobilebrowser.conf.txt  mime.types                    nginx.conf                    scgi_params                   vhosts/
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/vhosts/
+00-wps-nginx.conf           01-backoffice-nginx.conf    printweekdesign-nginx.conf  
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/vhosts/
+00-wps-nginx.conf           01-backoffice-nginx.conf    printweekdesign-nginx.conf  
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/vhosts/01-backoffice-nginx.conf
+You have new mail in /var/mail/ruby
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/vhosts/00-wps-nginx.conf 
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf2/
+mime.types  nginx.conf  vhosts/     
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf2/
+mime.types  nginx.conf  vhosts/     
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf2/vhosts/0
+00-default-nginx.conf       01-m.one.deepak-nginx.conf  
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf2/vhosts/0
+00-default-nginx.conf       01-m.one.deepak-nginx.conf  
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/
+detectmobilebrowser.conf.txt  mime.types                    nginx.conf                    scgi_params                   vhosts/
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/
+detectmobilebrowser.conf.txt  mime.types                    nginx.conf                    scgi_params                   vhosts/
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/
+detectmobilebrowser.conf.txt  mime.types                    nginx.conf                    scgi_params                   vhosts/
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/
+detectmobilebrowser.conf.txt  mime.types                    nginx.conf                    scgi_params                   vhosts/
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/
+detectmobilebrowser.conf.txt  mime.types                    nginx.conf                    scgi_params                   vhosts/
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/vhosts/
+00-wps-nginx.conf           01-backoffice-nginx.conf    printweekdesign-nginx.conf  
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/vhosts/
+00-wps-nginx.conf           01-backoffice-nginx.conf    printweekdesign-nginx.conf  
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/vhosts/
+00-wps-nginx.conf           01-backoffice-nginx.conf    printweekdesign-nginx.conf  
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/vhosts/
+00-wps-nginx.conf           01-backoffice-nginx.conf    printweekdesign-nginx.conf  
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/vhosts/
+00-wps-nginx.conf           01-backoffice-nginx.conf    printweekdesign-nginx.conf  
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/vhosts/
+00-wps-nginx.conf           01-backoffice-nginx.conf    printweekdesign-nginx.conf  
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/vhosts/00-wps-nginx.conf 
+!                                         heymarket_second_import/                  .psql_history
+Backup/                                   hour_log_status.log                       rc.local.log
+.bash_history                             install.log                               .rdebug_hist
+.bash_profile                             .irb-history                              .rvm/
+.bashrc                                   lua/                                      scripts/
+bin/                                      lualib/                                   .selected_editor
+.cache/                                   .mkshrc                                   Solr_Server/
+CMS/                                      new_one_hour_log/                         .ssh/
+Design/                                   Nginx/                                    .sudo_as_admin_successful
+.gem/                                     old_files_from_CMS/                       .vim/
+.gnupg/                                   one_hour_nginx_logs/                      .viminfo
+heymarket_directory_listing_migration.rb  .profile                                  .zlogin
+HeyMarket_export/                         PSQLBACKUP/                               .zshrc
+heymarket_second_dump/                    psql_dump/                                
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/vhosts/00-wps-nginx.conf 
+!                                         heymarket_second_import/                  .psql_history
+Backup/                                   hour_log_status.log                       rc.local.log
+.bash_history                             install.log                               .rdebug_hist
+.bash_profile                             .irb-history                              .rvm/
+.bashrc                                   lua/                                      scripts/
+bin/                                      lualib/                                   .selected_editor
+.cache/                                   .mkshrc                                   Solr_Server/
+CMS/                                      new_one_hour_log/                         .ssh/
+Design/                                   Nginx/                                    .sudo_as_admin_successful
+.gem/                                     old_files_from_CMS/                       .vim/
+.gnupg/                                   one_hour_nginx_logs/                      .viminfo
+heymarket_directory_listing_migration.rb  .profile                                  .zlogin
+HeyMarket_export/                         PSQLBACKUP/                               .zshrc
+heymarket_second_dump/                    psql_dump/                                
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/vhosts/00-wps-nginx.conf 
+You have new mail in /var/mail/ruby
+ruby@HaymarketStage:~$ cat bin/restart_all.sh 
+#!/bin/sh -e
+#
+#Restart Script
+exec 2>> ~ruby/bin/restart.log  # send stderr from restart to a log file
+exec 1>&2                   # send stdout to the same log file
+#set -x                      # tell sh to display commands before execution
+
+echo "\n\n=====================================\nFresh run at: `date`"
+~ruby/bin/unicorn_cms.sh start || echo "Could not start CMS Unicorns"
+~ruby/bin/unicorn_wps.sh start || echo "Could not start WPS Unicorns"
+sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all || echo "Could not start Nginx"
+cd /home/ruby/Solr_Server/bin
+export JAVA_HOME=/usr/lib/jvm/java-1.6.0-openjdk-amd64/jre/
+./startup.sh || echo "Could not start Solr"
+
+exit 0
+ruby@HaymarketStage:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all
+[sudo] password for ruby: 
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2
+nginx: [emerg] bind() to 0.0.0.0:8002 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:8002 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:8002 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:8002 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:8002 failed (98: Address already in use)
+nginx: [emerg] still could not bind()
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1
+nginx: [warn] server name "/home/ruby/Nginx/logs/access-dk-$host.log" has suspicious symbols in /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../nginx_conf/conf1/vhosts/01-backoffice-nginx.conf:17
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+^Cruby@HaymarketStage:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -t
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -t
+nginx: the configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../nginx_conf/conf2/nginx.conf syntax is ok
+nginx: configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../nginx_conf/conf2/nginx.conf test is successful
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -t
+nginx: [warn] server name "/home/ruby/Nginx/logs/access-dk-$host.log" has suspicious symbols in /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../nginx_conf/conf1/vhosts/01-backoffice-nginx.conf:17
+nginx: the configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../nginx_conf/conf1/nginx.conf syntax is ok
+nginx: configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../nginx_conf/conf1/nginx.conf test is successful
+You have new mail in /var/mail/ruby
+ruby@HaymarketStage:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -s reload
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -s reload
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -s reload
+nginx: [warn] server name "/home/ruby/Nginx/logs/access-dk-$host.log" has suspicious symbols in /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../nginx_conf/conf1/vhosts/01-backoffice-nginx.conf:17
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/vhosts/00-wps-nginx.conf 
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/vhosts/00-wps-nginx.conf 
+ruby@HaymarketStage:~$ cd CMS/Sites/
+You have new mail in /var/mail/ruby
+ruby@HaymarketStage:~/CMS/Sites$ ls
+autocar_pro		autocar_pro.tar  printweek_india	      printweek_india_old	      staging-autocarproresponsive.kreatio.com
+autocar_pro_responsive	Core		 printweek_india.kreatio.com  staging-autocarpro.kreatio.com
+ruby@HaymarketStage:~/CMS/Sites$ cd ../
+ruby@HaymarketStage:~/CMS$ cd
+ruby@HaymarketStage:~$ vi Nginx/Nginx_Conf/nginx/nginx_conf/conf1/vhosts/01-backoffice-nginx.conf
+ruby@HaymarketStage:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -t
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -t
+nginx: the configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../nginx_conf/conf2/nginx.conf syntax is ok
+nginx: configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../nginx_conf/conf2/nginx.conf test is successful
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -t
+nginx: [warn] server name "/home/ruby/Nginx/logs/access-dk-$host.log" has suspicious symbols in /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../nginx_conf/conf1/vhosts/01-backoffice-nginx.conf:17
+nginx: the configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../nginx_conf/conf1/nginx.conf syntax is ok
+nginx: configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../nginx_conf/conf1/nginx.conf test is successful
+ruby@HaymarketStage:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -s reload
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -s reload
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -s reload
+nginx: [warn] server name "/home/ruby/Nginx/logs/access-dk-$host.log" has suspicious symbols in /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../nginx_conf/conf1/vhosts/01-backoffice-nginx.conf:17
+ruby@HaymarketStage:~$ exit
+logout
+Connection to 192.168.22.70 closed.
+tamilarasan@tamilarasan:~$ ssh ruby@192.168.22.53
+ruby@192.168.22.53's password: 
+Welcome to Ubuntu 12.04.5 LTS (GNU/Linux 3.2.0-23-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+  System information as of Wed Nov 23 13:07:24 IST 2016
+
+  System load:    0.0                Processes:           104
+  Usage of /home: 11.8% of 79.87GB   Users logged in:     0
+  Memory usage:   60%                IP address for eth0: 192.168.22.53
+  Swap usage:     1%
+
+  Graph this data and manage this system at:
+    https://landscape.canonical.com/
+
+177 packages can be updated.
+155 updates are security updates.
+
+New release '14.04.3 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+
+Last login: Wed Nov 23 12:14:31 2016 from 192.168.209.31
+ruby@wwm:~$ cd CMS/Admin
+You are using '.rvmrc', it requires trusting, it is slower and it is not compatible with other ruby managers,
+you can switch to '.ruby-version' using 'rvm rvmrc to [.]ruby-version'
+or ignore this warning with 'rvm rvmrc warning ignore /home/ruby/CMS/Admin/.rvmrc',
+'.rvmrc' will continue to be the default project file in RVM 1 and RVM 2,
+to ignore the warning for all files run 'rvm rvmrc warning ignore all.rvmrcs'.
+
+Using /home/ruby/.rvm/gems/ruby-1.9.3-p547 with gemset ruby-1.9.3-p547
+ruby@wwm:~/CMS/Admin$ CD
+CD: command not found
+ruby@wwm:~/CMS/Admin$ cd
+ruby@wwm:~$ vi Nginx/Nginx_Conf/nginx/
+conf/       conf1/      conf2/      html/       logs/       proxy_temp/ sbin/       tmp1/       tmp2/       
+ruby@wwm:~$ vi Nginx/Nginx_Conf/nginx/
+conf/       conf1/      conf2/      html/       logs/       proxy_temp/ sbin/       tmp1/       tmp2/       
+ruby@wwm:~$ vi Nginx/Nginx_Conf/nginx/conf1/
+00-wps-nginx.conf             mime.types                    scgi_params                   
+detectmobilebrowser.conf.txt  nginx.conf                    vhosts/                       
+ruby@wwm:~$ vi Nginx/Nginx_Conf/nginx/conf1/vhosts/0
+00-wps-nginx.conf                01-backoffice-nginx.conf         02-xhtml-nginx.conf              03-testingbackoffice-nginx.conf  04-backmicro-nginx.conf
+ruby@wwm:~$ vi Nginx/Nginx_Conf/nginx/conf1/vhosts/01-backoffice-nginx.conf 
+ruby@wwm:~$ exit
+logout
+Connection to 192.168.22.53 closed.
+tamilarasan@tamilarasan:~$ ssh ruby@192.168.22.66
+ruby@192.168.22.66's password: 
+Last login: Thu Nov 17 16:30:56 2016 from 192.168.209.31
+ruby@MMActiv:~$ vi Nginx/Nginx_Conf/nginx/
+conf/       conf1/      conf2/      html/       logs/       proxy_temp/ sbin/       tmp1/       tmp2/       
+ruby@MMActiv:~$ vi Nginx/Nginx_Conf/nginx/conf1/
+detectmobilebrowser.conf.txt  mime.types                    nginx.conf                    scgi_params                   vhosts/
+ruby@MMActiv:~$ vi Nginx/Nginx_Conf/nginx/conf1/
+detectmobilebrowser.conf.txt  mime.types                    nginx.conf                    scgi_params                   vhosts/
+ruby@MMActiv:~$ vi Nginx/Nginx_Conf/nginx/conf1/vhosts/0
+00-wps-nginx.conf         01-backoffice-nginx.conf  
+ruby@MMActiv:~$ vi Nginx/Nginx_Conf/nginx/conf1/vhosts/01-backoffice-nginx.conf 
+ruby@MMActiv:~$ cat bin/restart_all.sh 
+#!/bin/sh -e
+#
+#Restart Script
+exec 2>> /home/ruby/bin/restart.log  # send stderr from restart to a log file
+exec 1>&2                   # send stdout to the same log file
+#set -x                      # tell sh to display commands before execution
+
+echo "\n\n=====================================\nFresh run at: `date`"
+cd /home/ruby/CMS/CMS_Admin;/etc/init.d/unicorn start admin || echo "Could not start CMS Unicorns"
+cd /home/ruby/CMS/WPS;/etc/init.d/unicorn start wps || echo "Could not start WPS Unicorns"
+sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all || echo "Could not start Nginx"
+cd /home/ruby/Solr_Server/bin
+export JAVA_HOME=/usr/lib/jvm/java-1.6.0-openjdk-amd64/jre/
+./startup.sh || echo "Could not start Solr"
+exit 0
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -t
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -t
+nginx: the configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf2/nginx.conf syntax is ok
+nginx: configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf2/nginx.conf test is successful
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -t
+nginx: the configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf1/nginx.conf syntax is ok
+nginx: configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf1/nginx.conf test is successful
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -s stop
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -s stop
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -s stop
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -s reload
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -s reload
+nginx: [error] open() "/home/ruby/Nginx/Nginx_Conf//nginx/tmp2/nginx.pid" failed (2: No such file or directory)
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -s reload
+nginx: [error] open() "/home/ruby/Nginx/Nginx_Conf//nginx/tmp1/nginx.pid" failed (2: No such file or directory)
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all 
+.bash_history              bin/                       .gem/                      PSQL_dump/                 .selected_editor           .viminfo
+.bash_logout               .cache/                    .irb-history               rc.local.log               Solr_Server/               .zlogin
+.bash_profile              CMS/                       Nginx/                     .rvm/                      .ssh/                      .zshrc
+.bashrc                    cybermedia_stg_backup.sql  .profile                   script/                    .vim/                      
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all 
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1
+ruby@MMActiv:~$ cd CMS/Sites/
+ruby@MMActiv:~/CMS/Sites$ ls
+biospecindia  biospectrum  Core  old_core  stage.biospectrumasia.kreatio.com  stage.biospectrumindia.kreatio.com
+ruby@MMActiv:~/CMS/Sites$ ls -lrt
+total 16
+lrwxrwxrwx 1 ruby ruby   18 Dec  1  2014 stage.biospectrumasia.kreatio.com -> biospectrum/public
+drwxrwxr-x 6 ruby ruby 4096 Dec 22  2014 biospecindia
+drwxrwxr-x 3 ruby ruby 4096 Mar 11  2015 old_core
+drwxrwxr-x 4 ruby ruby 4096 Mar 11  2015 Core
+drwxrwxr-x 6 ruby ruby 4096 Jun  2  2015 biospectrum
+lrwxrwxrwx 1 ruby ruby   19 Apr 26  2016 stage.biospectrumindia.kreatio.com -> biospecindia/public
+ruby@MMActiv:~/CMS/Sites$ ln -s biospectrumasia.mmactiv.kreatio.info biospectrum/public
+ruby@MMActiv:~/CMS/Sites$ ls -l
+total 16
+drwxrwxr-x 6 ruby ruby 4096 Dec 22  2014 biospecindia
+drwxrwxr-x 6 ruby ruby 4096 Jun  2  2015 biospectrum
+drwxrwxr-x 4 ruby ruby 4096 Mar 11  2015 Core
+drwxrwxr-x 3 ruby ruby 4096 Mar 11  2015 old_core
+lrwxrwxrwx 1 ruby ruby   18 Dec  1  2014 stage.biospectrumasia.kreatio.com -> biospectrum/public
+lrwxrwxrwx 1 ruby ruby   19 Apr 26  2016 stage.biospectrumindia.kreatio.com -> biospecindia/public
+ruby@MMActiv:~/CMS/Sites$ cd
+ruby@MMActiv:~$ cd CMS/Sites/biospectrum/
+ruby@MMActiv:~/CMS/Sites/biospectrum$ ls
+1  components  digital_assets  favicon.ico  images  IMG  javascripts  medias  public  stylesheets  views
+ruby@MMActiv:~/CMS/Sites/biospectrum$ cd ../pu
+-bash: cd: ../pu: No such file or directory
+ruby@MMActiv:~/CMS/Sites/biospectrum$ cd public/
+ruby@MMActiv:~/CMS/Sites/biospectrum/public$ ls
+404.html                              BSA_ga.html              country_focus_new.html  documents    google5ed705ccf1a2cd1b.html  IMG          medias      stylesheets
+biospectrumasia.mmactiv.kreatio.info  bsa_newsletter.html.erb  digital_assets          favicon.ico  images                       javascripts  robots.txt
+ruby@MMActiv:~/CMS/Sites/biospectrum/public$ rm biospectrumasia.mmactiv.kreatio.info
+ruby@MMActiv:~/CMS/Sites/biospectrum/public$ ls
+404.html     bsa_newsletter.html.erb  digital_assets  favicon.ico                  images  javascripts  robots.txt
+BSA_ga.html  country_focus_new.html   documents       google5ed705ccf1a2cd1b.html  IMG     medias       stylesheets
+ruby@MMActiv:~/CMS/Sites/biospectrum/public$ cd ../
+ruby@MMActiv:~/CMS/Sites/biospectrum$ cd ../
+ruby@MMActiv:~/CMS/Sites$ ls
+biospecindia  biospectrum  Core  old_core  stage.biospectrumasia.kreatio.com  stage.biospectrumindia.kreatio.com
+ruby@MMActiv:~/CMS/Sites$ ls -lrt
+total 16
+lrwxrwxrwx 1 ruby ruby   18 Dec  1  2014 stage.biospectrumasia.kreatio.com -> biospectrum/public
+drwxrwxr-x 6 ruby ruby 4096 Dec 22  2014 biospecindia
+drwxrwxr-x 3 ruby ruby 4096 Mar 11  2015 old_core
+drwxrwxr-x 4 ruby ruby 4096 Mar 11  2015 Core
+drwxrwxr-x 6 ruby ruby 4096 Jun  2  2015 biospectrum
+lrwxrwxrwx 1 ruby ruby   19 Apr 26  2016 stage.biospectrumindia.kreatio.com -> biospecindia/public
+ruby@MMActiv:~/CMS/Sites$ mv stage.biospectrumasia.kreatio.com biospectrumasia.mmactiv.kreatio.info
+ruby@MMActiv:~/CMS/Sites$ ls -l
+total 16
+drwxrwxr-x 6 ruby ruby 4096 Dec 22  2014 biospecindia
+drwxrwxr-x 6 ruby ruby 4096 Jun  2  2015 biospectrum
+lrwxrwxrwx 1 ruby ruby   18 Dec  1  2014 biospectrumasia.mmactiv.kreatio.info -> biospectrum/public
+drwxrwxr-x 4 ruby ruby 4096 Mar 11  2015 Core
+drwxrwxr-x 3 ruby ruby 4096 Mar 11  2015 old_core
+lrwxrwxrwx 1 ruby ruby   19 Apr 26  2016 stage.biospectrumindia.kreatio.com -> biospecindia/public
+ruby@MMActiv:~/CMS/Sites$ mv stage.biospectrumindia.kreatio.com biospectrumindia.mmactiv.kreatio.info
+ruby@MMActiv:~/CMS/Sites$ ls
+biospecindia  biospectrum  biospectrumasia.mmactiv.kreatio.info  biospectrumindia.mmactiv.kreatio.info  Core  old_core
+ruby@MMActiv:~/CMS/Sites$ cd
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx
+nginx      nginx1     nginx2     nginx-all  nginx.old  
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -t
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -t
+nginx: the configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf2/nginx.conf syntax is ok
+nginx: configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf2/nginx.conf test is successful
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -t
+nginx: the configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf1/nginx.conf syntax is ok
+nginx: configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf1/nginx.conf test is successful
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -s stop
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -s stop
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -s stop
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1
+ruby@MMActiv:~$ ls
+bin  CMS  cybermedia_stg_backup.sql  Nginx  PSQL_dump  rc.local.log  script  Solr_Server
+ruby@MMActiv:~$ cd Nginx/Nginx_Conf/
+ruby@MMActiv:~/Nginx/Nginx_Conf$ ls
+admin.conf  cache  cache_mic  example.htpasswd.conf  list.txt  lua  lualib  nginx  nginx_soft  nginx_soft.tgz
+ruby@MMActiv:~/Nginx/Nginx_Conf$ cd nginx
+ruby@MMActiv:~/Nginx/Nginx_Conf/nginx$ ls
+conf  conf1  conf2  html  logs  proxy_temp  sbin  tmp1  tmp2
+ruby@MMActiv:~/Nginx/Nginx_Conf/nginx$ cd conf2
+ruby@MMActiv:~/Nginx/Nginx_Conf/nginx/conf2$ cd vhosts/
+ruby@MMActiv:~/Nginx/Nginx_Conf/nginx/conf2/vhosts$ ls
+00-default-nginx.conf  01-m.one.deepak-nginx.conf  10-biospectrumasia.conf  12-biospectrumindia.conf
+ruby@MMActiv:~/Nginx/Nginx_Conf/nginx/conf2/vhosts$ vi 10-biospectrumasia.conf
+ruby@MMActiv:~/Nginx/Nginx_Conf/nginx/conf2/vhosts$ vi 12-biospectrumindia.conf
+ruby@MMActiv:~/Nginx/Nginx_Conf/nginx/conf2/vhosts$ vi 10-biospectrumasia.conf
+ruby@MMActiv:~/Nginx/Nginx_Conf/nginx/conf2/vhosts$ cd
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -t
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -t
+nginx: the configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf2/nginx.conf syntax is ok
+nginx: configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf2/nginx.conf test is successful
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -t
+nginx: the configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf1/nginx.conf syntax is ok
+nginx: configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf1/nginx.conf test is successful
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -s stop
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -s stop
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -s stop
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1
+ruby@MMActiv:~$ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==============================================================================================================================
+
+first
+
+
+
+
+
+
+
+
+
+			*.wwm.kreatio.info
+			cms.wwm.kreatio.info
+			
+
+"dev.themachinist.kreatio.com"
+
+				themachinist.wwm.kreatio.info
+
+
+dev.themachinist.kreatio.com 
+worldwidemedia-microsites-designs.kreatio.com *.assets-wwmdev-event.kreatio.com *.preview-wwmdev-event.kreatio.com admin-wwm-micro.kreatio.com devadmin.worldwidemedia.kreatio.com
+
+
+
+
+
+
+
+*.np.kreatio.info
+
+
+
+
+ *.mmactiv.kreatio.info
+
+stage.biospectrumasia.kreatio.com 
+stage.biospectrumindia.kreatio.com 
+stage.mmactiv.kreatio.com;
+
+
+cms.mmactiv.kreatio.info
+biospectrumasia.mmactiv.kreatio.info
+biospectrumindia.mmactiv.kreatio.info
+
+
+    server_name dev-admin.new-vision.kreatio.com;
+
+
+	server_name cms.np.kreatio.info;
+
+
+==============================================================================================================================
+
+ruby@wwm:~/CMS/Admin$ CD
+CD: command not found
+ruby@wwm:~/CMS/Admin$ cd
+ruby@wwm:~$ vi Nginx/Nginx_Conf/nginx/
+conf/       conf1/      conf2/      html/       logs/       proxy_temp/ sbin/       tmp1/       tmp2/       
+ruby@wwm:~$ vi Nginx/Nginx_Conf/nginx/
+conf/       conf1/      conf2/      html/       logs/       proxy_temp/ sbin/       tmp1/       tmp2/       
+ruby@wwm:~$ vi Nginx/Nginx_Conf/nginx/conf1/
+00-wps-nginx.conf             mime.types                    scgi_params                   
+detectmobilebrowser.conf.txt  nginx.conf                    vhosts/                       
+ruby@wwm:~$ vi Nginx/Nginx_Conf/nginx/conf1/vhosts/0
+00-wps-nginx.conf                01-backoffice-nginx.conf         02-xhtml-nginx.conf              03-testingbackoffice-nginx.conf  04-backmicro-nginx.conf
+ruby@wwm:~$ vi Nginx/Nginx_Conf/nginx/conf1/vhosts/01-backoffice-nginx.conf 
+ruby@wwm:~$ exit
+logout
+
+
+
+
+
+ cms.wwm.kreatio.info
+
+
+
+Connection to 192.168.22.53 closed.
+tamilarasan@tamilarasan:~$ ssh ruby@192.168.22.66
+ruby@192.168.22.66's password: 
+Last login: Thu Nov 17 16:30:56 2016 from 192.168.209.31
+ruby@MMActiv:~$ vi Nginx/Nginx_Conf/nginx/
+conf/       conf1/      conf2/      html/       logs/       proxy_temp/ sbin/       tmp1/       tmp2/       
+ruby@MMActiv:~$ vi Nginx/Nginx_Conf/nginx/conf1/
+detectmobilebrowser.conf.txt  mime.types                    nginx.conf                    scgi_params                   vhosts/
+ruby@MMActiv:~$ vi Nginx/Nginx_Conf/nginx/conf1/
+detectmobilebrowser.conf.txt  mime.types                    nginx.conf                    scgi_params                   vhosts/
+ruby@MMActiv:~$ vi Nginx/Nginx_Conf/nginx/conf1/vhosts/0
+00-wps-nginx.conf         01-backoffice-nginx.conf  
+ruby@MMActiv:~$ vi Nginx/Nginx_Conf/nginx/conf1/vhosts/01-backoffice-nginx.conf 
+ruby@MMActiv:~$ cat bin/restart_all.sh 
+#!/bin/sh -e
+#
+#Restart Script
+exec 2>> /home/ruby/bin/restart.log  # send stderr from restart to a log file
+exec 1>&2                   # send stdout to the same log file
+#set -x                      # tell sh to display commands before execution
+
+echo "\n\n=====================================\nFresh run at: `date`"
+cd /home/ruby/CMS/CMS_Admin;/etc/init.d/unicorn start admin || echo "Could not start CMS Unicorns"
+cd /home/ruby/CMS/WPS;/etc/init.d/unicorn start wps || echo "Could not start WPS Unicorns"
+sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all || echo "Could not start Nginx"
+cd /home/ruby/Solr_Server/bin
+export JAVA_HOME=/usr/lib/jvm/java-1.6.0-openjdk-amd64/jre/
+./startup.sh || echo "Could not start Solr"
+exit 0
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -t
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -t
+nginx: the configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf2/nginx.conf syntax is ok
+nginx: configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf2/nginx.conf test is successful
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -t
+nginx: the configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf1/nginx.conf syntax is ok
+nginx: configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf1/nginx.conf test is successful
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -s stop
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -s stop
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -s stop
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -s reload
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -s reload
+nginx: [error] open() "/home/ruby/Nginx/Nginx_Conf//nginx/tmp2/nginx.pid" failed (2: No such file or directory)
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -s reload
+nginx: [error] open() "/home/ruby/Nginx/Nginx_Conf//nginx/tmp1/nginx.pid" failed (2: No such file or directory)
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all 
+.bash_history              bin/                       .gem/                      PSQL_dump/                 .selected_editor           .viminfo
+.bash_logout               .cache/                    .irb-history               rc.local.log               Solr_Server/               .zlogin
+.bash_profile              CMS/                       Nginx/                     .rvm/                      .ssh/                      .zshrc
+.bashrc                    cybermedia_stg_backup.sql  .profile                   script/                    .vim/                      
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all 
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1
+ruby@MMActiv:~$ cd CMS/Sites/
+ruby@MMActiv:~/CMS/Sites$ ls
+biospecindia  biospectrum  Core  old_core  stage.biospectrumasia.kreatio.com  stage.biospectrumindia.kreatio.com
+ruby@MMActiv:~/CMS/Sites$ ls -lrt
+total 16
+lrwxrwxrwx 1 ruby ruby   18 Dec  1  2014 stage.biospectrumasia.kreatio.com -> biospectrum/public
+drwxrwxr-x 6 ruby ruby 4096 Dec 22  2014 biospecindia
+drwxrwxr-x 3 ruby ruby 4096 Mar 11  2015 old_core
+drwxrwxr-x 4 ruby ruby 4096 Mar 11  2015 Core
+drwxrwxr-x 6 ruby ruby 4096 Jun  2  2015 biospectrum
+lrwxrwxrwx 1 ruby ruby   19 Apr 26  2016 stage.biospectrumindia.kreatio.com -> biospecindia/public
+ruby@MMActiv:~/CMS/Sites$ ln -s biospectrumasia.mmactiv.kreatio.info biospectrum/public
+ruby@MMActiv:~/CMS/Sites$ ls -l
+total 16
+drwxrwxr-x 6 ruby ruby 4096 Dec 22  2014 biospecindia
+drwxrwxr-x 6 ruby ruby 4096 Jun  2  2015 biospectrum
+drwxrwxr-x 4 ruby ruby 4096 Mar 11  2015 Core
+drwxrwxr-x 3 ruby ruby 4096 Mar 11  2015 old_core
+lrwxrwxrwx 1 ruby ruby   18 Dec  1  2014 stage.biospectrumasia.kreatio.com -> biospectrum/public
+lrwxrwxrwx 1 ruby ruby   19 Apr 26  2016 stage.biospectrumindia.kreatio.com -> biospecindia/public
+ruby@MMActiv:~/CMS/Sites$ cd
+ruby@MMActiv:~$ cd CMS/Sites/biospectrum/
+ruby@MMActiv:~/CMS/Sites/biospectrum$ ls
+1  components  digital_assets  favicon.ico  images  IMG  javascripts  medias  public  stylesheets  views
+ruby@MMActiv:~/CMS/Sites/biospectrum$ cd ../pu
+-bash: cd: ../pu: No such file or directory
+ruby@MMActiv:~/CMS/Sites/biospectrum$ cd public/
+ruby@MMActiv:~/CMS/Sites/biospectrum/public$ ls
+404.html                              BSA_ga.html              country_focus_new.html  documents    google5ed705ccf1a2cd1b.html  IMG          medias      stylesheets
+biospectrumasia.mmactiv.kreatio.info  bsa_newsletter.html.erb  digital_assets          favicon.ico  images                       javascripts  robots.txt
+ruby@MMActiv:~/CMS/Sites/biospectrum/public$ rm biospectrumasia.mmactiv.kreatio.info
+ruby@MMActiv:~/CMS/Sites/biospectrum/public$ ls
+404.html     bsa_newsletter.html.erb  digital_assets  favicon.ico                  images  javascripts  robots.txt
+BSA_ga.html  country_focus_new.html   documents       google5ed705ccf1a2cd1b.html  IMG     medias       stylesheets
+ruby@MMActiv:~/CMS/Sites/biospectrum/public$ cd ../
+ruby@MMActiv:~/CMS/Sites/biospectrum$ cd ../
+ruby@MMActiv:~/CMS/Sites$ ls
+biospecindia  biospectrum  Core  old_core  stage.biospectrumasia.kreatio.com  stage.biospectrumindia.kreatio.com
+ruby@MMActiv:~/CMS/Sites$ ls -lrt
+total 16
+lrwxrwxrwx 1 ruby ruby   18 Dec  1  2014 stage.biospectrumasia.kreatio.com -> biospectrum/public
+drwxrwxr-x 6 ruby ruby 4096 Dec 22  2014 biospecindia
+drwxrwxr-x 3 ruby ruby 4096 Mar 11  2015 old_core
+drwxrwxr-x 4 ruby ruby 4096 Mar 11  2015 Core
+drwxrwxr-x 6 ruby ruby 4096 Jun  2  2015 biospectrum
+lrwxrwxrwx 1 ruby ruby   19 Apr 26  2016 stage.biospectrumindia.kreatio.com -> biospecindia/public
+ruby@MMActiv:~/CMS/Sites$ mv stage.biospectrumasia.kreatio.com biospectrumasia.mmactiv.kreatio.info
+ruby@MMActiv:~/CMS/Sites$ ls -l
+total 16
+drwxrwxr-x 6 ruby ruby 4096 Dec 22  2014 biospecindia
+drwxrwxr-x 6 ruby ruby 4096 Jun  2  2015 biospectrum
+lrwxrwxrwx 1 ruby ruby   18 Dec  1  2014 biospectrumasia.mmactiv.kreatio.info -> biospectrum/public
+drwxrwxr-x 4 ruby ruby 4096 Mar 11  2015 Core
+drwxrwxr-x 3 ruby ruby 4096 Mar 11  2015 old_core
+lrwxrwxrwx 1 ruby ruby   19 Apr 26  2016 stage.biospectrumindia.kreatio.com -> biospecindia/public
+ruby@MMActiv:~/CMS/Sites$ mv stage.biospectrumindia.kreatio.com biospectrumindia.mmactiv.kreatio.info
+ruby@MMActiv:~/CMS/Sites$ ls
+biospecindia  biospectrum  biospectrumasia.mmactiv.kreatio.info  biospectrumindia.mmactiv.kreatio.info  Core  old_core
+ruby@MMActiv:~/CMS/Sites$ cd
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx
+nginx      nginx1     nginx2     nginx-all  nginx.old  
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -t
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -t
+nginx: the configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf2/nginx.conf syntax is ok
+nginx: configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf2/nginx.conf test is successful
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -t
+nginx: the configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf1/nginx.conf syntax is ok
+nginx: configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf1/nginx.conf test is successful
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -s stop
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -s stop
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -s stop
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1
+ruby@MMActiv:~$ ls
+bin  CMS  cybermedia_stg_backup.sql  Nginx  PSQL_dump  rc.local.log  script  Solr_Server
+ruby@MMActiv:~$ cd Nginx/Nginx_Conf/
+ruby@MMActiv:~/Nginx/Nginx_Conf$ ls
+admin.conf  cache  cache_mic  example.htpasswd.conf  list.txt  lua  lualib  nginx  nginx_soft  nginx_soft.tgz
+ruby@MMActiv:~/Nginx/Nginx_Conf$ cd nginx
+ruby@MMActiv:~/Nginx/Nginx_Conf/nginx$ ls
+conf  conf1  conf2  html  logs  proxy_temp  sbin  tmp1  tmp2
+ruby@MMActiv:~/Nginx/Nginx_Conf/nginx$ cd conf2
+ruby@MMActiv:~/Nginx/Nginx_Conf/nginx/conf2$ cd vhosts/
+ruby@MMActiv:~/Nginx/Nginx_Conf/nginx/conf2/vhosts$ ls
+00-default-nginx.conf  01-m.one.deepak-nginx.conf  10-biospectrumasia.conf  12-biospectrumindia.conf
+ruby@MMActiv:~/Nginx/Nginx_Conf/nginx/conf2/vhosts$ vi 10-biospectrumasia.conf
+ruby@MMActiv:~/Nginx/Nginx_Conf/nginx/conf2/vhosts$ vi 12-biospectrumindia.conf
+ruby@MMActiv:~/Nginx/Nginx_Conf/nginx/conf2/vhosts$ vi 10-biospectrumasia.conf
+ruby@MMActiv:~/Nginx/Nginx_Conf/nginx/conf2/vhosts$ cd
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -t
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -t
+nginx: the configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf2/nginx.conf syntax is ok
+nginx: configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf2/nginx.conf test is successful
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -t
+nginx: the configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf1/nginx.conf syntax is ok
+nginx: configuration file /home/ruby/Nginx/Nginx_Conf/nginx/sbin/../conf1/nginx.conf test is successful
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all -s stop
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2 -s stop
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1 -s stop
+ruby@MMActiv:~$ sudo /home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx-all
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx2
+/home/ruby/Nginx/Nginx_Conf/nginx/sbin/nginx1
+ruby@MMActiv:~$ 
+

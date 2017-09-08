@@ -1,0 +1,21 @@
+<div class="form_data">
+	</div>
+<div class="form_data">
+	</div>	
+<div class="form_data">
+	<label for="text_head">&nbsp;&nbsp;Email_id<span>*</span>:</label>
+	<%= text_field 'test_subscriber','email_id',:value=>@test_subscriber.email_id,:class=>'input_text' %>
+</div>
+<input type="hidden" value=<%= @newsletter.id%> name="test_subscriber[newsletter_id]" id="article_site_ids" class="hidden_style">
+<div class="form_data">
+	</div>
+	&nbsp;&nbsp;
+<div class="button">
+	<%= submit_tag 'submit'%>
+</div>&nbsp;&nbsp;
+<div class="button">
+	<%= link_to("Cancel",:controller=>"admin/articles",:action=>'newsletter')%>
+</div>
+<div class="form_data">
+	</div>
+

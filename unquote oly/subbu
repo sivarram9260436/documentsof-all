@@ -1,0 +1,136 @@
+def self.csv(file_name)
+@subscription = Subscription.find(:all,:select=>"id,name,time_out,time_type,subscription_type,start_date,end_date,remaining_no_of_articles,allowed_no_of_articles,subscriber_id,product_id,o_pid,last_login,o_oid,last_login_previous",:group=>"subscriber_id,id,name,time_out,time_type,subscription_type,start_date,end_date,remaining_no_of_articles,allowed_no_of_articles,product_id,o_pid,last_login,o_oid,last_login_previous")
+file = File.new("#{RAILS_ROOT}/tmp/#{file_name}.csv","w+")
+csv_string = FasterCSV.generate do |csv|
+csv << ["id","email","firstname","lastname", "product_id", "subscriber_id","start_date","end_date"] 
+@subscription.each do |record|
+if not record.subscriber.blank? 
+csv << [record['id'],record.subscriber.email_id,record.subscriber.first_name,record.subscriber.last_name,record['product_id'],record['subscriber_id'],record['start_date'],record['end_date'],] 
+end
+end 
+end
+file.puts("#{csv_string}")
+file.close 
+end
+
+
+
+def self.export_leave_of_all_users(emp_list)
+
+  CSV.open("#{Rails.root}/public/leave_balance_for_users.csv", "w") do |csv|
+
+    #csv << ["EmployeeName","LeaveType","TotalLeaves","TotalLeaveBalance","Availed","balance"]
+
+    # csv << ["From Date", "To Date", "No Of Days", "Leave Type", "Status", "Reason"]
+    emp_list.each do |emp|
+      leave_detail = LeaveDetail.where("employee_detail_id = ? AND year =?",emp,Time.now.year-1)
+      csv << ["#{emp.emp_name}#{emp.last_name}","Total Leaves","Eligible Leaves","Availed","Available Balance"]
+    leave_detail.each do |emp_leave|
+      csv << [
+          "#{emp_leave.leave_type.leave_types}",
+          "#{emp_leave.total_leaves}",
+          "#{emp_leave.total_leave_balance}",
+          "#{emp_leave.availed}",
+          "#{emp_leave.balance}"]
+    end
+  end
+  end
+  end
+
+
+
+def self.csv(file_name)
+  CSV.open("#{Rails.root}/public/leave_balance_for_users.csv", "w") do |csv|
+end
+
+
+
+
+def csv_data
+@free = InstitutionContact.all
+headers = "Lp Name, Country, Type, Geographic prefernces, Asset under management, Contact name, Contact Job title, Contact Number, Contact Email address"
+file = "#{Rails.root}/public/unquote_record.csv"
+CSV.open(file, 'w' ) do |csv|
+@free.each do |c|
+column=[]
+column[0] = c.company_name if c.company_name
+column[1] = c.country.name if c.country && c.country.name
+column[2] = c.institution_company_info.investor_type.name if c.institution_company_info && c.institution_company_info.investor_type && c.institution_company_info.investor_type.name
+column[3] = c.institution_company_info.institution_pei_data.geo_pref_text if c.institution_company_info && c.institution_company_info.institution_pei_data && c.institution_company_info.institution_pei_data.geo_pref_text
+column[4] = c.institution_company_info.institution_general_asset_allocation.total_asset_value if c.institution_company_info && c.institution_company_info.institution_general_asset_allocation && c.institution_company_info.institution_general_asset_allocation.total_asset_value
+column[5] = c.first_name if c.first_name
+column[6] = c.job_title if c.job_title
+column[7] = c.direct_phone if c.direct_phone
+column[8] = c.email if c.email
+csv << column
+end 
+end
+end
+
+
+
+
+def csv_data
+@subscriber = Subscriber.all
+@subscriber.subscriptions.each do |x|
+@subscriber.subscriber_property.each do |y|
+headers ="subscriber email,firstname,lastname,product_id,subscription,country,city,start date,end date
+file = File.new("#{RAILS_ROOT}/tmp/#{file_name}.csv","w+")
+CSV.open(file, 'w' ) do |csv|
+@free.each do |c|
+column=[]
+column[0] = c.email_id if c.email_id 
+column[1] = c.first_name if c.first_name 
+column[2] = c.last_name if c.last_name 	
+column[3] = x.product_id if x.product_id
+column[4] = x.subscriber_id if x.subscriber_id
+column[5] = y.country_id if  y.country_id
+column[6] = y.city if  y.city
+column[7] = x.start_date if x.start_date
+column[8] = x.end_date if x.end_date
+csv << column
+end 
+end
+end
+end
+end
+
+
+def self.csv(file_name)
+(:all,:select=>"id,name,time_out,time_type,subscription_type,start_date,end_date,remaining_no_of_articles,allowed_no_of_articles,subscriber_id,product_id,o_pid,last_login,o_oid,last_login_previous",:group=>"subscriber_id,id,name,time_out,time_type,subscription_type,start_date,end_date,remaining_no_of_articles,allowed_no_of_articles,product_id,o_pid,last_login,o_oid,last_login_previous")
+file = File.new("#{RAILS_ROOT}/tmp/#{file_name}.csv","w+")
+csv_string = FasterCSV.generate do |csv|
+csv << ["id","email","firstname","lastname", "product_id", "subscriber_id","country","city","start_date","end_date"] 
+@subscription.each do |record|
+if not record.subscriber.blank? 
+csv << [record['id'],record.subscriber.email_id,record.subscriber.first_name,record.subscriber.last_name,record['product_id'],record['subscriber_id'],record['start_date'],record['end_date'], record.subscriber_property.city,record.subscriber_property.country.name] 
+end
+end 
+end
+file.puts("#{csv_string}")
+file.close 
+end
+
+
+
+
+
+
+  def self.csv(file_name)
+    @subscription = Subscription.find(:all,:select=>"id,name,time_out,time_type,subscription_type,start_date,end_date,remaining_no_of_articles,
+allowed_no_of_articles,subscriber_id,product_id,o_pid,last_login,o_oid,last_login_previous",:group=>"subscriber_id,id,name,time_out,time_type,
+subscription_type,start_date,end_date,remaining_no_of_articles,allowed_no_of_articles,product_id,o_pid,last_login,o_oid,last_login_previous")
+    file = File.new("#{RAILS_ROOT}/tmp/#{file_name}.csv","w+")
+    csv_string = FasterCSV.generate do |csv|
+      csv << ["id","email","firstname","lastname", "product_id", "subscriber_id","start_date","end_date"]
+      @subscription.each do |record|
+        if not record.subscriber.blank?
+        csv << [record['id'],record.subscriber.email_id,record.subscriber.first_name,record.subscriber.last_name,record['product_id'],record['subscriber_id'],record['start_date'],record['end_date'],]
+        end
+      end
+    end
+    file.puts("#{csv_string}")
+    file.close
+  end
+
+

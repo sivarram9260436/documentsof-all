@@ -1,0 +1,120 @@
+17439
+
+
+/home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_current_portfolio_companies.html.erb
+
+code move to live done in stage 
+
+
+after 126
+add
+
+ <div class="spacer_10" id="page"></div>
+ <div style ="float:left; width:82%;font-family:verdana; font-size: 11px; color:black">
+
+<p><i> 
+This table only displays the most recent results.To view all results,please use the "Export" function</i> </p>
+</div>
+
+end
+
+===============================================================================================================================
+
+
+
+ vi unquote_data_site/public/stylesheets/advanced-search.css 
+
+
+
+.porfile_right_mid fieldset p{padding:10px 0px 0px 10px}
+
+
+629line
+
+
+===============================================================================================================================
+
+
+
+ vi /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_realised_portfolio_companies.html.erb 
+
+
+after 154 line
+
+add
+
+<div class="spacer_10" id="page"></div>
+<div class="spacer_10" id="page"></div>
+ <div style ="float:left; width:82%;font-family:verdana; font-size: 11px; color:black;padding-top:5px;">
+
+<p><i> 
+This table only displays the most recent results. To view all results, please use the "Export" function</i> </p>
+</div>
+
+end
+
+
+===============================================================================================================================
+
+
+
+
+vi /home/ruby/Unquote_data/Sites/unquote_data_site/views/advisers/partials/profile/_deals_advised_upon.html.erb
+
+
+
+</div>
+    <div class="spacer_10" id="page"></div>
+
+152 line
+
+add
+
+<div class="spacer_10" id="page"></div>
+ <div style ="float:left; width:82%;font-family:verdana; font-size: 11px; color:black">
+
+<p><i> 
+This table only displays the most recent results. To view all results, please use the "Export" function</i> </p>
+</div>
+
+end
+
+
+
+    <div style="float:right; padding:4px;">
+
+
+
+
+
+
+===============================================================================================================================
+
+
+
+
+
+
+17440
+
+ruby@merger-market-stage:~/Unquote_data/WPS$ vi /home/ruby/Unquote_data/Sites/unquote_data_site/views/quick_search/funds/_funds_result.html.erb
+
+
+
+93 line
+
+
+ <%= link_to "javascript:void(0)", :class => "order_select", "data-select" => (FUNDTARGETSIZE[session[:currency] || CURRENCY_SEND[@user.currency.name]]), "data-order" => "asc", "data-searchurl" => "/quick_search" do %>
+                      Size
+                        (<%= CURRENCY_SYMBOLS[params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]] %>
+
+
+
+
+
+
+
+ <%= link_to "javascript:void(0)", :class => "order_select", "data-select" => (FUNDTARGETSIZE[session[:currency] || CURRENCY_SEND[@user.currency.name]]), "data-order" => "asc", "data-searchurl" => "/quick_search" do %>
+                      Target
+                        (<%= CURRENCY_SYMBOLS[params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]] %>m)
+===============================================================================================================================

@@ -1,0 +1,52 @@
+div.parent_box div.header_first div.buss_logo{
+ padding:0px;
+ height:95px;
+ width:190px;
+ background:url(/images/business_res.jpg) no-repeat;
+ float:right;
+ margin:0px 0px 0px 0px; 
+ 
+} 
+div.parent_box div.header_first div.buss_logo span.to{
+color:#75A9D9;
+ font-size:14px;
+ font-weight:bold; 
+   font-family: Verdana;
+}
+div.parent_box div.header_first div.buss_logo span.to 	span.ite{
+font-style:italic; 
+}
+div.parent_box div.header_first div.buss_logo span.bo{
+color:#70635F;
+ font-size:11px;
+ font-style:normal; 
+   font-family: Verdana;
+}
+
+div.parent_box div.header_first div.logo span.ithond {
+   font-size:45px;
+   font-style:italic; 
+   font-family: Verdana;
+   color:#70635F;
+   overflow: hidden;
+   padding:4px 0 0 0;
+   }
+div.parent_box div.header_first div.logo{
+   padding:60px 0 0 0;
+   float:left; 
+}
+div.parent_box div.header_first div.logo_description{
+   padding:75px 0 0 0;
+   
+   margin:0 0px 0 60px;
+}
+div.parent_box div.header_first div.logo_description span.logo_ithond{
+ color:#70635F;
+ font-size:11px;
+ font-style:italic; 
+   font-family: Verdana;
+  display:block;
+overflow: hidden;
+padding:0 0 0 200px;
+    
+}

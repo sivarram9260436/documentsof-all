@@ -1,0 +1,36 @@
+
+
+
+Task create category  in index articles	
+
+
+.join
+.blank?
+			
+===========================================================================================================================
+-article.html.erb
+
+
+after author name 
+
+
+
+	<td> <%if !article.categories.blank? %>
+				<%= article.categories.collect(&:name).join(",") %>
+		<%end %>
+	</td>
+
+
+===========================================================================================================================
+
+
+article/index.html.erb
+
+
+after    <% article_list = SrComponent.find_component_by_name('article_list')%>
+
+
+<% article_list[:header] = @site.sources.length > 1 ? ['Article ID','Title','Content type','Status','Author','Category','Last Modified','Preview'] : ['Article ID','Title','Content type','Status','Author','Category','Last Modified','Preview']%>
+
+
+===========================================================================================================================

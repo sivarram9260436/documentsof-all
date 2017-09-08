@@ -1,0 +1,8 @@
+ruby@markallen-rails4 /data/core_cms/Admin $ sudo docker exec -i -t admin /bin/bash
+
+
+irb(main):015:0> Article.find_by_external_id (2003095)
+
+
+c.status
+

@@ -1,0 +1,13 @@
+<div class="right_section_head">
+	<div class="common_listing_button">
+		<ul>
+			<li class="button">
+				<%if params[:entity_type].blank?%>
+				<%= link_to "Create Ranked List" ,{:controller=>"admin/ranked_list",:action => "new"}  %>
+				<%else%>
+				<%= link_to "Create Digital Ranked List" ,{:controller=>"admin/ranked_list",:action => "new",:entity_type => params[:entity_type]}  %>
+				<%end%>
+			</li>
+		</ul>
+	</div>
+</div>

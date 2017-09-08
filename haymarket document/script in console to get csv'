@@ -1,0 +1,12 @@
+@free = Article.all
+headers = "Id, Author Name, Created at"
+file = "#{Rails.root}/public/artilce.csv"
+CSV.open(file, 'w' ) do |csv|
+@free.each do |c|
+column=[]
+column[0] = c.id if c.id
+column[1] = c.authors.first.firstname rescue nil
+column[1] = c.created_at if c.created_at 
+csv << column
+end 
+end

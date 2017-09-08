@@ -1,0 +1,130 @@
+
+
+9351 task    
+
+
+
+
+
+<!-- Latest deal home page start -->
+
+<div class="fieldset_box" style="_width:635px;">
+	<form action="">
+		<%= content_tag (:fieldset) do %>
+		<%= content_tag(:legend,"Latest Deals Research",:style=>"width:135px;")%>
+		<div style="height:220px; overflow:scroll; overflow-x:hidden; margin-right:5px;">
+			<table id="deal_research" border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
+				<tbody>
+					<%= content_tag (:tr),:style=>"background-color: rgb(229, 230, 232);" do %>
+					<%= content_tag(:td,"Company Name ",:width=>"27%",:style=>"border-bottom: 1px solid rgb(235, 235, 235);", :class=>"font_black_bold")%>
+					<%= content_tag(:td,"Date",:width=>"10%",:align=>'center',:style=>"border-bottom: 1px solid rgb(235, 235, 235);", :class=>"font_black_bold")%>
+					<%= content_tag(:td,"Sector",:width=>"18%",:style=>"border-bottom: 1px solid rgb(235, 235, 235);", :class=>"font_black_bold")%>
+					<%= content_tag(:td,"Country",:width=>"16%",:style=>"border-bottom: 1px solid rgb(235, 235, 235);", :class=>"font_black_bold")%>
+					<%= content_tag(:td,"Basic Deal Type",:width=>"17%",:style=>"border-bottom: 1px solid rgb(235, 235, 235);", :class=>"font_black_bold")%>
+					<%= content_tag (:td),:width=>"12%",:align=>"right",:style=>"border-bottom: 1px solid rgb(235, 235, 235);", :class=>"font_black_bold" do %>
+						Value (<%= CURRENCY_SYMBOLS[params[:currency] !=nil && params[:currency] || session[:currency] || @user.currency !=nil && CURRENCY_SEND[@user.currency.name]] %>m)
+					<%end%>
+					<%end%>
+                              <% @deals.results.sort{ |a,b| a[:created_at] <=> b[:created_at] }.reverse.each do |deal|%>
+
+
+
+
+				  <% if deal.status.name == "Publish" or (deal.status.name == "Pending QC" and deal.include_in_email == true) %>
+
+
+
+
+	
+                                       <%= content_tag (:tr),:class=>"#{cycle('row_even', 'row_odd') } result_table_hover_style" do %>
+					<%= content_tag(:td,content_tag(:a,content_tag(:u,link_to_deal(deal.company_name, "#{deal.id}"))),:style=>"vertical-align: middle; border-bottom: 1px solid rgb(235, 235, 235);")%>
+					<%if !deal.blank? && !deal.deal_specific.blank? && !deal.deal_specific.deal_announced.blank?%>
+					<%= content_tag(:td,deal.deal_specific.deal_announced.strftime("%b %Y"),:align=>"center",:style=>"vertical-align: middle; border-bottom: 1px solid rgb(235, 235, 235);")%>
+					<%else%>
+					<%= content_tag(:td,"n/d",:align=>"center",:style=>"vertical-align: middle; border-bottom: 1px solid rgb(235, 235, 235);")%>
+					<%end%>
+					<%if !deal.sub_sector.blank?%>
+					<%= content_tag(:td,deal.sub_sector.name,:style=>"vertical-align: middle; border-bottom: 1px solid rgb(235, 235, 235);")%>
+					<%else%>
+					<%= content_tag(:td,"n/d",:style=>"vertical-align: middle; border-bottom: 1px solid rgb(235, 235, 235);")%>
+					<%end%>
+					<%if !deal.country.blank? %>
+					<%= content_tag(:td,deal.country.name,:style=>"vertical-align: middle; border-bottom: 1px solid rgb(235, 235, 235);") if deal.country.name %>
+					<%else%>
+					<%= content_tag(:td,"n/d",:style=>"vertical-align: middle; border-bottom: 1px solid rgb(235, 235, 235);")%>
+					<%end%>
+					<%if !deal.deal_specific.blank? and !deal.deal_specific.deal_type.blank? and !deal.deal_specific.deal_type.parent.blank?%>
+					<%= content_tag(:td,deal.deal_specific.deal_type.parent.name,:style=>"vertical-align: middle; border-bottom: 1px solid rgb(235, 235, 235);") if deal.deal_specific.deal_type.parent.name %>
+					<%else%>
+					<%= content_tag(:td,"n/d",:style=>"vertical-align: middle; border-bottom: 1px solid rgb(235, 235, 235);")%>
+					<%end%>
+					<%if !deal.deal_specific.blank? and !deal.deal_specific.deal_value.blank?%>
+					<%= content_tag (:td),:align=>"right",:style=>"vertical-align: middle; border-bottom: 1px solid rgb(235, 235, 235);" do  %>
+						<%case (!params[:currency].blank? && params[:currency] || session[:currency] || @user.currency !=nil &&  CURRENCY_SEND[@user.currency.name] )%>
+						<%when "euro"%>
+							<%if deal.deal_specific.deal_type_confidential.eql?(true) %>
+							 n/d (<%= show_confidential_value_range(deal.deal_specific.deal_value_euro_f) %>)
+							<%else%>
+								<%= number_with_precision(deal.deal_specific.deal_value_euro_f.blank? ? "n/d" : deal.deal_specific.deal_value_euro_f, :precision => 2, :delimiter => ',') %>
+							<%end%>
+						<%when "uk"%>
+							<%if deal.deal_specific.deal_type_confidential.eql?(true) %>
+							n/d (<%= show_confidential_value_range(deal.deal_specific.deal_value_uk_f) %>)
+							<%else%>
+								<%= number_with_precision(deal.deal_specific.deal_value_uk_f.blank? ? "n/d" :  deal.deal_specific.deal_value_uk_f, :precision => 2, :delimiter => ',') %>
+							<%end%>
+						<%when "us"%>
+							<%if deal.deal_specific.deal_type_confidential.eql?(true) %>
+								n/d (<%= show_confidential_value_range(deal.deal_specific.deal_value_us_f) %>)
+							<%else%>
+								<%= number_with_precision(deal.deal_specific.deal_value_us_f.blank? ? "n/d" :  deal.deal_specific.deal_value_us_f, :precision => 2, :delimiter => ',') %>
+							<%end%>
+						<%when "yen"%>
+							<%if deal.deal_specific.deal_type_confidential.eql?(true) %>
+								n/d (<%= show_confidential_value_range(deal.deal_specific.deal_value_yen_f) %>)
+							<%else%>
+								<%= number_with_precision(deal.deal_specific.deal_value_yen_f.blank? ? "n/d" :  deal.deal_specific.deal_value_yen_f, :precision => 2, :delimiter => ',') %>
+							<%end%>
+						<%else%>
+						n/d
+						<%end%>
+						<%=  deal.deal_specific.deal_type_forecast.eql?(true) ? "est" : nil %>
+					<%end%>
+					<%else%>
+					<%= content_tag(:td,"n/d",:align=>"right",:style=>"vertical-align: middle; border-bottom: 1px solid rgb(235, 235, 235);")%>
+					<%end%>
+					<%end%>
+                                        <%end%>
+					<%end%>
+				</tbody>
+			</table>
+		</div>
+		<%= content_tag(:div,link_to("Standard Search", '/deals-search'),:class=>"advanced_search")%>
+		<%end%>
+	</form>
+</div>
+
+<!-- Latest deal home page end -->
+
+
+
+
+
+
+
+
+
+
+======================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+

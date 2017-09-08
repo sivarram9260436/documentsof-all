@@ -1,0 +1,120 @@
+vi app/controller/wps/pages_comtroller.rb
+
+  def create_contact
+    @page_properties = { :selected_menu => 'contacts', :menu_title => 'Contact' }
+    if !Contact.find_by_email(params[:contact][:email]).present?
+      @contact = @site.contacts.create(params[:contact])
+      if @contact.save
+        WebMailer.send_mail_to_contacts(@contact,@site).deliver_now
+        render :json => {:status => "success"} and return
+      else
+        render :json => {:status => "fail"}
+      end
+    end
+  else
+    render :json => {:status => "Error"}
+  end
+end
+
+
+
+
+vi app/mailers/web_mailer.rb
+
+
+
+
+ def send_mail_to_contacts(contact,site)
+    @site = site
+    @subject    = "Thank you for your enquiry"
+    @recipients = contact.email
+    @from       = "corporate@aspermont.com"
+    @sent_on    = Time.sr_now
+    @contact    =  contact
+    mail(:to => @recipients, :subject => @subject, :from => @from)
+  end
+
+
+
+vi app/views/web_mailer/send_mail_to_contacts.html.erb
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+<body bgcolor="#FFFFFF" text="#000000">
+ <br>
+  <div class="moz-forward-container"><br>
+    Thank you for your enquiry. We will contact you shortly. The
+  following information has been forwarded to us:<br>
+  <br>
+  <table bgcolor="#EAEAEA" border="0" width="99%" cellpadding="1" cellspacing="0">
+    <tbody>
+    <tr>
+      <td>
+        <table bgcolor="#FFFFFF" border="0" width="100%"
+               cellpadding="5" cellspacing="0">
+          <tbody>
+          <tr bgcolor="#EAF2FA">
+            <td colspan="2"> <font style="font-family:
+                sans-serif; font-size:12px;"><strong>Name</strong></font>
+            </td>
+          </tr>
+          <tr bgcolor="#FFFFFF">
+            <td width="20"></td>
+            <td> <font style="font-family: sans-serif;
+                font-size:12px;"><%=@contact.name%></font> </td>
+          </tr>
+          <tr bgcolor="#EAF2FA">
+            <td colspan="2"> <font style="font-family:
+                sans-serif; font-size:12px;"><strong>Email</strong></font>
+            </td>
+          </tr>
+          <tr bgcolor="#FFFFFF">
+            <td width="20"></td>
+            <td> <font style="font-family: sans-serif;
+                font-size:12px;"><%=@contact.email%></font> </td>
+          </tr>
+          <tr bgcolor="#EAF2FA">
+            <td colspan="2"> <font style="font-family:
+                sans-serif; font-size:12px;"><strong>Company</strong></font>
+            </td>
+          </tr>
+          <tr bgcolor="#FFFFFF">
+            <td width="20"></td>
+            <td> <font style="font-family: sans-serif;
+                font-size:12px;"><%=@contact.company%></font> </td>
+          </tr>
+          <tr bgcolor="#EAF2FA">
+            <td colspan="2"> <font style="font-family:
+                sans-serif; font-size:12px;"><strong>phone</strong></font>
+            </td>
+          </tr>
+          <tr bgcolor="#FFFFFF">
+            <td width="20"></td>
+            <td> <font style="font-family: sans-serif;
+                font-size:12px;"><%=@contact.phonenumber%></font> </td>
+          </tr>
+          <tr bgcolor="#EAF2FA">
+            <td colspan="2"> <font style="font-family:
+                sans-serif; font-size:12px;"><strong>Let us know how we can help you</strong></font>
+            </td>
+          </tr>
+          <tr bgcolor="#FFFFFF">
+            <td width="20"></td>
+            <td> <font style="font-family: sans-serif;
+                font-size:12px;"><%=@contact.message%></font> </td>
+          </tr>
+          </tbody>
+          </table>
+         </td>
+         </tr>
+       </tbody>
+      </table>
+      <br>
+     <br>
+    <br>
+   </div>
+ <br>
+ </body>
+
+

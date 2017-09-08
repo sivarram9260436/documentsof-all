@@ -1,0 +1,54 @@
+<% unless newsletter_form.name.empty? %>
+<tr>
+	<%= content_tag(:td, @i = @i.blank? ? ( ( params[:page].blank? ? 0 : params[:page].to_i-1 ) * ( session[:per_page] || 0 ).to_i + 1 ) : @i+1 ) %> <td class="list_table"> <%= link_to("#{newsletter_form.name}",:controller=>"/admin/articles",:action=>"newsletter_edit",:id=>newsletter_form.id) %> </td>
+	<td> <%= link_to('Preview', 'javascripttetell:void(0)',:id=>newsletter_form.id, :class=>"preview_select",:href => "http://#{@site.name}/newsletter/#{newsletter_form.name}")%> </td>
+	<td><a href="javascript:void(0);" data-url="/admin/newsletter/show_newsletter?id=<%= newsletter_form.id%>" onclick="image_popup(this)">Send Mail</a></td>
+	<td><%= link_to("Create Test Subscriber",:controller=>"newsletter",:action=>"new_test_subscriber",:id=>newsletter_form.id)%></td>
+	<td><%= link_to('Newsletter Archive',:controller=>"newsletter",:action=>"newsletter_repository",:id=>newsletter_form.id)%></td>
+        <%= content_tag(:td,content_tag(:a,(image_tag("/images/xls.jpeg",:border=>0,:width=>15,:height=>15,:alt=>"Download Report",:style=>"margin-left: 33px;")),:onclick => "get_dates('#{newsletter_form.id}');"))%>
+</tr>
+<% end %> 
+
+<div id="image_advance_search" style="display: none">
+	
+   <%=form_tag({controller: "admin/newsletter", action: "export_newsletter_report"}, method: "get" )%> 
+    <ul  class= "news_reg_1">
+        	<%= hidden_field_tag 'news_reg_id', :value => '' %>
+            <li>From :
+            <%= raw datetimepicker_input(:image_detail_search, :from, {:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70}) %></li>
+        </ul>
+        <ul class= "news_reg_2">
+            <li>To :
+            <%= raw datetimepicker_input(:image_detail_search, :to, {:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70}) %></li>
+        </ul>
+        <ul class="news_reg_3">
+           <li></li>
+           <li class="button"><%= submit_tag "Generate" ,:id => "generate_ques_report" %></li>
+          <li >If Dates are not selected it will provide last one month Report</li>  
+        </ul>
+    
+</div>
+
+
+
+<script>
+
+$(function() {
+	$("#generate_ques_report").live("click", function() {
+	      jQuery("#image_advance_search").dialog('destroy');
+    });  
+   });
+
+function get_dates(qid){
+	    $("#news_reg_id").val(qid);
+	    $("#image_detail_search_to_id").val("");
+	    $("#image_detail_search_from_id").val("");
+	    $("#image_advance_search").dialog({
+            modal : true,
+            width : "auto",
+            height : "auto",
+            title : 'Report Generation'
+        });
+   
+}
+</script>

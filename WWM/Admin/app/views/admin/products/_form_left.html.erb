@@ -1,0 +1,119 @@
+<!--<script type="text/javascript" src="/javascripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>-->
+<% @asset_group = form_left %>
+<table class="article_form">
+
+	<div class="form_data">
+		<label for="product_name">Product Name <span>*</span>:</label>
+		<%= text_field :product,:name,:class=>'input_text',:size=>30,:flash=>true %>
+	</div>
+
+	<div class="form_data">
+		<label for="product_display_label">Display Label:</label>
+		<%= text_field :product,:display_label,:class=>'input_text',:size=>30,:flash=>true %>
+	</div>
+	<div class="form_data">
+		<label for="product_url">Url :</label>
+		<%= text_field :product,:url,:class=>'input_text',:size=>30,:flash=>true %>
+	</div>
+	<div class="form_data">
+		<label for="product_description">Description:</label>
+		<%= text_area :product,:description, {:rows =>5, :cols => 40,:class=>"textarea_text"} %>
+	</div>
+	<div class="form_data">
+		<label for="product_product_type"> Product Type <span>*</span>:</label>
+		<%= select(:product,:product_type,PRODUCT_TYPE,{},html_options={:class=>"select_box"})%>
+	</div>
+	<%if @product and @product.product_type=="Questionnaires"%>
+	<% auth_hide="display:none"%>
+	<%else%>
+	<% quest_hide="display:none"%>
+	<%end%>
+	<tr class="Questionnaires" style="<%if !@product or (@product and @product.product_type=="Authorized") %>display:none;<%end%>" style="<%= quest_hide%>" style="display: none;">
+		<div class="form_data">
+			<label for="product_questionnaire_id"> Questionnairy Name:</label>
+			<%= collection_select(:product,:questionnaire_id,@site.questionnaires,:id,:name,{:prompt=>"select"},:class=>"input_text")%>
+		</div>
+
+		<div class="form_data">
+			<label for="token-input-product_asset_group_id"> Product Criteria <span>*</span>:</label>
+			<% selected_asset_groups = @product.asset_groups %>
+			<%= raw autocompletion_field("product_asset_group_ids",{:selected=>selected_asset_groups,:default_selection=>"Enter the Product Criteria"})%>
+			<%#= autocompletion_field("product", "asset_group_ids", @asset_group, { :default_selection => "Enter the Product Criteria", :empty_message => "Product Criteria not found", :sort => true}) %>
+		</div>
+
+		<div class="form_data">
+			<label for="product_teaser_type_id"> Teaser Type <span>*</span>:</label>
+			<%= collection_select :product,:teaser_type_id,@teaser_types,:id,:name,options={:prompt=>'Select Teaser Type'},:class=>"input_text" %>
+		</div>
+	<tr class="Authorized" style="<%= auth_hide%>">
+		<div class="form_data">
+
+			<label for="product_allowed_no_of_articles"> Key Icon: </label>
+			<p class="inner_radio_list">
+				<%= radio_button( :product, :key_icon.to_s, true,:class=>"radio_button" )%> <label>Yes</label>
+				<%= radio_button( :product, :key_icon, false,:class=>"radio_button" )%> <label>No</label>
+			</p>
+		</div>
+	<tr class="Authorized" style="<%= auth_hide%>">
+		<div class="form_data">
+
+			<label for="product_allowed_no_of_articles"> Play Video: </label>
+			<p class="inner_radio_list">
+				<%= radio_button( :product, :play_video.to_s, true,:class=>"radio_button" )%> <label>Yes</label>
+				<%= radio_button( :product, :play_video, false,:class=>"radio_button" )%> <label>No</label>
+			</p>
+		</div>
+	<tr class="Authorized" style="<%= auth_hide%>">
+		<div class="form_data">
+			<label for="product_action_headline"> New User Action Headline: </label>
+			<%= text_field :product,:action_headline,:class=>'input_text',:size=>30%>
+		</div>
+
+
+	<div class="productscolumnRight" id="parentTinymce">
+   
+    <tr>
+       <td> <label for="text_head"> New User Action Content: </label>
+
+
+
+<textarea id="tinyid_5" name="product[product_action_content]" value="product[product_action_content]" rows ="10" cols ="1" class="mceEditor" style='width:100%;'><%= @product.product_action_content if @product%></textarea>
+				</td>
+				</tr>
+
+				</div>
+
+				<tr class="Authorized" style="<%= auth_hide%>">
+
+					<div class="form_data">
+						<label for="text_head"> Expired Action Headline:</label>
+
+						<%= text_field :product,:expired_action_headline,:class=>'input_text',:size=>30%>
+					</div>
+				</tr>
+				<div class="productscolumnRight" id="parentTinymce">
+
+					<tr class="Authorized" style="<%= auth_hide%>">
+
+						<td><label for="text_head"> Expired Action Content: </label>
+
+
+
+											<textarea  name="product[expired_action_content]"  id ="tinyid_6" value="product[expired_action_content]" =rows ="10" cols ="1" class="mceEditor" style='width:10%;'><%= @product.product_action_content if @product%></textarea>
+									</div> </div>
+									</div>
+</table>
+
+
+
+</table>
+
+<script type="text/javascript" >
+	tinyMCEOnDemand("tinyid_5",400,174)
+</script>
+
+
+
+<script type="text/javascript" >
+	tinyMCEOnDemand("tinyid_6",400,174)
+</script>

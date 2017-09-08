@@ -1,0 +1,91 @@
+ <%= form_tag({ :controller => "institutions", :action => @form_action1 }, { :id => "managed_account_form" }) do %>
+   <%= content_tag(:table, {:class => "form-left form-left-new"}) do %>
+   
+     <%=  hidden_field_tag "institution_company_id", params[:institution_company_id]%>
+     <%=  hidden_field_tag "tab", params[:tab]%>
+     <%=  hidden_field_tag "managed_account_id", @managed_account.new_record? ? nil : @managed_account.id%>
+     <% if @managed_account.new_record?%>
+	      
+     <%= content_tag(:tr) do%>
+       <%= content_tag(:td,  content_tag(:label,"Manager:"), { :class => "lab-field" }) %>
+       <%= content_tag(:td,{:class => " b-size n-size"}) do%>
+	       <%= text_field(:managed_account, :manager) %>
+       <% end %>
+
+
+    <%= content_tag(:tr) do%>
+       <%= content_tag(:td,  content_tag(:label,"Size:"), { :class => "lab-field" }) %>
+       <%= content_tag(:td,{:class => " b-size n-size"}) do%>
+	       <%= text_field(:managed_account, :size) %>
+       <% end %>
+     <% end %><!--tr -->
+      
+   
+	      <% end %>
+    	<% end %> <!-- tr -->
+	<% end %> <!-- table -->    	
+	<% end %> <!-- form -->   
+	<%= content_tag(:div, link_to(@managed_account.new_record? ? "Save" : "Update", {}, { :href => "javascript:void(0)", :id => @managed_account.new_record? ? "save_managed_account" : "update_managed_account" }),{:class => "f-button"}) %>
+
+
+
+
+
+<style>.hh {text-transform: initial;
+}
+</style>
+
+<%= javascript_include_tag "jquery-1.9.1.min.js", "jquery.tokeninput.js","jquery.colorbox.js"  %>
+<%= stylesheet_link_tag "unquote-data", "token-input-mac", "unq-global", "colorbox", :media => "all" %>
+<%#= render :partial => "/unquote/css_image" %>
+
+<%= form_tag({ :controller => "institutions", :action => @form_action1 }, { :id => "form_managed_accounts" }) do %>
+   <%= content_tag(:table, {:class => "form-left"}) do %>
+	  	
+	 <%= hidden_field_tag "institution_company_id" ,@institution_company_id %>
+	 <%= hidden_field_tag "managed_account_id" ,@managed_account.new_record? ? nil : params[:managed_account_id]%>
+	  	
+    <%= content_tag(:tr) do %>
+          <%= content_tag(:td, label_tag("Manager:"), {:class => "lab-field"}) %>
+	  <%= content_tag(:td, text_field(:managed_account, :manager, :value => (@managed_account.manager ? @managed_account.manager: nil)), { :class =>"b-size"}) %>
+    <% end %><!-- tr -->
+    
+     <%#= content_tag(:td, "#{number_with_precision((lp_list.fund.send(FUNDTARGETSIZE[CURRENCY_SEND[lp_list.try(:institution_company_info).try(:institution_pei_data).try(:currency).try(:name)]])  if lp_list.try(:institution_company_info).try(:institution_pei_data).try(:currency) && !CURRENCY_SEND[lp_list.try(:institution_company_info).try(:institution_pei_data).try(:currency).try(:name)].blank?), :precision => 2)} #{lp_list.try(:fund).try(:currency).try(:name)}" )%>
+
+ <%= content_tag(:tr) do %>
+          <%= content_tag(:td, label_tag("Size:"), {:class => "lab-field hh"}) %>
+          <% @managed_account =  @managed_account %>
+           <%= content_tag(:td, text_field(:managed_account, :size, :value => (@managed_account.size ? @managed_account.size: nil)), { :class =>"b-size"}) %>
+  <% end %>
+
+  <%= content_tag(:tr) do %>
+            <%= content_tag(:td) do%>
+                <%= content_tag(:div, link_to(@managed_account.new_record? ? "Save" : "Update", {}, { :id => @managed_account.new_record? ? "save_managed_account" : "update_managed_account", :href => "javascript:void(0)" }), { :class => "f-button" }) %>
+                <%= content_tag(:div, link_to( "Close", {}, { :class => "close_color_box", :href => "javascript:void(0)" }), { :class => "f-button" }) %>
+            <% end %> <!-- td end -->
+        <% end %>    
+   
+
+    <% end %><!-- table -->
+<% end %> <!--form end -->
+<%= content_tag(:script, { :type => "text/javascript" }) do %>
+$(function() {
+    $(document).on("click", '#save_managed_account', function() {
+         var params =$("#form_managed_accounts").serialize();
+        parent.add_managed_account(params);
+    });
+    
+$(document).on("click", '#update_managed_account', function() {
+        var params =$("#form_managed_accounts").serialize();
+        var event_id =$("#managed_account_id").val();
+        parent.update_managed_account(params,event_id);
+    });
+    
+    $(document).on("click", '.close_color_box', function() {
+    	parent.close_color_box();
+    	
+    });
+
+});
+<% end %>
+

@@ -1,0 +1,105 @@
+<style>
+	.text_style {
+		width: 168px;
+	}
+	.select_box {
+    border: 1px solid #CFCFCF;
+    border-radius: 5px 5px 5px 5px;
+    height: 22px;
+    width: 199px;
+}
+</style>
+<div id="container" style="padding-top: 20px;">
+	<!--<div class="search_block">
+	<div class="search_fields">-->
+	<div class="section_block full_section">
+		<h2><%= @page_properties[:menu_title] %></h2>
+		<div class="section_content">
+			<div class="article_search_box text_box_fix comment_moderation" style="float: left;">
+			<%= form_tag({:controller=>"admin/rae",:action => 'export_to_csv'},{:id=>"rae_search",:name=>'rae_search'} )%>
+			<div class="form_design">
+			<div class="form_data">
+				<label for="text_head"> User Id:</label>
+				<%= text_field "subscriber","id",:class=>"text_style input_style",:value=>@subscriber.id%>
+			</div>			
+			<div class="form_data">
+				<label for="text_head"> Email Id:</label>
+				<%= text_field "subscriber","email_id",:class=>"text_style input_style",:value=>@subscriber.email_id%>
+			</div>
+			<div class="form_data">
+				<label for="text_head">First Name:</label>
+				<%= text_field "subscriber","first_name",:class=>"text_style input_style",:value=>@subscriber.first_name%>
+			</div>
+			<div class="form_data">
+				<label for="text_head">Last name:</label>
+				<%= text_field "subscriber","last_name",:class=>"text_style input_style",:value=>@subscriber.last_name%>
+			</div>
+			
+		<div id="advanced_rae_search" style="display:none">	
+			<div class="form_data">
+				<label for="text_head">Company Name:</label>
+				<%= text_field "subscriber","end_user_company_name",:class=>"text_style input_style",:value=>@subscriber_property.end_user_company_name%>
+			</div>
+			<div class="form_data">
+				<label for="text_head">Job Title:</label>
+                  <%= text_field "subscriber_property","Job_title",:class=>"text_style input_style",:value=>@subscriber_property.Job_title%>
+			</div>
+			<!-- <div class="form_data">
+				<label for="search_data_from_date_id">From:</label>
+				<%#=raw datetimepicker_input(:subscriber, :start_date, :minDate => -20, :maxDate => "+1M +10D", :tabindex => 70)%>
+			</div>
+			<div class="form_data">
+				<label for="search_data_to_date_id">To:</label>
+				<%#=raw datetimepicker_input(:subscriber, :end_date, :minDate => -20, :maxDate => "+1M +10D", :tabindex => 70) %>
+			</div> -->
+		</div>
+			
+			
+	</div>
+			
+		<div class="article_top_links rae_search">
+				<ul>
+					<li>
+		  			<%= content_tag(:div, link_to('Search', 'javascript:void(0)', :id => 'rae_search_submit'), :class => 'button' ) %>
+					</li>
+					<li>
+						<div class="button advance_search article_advance_button">
+							<%= link_to("Advanced Search", 'javascript:void(0)',:id => 'advanced_rae_search')%>
+						</div>
+						
+						<!-- <div id="search_form">
+								<%#= render :partial=>"/admin/rae/rae_advanced_search"%>
+						</div> -->
+						
+						
+					</li>
+				</ul>
+		</div>
+			
+		
+			<div id='loading'style='display:none'>
+ 				<img src='/images/loading_process2.gif'>
+			</div>
+		
+			<!-- <div class="export_to_csv" style="display:none">
+			<%#= content_tag(:div, submit_tag('Download CSV Report'), :class => 'button' ) %>
+			</div> -->
+		</div>
+	 </div>
+  </div>
+</div>
+		<div class="right_section_head">
+			<div class="common_listing_button">
+  			 <div class="export_to_csv" style="display:none">
+				<%= content_tag(:div, submit_tag('Download CSV Report'), :class => 'button' ) %>
+  				</div>
+			</div>
+		</div>
+
+
+<script type="text/javascript">
+$(".rae_search .article_advance_button a").toggle(function(){$("#advanced_rae_search").show();},function() {
+  $("#advanced_rae_search").hide();
+});	
+</script>
+

@@ -1,0 +1,611 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".ui-widget-header").click(function () {
+
+            $(this).next(".portlet-content").slideToggle('slow');
+        });
+    });
+</script>
+<!-- breadcrumb-wrapper start -->
+<div class="breadcrumb-wrapper">
+  <ul>
+    <li class="home">
+      <a href="home_login.html">Home</a>
+    </li>
+    <li class="current">
+      Intelligence Reports
+    </li>
+  </ul>
+</div>
+<div class="clear"></div>
+<!-- END #breadcrumb-wrapper -->
+<!-- Advanced search Start -->
+<div id="adv_search">
+  <!-- search top start-->
+  <!-- search top end-->
+  <div class="clear"></div>
+  <!--  quick search main-->
+  <div id="quicksearch_main">
+    <!-- quick search top-->
+    <div class="quicksearh_tp">
+      <ul class="ui-tabs-nav" style="width:auto">
+        <li>
+          Intelligence Reports
+        </li>
+      </ul>
+      <div class="clear"></div>
+      <div style="width:99.7%;" class="spacer"></div>
+    </div>
+    <!-- quich search top end-->
+    <div class="quicksearch_mid" style="padding:10px 5px;">
+      <div class="report_tp">
+        <div class="report_tp_lt">
+          We recommend that you right click the on the relevant links below and save documents direct to your computer.
+        </div>
+        <div class="report_tp_rt">
+          To download the reports you will
+          need<a href="http://get.adobe.com/reader/" target="_blank"><img src="images/acrobat_icon.gif" alt="Download Acrobat Reader" title="Download Acrobat Reader" align="right"></a>
+          Acrobat Reader – <a href="http://get.adobe.com/reader/" target="_blank">download Acrobat Reader here</a>.
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div class="clear"></div>
+      <!--2015-->
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/CK_watch_Q2_2015_v3.pdf" target="_blank">
+            <img src="images/CK-watch_Q1-2015_cover_web.jpg" alt="unquote” Analysis UK Watch Q2 2015" border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/CK_watch_Q2_2015_v3.pdf" target="_blank">unquote” Analysis UK Watch Q2 2015</a>
+          </p>
+          <i>unquote <span>| August 2015</span></i>
+        </div>
+      </div>
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/SL-Capital-Barometer_Q2-2015_v4.pdf" target="_blank">
+            <img src="images/SL-Capital-Barometer_Q1-2015_cover-001.jpg" alt="unquote” Private Equity Barometer Q2 2015" border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/SL-Capital-Barometer_Q2-2015_v4.pdf" target="_blank">unquote” Private Equity Barometer Q2 2015</a>
+          </p>
+          <i>unquote <span>| August 2015</span></i>
+        </div>
+      </div>
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/CK_watch_Q1_2015_web.pdf" target="_blank">
+            <img src="images/CK-watch_Q1-2015_cover_web.jpg" alt="unquote” Analysis UK Watch Q1 2015" border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/CK_watch_Q1_2015_web.pdf" target="_blank">unquote” Analysis UK Watch Q1 2015</a>
+          </p>
+          <i>unquote <span>| April 2015</span></i>
+        </div>
+      </div>
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/SL-Capital-Barometer_Q1-2015.pdf" target="_blank">
+            <img src="images/SL-Capital-Barometer_Q1-2015_cover-001.jpg" alt="unquote” Private Equity Barometer Q1 2015" border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/SL-Capital-Barometer_Q1-2015.pdf" target="_blank">unquote” Private Equity Barometer Q1 2015</a>
+          </p>
+          <i>unquote <span>| April 2015</span></i>
+        </div>
+      </div>
+
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/UNQ-NordicSurvey-2015_web.pdf" target="_blank">
+            <img src="images/UNQ-NordicSurvey-2015_cover-001-new.jpg" alt="unquote” Nordic Survey 2015" border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/UNQ-NordicSurvey-2015_web.pdf" target="_blank">unquote” Nordic Survey 2015</a>
+          </p>
+          <i>unquote <span>| April 2015</span></i>
+        </div>
+      </div>
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/LDC_UK_barometer_0415_lo.pdf" target="_blank">
+            <img src="images/LDC_UK_barometer_Mar_2015_cover-001.jpg" alt="unquote” LDC UK Barometer 2015" border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/LDC_UK_barometer_0415_lo.pdf" target="_blank">unquote” LDC UK Barometer 2015 </a>
+          </p>
+          <i>unquote <span>| March 2015</span></i>
+        </div>
+      </div>
+
+
+      <!--2015-->
+      <!--2014-->
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/CK_watch_Q4_2014.pdf" target="_blank">
+            <img src="images/CK_watch_Q4_2014_cover.jpg" alt="unquote” Analysis UK Watch Q4 2014" border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/CK_watch_Q4_2014.pdf" target="_blank">unquote” Analysis UK Watch Q4 2014</a>
+          </p>
+          <i>unquote <span>| January 2015</span></i>
+        </div>
+      </div>
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/SL_Barometer_Q4_2014.pdf" target="_blank">
+            <img src="images/SL_Barometer_Q4_2014_gif.gif" alt="unquote” Private Equity Barometer Q4 2014 " border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/SL_Barometer_Q4_2014.pdf" target="_blank">unquote” Private Equity Barometer Q4 2014 </a>
+          </p>
+          <i>unquote <span>| January 2015</span></i>
+        </div>
+      </div>
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/CK_watch_Q3_2014.pdf" target="_blank">
+            <img src="images/CK_watch_Q3_2014_cover.jpg" alt="unquote” Analysis UK Watch Q3 2014" width="98" height="131" border="0"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/CK_watch_Q3_2014.pdf" target="_blank">unquote” Analysis UK Watch Q3 2014</a>
+          </p>
+          <i>unquote <span>| October 2014</span></i>
+        </div>
+      </div>
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/SL_Barometer_Q3_2014.pdf" target="_blank">
+            <img src="images/SL_Barometer_Q3_2014_GIF.jpg" alt="unquote” Private Equity Barometer Q3 2014" border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/SL_Barometer_Q3_2014.pdf" target="_blank">unquote” Private Equity Barometer Q3 2014 </a>
+          </p>
+          <i>unquote <span>| October 2014</span></i>
+        </div>
+      </div>
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/CK_watch_Q2_2014.pdf" target="_blank">
+            <img src="images/CK_watch_Q2_2014_Cover.jpg" alt="unquote” Analysis UK Watch Q2 2014" border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/CK_watch_Q2_2014.pdf" target="_blank">unquote” Analysis UK Watch Q2 2014</a>
+          </p>
+          <i>unquote <span>| July 2014</span></i>
+        </div>
+      </div>
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/SL_Barometer_Q2_2014.pdf" target="_blank">
+            <img src="images/SL_Barometer_Q2_2014_GIF.gif" alt="unquote” Private Equity Barometer Q2 2014" border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/SL_Barometer_Q2_2014.pdf" target="_blank">unquote” Private Equity Barometer Q2 2014 </a>
+          </p>
+          <i>unquote <span>| July 2014</span></i>
+        </div>
+      </div>
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/CK_watch_Q1_2014.pdf" target="_blank">
+            <img src="images/CK_watch_Q1_2014_Cover.jpg" alt="unquote” Analysis UK Watch Q1 2014" border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/CK_watch_Q1_2014.pdf" target="_blank">unquote” Analysis UK Watch Q1 2014</a>
+          </p>
+          <i>unquote <span>| April 2014</span></i>
+        </div>
+      </div>
+
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/SL_Barometer_Q1_2014.pdf" target="_blank">
+            <img src="images/SL_Barometer_Q1_2014_GIF.gif" alt="unquote” Private Equity Barometer Q1 2014 " border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/SL_Barometer_Q1_2014.pdf" target="_blank">unquote” Private Equity Barometer Q1 2014 </a>
+          </p>
+          <i>unquote <span>| April 2014</span></i>
+        </div>
+      </div>
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/LDC_final_lo.pdf" target="_blank">
+            <img src="images/LDC_regions2014_cover.jpg" alt="unquote” UK regional report 2014" border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/LDC_final_lo.pdf" target="_blank">unquote” UK regional report 2014</a>
+          </p>
+          <i>unquote <span>| November 2014</span></i>
+        </div>
+      </div>
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/LDC_UK_barometer_Mar14_v6-lo.pdf" target="_blank">
+            <img src="images/LDC_UK_barometer_Mar14_cover.jpg" alt="unquote” LDC UK Barometer 2014" width="98" height="131" border="0"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/LDC_UK_barometer_Mar14_v6-lo.pdf" target="_blank">unquote” LDC UK Barometer 2014 </a>
+          </p>
+          <i>unquote <span>| March 2014</span></i>
+        </div>
+      </div>
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/Germany_Report_2014.pdf" target="_blank">
+            <img src="images/Germany_Report_2014_cover_GIF.gif" alt="unquote” Germany Report 2014" border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/Germany_Report_2014.pdf" target="_blank">unquote” Germany Report 2014</a>
+          </p>
+          <i>unquote <span>| 2014</span></i>
+        </div>
+      </div>
+
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/Nordic_Report_2014_lo.pdf" target="_blank">
+            <img src="images/Nordic_Report_2014_cover1.gif" alt="unquote” Nordic Report 2014" border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/Nordic_Report_2014_lo.pdf" target="_blank">unquote” Nordic Report 2014</a>
+          </p>
+          <i>unquote <span>| 2014</span></i>
+        </div>
+      </div>
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/CK_watch_Q4_2013.pdf" target="_blank">
+            <img src="images/CK_watch_Q4_2013_cover.jpg" alt="unquote” Analysis UK Watch Q4 2013" border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/CK_watch_Q4_2013.pdf" target="_blank">unquote” Analysis UK Watch Q4 2013</a>
+          </p>
+          <i>unquote <span>| January 2014</span></i>
+        </div>
+      </div>
+
+      <div class="report_bx report_bx_mrgin">
+        <div class="report_lt">
+          <a href="/PDF/SL_Barometer_Q4_2013.pdf" target="_blank">
+            <img src="images/SL_Barometer_Q4_2013_GIF.gif" alt="unquote” Nordic Report 2014" border="0" width="98" height="131"></a>
+        </div>
+        <div class="report_rt">
+          <p>
+            <a href="/PDF/SL_Barometer_Q4_2013.pdf" target="_blank">unquote” Private Equity Barometer Q4 2013 </a>
+          </p>
+          <i>unquote <span>| January 2014</span></i>
+        </div>
+      </div>
+
+      <!--2014-->
+
+      <!--2012-->
+
+      <div class="clear"></div>
+      <div class="spacer" style="width:98%; margin:10px auto;"></div>
+
+      <div class="archive_box_main">
+        <h1>Archive</h1>
+        <!--2013-->
+        
+
+
+copyyyyyyyyyyyyyyyyy-----------
+
+<div class="archive_box">
+          <div class="ui-widget-header">
+            2013
+          </div>
+          <div style="display: none;" class="portlet-content">
+            <ul>
+
+              <!--<li>-->
+                <!--<a href="/PDF/CK_watch_Q4_2013.pdf" target="_blank">-->
+                  <!--<img src="images/CK_watch_Q4_2013_cover.jpg" width="39" height="52" alt="unquote” Analysis UK Watch Q4 2013" align="left"/>-->
+                  <!--unquote” Analysis UK Watch Q4 2013</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a href="/PDF/SL_Barometer_Q4_2013.pdf" target="_blank">-->
+                  <!--<img src="images/SL_Barometer_Q4_2013_GIF.gif" width="39" height="52" alt="unquote” Private Equity Barometer Q4 2013 " align="left"/>-->
+                  <!--unquote” Private Equity Barometer Q4 2013 </a>-->
+              <!--</li>-->
+
+
+              <li>
+                <a href="/PDF/CK_watch_Q3_2013.pdf" target="_blank">
+                  <img src="images/CK_watch_Q3_2013_cover.jpg" width="39" height="52" alt="unquote” Analysis UK Watch Q3 2013" align="left"/>
+                  unquote” Analysis UK Watch Q3 2013</a>
+              </li>
+              <li>
+                <a href="/PDF/SL_Barometer_Q3_2013.pdf" target="_blank">
+                  <img src="images/SL_Barometer_Q3_2013_GIF.gif" width="39" height="52" alt="unquote” Private Equity Barometer Q3 2013 " align="left"/>
+                  unquote” Private Equity Barometer Q3 2013 </a>
+              </li>
+
+
+              <li>
+                <a href="/PDF/CK_watch_Q2_2013.pdf" target="_blank">
+                  <img src="images/CK_watch_Q2_2013_GIF.gif" width="39" height="52" alt="unquote” Analysis UK Watch Q2 2013" align="left"/>
+                  unquote” Analysis UK Watch Q2 2013</a>
+              </li>
+              <li>
+                <a href="/PDF/SL_Barometer_Q2_2013.pdf" target="_blank">
+                  <img src="images/SL_Barometer_Q2_2013.gif" width="39" height="52" alt="unquote” Private Equity Barometer Q2 2013" align="left"/>unquote”
+                  Private Equity Barometer Q2 2013</a>
+              </li>
+
+              <li>
+                <a href="/PDF/CK_watch_Q1_2013.pdf" target="_blank">
+                  <img src="images/CK_watch_Q1_2013_cover.gif" width="39" height="52" alt="unquote” Analysis UK Watch Q1 2013" align="left"/>
+                  unquote” Analysis UK Watch Q1 2013</a>
+              </li>
+              <li>
+                <a href="/PDF/Q1_2013_Unquote_Barometer.pdf" target="_blank">
+                  <img src="images/Q1_2013_Unquote_Barometer.gif" width="39" height="52" alt="unquote” Private Equity Barometer Q1 2013" align="left"/>unquote”
+                  Private Equity Barometer Q1 2013</a>
+              </li>
+
+              <li>
+                <a href="/PDF/LDC_UK_barometer_Mar13_v2.pdf" target="_blank"><img src="images/LDC_UK_barometer_Mar13_v2.gif" width="39" height="52" alt="unquote” LDC UK Barometer 2013" align="left">unquote”
+                  LDC UK Barometer 2013</a>
+              </li>
+              <li>
+                <a href="/PDF/Germany_Report_2013_lo_v2.pdf" target="_blank">
+                  <img src="images/Germany_Report_2013_cover1.gif" width="39" height="52" alt="unquote” Germany Report 2013" align="left"/>
+                  unquote” Germany Report 2013 </a>
+              </li>
+
+              <li>
+                <a href="/PDF/Nordic_Report_2013_lo.pdf" target="_blank">
+                  <img src="images/Nordic_Report_2013_cover1.gif" width="39" height="52" alt="unquote” Nordic Report 2013" align="left"/>unquote”
+                  Nordic Report 2013</a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+
+end---------------
+        <!--2013-->
+
+        <!--2012-->
+        <div class="archive_box2">
+          <div class="ui-widget-header">
+            2012
+          </div>
+          <div style="display: none;" class="portlet-content">
+            <ul>
+              <li>
+                <a href="/PDF/Q4_2012_Barometer.pdf" target="_blank">
+                  <img src="images/Q2_2012_Arle_Barometer.gif" width="39" height="52" alt="unquote” Private Equity Barometer Q4 2012" align="left">unquote”
+                  Private Equity Barometer Q4 2012</a>
+              </li>
+              <li>
+                <a href="/PDF/Q3_2012_Arle_Barometer.pdf" target="_blank">
+                  <img src="images/Q3_2012_Arle_Barometer.gif" width="39" height="52" alt="unquote” Private Equity Barometer Q3 2012" align="left">unquote”
+                  Private Equity Barometer Q3 2012</a></li>
+              <li>
+                <a href="/PDF/Q2_2012_Arle_Barometer.pdf" target="_blank">
+                  <img src="images/Q2_2012_Arle_Barometer.gif" width="39" height="52" alt="unquote” Private Equity Barometer Q2 2012" align="left">unquote”
+                  Private Equity Barometer Q2 2012</a></li>
+
+              <li>
+                <a href="/PDF/CK_watch_Q2_2012_lo.pdf" target="_blank">
+                  <img src="images/CK_watch_Q2_2012.gif" width="39" height="52" alt="unquote” Analysis UK Watch Q2 2012" align="left">unquote”
+                  Analysis UK Watch Q2 2012</a></li>
+              <li>
+                <a href="/PDF/KPMG_PE_Index_2012.pdf" target="_blank">
+                  <img src="images/KPMG_PE_Index_2012.gif" width="39" height="52" alt="Sweden PE Index Q3 2012" align="left">Sweden
+                  PE Index Q3 2012</a>
+              </li>
+
+              <li>
+                <a href="/PDF/Delfino_Italy_survey_2012_v3.pdf" target="_blank">
+                  <img src="images/Delfino_Italy_survey_2012_v3.gif" width="39" height="52" alt="unquote” Italy Survey 2012" align="left">unquote”
+                  Italy Survey 2012</a>
+              </li>
+
+              <li>
+                <a href="/PDF/Germany_2012_lo.pdf" target="_blank">
+                  <img src="images/Germany_2012_lo.gif" width="39" height="52" alt="Germany Report 2012" align="left">Germany
+                  Report 2012</a>
+              </li>
+
+              <li>
+                <a href="/PDF/Nordic_Report_2012_lo.pdf" target="_blank">
+                  <img src="images/Nordic_Report_2012_lo.gif" width="39" height="52" alt="unquote” Nordic Report 2012" align="left">unquote”
+                  Nordic Report 2012</a></li>
+
+            </ul>
+          </div>
+        </div>
+        <div class="clear"></div>
+        <!--2012-->
+        <!--2011-->
+        <div class="archive_box">
+          <div class="ui-widget-header">
+            2011
+          </div>
+          <div style="display: none;" class="portlet-content">
+            <ul>
+              <li>
+                <a href="/PDF/FAdmin_11_v2_lo.pdf" target="_blank"><img src="images/FAdmin_11_v2_lo.gif" width="39" height="52" alt="unquote” Fund Administration 2011" align="left">unquote”
+                  Fund Administration 2011</a>
+              </li>
+              <li>
+                <a href="/PDF/Q4_2011_Barometer_Research_23-1-12.pdf" target="_blank">
+                  <img src="images/Q4_2011.gif" alt="unquote Private Equity Barometer" align="left">unquote" Private
+                  Equity Barometer Q4 2011</a>
+              </li>
+              <li>
+                <a href="/PDF/barometer_q3_2011.pdf" target="_blank"><img src="images/Q4_2011.gif" alt="unquote Private Equity Barometer" align="left">unquote"
+                  Private Equity Barometer Q3 2011</a>
+              </li>
+              <li>
+                <a href="/PDF/2011_Q2_Barometer_final.pdf" target="_blank">
+                  <img src="images/Q2_2011.gif" alt="unquote Private Equity Barometer" align="left">unquote" Private
+                  Equity Barometer Q2 2011</a>
+              </li>
+              <li>
+                <a href="/PDF/Q1_2011_Barometer.pdf" target="_blank">
+                  <img src="images/Q1_2011.gif" alt="unquote Private Equity Barometer" align="left">unquote" Private
+                  Equity Barometer Q1 2011</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!--2011-->
+        <!--2010-->
+        <div class="archive_box2">
+          <div class="ui-widget-header">
+            2010
+          </div>
+          <div style="display: none;" class="portlet-content">
+            <ul>
+              <li>
+                <a href="/PDF/Q4-10_Barometer.pdf" target="_blank"><img src="images/Q4_2010.gif" alt="unquote Private Equity Barometer" align="left">unquote"
+                  Private Equity Barometer Q4 2010</a>
+              </li>
+              <li>
+                <a href="/PDF/Q3-10_Full_Report.pdf" target="_blank">
+                  <img src="images/Q3_2010.gif" alt="unquote Private Equity Barometer" align="left">unquote" Private
+                  Equity Barometer Q3 2010</a>
+              </li>
+              <li>
+                <a href="/PDF/Q2_10_Barometer_with_bookmarks.pdf" target="_blank">
+                  <img src="images/Q2_2010.gif" alt="unquote Private Equity Barometer" align="left">unquote" Private
+                  Equity Barometer Q2 2010</a>
+              </li>
+              <li>
+                <a href="/PDF/Q1_2010_Barometer.pdf" target="_blank">
+                  <img src="images/Q1_2010.gif" alt="unquote Private Equity Barometer" align="left">unquote" Private
+                  Equity Barometer Q1 2010</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="clear"></div>
+        <!--2010-->
+        <div class="archive_box">
+          <div class="ui-widget-header">
+            2009
+          </div>
+          <div style="display: none;" class="portlet-content">
+            <ul>
+              <li>
+                <a href="/PDF/Q4_2009_Barometer.pdf" target="_blank"><img src="images/Q4_2009.gif" alt="unquote Private Equity Barometer" align="left">unquote"
+                  Private Equity Barometer Q4 2009</a>
+              </li>
+              <li>
+                <a href="/PDF/Q3-2009_Barometer.pdf" target="_blank">
+                  <img src="images/Q3_2009.gif" alt="unquote Private Equity Barometer" align="left">unquote" Private
+                  Equity Barometer Q3 2009</a>
+              </li>
+              <li>
+                <a href="/PDF/Q2_09_Corbett_Keeling_Report.pdf" target="_blank">
+                  <img src="images/Q2_2009.gif" alt="unquote Private Equity Barometer" align="left">unquote" Private
+                  Equity Barometer Q2 2009</a>
+              </li>
+              <li>
+                <a href="" target="_blank">
+                  <img src="images/Q1_2009.gif" alt="unquote Private Equity Barometer" align="left">unquote" Private
+                  Equity Barometer Q1 2009</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="archive_box2">
+          <div class="ui-widget-header">
+            2008
+          </div>
+          <div style="display: none;" class="portlet-content">
+            <ul>
+              <li>
+                <a href="" target="_blank"><img src="images/Q4_2008.gif" alt="unquote Private Equity Barometer" align="left">unquote"
+                  Private Equity Barometer Q4 2008</a>
+              </li>
+              <li>
+                <a href="" target="_blank">
+                  <img src="images/Q3_2008.gif" alt="unquote Private Equity Barometer" align="left">unquote" Private
+                  Equity Barometer Q3 2008</a>
+              </li>
+              <li>
+                <a href="/PDF/Q2-08_Candover.pdf" target="_blank">
+                  <img src="images/Q2_2008.gif" alt="unquote Private Equity Barometer" align="left">unquote" Private
+                  Equity Barometer Q2 2008</a>
+              </li>
+              <li>
+                <a href="/PDF/2008_Q1.pdf" target="_blank">
+                  <img src="images/Q1_2008.gif" alt="unquote Private Equity Barometer" align="left">unquote" Private
+                  Equity Barometer Q1 2008</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="clear"></div>
+        <p>
+          The unquote” Intelligence Reports are read by the
+          subscribers of the unquote” journals and Private Equity Europe, sent to
+          our comprehensive mailing list of European institutional investors and
+          distributed at carefully selected private equity conferences. Sponsoring
+          one of these high-profile reports offers you an unrivalled opportunity
+          to establish or build your brand equity amongst your target audience.
+          <br>
+          <br>
+          For further details on the advertising and sponsorship
+          positions available, please contact Catherine Lewis, Publisher, on +44
+          20 7004 7445, or by email at :<a href="mailto:catherine.lewis@incisivemedia.com">
+          catherine.lewis@incisivemedia.com</a>.
+        </p>
+        <br>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="bottom_shadow" style="width:99.7%;"></div>
+  </div>
+  <!-- quick search main end-->
+</div>
+<!--  Advanced search end -->
+

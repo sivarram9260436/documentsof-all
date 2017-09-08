@@ -1,0 +1,3 @@
+curl -s http://127.0.0.1/-k-r-e-a-t-i-o-/purge/-H "Host:grehlakshmi.dp.kreatio.info"
+
+	 a=`curl -s http://127.0.0.1/-k-r-e-a-t-i-o-/purge/ -H "Host:#{@site.name}"`

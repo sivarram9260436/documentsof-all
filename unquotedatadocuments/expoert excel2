@@ -1,0 +1,90 @@
+ <%= content_tag(:td, label_tag("City:", nil, { :class => "lab-field" } ) )%>
+                <% selected_city = @deal.city.blank? ? [] : [{ :id => @deal.city.id, :name => @deal.city.name }] %>
+            <%= content_tag(:td, text_field(:deal, :city_id, { :class => "auto_complete", "data-url" => "/deals/get_cities", "data-duplicate" => "false", "data-hint-text" => "Type to search city", "data-no-result" => "No City found", "data-searching-text" => "Fetching Cities", "data-selection-limit" => "1","data-on-delete-call-function" => "clear_data_deal_company", "data-selected" => (selected_city).to_json , "data-on-add-call-function" => "add_region_country"})) %>
+
+
+
+
+
+  <%= content_tag(:tr) do %>
+            <%= content_tag(:td,  label_tag("Date of Commitment:"), { :class => "lab-field hh" }) %>
+                <%= content_tag(:td, date_select(:fund_performance, :date_of_commitment, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } })) %>
+        <% end %>
+
+	<%= content_tag(:tr) do %>
+            <%= content_tag(:td,  label_tag("Trade Date:"), { :class => "lab-field hh" }) %>
+                <%= content_tag(:td, date_select(:lp_trade, :trade_date, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } })) %>
+        <% end %>
+
+
+
+
+    <%= content_tag(:tr) do %>
+            <%= content_tag(:td,  label_tag("Fund Performance Date:"), { :class => "lab-field hh" }) %>
+                <%= content_tag(:td, date_select(:fund_performance, :fund_performance_date, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } })) %>
+        <% end %>
+
+  def fund_performance_export
+     sub_log = SubscriberLog.create(:entity_type => "Fund", :subscriber_id => session[:user_id],:log_type => "export" )
+     work_book_path = "excel_exports/Report#{Time.zone.now.strftime("%Y%m%d%H%M%S%6N")}.xlsx"
+     job_id = SecureRandom.hex
+     fund = Fund.find_by_id(params[:fund_id]
+     export_columns = FundPerformance.column_names-["commitment","created_at","updated_at","fund_id","date_of_commitment","performance_source"]
+     delay_job = Fund.generate_performance_export_job(job_id,work_book_path,export_columns.join(","),fund,session[:currency],session[:user_id],params[:okcancel])
+     delay_job = job_id
+    render :json => { :status => "pending", :message => "#{Subscriber.find(session[:user_id]).email_id}", :id => "#{delay_job}, #{work_book_path}" }
+  end 
+
+  def generate_performance_export_job(job_id,work_book_path, export_columns,fund,currency_value,sub_log.id,present_user, ok_cancel)
+    
+      @export_job = ExportJob.create(:job_id => job_id,:status => "pending" , :work_book_path =>work_book_path, :selectedColDeal => export_columns, currency_value, :present_user => present_user, :subscriber_log => sub_log, :ok_cancel => ok_cancel)
+    #logger.info "========generate_wdxlsx_for_export_job=====#{@export_job.inspect}=========="
+
+    generate_performance_wdxlsx_for_export(work_book_path,export_columns,sub_log,fund,currency_value,present_user,ok_cancel)
+    @export_job.update_attributes(:status => "completed" )
+
+  end
+
+  def self.generate_wdxlsx_for_export(work_book_path,export_columns, sub_log,fund, currency_value, present_user, ok_cancel)
+   logger1 = Logger.new("#{Rails.root}/log/development.log")
+    cst = Time.now
+    Ambient.init
+    Ambient.currency = currency_value
+    Ambient.subscriber_user = present_user
+    
+   hd_col = []
+    export_columns.split(",").each do |column|  
+        hd_col <<  column
+    end
+   s = Wdxlsx::SheetGen.new(Wdxlsx::XlsxTemplate, "You have exported for: Fund Performance" , export_columns.count)
+   s.header_row(hd_col)
+   fund.fund_performances.order("created_at desc").each do |fund_per|
+   a = []
+    a << fund_per.to_s 
+   s.row(a)
+   end
+   out_file = s.save("#{Rails.root}/public/#{work_book_path}")
+    if ok_cancel == "true"
+      if !Subscriber.where(:id => Ambient.subscriber_user).blank?
+        subscriber = Subscriber.find(Ambient.subscriber_user)
+        UnquoteMailer.export_mail_for_subcriber(subscriber,work_book_path,SITE_URL_EXPORT).deliver
+      end
+    end
+    logger.info "------Fund  std all time --#{Time.now-cst}--------------"
+  end
+  
+   
+
+   
+  
+ 
+
+
+
+
+
+
+
+
+
+

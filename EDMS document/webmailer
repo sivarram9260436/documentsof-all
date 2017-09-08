@@ -1,0 +1,65 @@
+
+def self.bday_mail
+bday=EmployeeDetail.by_bday_today_month
+bday.collect(&:official_mailid)
+end
+
+
+def self.anniversary_mail
+anniversary=PersonalDetail.by_anniversary_today_day_month
+anniversary.collect(&:official_mailid)
+end
+
+
+webmailer code
+
+class BdayMailer < ActionMailer::Base
+ 
+ def bday_email(employee)
+   
+   @employee_detail = employee
+    @to=@employee_detail.official_mailid 
+  
+   @off = @employee_detail.office_type.name
+    mail(:from=>"hr@kreatio.com",:to =>@to,:subject => "Many More Happy Returns of the day") if @off == "Kreatio"
+    mail(:from=>"hr@kreatio.com",:to =>@to,:subject => "Many More Happy Returns of the day") if @off == "Webnish"
+  
+  end
+
+
+ def anniversary_email(employee)
+   
+   @employee_detail = employee
+    @to=@employee_detail.official_mailid 
+  
+   @off = @employee_detail.office_type.name
+    mail(:from=>"hr@kreatio.com",:to =>@to,:subject => "Happy anniversary") if @off == "Kreatio"
+    mail(:from=>"hr@kreatio.com",:to =>@to,:subject => "Happy anniversary") if @off == "Webnish"
+  
+  end
+
+crontab
+
+
+app/views/web_mailer/bday_mail.html.erb
+
+<%=simple_format("Hi #{@employee_detail.emp_name.camelize if @employee_detail.emp_name}") %>
+
+<%= content_tag(:p, "Happy Birthday.")%>
+
+
+app/views/web_mailer/annivesary_mail.html.erb
+
+<%=simple_format("Hi #{@employee_detail.emp_name.camelize if @employee_detail.emp_name}") %>
+
+<%= content_tag(:p, "Happy Anniversary.")%>
+
+
+crontab
+
+vi lib/birthday_wish.rb
+
+
+
+
+

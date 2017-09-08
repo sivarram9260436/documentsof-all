@@ -1,0 +1,48 @@
+<% @tag = tag_new_edit %>
+
+<% form_tag( @tag.new_record? ? { :action => 'create' } : { :action => 'update', :id => @tag } , { :name => 'tag_form', :multipart => true } ) do %>
+
+<table id="tag_form">
+	<tbody>
+
+		<tr>
+			<td> <%= error_messages_for_text_changes 'tag' %> </td>
+		</tr>
+		<tr>
+			<td><label for="tag_name"> Tag Name: </label></td>
+			<td> <%= text_field 'tag', 'name', :class=>'input_text' %> </td>
+		</tr>
+		<tr>
+			<td><label for="tag_name"> Alias Name: </label></td>
+			<td> <%= text_field 'tag', 'alias_name', :class=>'input_text' %> </td>
+		</tr>
+		<tr>
+			<td><label for="tag_entity_type"> Tags Type: </label></td>
+			<td> <% if @tag!=nil and @tag.entity_type!=nil%>
+			<%= select('tag','entity_type',['Image','Article'],option={:selected=>@tag.entity_type})%>
+			<%else%>
+			<%= select('tag','entity_type',['Image','Article'],option={:selected=>"Article"})%>
+			<%#= select('tag','entity_type',['Article','Image'],:class=>'input_text') %>
+			<%end%> </td>
+		</tr>
+
+	</tbody>
+
+	<tfoot>
+		<tr>
+			<td colspan = "2">
+			<div class = "adminLinkButton right_label" style = "margin-top: 6px;">
+				<%= link_to('Cancel', 'javascript:void(0)', :onclick => "$('tag_new_edit').innerHTML=''") if auhtorized?("admin/tags","list") %>
+			</div>
+			<div class="adminButton right_label">
+				<%if params[:action] == "new"%>
+				<%= link_to('Save', 'javascript:void(0)',"data-type" => 'new',"data-url" => "create","class" => "submit_form","data-fname" => "tag_form", :id=>"tag_01")%>
+				<%else%>
+				<%= link_to('Update', 'javascript:void(0)',"data-type" => 'edit',"data-url" => "/admin/tag/update","class" => "submit_form","data-fname" => "tag_form", :id=>"tag_02") %>
+				<%end%>
+			</div></td>
+		</tr>
+	</tfoot>
+
+</table>
+<% end %>

@@ -1,0 +1,24 @@
+
+<!--<div class="section_block full_section">-->
+<%= form_tag({:controller=>'/admin/authors',:action => 'search'}) do %>
+<div class="section_block full_section">
+	<h2>Author Search</h2>
+	<div class="search_fields">
+		<p>
+			<label for="content"> Author Name:</label> <%= text_field 'search_data',  "firstname"%>
+		</p>
+		<p>
+			<label for="status">E-mail:</label> <%= text_field 'search_data',  "email"%>
+			<%= hidden_field 'per','page',:value=>(session[:per_page] if session[:per_page]) %>
+		</p>
+		<div class="button">
+         	<%= submit_tag("Search",:class=>"submit blue_submit")%>
+		</div>
+	</div>
+</div>
+<!-- search block -->
+<% end %>
+
+
+<%= params[:search_data] ? component_table_list(SrComponent.find_component_by_name('author_management_search')) : component_table_list(SrComponent.find_component_by_name('author_management_list')) %>
+<!--</div>-->

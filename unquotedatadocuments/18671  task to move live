@@ -1,0 +1,91 @@
+===============stage code================
+
+<% if !@all_matched_funds.results.blank? && @all_matched_funds.results.count == 1  %>
+
+  
+   <% fund_total_val = @all_matched_funds.results.first.fund_target_amount.to_i == 0 ? 0 : @all_matched_funds.results.collect(&FUNDTARGETAMOUNT[session[:currency]].to_sym).compact.sum %>   
+   <% fund_avg_val = @all_matched_funds.results.first.fund_target_amount.to_i == 0 ? 0 : @all_matched_funds.results.collect(&FUNDTARGETAMOUNT[session[:currency]].to_sym).compact.sum/@all_matched_funds.results.collect(&FUNDTARGETAMOUNT[session[:currency]].to_sym).compact.size  %>
+  
+<% else %>
+
+<% fund_total_val = @all_matched_funds.results.blank? || @all_matched_funds.results.collect(&FUNDTARGETAMOUNT[session[:currency]].to_sym).compact.sum == 0  ? 0 : @all_matched_funds.results.collect(&FUNDTARGETAMOUNT[session[:currency]].to_sym).compact.sum %>
+
+<% fund_avg_val = @all_matched_funds.results.blank? || @all_matched_funds.results.collect(&FUNDTARGETAMOUNT[session[:currency]].to_sym).compact.sum == 0  ? 0 : @all_matched_funds.results.collect(&FUNDTARGETAMOUNT[session[:currency]].to_sym).compact.sum/@all_matched_funds.results.collect(&FUNDTARGETAMOUNT[session[:currency]].to_sym).compact.size %>
+<% end  %>
+
+
+<%= content_tag(:strong,"Total value of funds returned:") %>
+<%= content_tag (:span),:style=>"color:#E3001B; font-weight:bold"  do %>
+    <%= CURRENCY_SYMBOLS[ session[:currency] || @user.currency !=nil && CURRENCY_SEND[@user.currency.name]] %><%= number_with_precision(fund_total_val, :precision => 2, :delimiter => ',') %>m
+<%end%>
+<br>
+<%= content_tag(:strong,"Average value of funds returned:") %>
+<%= content_tag (:span),:style=>"color:#E3001B; font-weight:bold"  do %>
+    <%= CURRENCY_SYMBOLS[session[:currency] || @user.currency !=nil && CURRENCY_SEND[@user.currency.name]] %><%= number_with_precision(fund_avg_val, :precision => 2, :delimiter => ',') %>m
+<%end%>
+<br>
+
+<%= hidden_field_tag 'fund_total_val',fund_total_val %>
+<%= hidden_field_tag 'fund_avg_val',fund_avg_val %>
+
+
+ruby@merger-market:~/Unquote_data/Sites$ vi unquote_data_site/views/funds/partials/_fund_values_total.html.erb
+
+================================================================================================================================================================
+
+stage code want to add
+
+    currency_map = { "euro" => "fund_euro", "uk" => "fund_uk", "us" => "fund_us", "yen" => "fund_yen" }
+    ###@all_matched_funds = Fund.text_search({ :text => params[:funds][:keyword], :page => 1,:per_page => 1, :dy_sort => params[:sort].blank? ? {:name => :asc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :sort => "Relevance", :filters => filters, :gt_filters => gt_filters, :lt_filters => lt_filters, :sum_value => [[currency_map[session[:currency]]]]})
+    @funds = Fund.text_search({ :text => params[:funds][:keyword], :page => params[:page], :per_page => PER_PAGE, :dy_sort => params[:sort].blank? ? {:created_at => :asc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :sort => "Relevance", :filters => filters, :gt_filters => gt_filters, :lt_filters => lt_filters })
+    @all_matched_funds = Fund.text_search({ :text => params[:funds][:keyword], :page => 1, :per_page => @funds.total < 1 ? PER_PAGE : @funds.total, :dy_sort => params[:sort].blank? ? {:name => :asc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :sort => "Relevance", :filters => filters, :gt_filters => gt_filters, :lt_filters => lt_filters })
+  
+
+
+
+
+
+
+
+====================live code
+
+    currency_map = { "euro" => "fund_euro", "uk" => "fund_uk", "us" => "fund_us", "yen" => "fund_yen" }
+    @all_matched_funds = Fund.text_search({ :text => params[:funds][:keyword], :page => 1, :per_page => 1, :dy_sort => params[:sort].blank? ? {:name => :asc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :sort => "Relevance", :filters => filters, :gt_filters => gt_filters, :lt_filters => lt_filters, :sum_value => [[currency_map[session[:currency]]]]})
+   
+
+
+
+
+   to replace 
+
+
+
+
+
+================ live
+
+
+
+<% if !@all_matched_funds.blank? && @all_matched_funds.total == 1  %>
+   <% fund_total_val = @all_matched_funds.results.first.target_size.to_i == 0 ? 0 : @all_matched_funds.results.first.send(FUNDTARGETSIZE[session[:currency]])  %>
+   <% fund_avg_val = @all_matched_funds.results.first.target_size.to_i == 0 ? 0 : @all_matched_funds.results.first.send(FUNDTARGETSIZE[session[:currency]])  %>
+
+<% else %>
+<% fund_total_val = @all_matched_funds.blank? || @all_matched_funds.total == 0  ? 0 : (@all_matched_funds.stats(FUNDTARGETSIZE[session[:currency]]).blank? ? 0 : @all_matched_funds.stats(FUNDTARGETSIZE[session[:currency]]).sum) %>
+<% fund_avg_val = @all_matched_funds.blank? || @all_matched_funds.total == 0  ? 0 : (@all_matched_funds.stats(FUNDTARGETSIZE[session[:currency]]).blank? ? 0 : @all_matched_funds.stats(FUNDTARGETSIZE[session[:currency]]).mean) %>
+<% end  %>
+<%= content_tag(:strong,"Total value of funds returned:") %>
+<%= content_tag (:span),:style=>"color:#E3001B; font-weight:bold"  do %>
+    <%= CURRENCY_SYMBOLS[ session[:currency] || @user.currency !=nil && CURRENCY_SEND[@user.currency.name]] %><%= number_with_precision(fund_total_val, :precision => 2, :delimiter => ',') %>m
+<%end%>
+<br>
+<%= content_tag(:strong,"Average value of funds returned:") %>
+<%= content_tag (:span),:style=>"color:#E3001B; font-weight:bold"  do %>
+    <%= CURRENCY_SYMBOLS[session[:currency] || @user.currency !=nil && CURRENCY_SEND[@user.currency.name]] %><%= number_with_precision(fund_avg_val, :precision => 2, :delimiter => ',') %>m
+<%end%>
+<br>
+
+<%= hidden_field_tag 'fund_total_val',fund_total_val %>
+<%= hidden_field_tag 'fund_avg_val',fund_avg_val %>
+================================================================================================================
+~                                                     

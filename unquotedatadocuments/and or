@@ -1,0 +1,168 @@
+
+////////////////////////Started GET "/images/jqmBG.gif" for 127.0.0.1 at 2016-12-19 16:31:28 +0530
+Processing by Wps::PagesController#listing as HTML
+  Parameters: {"path"=>"/images/jqmBG.gif"}
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_secure_right.html.erb (13.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/exception_handling/404_post_login.html.erb within /layouts/post_login (14.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_seo_keys.html.erb (1.0ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_stylesheets.html.erb (3.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_head_scripts.html.erb (4.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/authentication/_header_logout.html.erb (1.0ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/listing_pages/partials/_post_login_menu.erb (26.6ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_header.html.erb (34.6ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/listing_pages/partials/_post_login_menu.erb (6.0ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_footer.html.erb (41.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_javascript.html.erb	 (0.4ms)
+Filter chain halted as :catch_all rendered or redirected
+Completed 200 OK in 127ms (Views: 91.2ms | ActiveRecord: 22.4ms | Solr: 0.0ms)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////Started POST "/funds/search" for 127.0.0.1 at 2016-12-19 16:32:10 +0530
+Processing by Wps::UqFundsController#search as */*
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Paci/VSLrFni9TJsm1hduka2SIex02hXqteXdGgyW8A=", "sort"=>"name_sort", "order"=>"asc", "funds"=>{"currency"=>"uk", "fund_name_value"=>"", "fund_name"=>"", "investor_name_value"=>"", "investor_name"=>"", "country_name"=>"", "country"=>"", "fund_type_value"=>"", "fund_type"=>"", "event_dates_value"=>"1st Close,Apr,2013,Jun,2014", "event_dates"=>"2", "start_month"=>"4", "start_year"=>"2013", "end_month"=>"6", "end_year"=>"2014", "target_from"=>"", "target_to"=>"", "keyword"=>"", "geogcountry_value"=>"", "geogcountry"=>"", "unverified"=>"Pending QC"}, "search_type"=>"standard_search"}
+====session_currency====uk===============
+1111111111111{:all_fund_event_first_close_dates=>Mon, 01 Apr 2013, "fund_target_amount_uk"=>""}11111111111{:all_fund_event_first_close_dates=>Mon, 30 Jun 2014, "fund_target_amount_uk"=>""}1111111111111111{:id=>[[], "ary"], :investor_name=>[[], "ary"], :country_id=>[[], "ary"], :fund_type=>[[], ""], :fund_event_type=>[["2"], "ary"], :fund_geo_pref_id=>[[], "ary"], :status_name=>[["Publish", "Pending QC"], "ary"], :all_fund_event_first_close_id=>"2"}222222222222
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////Started POST "/funds/search" for 127.0.0.1 at 2016-12-19 16:32:43 +0530
+Processing by Wps::UqFundsController#search as */*
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Paci/VSLrFni9TJsm1hduka2SIex02hXqteXdGgyW8A=", "sort"=>"name_sort", "order"=>"asc", "funds"=>{"currency"=>"uk", "fund_name_value"=>"", "fund_name"=>"", "investor_name_value"=>"", "investor_name"=>"", "country_name"=>"", "country"=>"", "fund_type_value"=>"", "fund_type"=>"", "event_dates_value"=>"1st Close,Final Close,Fund Announced,Interim,Unspecified,Apr,2013,Jun,2014", "event_dates"=>"2,5,1,3,4", "start_month"=>"4", "start_year"=>"2013", "end_month"=>"6", "end_year"=>"2014", "target_from"=>"", "target_to"=>"", "keyword"=>"", "geogcountry_value"=>"", "geogcountry"=>"", "unverified"=>"Pending QC"}, "search_type"=>"standard_search"}
+====session_currency====uk===============
+1111111111111{:all_fund_event_first_close_dates=>Mon, 01 Apr 2013, :all_fund_event_final_close_dates=>Mon, 01 Apr 2013, :all_fund_event_announced_dates=>Mon, 01 Apr 2013, :all_fund_event_interim_dates=>Mon, 01 Apr 2013, :all_fund_event_unspecified_dates=>Mon, 01 Apr 2013, "fund_target_amount_uk"=>""}11111111111{:all_fund_event_first_close_dates=>Mon, 30 Jun 2014, :all_fund_event_final_close_dates=>Mon, 30 Jun 2014, :all_fund_event_announced_dates=>Mon, 30 Jun 2014, :all_fund_event_interim_dates=>Mon, 30 Jun 2014, :all_fund_event_unspecified_dates=>Mon, 30 Jun 2014, "fund_target_amount_uk"=>""}1111111111111111{:id=>[[], "ary"], :investor_name=>[[], "ary"], :country_id=>[[], "ary"], :fund_type=>[[], ""], :fund_event_type=>[["2", "5", "1", "3", "4"], "ary"], :fund_geo_pref_id=>[[], "ary"], :status_name=>[["Publish", "Pending QC"], "ary"], :all_fund_event_first_close_id=>"2", :all_fund_event_final_close_id=>"5", :all_fund_event_announced_id=>"1", :all_fund_event_interim_id=>"3", :all_fund_event_unspecified_id=>"4"}222222222222
+=========ssssssaaaaaaa======{:text=>"", :page=>1, :per_page=>20, :dy_sort=>{:name_sort=>:asc}, :sort=>"Relevance", :filters=>{:id=>[[], "ary"], :investor_name=>[[], "ary"], :country_id=>[[], "ary"], :fund_type=>[[], ""], :fund_event_type=>[["2", "5", "1", "3", "4"], "ary"], :fund_geo_pref_id=>[[], "ary"], :status_name=>[["Publish", "Pending QC"], "ary"], :all_fund_event_first_close_id=>"2", :all_fund_event_final_close_id=>"5", :all_fund_event_announced_id=>"1", :all_fund_event_interim_id=>"3", :all_fund_event_unspecified_id=>"4"}, :gt_filters=>{:all_fund_event_first_close_dates=>Mon, 01 Apr 2013, :all_fund_event_final_close_dates=>Mon, 01 Apr 2013, :all_fund_event_announced_dates=>Mon, 01 Apr 2013, :all_fund_event_interim_dates=>Mon, 01 Apr 2013, :all_fund_event_unspecified_dates=>Mon, 01 Apr 2013, "fund_target_amount_uk"=>""}, :lt_filters=>{:all_fund_event_first_close_dates=>Mon, 30 Jun 2014, :all_fund_event_final_close_dates=>Mon, 30 Jun 2014, :all_fund_event_announced_dates=>Mon, 30 Jun 2014, :all_fund_event_interim_dates=>Mon, 30 Jun 2014, :all_fund_event_unspecified_dates=>Mon, 30 Jun 2014, "fund_target_amount_uk"=>""}, :not_by_filters=>{}, :not_by_gt_filters=>{}, :not_by_lt_filters=>{}, :facets=>[], :fields=>[], :include_models=>[Fund(id: integer, name: string, investor_group_component_id: integer, currency_id: integer, city_id: integer, target_size: string, vintage: integer, basic_fund_type_id: integer, fund_status: string, status_id: integer, fund_overview: text, new_investor_percent: string, existing_investor_percent: string, created_by: integer, updated_by: integer, created_at: datetime, updated_at: datetime, fund_check: boolean, proprietary_capital: boolean, fund_target_amount: string, investor_id: integer, country_id: integer, fund_target_amount_usd: string, data_proxy_id: integer, investor_group_id: integer, note_description: string, fund_target_amount_uk: float, fund_target_amount_us: float, fund_target_amount_euro: float, fund_target_amount_yen: float, fund_target_size_uk: float, fund_target_size_us: float, fund_target_size_euro: float, fund_target_size_yen: float, last_date: datetime)]}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd0xxxxxxxxxxxxxfalse
+@@@@@@@@@@@@@@@@@@@@0=========sss====={:id=>[[], "ary"], :investor_name=>[[], "ary"], :country_id=>[[], "ary"], :fund_type=>[[], ""], :fund_event_type=>[["2", "5", "1", "3", "4"], "ary"], :fund_geo_pref_id=>[[], "ary"], :status_name=>[["Publish", "Pending QC"], "ary"], :all_fund_event_first_close_id=>"2", :all_fund_event_final_close_id=>"5", :all_fund_event_announced_id=>"1", :all_fund_event_interim_id=>"3", :all_fund_event_unspecified_id=>"4"}==
+=========ssssssaaaaaaa======{:text=>"", :page=>1, :per_page=>20, :dy_sort=>{:name_sort=>:asc}, :sort=>"Relevance", :filters=>{:id=>[[], "ary"], :investor_name=>[[], "ary"], :country_id=>[[], "ary"], :fund_type=>[[], ""], :fund_event_type=>[["2", "5", "1", "3", "4"], "ary"], :fund_geo_pref_id=>[[], "ary"], :status_name=>[["Publish", "Pending QC"], "ary"], :all_fund_event_first_close_id=>"2", :all_fund_event_final_close_id=>"5", :all_fund_event_announced_id=>"1", :all_fund_event_interim_id=>"3", :all_fund_event_unspecified_id=>"4"}, :gt_filters=>{:all_fund_event_first_close_dates=>Mon, 01 Apr 2013, :all_fund_event_final_close_dates=>Mon, 01 Apr 2013, :all_fund_event_announced_dates=>Mon, 01 Apr 2013, :all_fund_event_interim_dates=>Mon, 01 Apr 2013, :all_fund_event_unspecified_dates=>Mon, 01 Apr 2013, "fund_target_amount_uk"=>""}, :lt_filters=>{:all_fund_event_first_close_dates=>Mon, 30 Jun 2014, :all_fund_event_final_close_dates=>Mon, 30 Jun 2014, :all_fund_event_announced_dates=>Mon, 30 Jun 2014, :all_fund_event_interim_dates=>Mon, 30 Jun 2014, :all_fund_event_unspecified_dates=>Mon, 30 Jun 2014, "fund_target_amount_uk"=>""}, :not_by_filters=>{}, :not_by_gt_filters=>{}, :not_by_lt_filters=>{}, :facets=>[], :fields=>[], :include_models=>[Fund(id: integer, name: string, investor_group_component_id: integer, currency_id: integer, city_id: integer, target_size: string, vintage: integer, basic_fund_type_id: integer, fund_status: string, status_id: integer, fund_overview: text, new_investor_percent: string, existing_investor_percent: string, created_by: integer, updated_by: integer, created_at: datetime, updated_at: datetime, fund_check: boolean, proprietary_capital: boolean, fund_target_amount: string, investor_id: integer, country_id: integer, fund_target_amount_usd: string, data_proxy_id: integer, investor_group_id: integer, note_description: string, fund_target_amount_uk: float, fund_target_amount_us: float, fund_target_amount_euro: float, fund_target_amount_yen: float, fund_target_size_uk: float, fund_target_size_us: float, fund_target_size_euro: float, fund_target_size_yen: float, last_date: datetime)]}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd0xxxxxxxxxxxxxfalse
+========0=======@all_matched_funds============
+WARNING: User#current is nil, are you including SentientController on your ApplicationController?
+WARNING: User#current is nil, are you including SentientController on your ApplicationController?
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_result_params.html.erb (4.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_total_value.html.erb (2.4ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_result_return_count.html.erb (9.6ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_pagination.html.erb (2.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_top_result_pagination.html.erb (5.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/fund
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                        <%= select_tag 'funds[event_dates]', options_from_collection_for_select(@fund_event_types, "id", "name"),:id=>"fundEventDatesId",:style=>"height:70px\0/;",:class=>'field_design2',:multiple=>"multiple",:size=>"4" %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+vi unquote_data_site/views/funds/partials/_event_dates.html.erb
+
+vi unquote_data_site/views/funds/partials/_export_update.html.erb
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site/views$ vi funds/partials/_default_standard_tab.html.erb
+
+
+
+<%= content_tag (:fieldset) do %>
+                <%= content_tag(:legend,"Event Dates",:style=>"width:100px;")%>
+                <%= text_field_tag 'funds[event_dates_value]','',:id=>"advSearchFund",:class=>'uploadlist tooltip',:title=>"Click on Edit to select value",:readonly=>"readonly" %>
+                <%= hidden_field_tag 'funds[event_dates]','',:readonly=>"readonly"%>
+                <%= hidden_field_tag 'funds[start_month]','',:readonly=>"readonly"%>
+                <%= hidden_field_tag 'funds[start_year]','',:readonly=>"readonly"%>
+                <%= hidden_field_tag 'funds[end_month]','',:readonly=>"readonly"%>
+                <%= hidden_field_tag 'funds[end_year]','',:readonly=>"readonly"%>
+
+                <input id="eventdateTrigger" title="Event Dates" class="input_btn thickbox" value="Edit" type="button">
+                <%end%>
+
+
+
+
+ search_params[:funds].merge!(:start_date => Date.civil(params[:funds][:start_year].to_i, params[:funds][:start_month].to_i), :end_date => Date.civil(params[:funds][:end_year].to_i, params[:funds][:end_month].to_i).end_of_month) unless params[:funds][:start_year].blank? && params[:funds][:start_month].blank? &&  params[:funds][:end_year].blank? &&  params[:funds][:end_month].blank?
+
+

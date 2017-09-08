@@ -1,0 +1,39 @@
+<%= javascript_include_tag "/autocomplete/auto_complete" %>
+<div id="container">   
+    <div class="section_block full_section">
+        <h2><%= @page_properties[:menu_title] %></h2>
+        <div class="article_new_main">
+<%=form_tag({:action => 'update_product',:id=>@product.id,:url => @product.new_record? ? "/admin/products/save_product" : "/admin/products/update_product/#{@product.id}"})%>
+<%#= semantic_form_for ([:admin,@product]),:url => @product.new_record? ? "/admin/products/save_product" : "/admin/products/update_product/#{@product.id}" do |f| %>
+
+<%#= error_messages_for_text_changes :products %>
+<%#= error_messages_for_text_changes :asset_groups %>
+
+<% asset_group_ids=@site.asset_conditions.collect{|asset_cond| asset_cond.asset_group_id}%>
+<% @asset_group = AssetGroup.find(:all,:conditions=>["id in(?)",asset_group_ids],:select=>"name as text,id as value,'asset_group[id][]' as name").to_json %>
+
+<table>
+	<tr>
+		<td>
+			<%=sr_render_widget(SrComponent.find_component_by_name('FormLeft'))%>
+		</td>			
+			
+		<td align="top">
+			<%=sr_render_widget(SrComponent.find_component_by_name('FormRight'))%>
+		</td>
+	</tr>
+</table>
+
+  <div class="common_listing_button">
+           <ul>
+            <li class="button">
+               <%=link_to('Cancel',{:controller=>'admin/products',:action => 'index'})%>
+            </li>
+            <li class="button">
+            <%=submit_tag 'Update'%>
+            </li>
+          </ul>
+  </div>
+</div>
+ </div>       
+</div>

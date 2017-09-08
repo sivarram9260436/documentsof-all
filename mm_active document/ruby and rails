@@ -1,0 +1,5 @@
+ruby@mmactive:~/CMS/CMS_Admin$ rails -v
+Rails 2.3.14
+ruby@mmactive:~/CMS/CMS_Admin$ ruby -v
+ruby 1.8.7 (2012-02-08 patchlevel 358) [x86_64-linux]
+

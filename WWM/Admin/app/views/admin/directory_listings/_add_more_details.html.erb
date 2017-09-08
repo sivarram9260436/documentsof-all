@@ -1,0 +1,29 @@
+<div style="list-style-type:none;" id='add_option_txt_field'>
+ <%= render :partial=>'/admin/directory_listings/contact_detail',:collection => @directory_listing.contact_details %>
+</div>
+<div id='add_option'>
+<div class="button">
+ <%= link_to('Additional Contact Detail','javascript:void(0)',:id=>"add_contact_details") %></div>
+ <%if not @directory_listing.new_record?%>
+        <div class="button">
+        <%= submit_tag "Update"%>
+        </div>
+<%else%>
+        <div class="button">
+        <%= submit_tag "Save"%>
+        </div>
+<%end%>
+</div>
+<script type="text/javascript">
+        jQuery('#add_contact_details').click(function(){
+                jQuery.ajax({
+                        type : 'GET',
+                        url : '/admin/directory_listings/contact_detail',
+                        dataType : 'html',
+                        success : function(data) {
+                                jQuery("#add_option_txt_field").append(data);
+                        }
+                });
+        });
+</script>
+

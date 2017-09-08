@@ -1,0 +1,41 @@
+<div id="load_indicatior" style="left: 500px;position: absolute;top: 291px;display:none;">
+            <%= image_tag("/images/login_loading_image.gif",:alt=>"Loading page")%>
+    </div>
+    <div>
+            <%= form_tag({:action => 'update' },{:name=>'multi',:method => :post}) do %>
+            <%unless @featured_type.blank?%>
+            <%= render :partial => '/admin/ranked_list/service_form' %>
+            <%else%>
+        <% if params[:entity_type] %>
+       <%= render :partial => '/admin/ranked_list/asset_form' %>
+      <%else%> 
+          <%= render :partial => '/admin/ranked_list/form' %>
+           <%end%>
+          <% end %>
+           <%end%>
+   </div>
+ 
+   <script type="text/javascript">
+           $(function() {
+                   $('.dataedit_form').click(function() {
+                           //$(this).parents('form').attr('name'));\r
+                           var list_value = jQuery("#listTaken").sortable('serialize', {
+                                   key : 'listTaken[]'
+                           });
+                          var ajax_url = $(this).attr('data-url');
+                           var parent_url = $(this).attr('data-returnurl');
+                           var data_param = $("form").serialize();
+                           $.ajax({
+                                   type : 'POST',
+                                   url : ajax_url,
+                                   data : list_value + '&' + data_param,
+                                   success : function() {
+                                           window.opener.location.href = parent_url;
+                                           self.close();
+                                   }
+                           });
+                           return false;
+                   });
+           });
+   
+   </script>

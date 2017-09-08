@@ -1,0 +1,27 @@
+var Country = IG_cntry = <%= raw @europe_countries.sort_by{ |q| q.name }.collect{|c| { :id => c.name,:name => c.name }}.uniq.to_json %>
+
+
+ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site$ vi views/deals/partials/_custom_search_json.html.erb
+
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site$ git diff views/lps/partials/profile/_private_equity_fund_investment_portfolio.html.erb
+                      <%if !lp_fund.blank? and !lp_fund.fund.fund_performances.blank?  and !lp_fund.fund.fund_performances.first.blank? and !lp_fund.fund.fund_performances.first.commitment.blank?   and !lp_fund.fund.fund_performances.first.created_at.blank? %>
+
+
+
+
+
+ if(select_value=="Country" || select_fill=="Basic_Deal_type" || select_fill=="Deal_type" || select_fill=="Industry" || select_fill=="SuperSector" || select_fill=="Sector" || select_fill=="Advanced_Sector" || select_fill=="Vendor_Type" || select_fill=="Investment_Type" || select_fill=="Deal_investor" || select_fill=="Exit_route" || select_fill=="Market" || select_fill=="Advice_type" || select_fill=="Advice_to" || select_fill=="UK_Region" || select_fill=="City" || select_fill=="IG_cntry"){
+
+206 line 
+
+
+
+
+
+   :IG_cntry => :inv_country_name,
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi config/initializers/unquote_search_engine.rb 
+

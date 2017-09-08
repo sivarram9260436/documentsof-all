@@ -1,0 +1,60 @@
+1.9.3-p125 :013 >   Deal.last
+  Deal Load (1.0ms)  SELECT "deals".* FROM "deals" ORDER BY "deals"."id" DESC LIMIT 1
+ => #<Deal id: 380974, deal_parent_id: nil, status_id: 232, company_name: "Singa", company_alternate_name: "", website: "www.singa.com", created_date: "2017-08-21 00:00:00", company_founded: "2013", staff_count: nil, currency_id: 67, company_status_id: 19, turnover: "", ebit: "", ebitda: "", turnover_type: nil, ebit_type: nil, ebitda_type: nil, turnover_year: nil, ebit_year: nil, ebitda_year: nil, sub_sector_id: 121, company_information: "<p>Provider of a cloud-based digital karaoke servic...", life_science: false, cleantech: false, infrastructuree: false, created_by: 363, updated_by: 363, created_at: "2017-08-21 12:21:58", updated_at: "2017-08-21 12:29:34", city_id: 13861, show_in_report: nil, include_in_email: true, country_id: 1114, region_id: 73, ebit_confidential: false, ebit_forecast: false, ebit_estimated: false, ebitda_confidential: false, ebitda_forecast: false, ebitda_estimated: false, turnover_confidential: false, turnover_forecast: false, turnover_estimated: false, turnover_euro: nil, turnover_uk: nil, turnover_us: nil, turnover_yen: nil, ebit_euro: nil, ebit_uk: nil, ebit_us: nil, ebit_yen: nil, ebitda_euro: nil, ebitda_uk: nil, ebitda_us: nil, ebitda_yen: nil, data_proxy_id: 1, shown_in_reports: false, note_description: nil, last_date: "2017-08-21 12:29:34", company_id: nil, new_ebit_year: nil, new_ebitda_year: nil, new_turnover_year: nil, sub_sector_name: "Broadcasting & Entertainment", deal_value: 1.75, deal_type_name: "Seed", deal_announced: "2017-06-01", country_name: "Finland", deal_final_exit_date: nil> 
+1.9.3-p125 :014 > Deal.find_by_website "www.verlinvest.com"
+  Deal Load (24.6ms)  SELECT "deals".* FROM "deals" WHERE "deals"."website" = 'www.verlinvest.com' LIMIT 1
+ => nil 
+1.9.3-p125 :015 > Deal.find_by_company_name"Investor Profile for Verlinvest
+1.9.3-p125 :016"> ￼
+1.9.3-p125 :017"> "
+  Deal Load (2.3ms)  SELECT "deals".* FROM "deals" WHERE "deals"."company_name" = 'Investor Profile for Verlinvest
+￼
+' LIMIT 1
+ => nil 
+1.9.3-p125 :018 > Deal.find_by_company_name"Investor Profile for Verlinvest"
+  Deal Load (0.9ms)  SELECT "deals".* FROM "deals" WHERE "deals"."company_name" = 'Investor Profile for Verlinvest' LIMIT 1
+ => nil 
+1.9.3-p125 :019 > Deal.find_by_company_name" Verlinvest"
+  Deal Load (2.0ms)  SELECT "deals".* FROM "deals" WHERE "deals"."company_name" = ' Verlinvest' LIMIT 1
+ => nil 
+1.9.3-p125 :020 > Deal.find_by_company_name"Verlinvest"
+  Deal Load (1.0ms)  SELECT "deals".* FROM "deals" WHERE "deals"."company_name" = 'Verlinvest' LIMIT 1
+ => nil 
+1.9.3-p125 :021 > Deal.find 373601
+  Deal Load (1.1ms)  SELECT "deals".* FROM "deals" WHERE "deals"."id" = $1 LIMIT 1  [["id", 373601]]
+ => #<Deal id: 373601, deal_parent_id: 373599, status_id: 232, company_name: "Marqt", company_alternate_name: "", website: "www.marqt.com", created_date: "2015-07-02 00:00:00", company_founded: "2008", staff_count: nil, currency_id: 67, company_status_id: 19, turnover: "", ebit: "", ebitda: "", turnover_type: nil, ebit_type: nil, ebitda_type: nil, turnover_year: nil, ebit_year: nil, ebitda_year: nil, sub_sector_id: 151, company_information: "<p>Operator of food retail stores</p>", life_science: false, cleantech: false, infrastructuree: false, created_by: 373, updated_by: 363, created_at: "2015-07-02 05:53:32", updated_at: "2017-08-21 08:05:33", city_id: 13131, show_in_report: nil, include_in_email: false, country_id: 1122, region_id: 4, ebit_confidential: false, ebit_forecast: false, ebit_estimated: false, ebitda_confidential: false, ebitda_forecast: false, ebitda_estimated: false, turnover_confidential: false, turnover_forecast: false, turnover_estimated: false, turnover_euro: nil, turnover_uk: nil, turnover_us: nil, turnover_yen: nil, ebit_euro: nil, ebit_uk: nil, ebit_us: nil, ebit_yen: nil, ebitda_euro: nil, ebitda_uk: nil, ebitda_us: nil, ebitda_yen: nil, data_proxy_id: 1, shown_in_reports: false, note_description: nil, last_date: "2017-08-21 08:05:33", company_id: nil, new_ebit_year: nil, new_ebitda_year: nil, new_turnover_year: nil, sub_sector_name: "Food Products", deal_value: 4.5, deal_type_name: "Expansion", deal_announced: "2013-08-01", country_name: "Netherlands", deal_final_exit_date: nil> 
+1.9.3-p125 :022 > c=_
+ => #<Deal id: 373601, deal_parent_id: 373599, status_id: 232, company_name: "Marqt", company_alternate_name: "", website: "www.marqt.com", created_date: "2015-07-02 00:00:00", company_founded: "2008", staff_count: nil, currency_id: 67, company_status_id: 19, turnover: "", ebit: "", ebitda: "", turnover_type: nil, ebit_type: nil, ebitda_type: nil, turnover_year: nil, ebit_year: nil, ebitda_year: nil, sub_sector_id: 151, company_information: "<p>Operator of food retail stores</p>", life_science: false, cleantech: false, infrastructuree: false, created_by: 373, updated_by: 363, created_at: "2015-07-02 05:53:32", updated_at: "2017-08-21 08:05:33", city_id: 13131, show_in_report: nil, include_in_email: false, country_id: 1122, region_id: 4, ebit_confidential: false, ebit_forecast: false, ebit_estimated: false, ebitda_confidential: false, ebitda_forecast: false, ebitda_estimated: false, turnover_confidential: false, turnover_forecast: false, turnover_estimated: false, turnover_euro: nil, turnover_uk: nil, turnover_us: nil, turnover_yen: nil, ebit_euro: nil, ebit_uk: nil, ebit_us: nil, ebit_yen: nil, ebitda_euro: nil, ebitda_uk: nil, ebitda_us: nil, ebitda_yen: nil, data_proxy_id: 1, shown_in_reports: false, note_description: nil, last_date: "2017-08-21 08:05:33", company_id: nil, new_ebit_year: nil, new_ebitda_year: nil, new_turnover_year: nil, sub_sector_name: "Food Products", deal_value: 4.5, deal_type_name: "Expansion", deal_announced: "2013-08-01", country_name: "Netherlands", deal_final_exit_date: nil> 
+1.9.3-p125 :023 > c.deal_investments
+  Status Load (0.5ms)  SELECT "statuses".* FROM "statuses" WHERE (status_type = 'deal') AND (UPPER(name) = UPPER('SKELETAL')) LIMIT 1
+  DealInvestment Load (0.6ms)  SELECT "deal_investments".* FROM "deal_investments" WHERE "deal_investments"."deal_id" = 373601
+ => [#<DealInvestment id: 951688, deal_id: 373601, investment_type_id: 58, investor_group_component_id: 120650, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: 373, updated_by: 361, created_at: "2015-07-02 07:08:51", updated_at: "2015-07-27 08:51:09", amount: "4.5", investor_exited: false, deal_confidential: false>] 
+1.9.3-p125 :024 > m=_
+ => [#<DealInvestment id: 951688, deal_id: 373601, investment_type_id: 58, investor_group_component_id: 120650, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: 373, updated_by: 361, created_at: "2015-07-02 07:08:51", updated_at: "2015-07-27 08:51:09", amount: "4.5", investor_exited: false, deal_confidential: false>] 
+1.9.3-p125 :025 > m.last
+ => #<DealInvestment id: 951688, deal_id: 373601, investment_type_id: 58, investor_group_component_id: 120650, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: 373, updated_by: 361, created_at: "2015-07-02 07:08:51", updated_at: "2015-07-27 08:51:09", amount: "4.5", investor_exited: false, deal_confidential: false> 
+1.9.3-p125 :026 > m.investor_exited
+NoMethodError:   DealInvestment Load (0.7ms)  SELECT "deal_investments".* FROM "deal_investments" WHERE "deal_investments"."deal_id" = 373601
+undefined method `investor_exited' for #<ActiveRecord::Relation:0x0000000ac7d580>
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/relation/delegation.rb:45:in `method_missing'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/activerecord-3.2.13/lib/active_record/associations/collection_proxy.rb:100:in `method_missing'
+	from (irb):26
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:47:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p125@market_merger/gems/railties-3.2.13/lib/rails/commands.rb:41:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p125 :027 > m
+ => [#<DealInvestment id: 951688, deal_id: 373601, investment_type_id: 58, investor_group_component_id: 120650, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: 373, updated_by: 361, created_at: "2015-07-02 07:08:51", updated_at: "2015-07-27 08:51:09", amount: "4.5", investor_exited: false, deal_confidential: false>] 
+1.9.3-p125 :028 > t=m.last
+ => #<DealInvestment id: 951688, deal_id: 373601, investment_type_id: 58, investor_group_component_id: 120650, fund_id: nil, currency_id: 67, equity: "", confidential: nil, created_by: 373, updated_by: 361, created_at: "2015-07-02 07:08:51", updated_at: "2015-07-27 08:51:09", amount: "4.5", investor_exited: false, deal_confidential: false> 
+1.9.3-p125 :029 > t.investor_exited
+ => false 
+1.9.3-p125 :030 > t.investor_exited ="true"
+ => "true" 
+1.9.3-p125 :031 > t.save
+   (0.2ms)  BEGIN
+   (0.6ms)  UPDATE "deal_investments" SET "investor_exited" = 't', "updated_at" = '2017-08-21 13:49:45.237841' WHERE "deal_investments"."id" = 951688
+   (0.8ms)  COMMIT
+ => true 
+

@@ -1,0 +1,358 @@
+<%= content_tag (:fieldset) do %>
+    <%= content_tag(:legend, "Fund Commitments", :style => "width:235px;") %>
+    <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" id="table_style2" class="cls_table_style tbl_style"></table>
+    <%@arr= []%>
+    <% @lp.lp_funds.by_fund_status.each do |lp_fund| %>
+        <%@lp_fund=[]%>
+
+        <% if !lp_fund.blank? && !lp_fund.fund.blank? %>
+            <%@lp_fund << lp_fund.fund.name %>
+        <% else %>
+            <%@lp_fund << "n/d" %>
+        <% end %>
+
+
+        <% if !lp_fund.blank? && !lp_fund.fund.blank?  %>
+            <% @lp_fund << "#{lp_fund.fund.vintage}" %>
+        <% else %>
+            <% @lp_fund << "n/d" %>
+        <% end %>
+
+
+        <%# if !lp_fund.blank? %>
+            <%#  @lp_fund << "#{lp_fund.fund_committed}" %>
+        <% #else %>
+            <%# @lp_fund << "n/d" %>
+        <%# end %>
+
+
+ <%if !lp_fund.blank? and !lp_fund.fund_committed.blank? %>
+                        <% case (params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) %>
+                         <% when "euro" %>
+                                <%= content_tag(:td,"#{lp_fund.commitement_value_euro}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@lp_fund << lp_fund.commitement_value_euro %>
+                         <% when "uk" %>
+                                <%= content_tag(:td,"#{lp_fund.commitement_value_uk}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@lp_fund << lp_fund.commitement_value_uk %>
+                         <% when "us" %>
+                                <%= content_tag(:td,"#{lp_fund.commitement_value_us}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@lp_fund << lp_fund.commitement_value_us %>
+                           <% when "yen" %>
+                                <%= content_tag(:td,"#{lp_fund.commitement_value_yen}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                            <%@lp_fund << lp_fund.commitement_value_yen %>
+
+
+                        <% else %>
+                            <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                            <%@lp_fund << "n/d"%>
+                          <% end %>
+                        <% end %>
+
+
+
+        <% #if !lp_fund.blank? && !lp_fund.fund.blank? && !lp_fund.fund.fund_performances.blank? %>
+            <%# @lp_fund << "#{lp_fund.fund.fund_performances.first.reported_market_value}" %>
+        <%# else %>
+            <%# @lp_fund << "n/d" %>
+        <%# end %>
+
+
+
+
+ <%if !lp_fund.blank? and !lp_fund.fund.fund_performances.blank?  and !lp_fund.fund.fund_performances.first.blank?   and !lp_fund.fund.fund_performances.first.reported_market_value.blank? %>
+                        <% case (params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) %>
+                         <% when "euro" %>
+                                <%= content_tag(:td,"#{lp_fund.fund.fund_performances.first.commitement_value_euro}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@lp_fund << lp_fund.fund.fund_performances.first.commitement_value_euro %>
+                         <% when "uk" %>
+                                <%= content_tag(:td,"#{lp_fund.fund.fund_performances.first.commitement_value_uk}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@lp_fund << lp_fund.fund.fund_performances.first.commitement_value_uk %>
+                         <% when "us" %>
+                                <%= content_tag(:td,"#{lp_fund.fund.fund_performances.first.commitement_value_us}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@lp_fund << lp_fund.fund.fund_performances.first.commitement_value_us %>
+                           <% when "yen" %>
+                                <%= content_tag(:td,"#{lp_fund.fund.fund_performances.first.commitement_value_yen}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                            <%@lp_fund << lp_fund.fund.fund_performances.first.commitement_value_yen %>
+
+
+                        <% else %>
+                            <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                            <%@lp_fund << "n/d"%>
+                          <% end %>
+                        <% end %>
+
+        <% if !lp_fund.blank? && !lp_fund.fund.blank? && !lp_fund.fund.fund_performances.blank? %>
+            <% b= "#{lp_fund.fund.fund_performances.first.net_irr}" %>
+            <!-- precision is added because value have more digits after decimal point-->
+            <%e=number_to_percentage(b,precision: 0) %>
+            <% @lp_fund << e %>
+
+        <% else %>
+            <% @lp_fund << "n/d" %>
+        <% end %>
+
+
+        <% if !lp_fund.blank? && !lp_fund.fund.blank? && !lp_fund.fund.fund_performances.blank? %>
+            <% f= "#{lp_fund.fund.fund_performances.first.tvpi}" %>
+
+            <% @lp_fund << f + "x" %>
+        <% else %>
+            <% @lp_fund << "n/d" %>
+        <% end %>
+
+
+
+
+        <%# if !lp_fund.blank? && !lp_fund.fund.blank? %>
+            <%# case (session[:currency] || CURRENCY_SEND[@user.currency.name]) %>
+<%# when "euro" %>
+                <%#@lp_fund << number_with_precision(lp_fund.fund.fund_target_amount_euro.blank? ? "n/d" : lp_fund.fund.fund_target_amount_euro, :precision => 2, :delimiter => ',') %>
+            <% #when "uk" %>
+                <%#@lp_fund << number_with_precision(lp_fund.fund.fund_target_amount_uk.blank? ? "n/d" : lp_fund.fund.fund_target_amount_uk, :precision => 2, :delimiter => ',') %>
+            <%# when "us" %>
+                <%#@lp_fund <<  number_with_precision(lp_fund.fund.fund_target_amount_us.blank? ? "n/d" : lp_fund.fund.fund_target_amount_us, :precision => 2, :delimiter => ',') %>
+            <%# when "yen" %>
+                <%#@lp_fund << number_with_precision(lp_fund.fund.fund_target_amount_yen.blank? ? "n/d" : lp_fund.fund.fund_target_amount_yen, :precision => 2, :delimiter => ',') %>
+            <% #else %>
+                <%#@lp_fund << "n/d" %>
+            <%# end %>
+        <% #else %>
+            <%#@lp_fund << "n/d" %>
+        <%# end %>
+
+        <%# if !lp_fund.blank? && !lp_fund.fund.blank? && !lp_fund.fund.fund_status.blank? %>
+            <%#@lp_fund <<  "#{lp_fund.fund.fund_status}" %>
+        <% #else %>
+            <%#@lp_fund << "n/d" %>
+        <% #end %>
+
+        <%@arr << @lp_fund%>
+    <%end%>
+<%end%>
+<%= javascript_include_tag "jquery.dataTables.min.js"%>
+<!--
+<script type="text/javascript">
+$(document).ready(function() {
+var dataSet= <%#= @arr.to_json.html_safe%>;
+    $('.cls_table_style').DataTable( {
+        data: dataSet,
+
+        columns: [
+            { title: "Name of fund" },
+            { title: "Fund Announced date" },
+            { title: "Fund type" },
+            { title: "Amount Raised" },
+            { title: "Fund status" }],
+         "paging":   false,
+        "searching": false,
+        "info":     false,
+        columnDefs: [
+       { type: 'stringMonthYear', targets: 0 }
+     ]
+    } );
+var table = $('#table_style1').DataTable();
+$('#table_style1 thead').on('click', 'th', function () {
+ var index = table.column(this).index();
+var sortedCol = $('#table_style1').dataTable().fnSettings().aaSorting[0][0];
+if ($(this).attr("aria-sort") == "descending"){
+$('#table_style1 thead th a').removeClass("decending ascending");
+$('#table_style1 thead th a').css("color","black");
+$(this).html("<a class='decending xyz'>" + $(this).text()  + "</a>");
+}
+else
+{
+$('#table_style1 thead th a').removeClass("decending ascending");
+$('#table_style1 thead th a').css("color","black");
+$(this).html("<a class='ascending xyz'>" + $(this).text() + "</a>");
+}
+});
+
+$.extend(jQuery.fn.dataTableExt.oSort, {
+    "stringMonthYear-pre": function (s) {
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        //var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        var dateComponents = s.split(" ");
+        dateComponents[0] = dateComponents[0].replace(",", "");
+        dateComponents[1] = jQuery.trim(dateComponents[1]);
+
+        var year = dateComponents[1];
+
+        var month = 0;
+        for (var i = 0; i < months.length; i++) {
+            if (months[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                month = i;
+                break;
+            }
+        }
+
+        return new Date(year, month, 1);
+    },
+
+    "stringMonthYear-asc": function (a, b) {
+        return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+    },
+
+    "stringMonthYear-desc": function (a, b) {
+        return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+    }
+});
+});
+</script>
+-->
+<script type="text/javascript">
+    $(document).ready(function() {
+        var dataSet= <%= @arr.to_json.html_safe%>;
+        $('.cls_table_style').DataTable( {
+            data: dataSet,
+            columns: [
+                { title: "Fund Name" },
+                { title: "Vintage" },
+                { title: "Commitment" },
+                { title: "Reported Market Value" },
+                { title: "Net IRR" },
+                { title: "TVPI" }],
+            "paging":   false,
+            "searching": false,
+            "info": false,
+            "aoColumns": [  {title:"Fund Name"}, { title:"Vintage" }, {title:"Commitment<%= CURRENCY_DISPLAY[params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || @user.currency !=nil && CURRENCY_SEND[@user.currency.name]] %>" }, { title: "Reported Market Value <%= CURRENCY_DISPLAY[params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || @user.currency !=nil && CURRENCY_SEND[@user.currency.name]] %> " },  {title:"Net IRR"}, {title: "TVPI"} ]
+        } );
+
+        $.extend(jQuery.fn.dataTableExt.oSort, {
+            "stringMonthYear-pre": function (s) {
+                var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                var dateComponents = s.split(" ");
+                dateComponents[0] = dateComponents[0].replace(",", "");
+                dateComponents[1] = jQuery.trim(dateComponents[1]);
+                var year = dateComponents[1];
+                var month = 0;
+                for (var i = 0; i < months.length; i++) {
+                    if (months[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                        month = i;
+                        break;
+                    }
+                }
+                return new Date(year, month, 1);
+            },
+            "stringMonthYear-asc": function (a, b) {
+                return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+            },
+            "stringMonthYear-desc": function (a, b) {
+                return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+            },
+            "NumericOrBlank-pre": function (s){
+                var a = parseFloat($.trim(s).replace(/,/,''));
+                if(a==0){return "0";}else if(a>0){return a;}else{return " "}
+            },
+            "NumericOrBlank-asc": function(a,b) {
+                return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+            },
+            "NumericOrBlank-desc": function(b,a) {
+                return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+            }
+            /*
+
+             "NumericOrBlank-asc": function(x,y) {
+             var retVal;
+             x = (x = parseFloat($.trim(x).replace(/,/g,''))) ? x : 0;
+             y = (y = parseFloat($.trim(y).replace(/,/g,''))) ? y : 0;
+             if (x==y) retVal= 0;
+             else retVal = (x>y) ? 1 : -1;
+             return retVal;
+             },
+             "NumericOrBlank-desc": function(y,x) {
+             var retVal;
+             x = (x = parseFloat($.trim(x).replace(/,/g,''))) ? x : 0;
+             y = (y = parseFloat($.trim(y).replace(/,/g,''))) ? y : 0;
+             if (x==y) retVal= 0;
+             else retVal = (x>y) ? 1 : -1;
+             return retVal;
+             } */
+
+        });
+    });
+
+</script>
+
+<style>
+
+
+    .decending {
+        background: url(/images/ascending-arrow.gif) no-repeat right 5px;
+        color: #E3001B;
+        padding-right: 11px;
+    }
+    .ascending {
+        background: url(/images/desecending-arrow.gif) no-repeat right 5px;
+        color: #E3001B;
+        padding-right: 11px;
+    }
+    .tbl_style .bdr_tp {
+        border-top: solid #D9D9D9 1px;
+    }
+    .tbl_style .bdr_btm {
+        border-bottom: solid #D9D9D9 1px;
+    }
+    .tbl_style tr th {
+        background: #E5E6E8;
+        padding: 8px 5px 8px 5px;
+        font-weight: bold;
+        color: #000;
+        text-align: left;
+    }
+    .tbl_style tr th:hover {
+        color: red;
+        cursor:pointer;
+    }
+    .tbl_style tr td {
+        vertical-align: middle;
+        margin-left: 0px;
+    }
+    .porfile_right_mid fieldset table td {
+        padding: 5px 5px;
+        vertical-align: top;
+    }
+
+    .tbl_style .white_bg {
+        background: #FFF;
+    }
+    .tbl_style tr td {
+        border-bottom: solid #D9D9D9 1px;
+        border-right: solid #D9D9D9 1px;
+    }
+    .tbl_style tr td {
+        vertical-align: middle;
+    }
+    .tbl_style fieldset table td {
+        padding: 5px 5px;
+        vertical-align: top;
+    }
+    .tbl_style fieldset table td {
+        padding: 5px 5px;
+        vertical-align: top;
+    }
+    .tbl_style tr td {
+        font-size: 11px;
+    }
+    .tbl_style {
+        font-size: 11px;
+    }
+
+    #table_style2_wrapper th.sorting_asc ,#table_style2_wrapper th{
+
+        background-image: url(/images/ascending-arrow.gif);
+        background-repeat: no-repeat;
+        background-position: 98% center;
+    }
+    .tbl_style tr th{ width: 15%!important;}
+
+    #table_style2_wrapper th.sorting_desc {
+
+        background-image: url(/images/desecending-arrow.gif)!important;
+        background-repeat: no-repeat;
+        background-position: 98% center;
+
+    }
+
+</style>
+

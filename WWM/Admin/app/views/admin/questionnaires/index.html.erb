@@ -1,0 +1,31 @@
+<%= form_tag({:controller=>'/admin/questionnaires',:action => 'index'}) do %>
+ <div class="section_block full_section">
+	<h2 class="headBG">Questionnaire Search</h2>
+
+    <div class="search_fields">
+  	
+   			<p>
+				<label for="content"> Name:</label>
+				<%if !params[:search_data].blank?%>
+				<%= text_field 'search_data',  "name", :value =>params[:search_data]["name"]%>
+				<%else%>
+				<%= text_field 'search_data',  "name" , :value =>''%>
+				<%end%>
+			</p>
+				
+		     	<div class="button">
+					<%=submit_tag "Search"%>					
+				</div>
+			
+
+   </div>			
+</div>
+<%end%>
+
+<%= params[:search_data] ? component_table_list(SrComponent.find_component_by_name('QuestionnaireList_search')) : component_table_list(SrComponent.find_component_by_name('QuestionnaireList')) %>
+
+
+<%#=component_table_list(SrComponent.find_component_by_name('QuestionnaireList'))%>
+<div id = "datepicker_update">
+	</div>
+

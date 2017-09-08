@@ -1,0 +1,651 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta http-equiv="Content-Script-Type" content="text/javascript" />
+		<%= csrf_meta_tags %>
+		<LINK REL="SHORTCUT ICON" HREF="/images/kreatio-favicon.png">
+		<% if params[:popup] != "true" %>
+		<% if not @page_properties[:menu_title].blank? %>
+		<title> Kreatio - <%= @page_properties[:menu_title] %></title>
+		<%else%>
+		<title>Kreatio</title>
+		<%end%>
+		<%end%>
+		<%= stylesheet_link_tag 'jquery/jquery-ui-dialog','new_pages','article_new.css','article.css','ddsmoothmenu.css','date-picker','fcbkcomplete_style','jquery-ui','token-input','token-input-facebook','token-input-mac'%>
+		<%= stylesheet_link_tag 'colorbox' %>
+		
+		<script src="/javascripts/jquery.min.js" type="text/javascript"></script>
+		<script src="/javascripts/jquery-ui.js" type="text/javascript"></script>
+		<script src="/javascripts/jquery.colorbox.js" type="text/javascript"></script>
+		<script src="/javascripts/jquery.popupWindow.js" type="text/javascript"></script>
+		
+		<%=javascript_include_tag "jquery_ujs.js"%>
+		<%= javascript_include_tag "jquery.tokeninput.js"%>
+		<%= javascript_include_tag "ddsmoothmenu.js"%>
+	
+		<%= javascript_include_tag 'new_admin'%>
+		<%= javascript_include_tag 'admin_new'%>
+		<%= javascript_include_tag 'admin'%>
+		
+		<script src="/javascripts/tabs.js" type="text/javascript"></script>
+		<script src="/javascripts/jquery.fcbkcomplete.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/javascripts/jquery/jstree.js"></script>
+		<script src="/javascripts/jquery/jquery.Jcrop.js" type="text/javascript"></script>
+		
+		<script src="/javascripts/jquery/addedit_admin.js" type="text/javascript"></script>
+
+		<%= stylesheet_link_tag 'authentication' %>
+		<link rel="stylesheet" media="screen" type="text/css" href="" />
+		<script src="/javascripts/jquery/jquery-ui-timepicker.js" type="text/javascript"></script>
+		<!--<script type="text/javascript" src="/javascripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>-->
+
+
+		<script type="text/javascript" src="/javascripts/tinymce_ent/tinymce.dev.js"></script>
+		<script type="text/javascript" src="/javascripts/tinymce_ent/tinymce_split_update.js"></script>
+
+		<%= javascript_include_tag "jquery.jcarousel.min.js" %>
+		<%= stylesheet_link_tag "skin" %>
+		<%= yield :image_gallery_js %>
+	</head>
+
+<style type="text/css">
+.black_theme .header_right{width:800px !important}
+.header_right ul li ul li a {color: #fff;font: 13px arial;width: 97%;float:left;padding: 5px;margin: 0;border-top-width: 0;border-bottom: 1px solid gray;background: none repeat scroll 0 0 #6D8A90;}
+.header_right ul li ul li{width:100%;padding-top:0px !important;}
+.header_right ul li{float:left;padding-top:8px;}
+.header_right ul li:last-child{float: right;}
+.active_top{display:block !important}
+.header_right ul li ul li a:hover{text-decoration:none;background: -webkit-gradient(linear, left top, left bottom, color-stop(10%,#F9FAFA), color-stop(15%,#F1F4F4),color-stop(25%,#E3E8E9),color-stop(35%,#D2DBDD),color-stop(50%,#B3C2C5),color-stop(65%,#9AAEB2),color-stop(80%,#89A1A6),color-stop(100%,#708C92)); background: -moz-linear-gradient(center top , #F9FAFA 10%, #F1F4F4 15%, #E3E8E9 25%, #D2DBDD 35%, #B3C2C5 50%, #9AAEB2 65%, #89A1A6 80%, #708C92 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);background: -webkit-linear-gradient(center top , #F9FAFA 10%, #F1F4F4 15%, #E3E8E9 25%, #D2DBDD 35%, #B3C2C5 50%, #9AAEB2 65%, #89A1A6 80%, #708C92 100%) repeat scroll 0 0 transparent;color: #000000!important;}
+</style>
+
+
+
+
+	<body class="black_theme">
+
+
+		<div id="wrapper">
+			<div id="wrapper_header">
+				<% if params[:popup] != "true" %>
+				<div class="header">
+					<div class="header_left">
+						<a href="/admin/login/dashboard"> <img src="/images/black_logo.png" alt="logo" /> </a>
+					</div>
+					<%= form_tag("/admin/login/change_website", :id => "change_website") do %>
+					<div class="header_right">
+						<ul>
+							<li>
+								<span> Site</span>
+								<% site = @site%>
+								<span><% @site= site || Site.find(session[:site_id]) %>
+									<%= collection_select 'site', 'id', User.find(session[:user_id]).sites.by_role_type(session[:role_type]).find(:all,:order=>"display_name").uniq, :id, :display_name %>
+									<% @site = site%> </span>
+								<%end %>
+							</li>
+							<li class="header_drop" style="position: static;padding: 0px;display: inline-block;background-position: right 15px !important;">
+								<!-- <a style="float:right;margin-top: -3px;width: 24px;height: 31px;" href="javascript:void(0)" class="header_drop" ><img alt="Setting" src="/images/setting.png?1358242578" /></a> -->
+			
+								<a style='padding-right:31px;float:right;padding-bottom: 10px;padding-top:9px;font-weight: bold;color: #fff;background: url("/images/setting.png") no-repeat right 5px transparent;' href="/admin/users/my_setting_change">Welcome <%= print_loggedin_user_name %></a>
+								<ul class="sub_header_block" style="-webkit-transition:all 1s ease-out;display:none;position: absolute;float: left;padding: 0px 4px 0px 4px;height:74px;z-index:99999;background:none;top: 35px; box-shadow: rgb(170, 170, 170) 5px 5px 5px; -webkit-box-shadow: rgb(170, 170, 170) 5px 5px 5px; visibility: visible; right: 30px; width: 160px;">
+									<li>
+										<%= link_to 'Personal Settings',{:controller=>'/admin/users',:action=>'my_setting_change'}%>
+										
+									</li>
+									<li>
+										<%if session[:role_type]=="Author" %>
+											<%= link_to 'Login as Administrator', admin_login_url %>
+										<%else %>
+											<%= link_to 'Login as Content Modifier', root_url%>
+										<%end %>
+									</li>
+									<li>
+										<%= link_to 'Log Out', {:controller => '/admin/login', :action => 'logout'}%>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+				
+				<!-- header -->
+
+				<%= render :partial=>'/admin/mainmenu'  unless params[:flag] == "popup" %>
+			</div><!-- wrapper_header -->
+			<% end %>
+
+			<div id="wrapperBody">
+				<%= yield %>
+			</div>
+			<div id="ajax-indicator" class="indicator" style="display:none;">
+				<span>loading.....</span>
+			</div>
+			<div id="upload-indicator" class="indicator" style="display:none;">
+				<span>Uploading.....</span>
+			</div>
+		</div><!--wrapper-->
+
+		<% if params[:popup] != "true" %>
+		<div id="footer">
+
+			<div class="footer_left">
+
+				<p>
+					<a href="mailto:kreatio@kreatio.com" target="_blank" class="footer_space_left" >Questions?</a>
+					<%= image_tag "/images/submenu_pipe.2.jpg", :alt=>"pipe",:title => "pipe" %>
+					<a href="mailto:feedback@kreatio.com" target="_blank" class="footer_space_right" title="feed back">Feedback</a>
+				</p>
+			</div>
+			<div class="footer_right">
+				<p>
+					<a href="http://www.kreatio.com/" target="_blank"  class="powered_text_right" title="Powered by kreatio">Powered By KREATIO</a>
+					<a href="http://www.kreatio.com/" class="footer_logo"> <img src="/images/footerlogo.png" alt="logo" /> </a>
+				</p>
+				
+			</div>
+
+		</div>
+		<%end%>
+		
+<script type="text/javascript">
+$(function(){
+      $(".header_drop").hover(function(){ 
+       $(".sub_header_block").addClass("active_top");
+      },function(){ 
+       $(".sub_header_block").removeClass("active_top");
+      });
+     });
+</script>
+    
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    jQuery("#user_page_toggle").hide();
+     jQuery("#data_paginate").live("click",function(){
+       jQuery("#user_page_toggle").toggle();
+      });
+});
+</script>
+<script type="text/javascript">
+$(function(){
+	$('#search_data_title').keydown(function(event){
+	    if(event.keyCode==13){
+	      $.ajax({
+	          url : "/admin/articles/advance_search",
+	          type : 'POST',
+	          data : $("#new_search_form").serialize(),
+	          beforeSend : function(xhr) {
+	            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+	          },
+	          error : function() {
+	            alert('eerrrr');
+	          },
+	          success : function(msg) {
+	            $('#advance_search_update').html(msg);
+	          },
+	      });
+	        return false
+	    }
+		});
+	});
+</script>
+<script type="text/javascript">  
+ jQuery("#article_source_id").change(function(){
+  var source = jQuery(this).attr("value");
+  jQuery.ajax({
+      type:'POST',
+      url:'/admin/articles/update_volumn_and_issue?article[source_id]='+source,
+      dataType:'html',
+      success:function(volume_data){
+            jQuery("#article_magazine_issue_id").html(volume_data);
+      }
+  });
+});
+</script>
+<script type="text/javascript">  
+              	
+jQuery(function(){
+    jQuery("#new_role").click(function() {
+        jQuery("#display_role").show();
+        jQuery('form[name="multi_tags"]')
+
+    });
+    jQuery("#cancel_rolw").click(function() {
+        jQuery("#display_role").hide();
+    });
+});
+</script>
+
+		       
+     
+		        <script type="text/javascript">
+					
+                          function save_category(flag){
+                           document.multi.submit();
+                           }
+                           
+                           function edit_category(flag){
+                           document.multi.update();
+                           }
+                     </script>      
+                    
+                     
+                     
+        <script type="text/javascript">
+    
+        	/*jQuery(function(){
+        		jQuery("#mytree").sortable({
+        			revert: true
+        			//connectWith: '#mytree .menuchildnavlist'
+        		}).sortable('serialize');
+				jQuery("#mytree .menuchildnavlist").sortable({
+					revert: true, 
+					dropOnEmpty: false,
+					connectWith: '#mytree'
+				}).draggable();
+        	});*/
+
+ 
+                         //code for Tabs
+                         jQuery(function() {
+		                 jQuery( "#emp_tabs" ).tabs();
+                         });
+                         
+                         
+                         //code for tab edit
+                         jQuery(function() {
+	                     jQuery( ".comp_tabs" ).tabs();
+                         });
+                         
+                         
+                         
+/*Chane dropdown and update data in menus                        
+jQuery("#menu_entity_type").live("change",function(){
+         var url = window.location.href
+         var get_action_value = jQuery(this).val();
+            jQuery.ajax({
+                 
+                type:'GET',
+                url:'/admin/menus/action_type?action_type='+get_action_value,
+                dataType:'html',
+                success:function(data){
+                                    jQuery("#update_action").html(data);
+                                    jQuery("#action_type").hide();
+                                   }
+                    });
+}); */ 
+jQuery("#menu_entity_type").live("change",function(){
+var id = jQuery("#menu_id").val();
+      var get_action_value  = jQuery("#menu_entity_type option:selected").attr("value");
+            jQuery.ajax({
+                type:'GET',
+               beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                url:'/admin/menus/action_type?action_type='+get_action_value+'&id='+id,
+                dataType:'html',
+                success:function(data){
+                                    jQuery("#action_type").html(data);
+                                    //jQuery("#action_type").show();
+                                    jQuery("#back_hidden_special").show();
+                                    jQuery("#show_hidden_special").show();                                    
+                                   }
+                    });
+});     
+</script>
+<script type="text/javascript">
+jQuery(function(){
+	jQuery("form#new_featured_set").attr("name","multi");
+});
+
+//jQuery("#list_latest,#listTaken").sortable({
+//    connectWith:'#listTaken'
+//});
+
+//jQuery("#list_most_rated,#listTaken").sortable({
+//    connectWith:'#listTaken'
+//});
+
+
+function submit_feature(){
+   var rankedlistname=jQuery('#featured_set_name').val();
+   var blankRE=/^\s/;
+    if (rankedlistname.trim() == "")
+	 {
+		alert("Ranked List Name should not be blank.");
+		return false;
+	 }
+     else if(blankRE.test(rankedlistname))
+	 {
+		alert("Ranked List Name should not start with a blank space.")
+		return false;
+	 }
+	 var list_value= jQuery("#listTaken").sortable('serialize');
+	 document.multi.action = document.multi.action+"?featured_set="+list_value;
+	 document.multi.submit();
+}
+
+function save_featurelist(flag){
+	 var rankedlistname=jQuery('#featured_set_name').val();
+	 var blankRE=/^\s/;
+	 if (rankedlistname.trim() == "")
+	 {
+		alert("Ranked List Name should not be blank.")
+		return false;
+	 }		
+	 else if(blankRE.test(rankedlistname))
+	 {
+		alert("Ranked List Name should not start with a blank space.")
+		return false;
+	 }	
+	
+	var list_value= jQuery("#listTaken").sortable('serialize');
+   	document.multi.action+="?"+list_value+'&flag='+flag;
+	document.multi.submit();
+}
+  
+/*For List_latest tab*/
+jQuery("#ranklist_navmenu-h li").click(function(){
+    jQuery("#ranklist_navmenu-h li a").removeClass("active");
+    jQuery("#article_list_tab .article_container").css("display","none");
+    var get_li_index = jQuery(this).index();
+    jQuery("#article_list_tab .article_container:eq("+get_li_index+")").css("display","block");
+    jQuery(this).find("a").addClass("active");
+});
+
+
+function article_search_collection(value)
+{
+    if(value!='')
+    {
+      var site_type = document.getElementById('search_data_article_type').value;
+      params = "search_data[id]=" + value + "&flag=feature" + "&article_type=" + site_type;
+    }
+    else
+    {
+    	var section_id = document.getElementById('search_data_section_id').value;
+        var title = document.getElementById('search_data_title').value;
+        var sources = document.getElementsByName('search_data[source_ids][]');
+        var categories = document.getElementsByName('search_data[category_ids][]');
+        var site_type = document.getElementById('search_data_article_type').value;
+        var primary_medium = document.getElementsByName('search_data[primary_medium][]');
+
+        var source_ids=[]
+        for(var n = 0; n < sources.length; n++) 
+        {
+            source_ids.push(sources[n].value)
+        }
+        source_ids=source_ids.without(-1)
+        var category_ids=[]
+		for(var n = 0; n < categories.length; n++) 
+        {
+            category_ids.push(categories[n].value)
+        }
+        category_ids=category_ids.without(-1)
+        var primary_mediums=[]
+		for(var n = 0; n < primary_medium.length; n++) 
+        {
+            primary_mediums.push(primary_medium[n].value)
+        }
+        primary_mediums=primary_mediums.without(-1)
+	primary_mediums = [primary_mediums]
+        params = "search_data[section_id]=" + section_id + "&search_data[title]=" + title + "&flag=feature" + "&search_data[source_ids]=" + source_ids+ "&search_data[category_ids]=" + category_ids  + "&article_type=" + site_type + "&search_data[primary_medium]=" + primary_mediums;
+    }
+
+      jQuery.ajax({
+	type:'GET',
+beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	url:'/admin/articles/advance_search',
+	data:params,
+	success: function(data){
+	}
+    });
+}
+
+/*function save_questionlist(flag){   
+	alert("test question");         
+	var list_value = jQuery("#listTaken").sortable('serialize');
+	document.multi.action+="?"+list_value+'&flag='+flag;
+	document.multi.submit();
+}*/
+
+        </script>
+
+
+
+<script type="text/javascript">
+jQuery("#save_category_tree").live("click",function(){
+	function category_tree(){
+	var comp_posi=new Array();
+    var tab_posi=new Array();
+    jQuery("#mytree .parent_menu").not(".menuchildnavlist li").each(function(){
+       var sub_div_id = jQuery("#mytree #"+jQuery(this).attr('id')). attr('id');
+       var value = [];
+       var tab_value=[];
+      // var sub_div_id_num = sub_div_id.split('_');
+	    jQuery("#mytree #"+sub_div_id+" .menuchildnavlist").children().each(function(){
+			 var inn_div=jQuery(this).attr('id');
+
+			 value.push(inn_div);
+		});
+          var o_name = " "+sub_div_id.split(',');
+         //comp_posi = comp_posi + '<input type="hidden" name='+o_name+' id='+o_name+' value='+value.join(',')+' >' ;
+          comp_posi = comp_posi + o_name+'=>'+value.join(',');
+			jQuery("#mytree #"+sub_div_id+" .menuchildnavlist_sub").children().each(function(){
+			  var a=jQuery(this).attr('id');  
+			  tab_value.push(a); 
+			});
+              tab_posi = tab_posi + '<input type="hidden" name='+inn_div+' id='+inn_div+' value='+tab_value.join(',')+' >'
+		      value.push(inn_div);                   
+	    });
+              var o_name = sub_div_id;
+             comp_posi = comp_posi + '<input type="hidden" name='+o_name+' id='+o_name+' value='+value.join(',')+' >' ;
+
+	  };
+	  //  alert(comp_posi);
+	    jQuery.ajax({
+		  type: "POST",
+beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+		  url: '/admin/categories/reorder_category?data='+comp_posi,
+		  //data: comp_posi,
+		  dataType: "html",
+		  success: function(data){
+		  	//	alert('admin/categories/reorder_category'+ comp_posi);
+		      jQuery("#menu_tree_update").html(data);
+		  }
+	    });
+});
+</script>
+<script type="text/javascript">
+jQuery(function(){
+    jQuery("#new_menu").click(function() {
+        jQuery("#display_role").show();
+        jQuery('form[name="multi_tags"]')
+
+    });
+    jQuery("#cancel_rolw").click(function() {
+        jQuery("#display_role").hide();
+    });
+});
+
+</script>
+<script type="text/javascript">
+jQuery("#category_tree").click(function category_tree(){
+	var comp_posi='';
+    var tab_posi='';
+    jQuery("#mytree .bit-box").not(".menuchildnavlist li").each(function(){
+       var sub_div_id = jQuery("#mytree #"+jQuery(this).attr('id')). attr('id');
+       var value = [];
+       var tab_value=[];
+       var sub_div_id_num = sub_div_id.split('_');
+	    jQuery("#mytree #"+sub_div_id+" .menuchildnavlist").children().each(function(){
+			 var inn_div=jQuery(this).attr('id');
+			jQuery("#mytree #"+sub_div_id+" .menuchildnavlist_sub").children().each(function(){
+			  var a=jQuery(this).attr('id');  
+			  tab_value.push(a); 
+			});
+              tab_posi = tab_posi + '<input type="hidden" name='+inn_div+' id='+inn_div+' value='+tab_value.join(',')+' >'
+		      value.push(inn_div);                   
+	    });
+              var o_name = sub_div_id;
+             comp_posi = comp_posi + '<input type="hidden" name='+o_name+' id='+o_name+' value='+value.join(',')+' >' ;
+	  });
+	    //alert(comp_posi);
+	    jQuery.ajax({
+		  type: "POST",
+		  url: '/admin/categories/reorder_category?data='+comp_posi,
+		  //data: comp_posi,
+		  dataType: "html",
+		  success: function(data){
+		  		alert('admin/categories/reorder_category'+ comp_posi);
+		      jQuery("#menu_tree_update").html(data);
+		  }
+	    });
+});
+</script>
+
+<script type="text/javascript">
+jQuery(function(){
+	jQuery("form#new_featured_set").attr("name","multi");
+});
+
+//jQuery("#list_latest,#listTaken").sortable({
+//    connectWith:'#listTaken'
+//});
+
+//jQuery("#list_most_rated,#listTaken").sortable({
+//    connectWith:'#listTaken'
+//});
+
+
+function submit_feature(){
+   var rankedlistname=jQuery('#featured_set_name').val();
+   var blankRE=/^\s/;
+    if (rankedlistname.trim() == "")
+	 {
+		alert("Ranked List Name should not be blank.");
+		return false;
+	 }
+     else if(blankRE.test(rankedlistname))
+	 {
+		alert("Ranked List Name should not start with a blank space.")
+		return false;
+	 }
+	 var list_value= jQuery("#listTaken").sortable('serialize');
+	 document.multi.action = document.multi.action+"?featured_set="+list_value;
+	 document.multi.submit();
+}
+
+function save_featurelist(flag){
+	 var rankedlistname=jQuery('#featured_set_name').val();
+	 var blankRE=/^\s/;
+	 if (rankedlistname.trim() == "")
+	 {
+		alert("Ranked List Name should not be blank.")
+		return false;
+	 }		
+	 else if(blankRE.test(rankedlistname))
+	 {
+		alert("Ranked List Name should not start with a blank space.")
+		return false;
+	 }	
+	
+	var list_value= jQuery("#listTaken").sortable('serialize');
+   	document.multi.action+="?"+list_value+'&flag='+flag;
+	document.multi.submit();
+}
+  
+/*For List_latest tab*/
+jQuery("#ranklist_navmenu-h li").click(function(){
+    jQuery("#ranklist_navmenu-h li a").removeClass("active");
+    jQuery("#article_list_tab .article_container").css("display","none");
+    var get_li_index = jQuery(this).index();
+    jQuery("#article_list_tab .article_container:eq("+get_li_index+")").css("display","block");
+    jQuery(this).find("a").addClass("active");
+});
+
+
+function article_search_collection(value)
+{
+    if(value!='')
+    {
+      var site_type = document.getElementById('search_data_article_type').value;
+      params = "search_data[id]=" + value + "&flag=feature" + "&article_type=" + site_type;
+    }
+    else
+    {
+    	var section_id = document.getElementById('search_data_section_id').value;
+        var title = document.getElementById('search_data_title').value;
+        var sources = document.getElementsByName('search_data[source_ids][]');
+        var categories = document.getElementsByName('search_data[category_ids][]');
+        var site_type = document.getElementById('search_data_article_type').value;
+        var primary_medium = document.getElementsByName('search_data[primary_medium][]');
+
+        var source_ids=[]
+        for(var n = 0; n < sources.length; n++) 
+        {
+            source_ids.push(sources[n].value)
+        }
+        source_ids=source_ids.without(-1)
+        var category_ids=[]
+		for(var n = 0; n < categories.length; n++) 
+        {
+            category_ids.push(categories[n].value)
+        }
+        category_ids=category_ids.without(-1)
+        var primary_mediums=[]
+		for(var n = 0; n < primary_medium.length; n++) 
+        {
+            primary_mediums.push(primary_medium[n].value)
+        }
+        primary_mediums=primary_mediums.without(-1)
+	primary_mediums = [primary_mediums]
+        params = "search_data[section_id]=" + section_id + "&search_data[title]=" + title + "&flag=feature" + "&search_data[source_ids]=" + source_ids+ "&search_data[category_ids]=" + category_ids  + "&article_type=" + site_type + "&search_data[primary_medium]=" + primary_mediums;
+    }
+
+      jQuery.ajax({
+	type:'GET',
+	url:'/admin/articles/advance_search',
+	data:params,
+	success: function(data){
+	}
+    });
+}
+</script>
+
+<script type="text/javascript">
+ddsmoothmenu.init({
+    mainmenuid: "smoothmenu", //menu DIV id
+    orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+    classname: 'ddsmoothmenu menucontainer', //class added to menu's outer DIV
+    //customtheme: ["#1c5a80", "#18374a"],
+    contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+})
+
+ddsmoothmenu.init({
+    mainmenuid: "second_level_menu", //menu DIV id
+    orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+    classname: 'submenu', //class added to menu's outer DIV
+    //customtheme: ["#1c5a80", "#18374a"],
+    contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+})
+
+
+
+// $(document).ready(function() {
+    // $('#second_level_slider').jcarousel({
+        // vertical: false,
+        // scroll: 1,
+        // visible:6
+    // });
+// });
+
+function image_popup(current){
+    var url = $(current).attr('data-url');
+    $.colorbox({href:url,iframe:true,width:"90%", height:"90%"});
+    event.preventDefault();
+}
+
+
+</script> 
+	</body>
+</html>

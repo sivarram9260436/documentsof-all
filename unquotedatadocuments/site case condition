@@ -1,0 +1,61 @@
+ <%if lp_fund.fund_committed.blank ? and !lp_fund.blank? %>
+                        <% case (params[:lps] !=nil && params[:lps][:currency] !=nil && params[:lps][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) %>
+                         <% when "euro" %>
+                                <%= content_tag(:td,"#{codirect.commitement_value_euro}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@codirect << codirect.commitement_value_euro %>
+                         <% when "uk" %>
+                                <%= content_tag(:td,"#{codirect.commitement_value_uk}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@codirect << codirect.commitement_value_uk %>
+                         <% when "us" %>
+                                <%= content_tag(:td,"#{codirect.commitement_value_us}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@codirect << codirect.commitement_value_us %>
+                           <% when "yen" %>
+                                <%= content_tag(:td,"#{codirect.commitement_value_yen}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                            <%@codirect << codirect.commitement_value_yen %>
+
+
+                        <% else %>
+                            <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                            <%@codirect << "n/d"%>
+                          <% end %>
+                        <% end %>
+=============================================================================
+
+                        <%if !lp_fund.fund_committed.blank? and !lp_fund.blank? %>
+                        <% case (params[:lps] !=nil && params[:lps][:currency] !=nil && params[:lps][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) %>
+                         <% when "euro" %>
+                                <%= content_tag(:td,"#{codirect.commitement_value_euro}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@codirect << codirect.commitement_value_euro %>
+                         <% when "uk" %>
+                                <%= content_tag(:td,"#{codirect.commitement_value_uk}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@codirect << codirect.commitement_value_uk %>
+                         <% when "us" %>
+                                <%= content_tag(:td,"#{codirect.commitement_value_us}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@codirect << codirect.commitement_value_us %>
+                           <% when "yen" %>
+                                <%= content_tag(:td,"#{codirect.commitement_value_yen}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                            <%@codirect << codirect.commitement_value_yen %>
+
+
+                        <% else %>
+                            <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                            <%@codirect << "n/d"%>
+                          <% end %>
+                        <% end %>
+
+
+
+
+
+     <% if !lp_fund.blank? %>
+            <%  @lp_fund << "#{lp_fund.fund_committed}" %>
+        <% else %>
+            <% @lp_fund << "n/d" %>
+        <% end %>
+============================================================================================================
+
+ActiveRecord::Migration.add_column :lp_funds, :commitement_value_yen,:float
+ActiveRecord::Migration.add_column :lp_funds, :commitement_value_us, :float
+ActiveRecord::Migration.add_column :lp_funds, :commitement_value_uk, :float
+ActiveRecord::Migration.add_column :lp_funds, :commitement_value_euro,:float
+

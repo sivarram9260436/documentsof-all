@@ -1,0 +1,9 @@
+
+
+
+/home/ruby/bin/unicorn_cms.sh stop
+
+
+
+/home/ruby/bin/unicorn_cms.sh start
+

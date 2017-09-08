@@ -1,0 +1,1162 @@
+
+class InstitutionsController < ApplicationController
+  before_filter :admin_site
+  before_filter :access_filter
+
+  def new_institution
+    @form_action = "create_institution"
+
+  end
+
+
+  def create_institution
+    status = Status.by_type("institution").by_name("Save & Verified").first.id
+    InstitutionCompanyInfo.transaction do
+      @institution_company = @site.institution_company_infos.create(:status_id => status, :last_date =>Time.zone.now)
+      @institution_office = @institution_company.institution_offices.create(:company_name => params[:company_name],:primary => "true",:main_office => true)
+      @institution_company.index_to_search_engine
+    end
+   redirect_to :action => "edit_institution" , :institution_company_id => @institution_company.id ,:tab => "company_info"
+  end
+
+  def edit_institution
+   @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+   @institution_office = @institution_company.institution_offices.by_main_office(true).first
+  @managed_account = @institution_company.managed_accounts || @institution_company.create_managed_account
+
+   case params[:tab]
+    when "company_info"
+      @institution_office = @institution_company.institution_offices.by_main_office(true).first
+    when "general_asset_allocation"
+      @general_asset_allocation = @institution_company.institution_general_asset_allocation || @institution_company.create_institution_general_asset_allocation
+    when "hedge_fund_data"
+      @hedge_fund_data = @institution_company.institution_hedge_fund_data || @institution_company.create_institution_hedge_fund_data
+    when "real_estate_data"
+      @real_estate_data = @institution_company.institution_real_estate_data || @institution_company.create_institution_real_estate_data
+    when "pei_data"
+   @managed_account = @institution_company.managed_accounts || @institution_company.create_managed_account   
+   @pei_data = @institution_company.institution_pei_data || @institution_company.create_institution_pei_data
+    end
+   @form_action = "update_institution"
+  end
+
+  def update_institution
+    institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @institution_company  = institution_company
+    case params[:tab]
+    when "company_info"
+      institution_company.transaction do
+      institution_company.institution_offices.by_main_office(true).first.update_attributes(params[:institution_office])
+      institution_company.update_attributes(params[:institution_company])
+      institution_company.update_attributes(last_date: Time.zone.now)
+      institution_company.index_to_search_engine
+      institution_company.institution_hedge_fund_data.index_to_search_engine if institution_company.institution_hedge_fund_data
+      institution_company.institution_pei_data.index_to_search_engine if institution_company.institution_pei_data
+      end
+      when "general_asset_allocation"
+        @general_allocation = institution_company.institution_general_asset_allocation
+      if params[:change_general_asset_allocation]
+        institution_company.institution_general_asset_allocation.update_attributes(params[:change_general_asset_allocation])
+      end
+      institution_company.institution_general_asset_allocation.update_attributes(params[:general_asset_allocation])
+      update_with_currency_convertion_in_general
+      institution_company.update_attributes(last_date: Time.zone.now)
+      institution_company.index_to_search_engine
+      institution_company.institution_hedge_fund_data.index_to_search_engine if institution_company.institution_hedge_fund_data
+      institution_company.institution_pei_data.index_to_search_engine if institution_company.institution_pei_data
+    when "hedge_fund_data"
+      [:hot_lead, :active_mandate].each do |default_param|
+        params[:hedge_fund_data][default_param] ||= false
+      end
+      institution_company.transaction do
+            institution_company.institution_hedge_fund_data.update_attributes(params[:hedge_fund_data])
+            hedge_fund_data = institution_company.institution_hedge_fund_data
+            @insti_hedge_fund_data = hedge_fund_data
+            # start startary preference
+
+            if params[:strategy_preferences]
+              existing_sta_ids = hedge_fund_data.strategy_preferences.collect(&:id)
+
+              new_sta_ids = params[:strategy_preferences].collect(&:strip).collect(&:to_i)
+
+               unless existing_sta_ids.blank?
+                 stas = hedge_fund_data.strategy_preferences.find(existing_sta_ids - new_sta_ids)
+                 hedge_fund_data.strategy_preferences.delete(stas)
+               end
+
+               # adding new stagraphy
+               (new_sta_ids - existing_sta_ids).flatten.each do |sta|
+                 strategy = StrategyPreference.find(sta.to_i)
+                 hedge_fund_data.strategy_preferences  << strategy
+               end # do end
+            else
+              hedge_fund_data.strategy_preferences.delete_all
+           end
+           # end strategy code
+           # start Fund Focus
+           if params[:fund_type_focus]
+              existing_focus_ids = hedge_fund_data.institution_hedge_fund_focus_types.collect(&:fund_type_focus_id)
+
+              new_focus_ids = params[:fund_type_focus].collect(&:strip).collect(&:to_i)
+
+               unless existing_focus_ids.blank?
+                 focus = hedge_fund_data.institution_hedge_fund_focus_types.where(:fund_type_focus_id => existing_focus_ids - new_focus_ids)
+                 focus.delete_all
+               end
+
+               # adding new Fund Focus
+               (new_focus_ids - existing_focus_ids).flatten.each do |fund|
+                 fund_focus = FundTypeFocus.find(fund.to_i)
+                 hedge_fund_data.institution_hedge_fund_focus_types.create(:fund_type_focus_id => fund_focus.id)
+               end # do end
+           else
+             hedge_fund_data.institution_hedge_fund_focus_types.delete_all
+            end
+           # end Fund Focus
+           institution_company.update_attributes(last_date: Time.zone.now)
+            update_with_currency_convertion_in_hedge_fund
+            hedge_fund_data.index_to_search_engine
+           institution_company.index_to_search_engine
+      end # tran
+
+      when "real_estate_data"
+        [:hot_lead, :active_mandate].each do |default_param|
+          params[:real_estate_data][default_param] ||= false
+        end
+      institution_company.transaction do
+        institution_company.institution_real_estate_data.update_attributes(params[:real_estate_data])
+        real_estate_data = institution_company.institution_real_estate_data
+        # start Strategy preference
+        if params[:strategy_preferences]
+          existing_sta_ids = real_estate_data.real_estate_strategy_preferences.collect(&:id)
+
+          new_sta_ids = params[:strategy_preferences].collect(&:strip).collect(&:to_i)
+
+           unless existing_sta_ids.blank?
+             stas = real_estate_data.real_estate_strategy_preferences.find(existing_sta_ids - new_sta_ids)
+             real_estate_data.real_estate_strategy_preferences.delete(stas)
+           end
+
+           # adding new Strategy
+           (new_sta_ids - existing_sta_ids).flatten.each do |sta|
+             strategy = RealEstateStrategyPreference.find(sta.to_i)
+             real_estate_data.real_estate_strategy_preferences  << strategy
+           end # do end
+        else
+          real_estate_data.real_estate_strategy_preferences.delete_all
+         end
+       # end strategy code
+
+        # start fund type preference
+        if params[:fund_type_preferences]
+          existing_fund_type_ids = real_estate_data.real_estate_fund_type_preferences.collect(&:id)
+
+          new_fund_type_ids = params[:fund_type_preferences].collect(&:strip).collect(&:to_i)
+
+           unless existing_fund_type_ids.blank?
+             fund_types = real_estate_data.real_estate_fund_type_preferences.find(existing_fund_type_ids - new_fund_type_ids)
+             real_estate_data.real_estate_fund_type_preferences.delete(fund_types)
+           end
+
+           # adding new fund type
+           (new_fund_type_ids - existing_fund_type_ids).flatten.each do |sta|
+             fund_type = RealEstateFundTypePreference.find(sta.to_i)
+             real_estate_data.real_estate_fund_type_preferences  << fund_type
+           end # do end
+        else
+          real_estate_data.real_estate_fund_type_preferences.delete_all
+        end
+       # end fund_type code
+
+        # start sector preference
+         if params[:sector_preferences]
+          existing_sector_ids = real_estate_data.real_estate_sector_preferences.collect(&:id)
+
+          new_sector_ids = params[:sector_preferences].collect(&:strip).collect(&:to_i)
+
+           unless existing_sector_ids.blank?
+             sectors = real_estate_data.real_estate_sector_preferences.find(existing_sector_ids - new_sector_ids)
+             real_estate_data.real_estate_sector_preferences.delete(sectors)
+           end
+
+           # adding new sector
+           (new_sector_ids - existing_sector_ids).flatten.each do |sta|
+             sector = RealEstateSectorPreference.find(sta.to_i)
+             real_estate_data.real_estate_sector_preferences  << sector
+           end # do end
+         else
+           real_estate_data.real_estate_sector_preferences.delete_all
+       end
+       # end sector code
+
+       # start geography code
+         existing_geo_ids = real_estate_data.countries.collect(&:id)
+
+         new_geo_ids = params[:geographic_prefs].split(",").collect(&:strip).collect(&:to_i).flatten
+
+         unless existing_geo_ids.blank?
+           geos = real_estate_data.countries.find(existing_geo_ids - new_geo_ids)
+           real_estate_data.countries.delete(geos)
+         end
+
+         # adding new geography
+         (new_geo_ids - existing_geo_ids).flatten.each do |geo|
+           geography = Country.find(geo.to_i)
+           real_estate_data.countries  << geography
+         end # do end
+       # end geography code
+
+       institution_company.update_attributes(last_date: Time.zone.now)
+       institution_company.index_to_search_engine
+      end # end transaction
+
+      when "pei_data"
+
+       [:hot_lead, :active_mandate].each do |default_param|
+        params[:pei_data][default_param] ||= false
+      end
+      institution_company.transaction do
+        pei_data = institution_company.institution_pei_data.update_attributes(params[:institution_pei_data])
+        pei_data =  institution_company.institution_pei_data
+        @institu_pei_data = pei_data
+          # start sector preference
+          if params[:sector_preferences]
+            existing_sector_ids = pei_data.institution_pei_sector_preferences.collect(&:id)
+
+            new_sector_ids = params[:sector_preferences].collect(&:strip).collect(&:to_i).flatten
+
+             unless existing_sector_ids.blank?
+               sectors = pei_data.institution_pei_sector_preferences.find(existing_sector_ids - new_sector_ids)
+               pei_data.institution_pei_sector_preferences.delete(sectors)
+             end
+
+             # adding new sector
+             (new_sector_ids - existing_sector_ids).flatten.each do |sta|
+               sector = InstitutionPeiSectorPreference.find(sta.to_i)
+               pei_data.institution_pei_sector_preferences  << sector
+             end # do end
+          else
+            pei_data.institution_pei_sector_preferences.delete_all
+          end # if end
+          # end sector code
+
+          # start fund type preference
+          if params[:fund_type_preferences]
+            existing_fund_type_ids = pei_data.institution_pei_fund_type_preferences.collect(&:id)
+
+            new_fund_type_ids = params[:fund_type_preferences].collect(&:strip).collect(&:to_i).flatten
+
+             unless existing_fund_type_ids.blank?
+               fund_types = pei_data.institution_pei_fund_type_preferences.find(existing_fund_type_ids - new_fund_type_ids)
+               pei_data.institution_pei_fund_type_preferences.delete(fund_types)
+             end
+
+             # adding new fund type
+             (new_fund_type_ids - existing_fund_type_ids).flatten.each do |fund_type|
+               fund_type = InstitutionPeiFundTypePreference.find(fund_type.to_i)
+               pei_data.institution_pei_fund_type_preferences  << fund_type
+             end # do end
+          else
+            pei_data.institution_pei_fund_type_preferences.delete_all
+           end  # if end
+          # end fund type code
+
+          # start geography code
+            existing_geo_ids = pei_data.countries.collect(&:id)
+
+            new_geo_ids = params[:geographic_prefs].split(",").collect(&:strip).collect(&:to_i).flatten
+
+           unless existing_geo_ids.blank?
+             geos = pei_data.countries.where(:id => existing_geo_ids - new_geo_ids)
+             pei_data.countries.delete(geos)
+           end
+
+           # adding new geography
+           (new_geo_ids - existing_geo_ids).flatten.each do |geo|
+             geography = Country.find(geo.to_i)
+             pei_data.countries  << geography
+           end # do end
+         # end geography code
+          update_with_currency_convertion_in_pei_data
+         institution_company.update_attributes(last_date: Time.zone.now)
+          pei_data.index_to_search_engine
+         institution_company.index_to_search_engine
+        institution_company.institution_hedge_fund_data.index_to_search_engine if institution_company.institution_hedge_fund_data
+       end # tran
+
+    end # when end
+    institution_company.update_attributes(params[:institution_company])
+    unquote_newletter_event(institution_company.class.name, institution_company.id, institution_company.status_id, "institution")
+    institution_company.index_to_search_engine
+    institution_company.institution_hedge_fund_data.index_to_search_engine if institution_company.institution_hedge_fund_data
+    redirect_to :action => "edit_institution" , :institution_company_id => institution_company.id ,:tab =>params[:tab]
+  end
+
+  def new_institution_office
+    @form_action = "create_institution_office"
+    @institution_office = InstitutionOffice.new
+  end
+
+  def create_institution_office
+    institution  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    InstitutionOffice.transaction do
+       institution_office = institution.institution_offices.create(params[:institution_office])
+       institution.update_attributes(last_date: Time.zone.now)
+    end
+    #redirect_to :action => "edit_institution" , :institution_company_id => institution.id ,:tab => params[:tab]
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+  def edit_institution_office
+    @institution_office = InstitutionOffice.find(params[:institution_office_id])
+    @form_action = "update_institution_office"
+  end
+
+  def update_institution_office
+    institution_office = InstitutionOffice.find(params[:institution_office_id])
+    institution_office.transaction do
+     institution_office.update_attributes(params[:institution_office])
+     institution_office.institution_company_info.update_attributes(last_date: Time.zone.now)
+    end
+    #redirect_to :action => "edit_institution" , :institution_company_id => institution_office.institution_company_info.id ,:tab => params[:tab]
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+   def new_institution_contact
+    @form_action = "create_institution_contact"
+    institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @institution_office = institution_company.institution_offices.by_main_office(true).first
+    @institution_contact = InstitutionContact.new
+  end
+
+  def create_institution_contact
+    institution  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    InstitutionContact.transaction do
+       institution_contact = institution.institution_contacts.create(params[:institution_contact])
+       institution.update_attributes(last_date: Time.zone.now)
+    end
+    #redirect_to :action => "edit_institution" , :institution_company_id => institution.id,:tab => params[:tab]
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+  def edit_institution_contact
+    @institution_contact = InstitutionContact.find(params[:institution_contact_id])
+    @form_action = "update_institution_contact"
+  end
+
+  def update_institution_contact
+    institution_contact = InstitutionContact.find(params[:institution_contact_id])
+
+    institution_contact.transaction do
+       [:contact_module_hf, :contact_module_re, :contact_module_pe].each do |default_param|
+          params[:institution_contact][default_param] ||= false
+        end
+     institution_contact.update_attributes(params[:institution_contact])
+     institution_contact.institution_company_info.update_attributes(last_date: Time.zone.now)
+    end
+    #redirect_to :action => "edit_institution" , :institution_company_id => institution_contact.institution_company_info.id,:tab => params[:tab]
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+  def remove_former_contacts
+    InstitutionContact.transaction do
+     params[:remove_former_contacts].split(",").each do |contact|
+      InstitutionContact.find(contact).delete
+    end
+  end
+    render :text => "deleted"
+  end
+
+  def remove_current_contacts
+    InstitutionContact.transaction do
+       params[:remove_current_contacts].split(",").each do |contact|
+        InstitutionContact.find(contact).delete
+      end
+    end
+    render :text => "deleted"
+  end
+
+  def move_to_former_contacts
+    InstitutionContact.transaction do
+       params[:currect_contacts].split(",").each do |contact|
+        InstitutionContact.find(contact).update_attributes(:contact_type_id => ContactType.by_name("Former").first.id)
+      end
+   end
+    render :text => "moved"
+  end
+
+  def move_to_current_contacts
+    InstitutionContact.transaction do
+       params[:former_contacts].split(",").each do |contact|
+        InstitutionContact.find(contact).update_attributes(:contact_type_id =>ContactType.by_name("Current").first.id)
+      end
+    end
+    render :text => "moved"
+  end
+
+  def get_fund_type_focus
+    focus = FundTypeFocus.by_name(params[:q].strip)
+    render :json => focus.collect{ |type| { :id => type.id, :name => type.name } }
+  end
+
+  def get_strategy_preferences
+    strategy_preferences = StrategyPreference.by_name(params[:q].strip)
+    render :json => strategy_preferences.collect{ |strategy| { :id => strategy.id, :name => strategy.name } }
+  end
+
+  def currency_change
+    @institution_company = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @general_asset_allocation = @institution_company.institution_general_asset_allocation
+    @change_general_asset_allocation = @institution_company.institution_general_asset_allocation
+    render :partial => "get_hedge_breakdown_of_assets"
+  end
+
+  def get_real_fund_type_preferences
+    fund_type_preferences = RealEstateFundTypePreference.by_name(params[:q].strip)
+    render :json => fund_type_preferences.collect{ |fund_type| { :id => fund_type.id, :name => fund_type.name } }
+  end
+
+  def get_real_strategy_preferences
+    strategy_preferences = RealEstateStrategyPreference.by_name(params[:q].strip)
+    render :json => strategy_preferences.collect{ |strategy| { :id => strategy.id, :name => strategy.name } }
+  end
+
+  def get_real_sector_preferences
+    sector_preferences = RealEstateSectorPreference.by_name(params[:q].strip)
+    render :json => sector_preferences.collect{ |sector| { :id => sector.id, :name => sector.name } }
+  end
+
+  def delete_institution_office
+    InstitutionOffice.transaction do
+      params[:institution_offices].split(",").each do |office|
+        InstitutionOffice.find(office).delete
+      end
+    end
+    render :text => "deleted"
+  end
+
+  def institution_search
+     a = []
+    params[:company_name].downcase.each_char {|c| a = a.join(',') + c, c.to_i.to_s.eql?(c) ? ' ' : '' } if !params[:company_name].blank?
+    if params[:search_submit] == "true"
+      case params[:status]
+        when "all"
+         if !params[:company_id].blank?
+           @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :not_by_filters => { :status_name => [["Delete"], "ary"] },:lt_filters => {:created_at=> Time.zone.now.beginning_of_day}, :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]} )
+         else
+            @institutions = InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] },:lt_filters => {:created_at => Time.zone.now.beginning_of_day}, :filters => { :main_country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] }, :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym},  :page => params[:page], :per_page => PER_PAGE, :fields => ["institution_name", "alt_company_name"] })
+         end
+        when "new-records"
+          if !params[:company_id].blank?
+            @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :gt_filters => {:created_at=> Time.zone.now.beginning_of_day - 3.months}, :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]})
+          else
+            @institutions = InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :gt_filters => {:created_at => Time.zone.now.beginning_of_day - 3.months}, :filters => {  :main_country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] }, :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym},  :page => params[:page], :per_page => PER_PAGE , :fields => ["institution_name", "alt_company_name"] })
+          end  # if end
+        when "pending-qc"
+          if !params[:company_id].blank?
+            @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :filters => { :status_name => [["Pending QC"], "ary"] }, :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]})
+          else
+             @institutions = InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""),  :filters => { :status_name => [["Pending QC"], "ary"] , :main_country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym},  :page => params[:page], :per_page => PER_PAGE , :fields => ["institution_name", "alt_company_name"] })
+          end  # if end
+          when "verify-qc"
+         if !params[:company_id].blank?
+            @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :filters => { :status_name => [["Save & Verified"], "ary"] }, :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]})
+          else
+             @institutions = InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""),  :filters => { :status_name => [["Save & Verified"], "ary"] , :main_country_id=> [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym},  :page => params[:page], :per_page => PER_PAGE , :fields => ["institution_name", "alt_company_name"] })
+          end  # if end
+        when "failed"
+         if !params[:company_id].blank?
+            @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :filters => { :status_name => [["Failed"], "ary"] }, :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]})
+          else
+             @institutions = InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""),  :filters => { :status_name => [["Failed"], "ary"] , :main_country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym},  :page => params[:page], :per_page => PER_PAGE , :fields => ["institution_name", "alt_company_name"] })
+          end  # if end
+        when "helpdesk"
+          if !params[:company_id].blank?
+              @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :filters => { :status_name => [["Helpdesk"], "ary"] } , :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]})
+          else
+              @institutions = InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""),  :filters => { :status_name => [["Helpdesk"], "ary"] , :main_country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => params[:page], :per_page => PER_PAGE , :fields => ["institution_name", "alt_company_name"] })
+          end  # if end
+        when "archive"
+          if !params[:company_id].blank?
+              @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :filters => { :status_name => [["Archive"], "ary"] }, :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]})
+          else
+              @institutions = InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :filters => { :status_name => [["Archive"], "ary"] , :main_country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => params[:page], :per_page => PER_PAGE , :fields => ["institution_name", "alt_company_name"] })
+          end  # if end
+        when "unverified"
+         if !params[:company_id].blank?
+              @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :filters => { :status_name => [["Unverified"], "ary"] }, :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]})
+          else
+              @institutions = InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :filters => { :status_name => [["Unverified"], "ary"] , :main_country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => params[:page], :per_page => PER_PAGE , :fields => ["institution_name", "alt_company_name"] })
+          end  # if end
+        when "deleted"
+          if !params[:company_id].blank?
+             @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :filters => { :status_name => [["Delete"], "ary"] },  :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]})
+          else
+              @institutions= InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""),  :filters => { :status_name => [["Delete"], "ary"] , :main_country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] }, :dy_sort => params[:sort].blank? ? {} : {params[:sort].strip.to_sym => params[:order].strip.to_sym},  :page => params[:page], :per_page => PER_PAGE , :fields => ["institution_name", "alt_company_name"] })
+          end  # if end
+     end # case end
+    else # serach submit end
+     case params[:status]
+        when "all"
+         if !params[:company_id].blank?
+           @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]} )
+         else
+            @institutions = InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :filters => { :main_country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym},  :page => params[:page], :per_page => PER_PAGE, :fields => ["institution_name", "alt_company_name"] })
+         end
+
+        when "new-records"
+          if !params[:company_id].blank?
+            @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :not_by_filters => { :status_name => [["Delete"], "ary"] }, :gt_filters => {:created_at=> Time.zone.now.beginning_of_day - 3.months}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]})
+          else
+            @institutions = InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :not_by_filters => { :status_name => [["Delete"], "ary"] }, :gt_filters => {:created_at => Time.zone.now.beginning_of_day - 3.months}, :filters => {  :main_country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym},  :page => params[:page], :per_page => PER_PAGE , :fields => ["institution_name", "alt_company_name"] })
+          end  # if end
+        when "pending-qc"
+          if !params[:company_id].blank?
+            @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :filters => { :status_name => [["Pending QC"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]})
+          else
+             @institutions = InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""),  :filters => { :status_name => [["Pending QC"], "ary"] , :main_country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym},  :page => params[:page], :per_page => PER_PAGE , :fields => ["institution_name", "alt_company_name"] })
+          end  # if end
+          when "verify-qc"
+         if !params[:company_id].blank?
+            @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :filters => { :status_name => [["Save & Verified"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]})
+          else
+             @institutions = InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""),  :filters => { :status_name => [["Save & Verified"], "ary"] , :main_country_id=> [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym},  :page => params[:page], :per_page => PER_PAGE , :fields => ["institution_name", "alt_company_name"] })
+          end  # if end
+        when "failed"
+         if !params[:company_id].blank?
+            @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :filters => { :status_name => [["Failed"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]})
+          else
+             @institutions = InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""),  :filters => { :status_name => [["Failed"], "ary"] , :main_country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym},  :page => params[:page], :per_page => PER_PAGE , :fields => ["institution_name", "alt_company_name"] })
+          end  # if end
+        when "helpdesk"
+          if !params[:company_id].blank?
+              @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :filters => { :status_name => [["Helpdesk"], "ary"] } , :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]})
+          else
+              @institutions = InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""),  :filters => { :status_name => [["Helpdesk"], "ary"] , :main_country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => params[:page], :per_page => PER_PAGE , :fields => ["institution_name", "alt_company_name"] })
+          end  # if end
+        when "archive"
+          if !params[:company_id].blank?
+              @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :filters => { :status_name => [["Archive"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]})
+          else
+              @institutions = InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :filters => { :status_name => [["Archive"], "ary"] , :main_country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => params[:page], :per_page => PER_PAGE , :fields => ["institution_name", "alt_company_name"] })
+          end  # if end
+        when "unverified"
+         if !params[:company_id].blank?
+              @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :filters => { :status_name => [["Unverified"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]})
+          else
+              @institutions = InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""), :filters => { :status_name => [["Unverified"], "ary"] , :main_country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] },  :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => params[:page], :per_page => PER_PAGE , :fields => ["institution_name", "alt_company_name"] })
+          end  # if end
+        when "deleted"
+          if !params[:company_id].blank?
+             @institutions = InstitutionCompanyInfo.text_search({ :text => params[:company_id], :filters => { :status_name => [["Delete"], "ary"] },  :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :fields => ["id"]})
+          else
+              @institutions= InstitutionCompanyInfo.text_search({ :text => a.join(",").gsub(",", "").gsub("-",""),  :filters => { :status_name => [["Delete"], "ary"] , :main_country_id => [params[:country_id].blank? ? [] : [params[:country_id]], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym},  :page => params[:page], :per_page => PER_PAGE , :fields => ["institution_name", "alt_company_name"] })
+          end  # if end
+     end # case end
+    end # search submit end
+  end
+
+  def change_status
+    institution_company = InstitutionCompanyInfo.find(params[:institution_company_id])
+    institution_company.transaction do
+      if params[:status_id].to_i == Status.by_type("institution").by_name("Publish").first.id
+        if institution_company.status_id == Status.by_type("institution").by_name("Publish").first.id
+
+        else
+          institution_company.update_attributes!(:active => true,:status_id => params[:status_id],:last_date => Time.zone.now)
+        end
+      else
+        institution_company.update_attributes!(:status_id => params[:status_id],:last_date => Time.zone.now)
+      end
+      unquote_newletter_event(institution_company.class.name, institution_company.id, institution_company.status_id, "institution")
+      institution_company.index_to_search_engine
+      institution_company.institution_hedge_fund_data.index_to_search_engine if institution_company.institution_hedge_fund_data
+      institution_company.institution_pei_data.index_to_search_engine if institution_company.institution_pei_data
+    end
+    render :json => { :status => institution_company.status.name }
+  end
+
+  def add_note
+    @form_action = "save_note"
+    @institution_company_note = InstitutionCompanyInfo.find(params[:institution_company_id]).note_description
+    #render :partial => "add_note_to_institution"
+  end
+
+  def save_note
+    institution_company = InstitutionCompanyInfo.find(params[:institution_company_id])
+    institution_company.transaction do
+    institution_company.update_attributes!(:note_description => params[:note_description],:last_date => Time.zone.now)
+    institution_company.index_to_search_engine
+    end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+=begin
+     if !params[:note_description].blank?
+        render :text => "success"
+      else
+        render :text => "notsuccess"
+      end
+=end
+  end
+
+  def fetch_consultants
+
+  end
+
+  def show_consultants_details
+     @consultant_company = ConsultantCompanyInfo.by_name(params[:consultant_company_name])
+     @form_action = "save_consultant_for_institution"
+    render :partial => "get_consultant_company_details"
+  end
+
+  def get_consultants_executives
+    consultant_company = ConsultantCompanyInfo.find(params[:consultant_company_id])
+    @consultant_contacts = consultant_company.consultant_contacts
+    @form_action = "save_consultant_for_institution"
+    render :partial => "get_consultant_executives"
+  end
+
+  def save_consultant_for_institution
+    institution  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    consultant_company = ConsultantCompanyInfo.find(params[:consultant_company_id])
+    institution.transaction do
+      if  !params[:consultant_executives].blank?
+        params[:consultant_executives].split(",").each do |consultant_contact|
+           institution_consultant = institution.institution_consultant_companies.create(:consultant_company_info_id => consultant_company.id,:consultant_contact_id => consultant_contact)
+        end
+      else
+       institution_consultant = institution.institution_consultant_companies.create(:consultant_company_info_id => consultant_company.id)
+      end
+      institution.update_attributes(last_date: Time.zone.now)
+    end
+    render :text => "success"
+  end
+
+  def remove_institution_consultant_companies
+    if  params[:institution_company_id]
+          InstitutionCompanyInfo.transaction do
+             params[:consultant_companies].split(",").each do |company|
+                 institution_consultant_company = InstitutionConsultantCompany.find(company)
+                 institution_consultant_company.delete
+            end
+         end
+      end
+    render :text => "deleted"
+  end
+
+  def institution_hedge_fund_check
+    InstitutionCompanyInfo.transaction do
+     params[:hedge_fund_checked].split(",").each do |company_check|
+         institution_consultant_company = InstitutionConsultantCompany.find(company_check)
+         institution_consultant_company.update_attributes(:hedge_fund => true)
+         institution_consultant_company.institution_company_info.update_attributes(last_date: Time.zone.now)
+         institution_consultant_company.institution_company_info.institution_hedge_fund_data.index_to_search_engine if institution_consultant_company.institution_company_info.institution_hedge_fund_data 
+      end
+       params[:hedge_fund_unchecked].split(",").each do |company_uncheck|
+           institution_consultant_company = InstitutionConsultantCompany.find(company_uncheck)
+           institution_consultant_company.update_attributes(:hedge_fund => false)
+           institution_consultant_company.institution_company_info.update_attributes(last_date: Time.zone.now)
+           institution_consultant_company.institution_company_info.institution_hedge_fund_data.index_to_search_engine if institution_consultant_company.institution_company_info.institution_hedge_fund_data
+      end
+    end
+    render :text =>"success"
+  end
+
+  def institution_real_estate_check
+    InstitutionCompanyInfo.transaction do
+     params[:real_estate_checked].split(",").each do |company_check|
+         institution_consultant_company = InstitutionConsultantCompany.find(company_check)
+         institution_consultant_company.update_attributes(:real_estate => true)
+         institution_consultant_company.institution_company_info.update_attributes(last_date: Time.zone.now)
+      end
+       params[:real_estate_unchecked].split(",").each do |company_uncheck|
+           institution_consultant_company = InstitutionConsultantCompany.find(company_uncheck)
+           institution_consultant_company.update_attributes(:real_estate => false)
+           institution_consultant_company.institution_company_info.update_attributes(last_date: Time.zone.now)
+      end
+    end
+    render :text =>"success"
+  end
+
+  def institution_pei_check
+    InstitutionCompanyInfo.transaction do
+     params[:pei_data_checked].split(",").each do |company_check|
+         institution_consultant_company = InstitutionConsultantCompany.find(company_check)
+         institution_consultant_company.update_attributes(:pei => true)
+         institution_consultant_company.institution_company_info.update_attributes(last_date: Time.zone.now)
+         institution_consultant_company.institution_company_info.institution_pei_data.index_to_search_engine if institution_consultant_company.institution_company_info.institution_pei_data
+      end
+       params[:pei_data_unchecked].split(",").each do |company_uncheck|
+           institution_consultant_company = InstitutionConsultantCompany.find(company_uncheck)
+           institution_consultant_company.update_attributes(:pei => false)
+           institution_consultant_company.institution_company_info.update_attributes(last_date: Time.zone.now)
+           institution_consultant_company.institution_company_info.institution_pei_data.index_to_search_engine if institution_consultant_company.institution_company_info.institution_pei_data
+      end
+    end
+    render :text =>"success"
+  end
+
+  def remove_lp_fund_in_institution
+    lp_fund_id = LpFund.find(params[:lp_fund_id])
+
+      LpFund.transaction do
+        lp_fund_id.delete
+      end
+     render :text => "deleted"
+  end
+
+  def search_institution_contact
+
+  end
+
+  def get_contact_results
+    @search_contact = InstitutionContact.by_name(params[:contact_name])
+    @form_action = "save_exited_institution_contact"
+    render :partial => "get_contact_details"
+  end
+
+  def save_exited_institution_contact
+     exited_contact = InstitutionContact.find(params[:institution_contact_id])
+     institution_company = InstitutionCompanyInfo.find(params[:institution_company_id])
+     institution_company.transaction do
+       institution_company.institution_contacts.create(:address_1 => exited_contact.address_1, :address_2  => exited_contact.address_2, :address_3 => exited_contact.address_3, :address_4 =>  exited_contact.address_4, :biography =>  exited_contact.biography, :blackberry =>  exited_contact.blackberry, :company_name =>  exited_contact.company_name,:contact_type_id =>  exited_contact.contact_type_id,:country_id =>  exited_contact.country_id,:direct_phone =>  exited_contact.direct_phone,:email =>  exited_contact.email,:first_name => exited_contact.first_name,:job_title =>  exited_contact.job_title,:last_name =>  exited_contact.last_name,:mobile_phone => exited_contact.mobile_phone,:postcode =>  exited_contact.postcode,:title => exited_contact.title,:city =>  exited_contact.city,:contact_module_hf => exited_contact.contact_module_hf,:contact_module_re  =>  exited_contact.contact_module_re,:contact_module_pe =>  exited_contact.contact_module_pe,:location =>  exited_contact.location)
+       institution_company.update_attributes(last_date: Time.zone.now)
+     end
+     render :text => "success"
+  end
+
+  def fetch_fund_in_pei_data
+
+  end
+
+  def get_fund_list_from_pei_data
+    @search_fund = Fund.by_name(params[:fund_name]).order("name asc")
+    @form_action = "save_institution_fund_data"
+    render :partial => "get_fund_details"
+  end
+
+  def save_institution_fund_data
+    institution_company = InstitutionCompanyInfo.find(params[:institution_company_id])
+    institution_company.transaction do
+       fund  = Fund.find(params[:fund_id])
+      lp = institution_company.lp_funds.create(:fund_id => fund.id )
+    end
+    render :text => "success"
+  end
+
+  def add_hedge_fund_portfolios
+    @form_action = "create_hedge_fund_portfolios"
+     @hedge_fund_portfolio = InstitutionHedgeFundManagerPortfolio.new
+     @hedge_fund_portfolio.still_investing = "unknown"
+  end
+
+  def create_hedge_fund_portfolios
+    inst_company_data = InstitutionCompanyInfo.find(params[:institution_company_id])
+     inst_hedge_data  = inst_company_data.institution_hedge_fund_data
+    inst_hedge_data.transaction do
+       hedge_portfolios = inst_hedge_data.institution_hedge_fund_manager_portfolios.create(params[:hedge_fund_portfolio])
+       inst_company_data.update_attributes(last_date: Time.zone.now)
+    end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+  def edit_hedge_fund_portfolios
+    @form_action = "update_hedge_fund_portfolios"
+    @hedge_fund_portfolio = InstitutionHedgeFundManagerPortfolio.find(params[:hedge_fund_portfolio_id])
+     @hedge_fund_portfolio.still_investing = @hedge_fund_portfolio.still_investing.blank? ? "unknown" : @hedge_fund_portfolio.still_investing
+  end
+
+  def update_hedge_fund_portfolios
+    hedge_portfolio = InstitutionHedgeFundManagerPortfolio.find(params[:hedge_fund_portfolio_id])
+    hedge_portfolio.transaction do
+       hedge_portfolio.update_attributes(params[:hedge_fund_portfolio])
+    end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+  def get_hedge_fund_manager_data
+    hedge_fund = HedgeFundManager.by_name(params[:q].strip).limit(AUTO_COMPLETION_LIMIT)
+    render :json => hedge_fund.collect{ |hedge_fund| { :id => hedge_fund.id, :name => hedge_fund.hedge_fund_manager_name } }
+  end
+
+  def remove_hedge_fund_portfolio
+     InstitutionCompanyInfo.transaction do
+       params[:portfolio_source].split(",").each do |portfolio|
+         institution_portfolio = InstitutionHedgeFundManagerPortfolio.find(portfolio)
+         institution_portfolio.delete
+      end
+     end
+     render :text => "deleted"
+  end
+
+   def add_real_estate_fund_portfolios
+    @form_action = "create_real_estate_fund_portfolios"
+     @real_estate_fund_portfolio = InstitutionRealEstateFundManagerPortfolio.new
+     @real_estate_fund_portfolio.still_investing = "unknown"
+  end
+
+  def create_real_estate_fund_portfolios
+    inst_company_data = InstitutionCompanyInfo.find(params[:institution_company_id])
+     inst_real_estate_data  = inst_company_data.institution_real_estate_data
+    inst_real_estate_data.transaction do
+       real_estate_portfolios = inst_real_estate_data.institution_real_estate_fund_manager_portfolios.create(params[:real_estate_fund_portfolio])
+       inst_company_data.update_attributes(last_date: Time.zone.now)
+    end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+  def edit_real_estate_fund_portfolios
+    @form_action = "update_real_estate_fund_portfolios"
+    @real_estate_fund_portfolio = InstitutionRealEstateFundManagerPortfolio.find(params[:real_estate_fund_portfolio_id])
+    @real_estate_fund_portfolio.still_investing = @real_estate_fund_portfolio.still_investing.blank? ? "unknown" : @real_estate_fund_portfolio.still_investing
+  end
+
+  def update_real_estate_fund_portfolios
+    real_estate_portfolio = InstitutionRealEstateFundManagerPortfolio.find(params[:real_estate_fund_portfolio_id])
+    real_estate_portfolio.transaction do
+       real_estate_portfolio.update_attributes(params[:real_estate_fund_portfolio])
+    end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+  def get_real_estate_fund_manager_data
+    real_estate = RealEstateFundManager.by_name(params[:q].strip).limit(AUTO_COMPLETION_LIMIT)
+    render :json => real_estate.collect{ |real_estate| { :id => real_estate.id, :name => real_estate.real_estate_fund_manager_name } }
+  end
+
+  def remove_real_estate_fund_portfolio
+     InstitutionCompanyInfo.transaction do
+       params[:portfolio_source].split(",").each do |portfolio|
+         institution_portfolio = InstitutionRealEstateFundManagerPortfolio.find(portfolio)
+         institution_portfolio.delete
+      end
+     end
+     render :text => "deleted"
+  end
+
+  def download_as_csv
+    case params[:status]
+      when "all"
+        total_count = InstitutionCompanyInfo.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] },:lt_filters => {:created_at => Time.zone.now.beginning_of_day}}).total
+        #@institutions = InstitutionCompanyInfo.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1,:gt_filters => {:created_at => Time.zone.now.beginning_of_day - 1.months}, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+      @institutions = InstitutionCompanyInfo.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1,:lt_filters => {:created_at => Time.zone.now.beginning_of_day}, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+      when "new-records"
+        total_count = InstitutionCompanyInfo.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :gt_filters => {:created_at => Time.zone.now.beginning_of_day - 3.months} }).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :gt_filters => {:created_at => Time.zone.now.beginning_of_day - 3.months}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+      when "pending-qc"
+        total_count = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Pending QC"],"ary"]}}).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Pending QC"],"ary"]}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+      when "failed"
+        total_count = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Failed"],"ary"]}}).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Failed"],"ary"]}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+      when "verify-qc"
+        total_count = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Save & Verified"],"ary"]}}).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Save & Verified"],"ary"]}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+      when "helpdesk"
+         total_count = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Helpdesk"],"ary"]}}).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Helpdesk"],"ary"]}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+     when "archive"
+         total_count = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Archive"],"ary"]}}).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Archive"],"ary"]}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+      when "unverified"
+         total_count = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Unverified"],"ary"]}}).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Unverified"],"ary"]}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+       when "deleted"
+        total_count = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Delete"],"ary"]}}).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Delete"],"ary"]}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+    end
+      work_book_path = "excel_exports/Report#{Time.zone.now.strftime("%Y%m%d%H%M%S%6N")}.xlsx"
+      delay_job = InstitutionCompanyInfo.delay.search_institution_export_wdxlsx(@institutions.map(&:primary_key), work_book_path, params[:okcancel],session[:user_id])
+      render :json => { :status => "pending", :id => "#{delay_job}, #{work_book_path}" }
+  end
+
+  def list_institutions
+    @hide_secondary_investor_menu = true
+  end
+
+  def main_office_change
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+   @institution_office = @institution_company.institution_offices.by_main_office(true).first
+   render :partial => "add_institution_main_office_address"
+  end
+
+  def fetch_geographfic_pref_real_estate_data
+    @continents = Continent.all
+    @regions = Region.all
+    @sub_regions = SubRegion.all
+    @countries = Country.all
+    @cities = City.all
+  end
+
+  def get_geography_prefs
+    country_geography_prefs =  Country.by_name(params[:q].strip)
+    render :json => country_geography_prefs.collect{ |geo| { :id => geo.id, :name => geo.name } }
+  end
+
+  def fetch_geographfic_pref_pei_data
+    @continents = Continent.all
+    @regions = Region.all
+    @sub_regions = SubRegion.all
+    @countries = Country.all
+    @cities = City.all
+  end
+
+  def view_search_note
+    @institution_company_note = InstitutionCompanyInfo.find(params[:institution_company_id]).note_description
+  end
+
+  def save_search_note
+    institution_company = InstitutionCompanyInfo.find(params[:institution_company_id])
+    institution_company.transaction do
+      institution_company.update_attributes!(:note_description => params[:note_description],:last_date => Time.zone.now,updated_by: @user.id)
+      institution_company.index_to_search_engine
+    end
+      render :text => "success"
+  end
+
+
+ def new_managed_account
+   @form_action = "create_managed_account"
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @managed_account = @institution_company.managed_accounts.new
+  end
+
+  def create_managed_account
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    ManagedAccount.transaction do
+     @managed_account = @institution_company.managed_accounts.create(params[:managed_account])
+       @institution_company.update_attributes(last_date: Time.zone.now)
+    end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+  def edit_managed_account
+   @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @managed_account = ManagedAccount.find(params[:managed_account_id])
+    @form_action = "update_managed_account"
+  end
+
+  def update_managed_account
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @managed_account = ManagedAccount.find(params[:managed_account_id])
+    @managed_account.update_attributes(params[:managed_account])
+    @managed_account.save
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+
+  def remove_managed_account
+   @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+   event = ManagedAccount.find(params[:event_id])
+   event.delete
+   render :text => "deleted"
+   end
+
+
+
+
+  def new_direct_codirect
+    @form_action = "create_direct_codirect"
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @direct = @institution_company.codirects.new
+  end
+
+  def create_direct_codirect
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    Codirect.transaction do
+      @direct = @institution_company.codirects.create(params[:codirect])
+      @institution_company.update_attributes(last_date: Time.zone.now)
+    end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+  def edit_direct_codirect
+    @form_action = "update_direct_codirect"
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @direct=Codirect.find(params[:codirect_id])
+  end
+
+
+  def update_direct_codirect
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @institution_company.transaction do
+     @direct=Codirect.find(params[:codirect_id])
+    #@direct=@institution_company.codirects.find(params[:codirect_id])
+    @direct.update_attributes(params[:codirect])
+     if !@direct.commitment.blank?
+        curr_average_commitment_size_per_codiect = CurrencyExchange.get_other_currency_rates((@direct.commitment.blank? ? 0 : @direct.commitment.to_f), @direct.currency, ((@direct.try(:created_at).blank?) ? Date.today.beginning_of_month : @direct.created_at.to_date.beginning_of_month))
+        @direct.commitement_value_yen = curr_average_commitment_size_per_codiect[:yen]
+        @direct.commitement_value_us = curr_average_commitment_size_per_codiect[:us]
+        @direct.commitement_value_uk = curr_average_commitment_size_per_codiect[:uk]
+        @direct.commitement_value_euro = curr_average_commitment_size_per_codiect[:euro]
+        @direct.save
+      else
+        @direct.commitement_value_yen = nil
+        @direct.commitement_value_us = nil
+        @direct.commitement_value_uk = nil
+        @direct.commitement_value_euro = nil
+        @direct.save
+    end
+
+    @direct.save
+      end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+
+  def remove_event_from_direct_codirect
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    event = Codirect.find(params[:event_id])
+    event.delete
+    render :text => "deleted"
+  end
+
+
+  def get_auto_deal_name
+    deals = @site.deals.by_comp_and_alt_comp_name(params[:q].strip).limit(AUTO_COMPLETION_LIMIT)
+    render :json => deals.collect{ |deal| { :id => deal.id, :name => "#{deal.company_name} #{"(" + deal.deal_specific.deal_announced.strftime("%b %Y") + ")" if deal.deal_specific && deal.deal_specific.deal_announced}".strip } }
+  end
+
+  def get_deal_name
+    deal_name_select = {}
+    deal_name = Deal.find(params[:deal_id])
+    deal_name_select.merge!( { :deal_id => deal_name.id, :deal_name => deal_name.company_name } ) unless deal_name.blank?
+    render :json => deal_name_select
+  end
+
+
+  private
+
+  def update_with_currency_convertion_in_general
+    if !@general_allocation.total_asset_value.blank?
+      cur_total_asset = CurrencyExchange.get_other_currency_rates((@general_allocation.total_asset_value.blank? ? 0 : @general_allocation.total_asset_value.to_f), @general_allocation.currency, ((@general_allocation.try(:created_at).blank?) ? Date.today.beginning_of_month : @general_allocation.created_at.to_date.beginning_of_month))
+      @general_allocation.total_asset_value_yen = cur_total_asset[:yen]
+      @general_allocation.total_asset_value_euro = cur_total_asset[:euro]
+      @general_allocation.total_asset_value_uk = cur_total_asset[:uk]
+      @general_allocation.total_asset_value_us = cur_total_asset[:us]
+      @general_allocation.save
+    else
+      @general_allocation.total_asset_value_yen = nil
+      @general_allocation.total_asset_value_euro = nil
+      @general_allocation.total_asset_value_uk = nil
+      @general_allocation.total_asset_value_us = nil
+      @general_allocation.save
+    end
+
+    if !@general_allocation.alternative_assets_min.blank?
+      curr_alter_assets_min = CurrencyExchange.get_other_currency_rates((@general_allocation.alternative_assets_min.blank? ? 0 : @general_allocation.alternative_assets_min.to_f), @general_allocation.currency, ((@general_allocation.try(:created_at).blank?) ? Date.today.beginning_of_month : @general_allocation.created_at.to_date.beginning_of_month))
+      @general_allocation.alternative_assets_min_yen = curr_alter_assets_min[:yen]
+      @general_allocation.alternative_assets_min_euro = curr_alter_assets_min[:euro]
+      @general_allocation.alternative_assets_min_uk = curr_alter_assets_min[:uk]
+      @general_allocation.alternative_assets_min_us = curr_alter_assets_min[:us]
+      @general_allocation.save
+    else
+      @general_allocation.alternative_assets_min_yen = nil
+      @general_allocation.alternative_assets_min_euro = nil
+      @general_allocation.alternative_assets_min_uk = nil
+      @general_allocation.alternative_assets_min_us = nil
+      @general_allocation.save
+    end
+
+    if !@general_allocation.of_which_private_equity_min.blank?
+      curr_private_equity_min = CurrencyExchange.get_other_currency_rates((@general_allocation.of_which_private_equity_min.blank? ? 0 : @general_allocation.of_which_private_equity_min.to_f), @general_allocation.currency, ((@general_allocation.try(:created_at).blank?) ? Date.today.beginning_of_month : @general_allocation.created_at.to_date.beginning_of_month))
+      @general_allocation.of_which_private_equity_min_yen = curr_private_equity_min[:yen]
+      @general_allocation.of_which_private_equity_min_euro = curr_private_equity_min[:euro]
+      @general_allocation.of_which_private_equity_min_uk = curr_private_equity_min[:uk]
+      @general_allocation.of_which_private_equity_min_us = curr_private_equity_min[:us]
+      @general_allocation.save
+    else
+      @general_allocation.of_which_private_equity_min_yen = nil
+      @general_allocation.of_which_private_equity_min_euro = nil
+      @general_allocation.of_which_private_equity_min_uk = nil
+      @general_allocation.of_which_private_equity_min_us = nil
+      @general_allocation.save
+    end
+
+    if !@general_allocation.of_which_hedge_funds_min.blank?
+      curr_hedge_funds_min = CurrencyExchange.get_other_currency_rates((@general_allocation.of_which_hedge_funds_min.blank? ? 0 : @general_allocation.of_which_hedge_funds_min.to_f), @general_allocation.currency, ((@general_allocation.try(:created_at).blank?) ? Date.today.beginning_of_month : @general_allocation.created_at.to_date.beginning_of_month))
+      @general_allocation.of_which_hedge_funds_min_yen = curr_hedge_funds_min[:yen]
+      @general_allocation.of_which_hedge_funds_min_euro = curr_hedge_funds_min[:euro]
+      @general_allocation.of_which_hedge_funds_min_uk = curr_hedge_funds_min[:uk]
+      @general_allocation.of_which_hedge_funds_min_us = curr_hedge_funds_min[:us]
+      @general_allocation.save
+    else
+      @general_allocation.of_which_hedge_funds_min_yen = nil
+      @general_allocation.of_which_hedge_funds_min_euro = nil
+      @general_allocation.of_which_hedge_funds_min_uk = nil
+      @general_allocation.of_which_hedge_funds_min_us = nil
+      @general_allocation.save
+    end
+  end
+
+
+  def update_with_currency_convertion_in_hedge_fund
+    if !@insti_hedge_fund_data.amount_invested_hf.blank?
+      curr_amount_invested_hf = CurrencyExchange.get_other_currency_rates((@insti_hedge_fund_data.amount_invested_hf.blank? ? 0 : @insti_hedge_fund_data.amount_invested_hf.to_f), @insti_hedge_fund_data.currency, ((@insti_hedge_fund_data.try(:created_at).blank?) ? Date.today.beginning_of_month : @insti_hedge_fund_data.created_at.to_date.beginning_of_month))
+      @insti_hedge_fund_data.amount_invested_hf_yen = curr_amount_invested_hf[:yen]
+      @insti_hedge_fund_data.amount_invested_hf_euro = curr_amount_invested_hf[:euro]
+      @insti_hedge_fund_data.amount_invested_hf_uk = curr_amount_invested_hf[:uk]
+      @insti_hedge_fund_data.amount_invested_hf_us = curr_amount_invested_hf[:us]
+      @insti_hedge_fund_data.save
+    else
+      @insti_hedge_fund_data.amount_invested_hf_yen = nil
+      @insti_hedge_fund_data.amount_invested_hf_euro = nil
+      @insti_hedge_fund_data.amount_invested_hf_uk = nil
+      @insti_hedge_fund_data.amount_invested_hf_us = nil
+      @insti_hedge_fund_data.save
+    end
+  end
+
+  def update_with_currency_convertion_in_pei_data
+    if !@institu_pei_data.amount_invested_per_fund_min.blank?
+      curr_amount_invested_per_fund_min = CurrencyExchange.get_other_currency_rates((@institu_pei_data.amount_invested_per_fund_min.blank? ? 0 : @institu_pei_data.amount_invested_per_fund_min.to_f), @institu_pei_data.currency, ((@institu_pei_data.try(:created_at).blank?) ? Date.today.beginning_of_month : @institu_pei_data.created_at.to_date.beginning_of_month))
+      @institu_pei_data.amount_invested_per_fund_min_yen = curr_amount_invested_per_fund_min[:yen]
+      @institu_pei_data.amount_invested_per_fund_min_euro = curr_amount_invested_per_fund_min[:euro]
+      @institu_pei_data.amount_invested_per_fund_min_uk = curr_amount_invested_per_fund_min[:uk]
+      @institu_pei_data.amount_invested_per_fund_min_us = curr_amount_invested_per_fund_min[:us]
+      @institu_pei_data.save
+    else
+      @institu_pei_data.amount_invested_per_fund_min_yen = nil
+      @institu_pei_data.amount_invested_per_fund_min_euro = nil
+      @institu_pei_data.amount_invested_per_fund_min_uk = nil
+      @institu_pei_data.amount_invested_per_fund_min_us = nil
+      @institu_pei_data.save
+    end
+
+    if !@institu_pei_data.amount_invested_per_fund_max.blank?
+      curr_amount_invested_per_fund_max = CurrencyExchange.get_other_currency_rates((@institu_pei_data.amount_invested_per_fund_max.blank? ? 0 : @institu_pei_data.amount_invested_per_fund_max.to_f), @institu_pei_data.currency, ((@institu_pei_data.try(:created_at).blank?) ? Date.today.beginning_of_month : @institu_pei_data.created_at.to_date.beginning_of_month))
+      @institu_pei_data.amount_invested_per_fund_max_yen = curr_amount_invested_per_fund_max[:yen]
+      @institu_pei_data.amount_invested_per_fund_max_euro = curr_amount_invested_per_fund_max[:euro]
+      @institu_pei_data.amount_invested_per_fund_max_uk = curr_amount_invested_per_fund_max[:uk]
+      @institu_pei_data.amount_invested_per_fund_max_us = curr_amount_invested_per_fund_max[:us]
+      @institu_pei_data.save
+    else
+      @institu_pei_data.amount_invested_per_fund_max_yen = nil
+      @institu_pei_data.amount_invested_per_fund_max_euro = nil
+      @institu_pei_data.amount_invested_per_fund_max_uk = nil
+      @institu_pei_data.amount_invested_per_fund_max_us = nil
+      @institu_pei_data.save
+    end
+
+    if !@institu_pei_data.average_commitment_size_per_fund.blank?
+      curr_average_commitment_size_per_fund = CurrencyExchange.get_other_currency_rates((@institu_pei_data.average_commitment_size_per_fund.blank? ? 0 : @institu_pei_data.average_commitment_size_per_fund.to_f), @institu_pei_data.currency, ((@institu_pei_data.try(:created_at).blank?) ? Date.today.beginning_of_month : @institu_pei_data.created_at.to_date.beginning_of_month))
+      @institu_pei_data.average_commitment_size_per_fund_yen = curr_average_commitment_size_per_fund[:yen]
+      @institu_pei_data.average_commitment_size_per_fund_euro = curr_average_commitment_size_per_fund[:euro]
+      @institu_pei_data.average_commitment_size_per_fund_uk = curr_average_commitment_size_per_fund[:uk]
+      @institu_pei_data.average_commitment_size_per_fund_us = curr_average_commitment_size_per_fund[:us]
+      @institu_pei_data.save
+    else
+      @institu_pei_data.average_commitment_size_per_fund_yen = nil
+      @institu_pei_data.average_commitment_size_per_fund_euro = nil
+      @institu_pei_data.average_commitment_size_per_fund_uk = nil
+      @institu_pei_data.average_commitment_size_per_fund_us = nil
+      @institu_pei_data.save
+    end
+
+
+
+
+  end
+
+
+end
+

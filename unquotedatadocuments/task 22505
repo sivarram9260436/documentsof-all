@@ -1,0 +1,55 @@
+ruby@merger-market-stage:~/Unquote_data/Sites/stage.unqdata.mergermarket.kreatio.info/stylesheets$ vi unquote.css
+
+
+
+#menu LI A {
+        display: block;
+        color:#fff;
+        text-decoration:none;
+        padding:11px 8px 6px 8px;
+}
+
+472 line
+
+
+in console do this   Menu.find_by_name "Investors"
+
+
+ruby@merger-market-stage:~/Unquote_data/WPS$ vi app/controllers/wps/uq_deals_controller.rb 
+
+
+                @selected_menu = Menu.by_name("Investments").first
+
+
+16 line 
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/WPS$ vi app/controllers/wps/uq_equity_debt_controller.rb
+
+@selected_menu = Menu.by_name("Investors").first
+
+31 line
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/WPS$ vi app/controllers/wps/uq_investor_contacts_controller.rb
+
+ @selected_menu = Menu.by_name("People").first
+
+24 line 
+
+
+ruby@merger-market-stage:~/Unquote_data/WPS$ vi app/controllers/wps/uq_lps_controller.rb
+
+    @selected_menu = Menu.by_name("Limited partners").first
+
+22 line 
+
+ruby@merger-market-stage:~/Unquote_data/WPS$ vi app/controllers/wps/uq_advisor_contacts_controller.rb 
+
+    @selected_menu = Menu.by_name("People").first
+line 24 
+

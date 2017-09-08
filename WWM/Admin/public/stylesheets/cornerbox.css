@@ -1,0 +1,71 @@
+.borderTL, .borderTR, .borderBL, .borderBR {
+  width: 10px; height: 10px;
+  padding: 0px; border: 0px;
+  z-index: 99;
+}
+.headBG { 
+	background-image:url(title_bg.jpg); 
+	background-repeat:repeat-x; 
+	height:42px;
+	color:white;
+}
+
+.borderTL, .borderTR {height:42px;}
+
+.borderTL, .borderBL { float: left;  clear: both; }
+.borderTR, .borderBR { float: right; clear: right; }
+.borderTL { margin:  0px  0px  0px -1px; }
+.borderTR { margin:  0px 0px  0px  0px; }
+.borderBL { margin: -10px  0px  0px  0px; }
+.borderBR { margin: -10px  0px  0px  0px; }
+/* IE5-5.5/win needs the border scooted to the left or right by an
+   additional 3px!   Why?  */
+.borderTL {
+  margin-left: -4px;
+  ma\rgin-left: -1px;
+}
+html>body .borderTL  {
+  margin-left: -1px;
+}
+.borderTR {
+  margin-right: -4px;
+  ma\rgin-right: -1px;
+}
+html>body .borderTR  {
+  margin-right: -1px;
+}
+.borderBL {
+  margin-left: -3px;
+  ma\rgin-left: 0px;
+}
+html>body .borderBL {
+  margin-left: 0px;
+}
+.borderBR {
+  margin-right: -3px;
+  ma\rgin-right: 0px;
+}
+html>body .borderBR {
+  margin-right: 0px;
+}
+/* To get around a known bug in IE5/win, apply the
+   border (no margin, padding or positioning) to the
+   content class and apply whatever positioning you
+   want to the contentWrapper class. */
+.content {
+  margin: 0px;
+  padding: 0px;
+  border: 1px solid #C7C7C7;
+  border-top:0px;
+}
+
+.content h1 {
+padding-top:13px;
+	
+}
+
+/*
+.content p{
+	padding:20px;	
+}
+*/

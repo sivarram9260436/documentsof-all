@@ -1,0 +1,187 @@
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Market value of investments date):"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :net_irr_year,:value => (@pei_data.net_irr_year.to_f > 0 ? @pei_data.net_irr_year: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Funded commitments date:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :net_irr_year,:value => (@pei_data.net_irr_year.to_f > 0 ? @pei_data.net_irr_year: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Unfunded commitments date:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :net_irr_year,:value => (@pei_data.net_irr_year.to_f > 0 ? @pei_data.net_irr_year: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Market value of investments(#{@pei_data.currency.name if @pei_data.currency}) :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :market_value_of_investments,:value => (@pei_data.market_value_of_investments.to_f > 0 ? @pei_data.market_value_of_investments : nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+ActiveRecord::Migration.add_column :institution_pei_data, :date_of_market, :date
+
+ActiveRecord::Migration.add_column :institution_pei_data, :date_of_funded, :date
+
+ActiveRecord::Migration.add_column :institution_pei_data, :date_of_unfunded, :date
+
+
+
+InstitutionPeiData
+
+
+ <%= content_tag(:tr) do%>
+
+            <%= content_tag(:td, content_tag(:label,"Market value of investments date):"), { :class => "lab-field" }) %>
+            <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+                <%= text_field(:pei_data, :date_of_market,:value => @pei_data.date_of_market.blank? ? nil : @pei_data.date_of_market.strftime("%d/%m/%Y"),:readonly => true,:class =>"datepicker") %>
+                &nbsp;&nbsp; <%= link_to( "clear", {}, { :href => "javascript:void(0)",:class => "clear_text_value" } ) %>
+            <% end %>
+        <% end %><!--tr -->
+
+
+ <%= content_tag(:tr) do%>
+
+            <%= content_tag(:td, content_tag(:label,"Funded commitments date:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+                <%= text_field(:pei_data, :date_of_funded,:value => @pei_data.date_of_funded.blank? ? nil : @pei_data.date_of_funded.strftime("%d/%m/%Y"),:readonly => true,:class =>"datepicker") %>
+                &nbsp;&nbsp; <%= link_to( "clear", {}, { :href => "javascript:void(0)",:class => "clear_text_value" } ) %>
+            <% end %>
+        <% end %><!--tr -->
+
+
+ <%= content_tag(:tr) do%>
+
+            <%= content_tag(:td, content_tag(:label,"Unfunded commitments date:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+                <%= text_field(:pei_data, :date_of_unfunded,:value => @pei_data.date_of_unfunded.blank? ? nil : @pei_data.date_of_unfunded.strftime("%d/%m/%Y"),:readonly => true,:class =>"datepicker") %>
+                &nbsp;&nbsp; <%= link_to( "clear", {}, { :href => "javascript:void(0)",:class => "clear_text_value" } ) %>
+            <% end %>
+        <% end %><!--tr -->
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/models/institution_pei_data.rb 
+
+
+,:date_of_market,:date_of_funded,:date_of_unfunded,
+======================================================================================================================================================
+
+
+site
+
+strftime("%b %Y")
+
+
+                          <%= content_tag (:tr) do %>
+                                <%= content_tag(:td, "Market value of investments date:", :width => "32%") %>
+                                <td width="3%" class="border_left">&nbsp;</td>
+                                <%= content_tag(:td, "#{@lp_equity_port.date_of_market.strftime("%b %Y")}", :width => "65%")  %>
+                            <% end %>
+
+
+
+                          <%= content_tag (:tr) do %>
+                                <%= content_tag(:td, "Funded commitments Date:", :width => "32%") %>
+                                <td width="3%" class="border_left">&nbsp;</td>
+                                <%= content_tag(:td, "#{@lp_equity_port.date_of_funded.strftime("%b %Y")}", :width => "65%")  %>
+                            <% end %>
+
+
+
+                          <%= content_tag (:tr) do %>
+                                <%= content_tag(:td, "UnFunded commitments Date:", :width => "32%") %>
+                                <td width="3%" class="border_left">&nbsp;</td>
+                                <%= content_tag(:td, "#{@lp_equity_port.date_of_unfunded.strftime("%b %Y")}", :width => "65%")  %>
+                            <% end %>
+
+======================================================================
+<%= content_tag(:td) do %>
+                                                <%= content_tag(:label, "Correct at:",{:class => "lab-field label-space"}) %>
+                                                <%= date_select(:general_asset_allocation, :correct_at, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+                                <% end %>
+
+
+
+   <%= content_tag(:label, "pei_data:",{:class => "lab-field label-space"}) %>
+   <%= date_select(:pei_data, :date_of_market, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+                                <% end %>
+
+============================================================================================================================================		
+
+<%= content_tag(:tr) do%>
+     <%= content_tag(:td, content_tag(:label,"Market value of investments Date: "), { :class => "lab-field" }) %>
+ <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+   <%#= content_tag(:label, "Market value of investments date:",{:class => "lab-field"}) %>
+   <%= date_select(:pei_data, :date_of_market, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+                                <% end %>
+
+
+<%= content_tag(:tr) do%>
+     <%= content_tag(:td, content_tag(:label,"Funded commitments Date: "), { :class => "lab-field" }) %>
+ <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+
+   <%= date_select(:pei_data, :date_of_funded, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+                                <% end %>
+
+<%= content_tag(:tr) do%>
+     <%= content_tag(:td, content_tag(:label,"UnFunded commitments Date: "), { :class => "lab-field" }) %>
+ <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+
+   <%= date_select(:pei_data, :date_of_unfunded, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+                                <% end %>
+=================================================================================================================================================================
+
+
+
+ <%= content_tag (:tr) do %>
+                      <%#= content_tag(:td, "Primary Funds:", :width => "65%") %>
+                      <%= content_tag(:td,content_tag(:strong,"Primary Funds:"),:width=>"40%") %>
+                      <td width="3%" class="border_left">&nbsp;</td>
+                      <%= content_tag(:td, "#{@lp_equity_port.primary_funds}", :width => "32%") %>
+                  <% end %>
+
+
+                  <%= content_tag (:tr) do %>
+                    <%= content_tag (:td), :width => "66%", :align => "left" do %>
+                    <%= content_tag (:strong), :style => "color:#6b6b6b" do %>
+                      Market investments Date:
+                       <td width="3%" class="border_left">&nbsp;</td>
+                     <%= content_tag(:td, "#{@lp_equity_port.date_of_market.strftime("%b %Y")}", :width => "65%")  %>
+                            <% end %>
+                             <% end %>
+                                <%end%>
+
+
+<%= content_tag (:tr) do %>
+                    <%= content_tag (:td), :width => "66%", :align => "left" do %>
+                    <%= content_tag (:strong), :style => "color:#6b6b6b" do %>
+                      Funded commitments Date:
+                       <td width="3%" class="border_left">&nbsp;</td>
+                     <%= content_tag(:td, "#{@lp_equity_port.date_of_funded.strftime("%b %Y")}", :width => "65%")  %>
+                            <% end %>
+                             <% end %>
+                                <%end%>
+
+<%= content_tag (:tr) do %>
+                    <%= content_tag (:td), :width => "66%", :align => "left" do %>
+                    <%= content_tag (:strong), :style => "color:#6b6b6b" do %>
+                       Unfunded commitments Date:
+                       <td width="3%" class="border_left">&nbsp;</td>
+                     <%= content_tag(:td, "#{@lp_equity_port.date_of_unfunded.strftime("%b %Y")}", :width => "65%")  %>
+                            <% end %>
+                             <% end %>
+                                <%end%>
+
+
+
+        <% if !lp_fund.blank? && !lp_fund.fund.blank?  %>
+            <% @lp_fund << "#{lp_fund.fund.vintage}" %>
+        <% else %>
+            <% @lp_fund << "n/d" %>
+        <% end %>
+
+

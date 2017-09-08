@@ -1,0 +1,57 @@
+
+abhishek added
+
+def remove_investor_from_deal
+    @deal_investment = DealInvestment.find(params[:deal_investment_id])
+    @deal = @deal_investment.deal
+    @investor = @deal_investment.investor_group_component.investor_group
+     @deal.transaction do
+      @deal_investment.deal_investment_executives.delete_all
+      @deal_investment.delete
+      @investor.index_to_search_engine
+      @deal.update_attributes(updated_by: @user.id,last_date: Time.zone.now)
+      @deal.index_to_search_engine
+    end
+
+    render :text => "deleted"
+  end
+
+prev code
+
+def remove_investor_from_deal
+
+    @deal_investment = DealInvestment.find(params[:deal_investment_id])
+    deal = @deal_investment.deal
+    investor = @deal_investment.investor_group_component.investor_group
+    Deal.transaction do
+      @deal_investment.deal_investment_executives.delete_all
+      @deal_investment.delete
+      investor.index_to_search_engine
+      deal.update_attributes(updated_by: @user.id,last_date: Time.zone.now)
+      deal.index_to_search_engine
+    
+    end
+
+    render :text => "deleted"
+  end
+==================================================
+
+
+def remove_investor_from_deal
+    s = Time.now
+    @deal_investment = DealInvestment.find(params[:deal_investment_id])
+    deal = @deal_investment.deal
+    investor = @deal_investment.investor_group_component.investor_group
+    Deal.transaction do
+      @deal_investment.deal_investment_executives.delete_all
+      @deal_investment.delete
+      investor.index_to_search_engine
+      deal.update_attributes(updated_by: @user.id,last_date: Time.zone.now)
+      deal.index_to_search_engine
+    e = Time.now
+    t = e-t
+    end
+
+    render :text => "deleted"
+  end
+

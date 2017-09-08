@@ -1,0 +1,12 @@
+<div id="load_indicatior" style="left: 500px;position: absolute;top: 291px;display:none;">
+	<%= image_tag("/images/login_loading_image.gif",:alt=>"Loading page")%>
+</div>
+<%unless @featured_type.blank?%>
+<%= render :partial => '/admin/ranked_list/service_form' %>
+<%else%>
+<% if params[:entity_type]=="digital_asset" %>
+<%= render :partial => '/admin/ranked_list/asset_form' %>
+<% else %>
+<%= render :partial => '/admin/ranked_list/form' %>
+<%end%>
+<%end%>

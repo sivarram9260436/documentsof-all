@@ -1,0 +1,20 @@
+def csv_data
+@free = InstitutionContact.all
+headers = "Lp Name, Country, Type, Geographic prefernces, Asset under management, Contact name, Contact Job title, Contact Number, Contact Email address"
+file = "#{Rails.root}/public/unquote_record.csv"
+CSV.open(file, 'w' ) do |csv|
+@free.each do |c|
+column=[]
+column[0] = c.company_name if c.company_name
+column[1] = c.country.name if c.country && c.country.name
+column[2] = c.institution_company_info.investor_type.name if c.institution_company_info && c.institution_company_info.investor_type && c.institution_company_info.investor_type.name
+column[3] = c.institution_company_info.institution_pei_data.geo_pref_text if c.institution_company_info && c.institution_company_info.institution_pei_data && c.institution_company_info.institution_pei_data.geo_pref_text
+column[4] = c.institution_company_info.institution_general_asset_allocation.total_asset_value if c.institution_company_info && c.institution_company_info.institution_general_asset_allocation && c.institution_company_info.institution_general_asset_allocation.total_asset_value
+column[5] = c.first_name if c.first_name
+column[6] = c.job_title if c.job_title
+column[7] = c.direct_phone if c.direct_phone
+column[8] = c.email if c.email
+csv << column
+end 
+end
+end

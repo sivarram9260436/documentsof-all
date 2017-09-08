@@ -1,0 +1,19 @@
+
+
+
+
+
+////////////[User Name === ,  Site Name === ] Completed in 12759ms (View: 11322, DB: 0) | 200 OK [http://cms.mergermarket.kreatio.info/]
+[User Name === ,  Site Name === ] 
+
+Processing Admin::LoginController#verify_login (for 192.168.15.55 at 2017-04-26 14:56:35) [POST]
+[User Name === ,  Site Name === ]   Parameters: {"commit"=>"Sign in", "login"=>{"password"=>"senthil123", "email"=>"senthil@kreatio.com"}}
+[User Name === ,  Site Name === ] Redirected to http://cms.mergermarket.kreatio.info/
+[User Name === ,  Site Name === ] Completed in 20187ms (DB: 1209) | 302 Found [http://cms.mergermarket.kreatio.info/admin/login/verify_login]
+[User Name === ,  Site Name === ] 
+
+Processing Admin::LoginController#login (for 192.168.15.55 at 2017-04-26 14:57:02) [GET]
+[User Name === ,  Site Name === ] Rendering template within layouts/login
+[User Name === ,  Site Name === ] Rendering /admin/home/login
+[User Name === ,  Site Name === ] Completed in 3993ms (View: 2325, DB: 0) | 200 OK [http://cms.mergermarket.kreatio.info/]
+

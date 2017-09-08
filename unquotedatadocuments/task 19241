@@ -1,0 +1,251 @@
+https://pm.kreatio.com/work_packages/19241
+
+
+back end
+
+how Fund events to date” section. works 
+
+
+////////Started GET "/funds/new_fund_event?fund_id=74088" for 127.0.0.1 at 2017-03-03 11:03:27 +0530
+Processing by FundsController#new_fund_event as HTML
+  Parameters: {"fund_id"=>"74088"}
+  Rendered unquote/_css_image.html.erb (170.8ms)
+  Rendered funds/_form_fund_event.html.erb (2701.7ms)
+Completed 200 OK in 6205ms (Views: 3239.0ms | ActiveRecord: 151.9ms | Solr: 0.0ms)
+
+1.ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/funds/_form_fund_event.html.erb
+
+
+
+
+/////////Started GET "/funds/edit_fund?fund_id=74088&site_id=1&tab=Key_fund_specifics" for 127.0.0.1 at 2017-03-03 11:06:28 +0530
+Processing by FundsController#edit_fund as HTML
+  Parameters: {"fund_id"=>"74088", "site_id"=>"1", "tab"=>"Key_fund_specifics"}
+  Rendered funds/_fund_tabs.html.erb (6.8ms)
+  Rendered funds/_key_fund_specifics.html.erb (75.7ms)
+  Rendered funds/edit_fund.html.erb within layouts/application (96.8ms)
+  Rendered unquote/_css_image.html.erb (2.0ms)
+  Rendered unquote/_secondary_menu.html.erb (3.9ms)
+  Rendered unquote/_menu_container.html.erb (6.4ms)
+Completed 200 OK in 766ms (Views: 105.8ms | ActiveRecord: 59.9ms | Solr: 0.0ms)
+
+
+
+
+2.ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/funds/_key_fund_specifics.html.erb 
+ layout page
+
+
+
+    <%= content_tag(:table, {:class => "form-left form-left-new"}) do %>
+
+	    <%= content_tag(:tr) do %>
+	    	<%= content_tag :td, content_tag(:strong, "Fund Events to date"), { :class => "td_heading" } %>
+	    <% end %><!-- heading -->
+
+	<% end %><!-- table -->
+
+
+
+	<%= content_tag(:table, {:class => "dukes", :border => "1" } ) do %>
+	    <%= content_tag(:tr, { :class => "fund_events head"}) do %>
+			<%= content_tag(:th, "Event") %>
+			<%= content_tag(:th, "Month") %>
+			<%= content_tag(:th, "Year") %>
+			<%= content_tag(:th, "Amount Closed") %>
+			<%= content_tag(:th, "Fund Target")%>
+			<%= content_tag(:th, "Final Close?")%>
+			<%= content_tag(:th ,'')%>
+		<% end %><!-- tr -->
+
+
+		<% @fund_events.each do |event|%>
+			<%= content_tag(:tr, { :class => "fund_events #{cycle('odd', 'even')} " }) do %>
+			<%  if event.fund_event_type%>
+			<%= content_tag(:td, (link_to event.fund_event_type.name,edit_fund_event_funds_path(:fund_event_id=> event.id,:fund_id => @fund.id),{"fund-event-id" => event.id,:class => "edit_fund_event",:class => "color_box" })  )%>
+			<% end %>
+			<%#= content_tag(:td, (event.fund_event_type.name if event.fund_event_type)) %>
+		    <%= content_tag(:td, (event.event_date.strftime("%B") if event.event_date)) %>
+		    <%= content_tag(:td, (event.event_date.strftime("%Y") if event.event_date)) %>
+		    <%= content_tag(:td, (event.amount_closed.to_f > 0 ? "#{number_with_precision(event.amount_closed, :precision => 2)}  #{(@fund.currency.name.eql?('Unspecified') ? "" : @fund.currency.name )if @fund.currency}": nil if event.amount_closed )) %>
+		    <%= content_tag(:td, ("#{number_with_precision(event.target, :precision => 2) if event.target} #{(@fund.currency.name.eql?('Unspecified') ? "" : @fund.currency.name )if @fund.currency}"  )) %>
+		    <%= content_tag(:td) do %>
+			    <% if event.final_close %>
+			      <%= (event.final_close == "true" ? "Yes" : "No") %>
+				<% end %>
+		    <% end %>
+			<%= content_tag(:td, (link_to( ( image_tag("trash.png") ), {}, { :href => "javascript:void(0)", "fund-event-id" => event.id, :class => "delete_fund_event" } ) ) ) %>
+			<% end %><!-- tr-->
+		<% end %>
+    <% end %><!-- table-->
+    <%= content_tag(:table, {:class => "form-left form-left-new"}) do %>
+	     <%= content_tag(:tr) do %>
+         <%= content_tag(:td,content_tag(:div,(link_to "Add Fund Event",{},{ :href => "/funds/new_fund_event?fund_id=#{@fund.id}", :class => "color_box" }),{:class => "f-button"})) %>
+         <% end %>
+    <% end %><!-- table-->
+
+
+
+
+1.layout we want to change
+2.table v getfrom above, want to show pop
+
+
+
+		<%= content_tag(:td, (fund.lp_trade.commitment if fund.lp_trade)) %>
+		<%= content_tag(:td, (fund.lp_trade.seller if fund.lp_trade)) %>
+		<%= content_tag(:td, (fund.lp_trade.sold if fund.lp_trade)) %>
+		<%= content_tag(:td, (fund.lp_trade.acquirer if fund.lp_trade)) %>
+		<%= content_tag(:td, (fund.lp_trade.nav if fund.lp_trade)) %>
+		<%= content_tag(:td, (fund.lp_trade.consideration_price if fund.lp_trade)) %>
+		<%= content_tag(:td, (fund.lp_trade.strftime("%B") if fund.lp_trade_date)) %>
+		 <%= content_tag(:td, (fund.lp_trade.strftime("%Y") if fund.lp_trade_date)) %>
+
+
+
+		<% @lp_trades.each do |event|%>
+			<%= content_tag(:tr, { :class => "fund_events #{cycle('odd', 'even')} " }) do %>
+			<%  if event.lp_trade%>
+			<%= content_tag(:td, (link_to event.lp_trade.name,edit_fund_event_funds_path(:lp_trade_id=> lptrade.id,:fund_id => @fund.id),{"fund-event-id" => event.id,:class => "edit_fund_event",:class => "color_box" })  )%>
+			<% end %>
+		
+
+		<%= content_tag(:td, (fund.lp_trade.commitment if fund.lp_trade)) %>
+		<%= content_tag(:td, (fund.lp_trade.seller if fund.lp_trade)) %>
+		<%= content_tag(:td, (fund.lp_trade.sold if fund.lp_trade)) %>
+		<%= content_tag(:td, (fund.lp_trade.acquirer if fund.lp_trade)) %>
+		<%= content_tag(:td, (fund.lp_trade.nav if fund.lp_trade)) %>
+		<%= content_tag(:td, (fund.lp_trade.consideration_price if fund.lp_trade)) %>
+		<%= content_tag(:td, (fund.lp_trade.strftime("%B") if fund.lp_trade_date)) %>
+		 <%= content_tag(:td, (fund.lp_trade.strftime("%Y") if fund.lp_trade_date)) %>
+	
+		<!-- tr-->
+		<% end %>
+    <% end %><!-- table-->
+    <%= content_tag(:table, {:class => "form-left form-left-new"}) do %>
+	     <%= content_tag(:tr) do %>
+         <%= content_tag(:td,content_tag(:div,(link_to "Add LP trade",{},{ :href => "/funds/lp_trade?fund_id=#{@fund.id}", :class => "color_box" }),{:class => "f-button"})) %>
+         <% end %>
+    <% end %><!-- table-->
+
+
+
+
+
+want to generae a model lp trade in fund
+
+class Fund < ActiveRecord::Base
+
+  has_many :lp_trades
+
+end
+
+class FundEvent < ActiveRecord::Base
+
+  # relationships
+  belongs_to :fund
+
+
+end
+
+
+class FundEventType < ActiveRecord::Base
+
+  # relationships
+  has_many :fund_events
+
+  attr_accessible :name
+  scope :by_name , lambda { |name| { :conditions => ["name = ?", name] } }
+end
+~                                                                                                                                                        
+~                                                                                                                                                        
+~              
+
+class LpTrade < ActiveRecord::Base
+ belongs_to :fund
+
+
+#attr_accessible :fund_id, :fund_event_type_id,:event_date,:target,:amount_closed, :final_close
+
+
+attr_accessible :fund_id, :commitment,:seller,:sold,:nav,:consideration,:trade_date
+
+end
+
+
+=======================================================================
+
+20130529074204_create_fund_events.rb
+
+
+
+
+
+
+class CreateFundEvents < ActiveRecord::Migration
+  def change
+    create_table :fund_events do |t|
+      t.integer :fund_id
+      t.integer :fund_event_type_id
+      t.date :event_date
+      t.string :amount_closed
+      t.string :target
+      t.string :final_close
+      t.integer :created_by
+      t.integer :updated_by
+      t.timestamps
+    end
+  end
+end
+
+=======================================================================
+
+class CreateFundEvents < ActiveRecord::Migration
+  def change
+    create_table :lp_trades do |t|
+      t.integer :fund_id
+      t.date :event_date
+      t.string :commitment
+      t.string :seller
+      t.string :sold
+      t.string :acquirer
+      t.string :nav
+      t.string :consideration_price
+      t.integer :created_by
+      t.integer :updated_by
+      t.timestamps
+    end
+  end
+end
+
+=======================================================================
+
+controller
+
+
+ def new_fund_event
+    @fund=@site.funds.find(params[:fund_id])
+    @fund_event=FundEvent.new
+    @fund_event.final_close = @fund_event.final_close.blank? ? "false" : @fund_event.final_close
+    @form_action="create_fund_event"
+    render :partial => "form_fund_event"
+  end
+
+
+
+
+def lp_trade
+    @fund=@site.funds.find(params[:fund_id])
+    @fund_event=LpTrade.new
+    @form_action="create_fund_event"
+    render :partial => "form_fund_event"
+  end
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/funds/_form_fund_event.html.erb 
+
+
+
+want to create _form_lp_trade.html.erb

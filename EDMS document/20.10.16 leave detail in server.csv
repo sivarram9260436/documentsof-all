@@ -1,0 +1,800 @@
+'Adarshsingh','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Sick',5,5,5,0
+'Privileged',15,15,12,3
+'Optional',5,5,2,3
+'Aishwaryak','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Maternity',84,84,0,84
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Paternity',7,0,0,0
+'AJAYKARN','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Breavement',7,7,1,6
+'Sick',5,5,5,0
+'Privileged',15,15,15,0
+'Time Off',5,5,3,2
+'Optional',5,5,4,1
+'AnupamaK B','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Maternity',84,84,0,84
+'Comp Off',0,0,0,0
+'Paternity',7,0,0,0
+'Privileged',15,15,7,8
+'Time Off',5,5,0.5,4.5
+'Sick',5,5,2,3
+'Optional',5,5,2,3
+'ApoorvaSG','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Maternity',84,84,0,84
+'Comp Off',0,0,0,0
+'Privileged',15,15,10,5
+'Sick',5,5,2,3
+'Time Off',5,5,2,3
+'Optional',5,5,5,0
+'Paternity',7,0,0,0
+'AtulChandra','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Optional',5,5,1,4
+'Privileged',15,15,15,0
+'Sick',5,5,1,4
+'Time Off',5,5,2,3
+'BalamuruganN','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'B SathishKumar','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Time Off',5,5,2.5,2.5
+'Study Leave',7,7,0,7
+'Optional',5,5,3,2
+'Privileged',15,15,11,4
+'Sick',5,5,3,2
+'chaitrak','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Maternity',84,84,0,84
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Paternity',7,0,0,0
+'DeepaAdiga','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,84,24,60
+'Optional',5,5,1,4
+'Privileged',15,15,5,10
+'Paternity',7,0,0,0
+'Time Off',5,5,1,4
+'DhevasenapathiSubramaniyan','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Maternity',84,0,0,0
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Sick',5,5,4,1
+'Comp Off',0,0,0,0
+'FrankInfant','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'GirishKrishna','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Time Off',5,5,3.5,1.5
+'Optional',5,5,5,0
+'Sick',5,5,4,1
+'Privileged',15,15,13,2
+'Girish kulkarniKulkarni','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'HariI','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'HarishJarra','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Sick',5,5,1,4
+'Time Off',5,5,2,3
+'Privileged',15,15,10,5
+'Optional',5,5,3,2
+'HarshithaR','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Maternity',84,84,0,84
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Paternity',7,0,0,0
+'HemantSingh','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Maternity',84,0,0,0
+'Sick',5,5,1,4
+'Comp Off',0,0,0,0
+'hr','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Maternity',84,84,0,84
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'JagadeeswarDevalla','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Study Leave',7,7,0,7
+'Maternity',84,0,0,0
+'Sick',5,5,5,0
+'Privileged',15,15,15,0
+'Breavement',7,7,4,3
+'Time Off',5,5,5,0
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Optional',5,5,5,0
+'JeevanGathoo','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Privileged',15,15,9,6
+'Breavement',7,7,4,3
+'Sick',5,5,2,3
+'Optional',5,5,6,-1
+'Jegan R','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Maternity',84,0,0,0
+'Sick',5,5,3,2
+'Comp Off',1,1,1,0
+'Privileged',15,15,9,6
+'Optional',5,5,4,1
+'Time Off',5,5,2.5,2.5
+'KaveriMoger','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Maternity',84,84,0,84
+'Comp Off',0,0,0,0
+'Paternity',7,0,0,0
+'Optional',5,5,2,3
+'Time Off',5,5,0.5,4.5
+'Privileged',15,15,11,4
+'kumark','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Time Off',5,5,5,0
+'Optional',5,5,3,2
+'Breavement',7,7,1,6
+'Sick',5,5,4,1
+'Privileged',15,15,12,3
+'kumaresankesavan','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Sick',5,5,2,3
+'Privileged',15,15,5,10
+'Optional',5,5,4,1
+'K.V.V.Seshagiri Rao','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Time Off',5,5,5,0
+'Privileged',15,15,13,2
+'Sick',5,5,1,4
+'Breavement',7,7,2,5
+'Optional',5,5,4,1
+'LoganathanG','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Privileged',15,15,6,9
+'Optional',5,5,2,3
+'Sick',5,5,1,4
+'Lokeshwaran','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Maternity',84,0,0,0
+'Comp Off',1,1,1,0
+'Sick',5,5,1,4
+'Optional',5,5,4,1
+'Privileged',15,15,14,1
+'Time Off',5,5,1.5,3.5
+'ManikchandMudliyar','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'mounishakannapureddy','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Maternity',84,84,0,84
+'Comp Off',0,0,0,0
+'Paternity',7,0,0,0
+'Optional',5,5,4,1
+'Sick',5,5,5,0
+'Privileged',15,15,12,3
+'Time Off',5,5,4,1
+'NANCYTHOMAS','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Maternity',84,84,0,84
+'Optional',5,5,0,5
+'Sick',5,5,3,2
+'Comp Off',0,0,0,0
+'Paternity',7,0,0,0
+'Time Off',5,5,0.5,4.5
+'Navin','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'NisargaJ','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Maternity',84,84,0,84
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Paternity',7,0,0,0
+'Time Off',5,5,0.5,4.5
+'Sick',5,5,1,4
+'NiteshNayan','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Time Off',5,5,5,0
+'Optional',5,5,4,1
+'Sick',5,5,5,0
+'Privileged',15,15,14,1
+'pavankadwadkar','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Maternity',84,84,0,84
+'Comp Off',0,0,0,0
+'Time Off',5,5,5,0
+'Sick',5,5,4,1
+'Optional',5,5,5,0
+'Privileged',15,15,15,0
+'Paternity',7,0,0,0
+'PavanNedium','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Privileged',15,15,8,7
+'Time Off',5,5,1.5,3.5
+'Sick',5,5,1,4
+'Breavement',7,7,0,7
+'Optional',5,5,6,-1
+'PiyushRaj','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Maternity',84,0,0,0
+'Sick',5,5,5,0
+'Comp Off',1,1,0,1
+'Optional',5,5,4,1
+'Privileged',15,15,15,0
+'Time Off',5,5,3.5,1.5
+'poojithaA','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Privileged',15,15,0,15
+'Study Leave',7,7,0,7
+'Maternity',84,84,0,84
+'Comp Off',0,0,0,0
+'Paternity',7,0,0,0
+'Breavement',7,7,1,6
+'Optional',5,5,1,4
+'Time Off',5,5,0.5,4.5
+'Sick',5,5,1,4
+'PranowOjha','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Sick',5,5,1,4
+'PresithPrakash','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Optional',5,5,5,0
+'Time Off',5,5,3.5,1.5
+'Sick',5,5,2,3
+'Privileged',15,15,11,4
+'PrithivirajanS','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Sick',5,5,1,4
+'Optional',5,5,1,4
+'PriyaliHooda','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Maternity',84,84,0,84
+'Comp Off',0,0,0,0
+'Sick',5,5,5,0
+'Optional',5,5,3,2
+'Privileged',15,15,9,6
+'Time Off',5,5,3,2
+'Paternity',7,0,0,0
+'RabindraMaharana','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Maternity',84,0,0,0
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Sick',5,5,4,1
+'Time Off',5,5,1,4
+'Comp Off',2,2,2,0
+'Optional',5,5,3,2
+'Privileged',15,15,2,13
+'RachnaKumari','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Maternity',84,84,0,84
+'Comp Off',0,0,0,0
+'Paternity',7,0,0,0
+'Optional',5,5,4,1
+'Sick',5,5,5,0
+'Privileged',15,15,15,0
+'Time Off',5,5,5,0
+'RaghavendraV','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Maternity',84,0,0,0
+'Time Off',5,5,4.5,0.5
+'Sick',5,5,3,2
+'Paternity',7,7,0,7
+'Optional',5,5,5,0
+'Comp Off',1,1,0,1
+'Privileged',15,15,11,4
+'Rajkumar','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Sick',5,5,4,1
+'Time Off',5,5,5,0
+'Optional',5,5,3,2
+'Privileged',15,15,15,0
+'RamkumarP','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Time Off',5,5,0.5,4.5
+'Sick',5,5,2,3
+'RavikumarA','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Optional',5,5,1,4
+'Sick',5,5,4,1
+'Privileged',15,15,3,12
+'ravishankarkumar','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Sick',5,5,3,2
+'Privileged',15,15,15,0
+'Time Off',5,5,2.5,2.5
+'Rithi M','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,4,1
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Maternity',84,84,0,84
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Paternity',7,0,0,0
+'Ritika','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Maternity',84,84,0,84
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Paternity',7,0,0,0
+'Sick',5,5,2,3
+'SaawanSherkhane','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Optional',5,5,1,4
+'samykkannuazhagu','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Optional',5,5,2,3
+'Privileged',15,15,13,2
+'SathishKumar','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Sick',5,5,2,3
+'Time Off',5,5,2.5,2.5
+'Optional',5,5,2,3
+'Privileged',15,15,13,2
+'Sathish kumarV','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Sick',5,5,1,4
+'SenthilKumar','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Optional',5,5,2,3
+'Privileged',15,15,3,12
+'ShilpaT R','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Study Leave',7,7,0,7
+'Maternity',84,84,0,84
+'Comp Off',0,0,0,0
+'Privileged',15,15,7,8
+'Breavement',7,7,7,0
+'Sick',5,5,2,3
+'Optional',5,5,4,1
+'Paternity',7,0,0,0
+'Time Off',5,5,0.5,4.5
+'SiddharthaMani','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Time Off',5,5,3,2
+'Privileged',15,15,12,3
+'Optional',5,5,4,1
+'Sick',5,5,2,3
+'SivaramG','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'SouvikMukherjee','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Time Off',5,5,1,4
+'Optional',5,5,3,2
+'Privileged',15,15,11,4
+'SreeragA V','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Privileged',15,15,4,11
+'Sick',5,5,1,4
+'Optional',5,5,4,1
+'Time Off',5,5,0.5,4.5
+'Sumitha','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Study Leave',7,7,0,7
+'Maternity',84,84,0,84
+'Comp Off',0,0,0,0
+'Paternity',7,0,0,0
+'Time Off',5,5,4,1
+'Sick',5,5,4,1
+'Privileged',15,15,5,10
+'Optional',5,5,5,0
+'Breavement',7,7,1,6
+'SwapnilShilpa','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Maternity',84,84,0,84
+'Comp Off',0,0,0,0
+'Privileged',15,15,9,6
+'Time Off',5,5,2,3
+'Sick',5,5,3,2
+'Optional',5,5,2,3
+'Paternity',7,0,0,0
+'SyedTousif','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Maternity',84,0,0,0
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Privileged',15,15,3,12
+'Sick',5,5,3,2
+'Optional',5,5,2,3
+'TamilarasanC','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Time Off',5,5,3,2
+'Optional',5,5,3,2
+'Sick',5,5,2,3
+'Privileged',15,15,11,4
+'ThusharaGN','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Maternity',84,84,0,84
+'Comp Off',0,0,0,0
+'Paternity',7,0,0,0
+'Sick',5,5,2,3
+'Optional',5,5,1,4
+'Time Off',5,5,1,4
+'TippuShaik','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Sick',5,5,1,4
+'Umesh','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Paternity',7,7,3,4
+'Optional',5,5,1,4
+'Sick',5,5,1,4
+'Time Off',5,5,1,4
+'Privileged',15,15,2,13
+'UttamPramank','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Sick',5,5,3,2
+'Time Off',5,5,0.5,4.5
+'Optional',5,5,2,3
+'Privileged',15,15,8,7
+'Vaidheeswaran D','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Sick',5,5,3,2
+'Optional',5,5,1,4
+'Time Off',5,5,0.5,4.5
+'Privileged',15,15,3,12
+'Venkata Pavan Chandra MouliVallabhaneni','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Sick',5,5,1,4
+'VenuH','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Maternity',84,0,0,0
+'Breavement',7,7,2,5
+'Optional',5,5,4,1
+'Time Off',5,5,3.5,1.5
+'Sick',5,5,3,2
+'Comp Off',2,2,2,0
+'Privileged',15,15,14,1
+'VidyashreeR','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Maternity',84,84,0,84
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Paternity',7,0,0,0
+'VijayKumar','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Sick',5,5,0,5
+'Study Leave',7,7,0,7
+'Privileged',15,15,5,10
+'Time Off',5,5,1,4
+'Optional',5,5,0,5
+'VINOTHKUMAR','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Optional',5,5,3,2
+'Privileged',15,15,11,4
+'Vinoth Kumar s','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Privileged',15,15,10,5
+'Sick',5,5,3,2
+'Breavement',7,7,1,6
+'Maternity',84,0,0,0
+'vishnuprabhakar','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Maternity',84,0,0,0
+'Sick',5,5,4,1
+'Optional',5,5,2,3
+'Comp Off',2,2,2,0
+'Time Off',5,5,1,4
+'Privileged',15,15,15,0
+'YUVARAJARAMASAMY','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Paternity',7,7,0,7
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0
+'Sick',5,5,2,3
+'Optional',5,5,4,1
+'Privileged',15,15,7,8
+'Time Off',5,5,1,4
+'""','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Maternity',84,84,0,84
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'""','Total Leaves','Eligible Leaves','Availed','Available Balance'
+'Sick',5,5,0,5
+'Privileged',15,15,0,15
+'Breavement',7,7,0,7
+'Study Leave',7,7,0,7
+'Time Off',5,5,0,5
+'Paternity',7,7,0,7
+'Optional',5,5,0,5
+'Comp Off',0,0,0,0
+'Maternity',84,0,0,0

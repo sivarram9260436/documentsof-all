@@ -1,0 +1,63 @@
+class PerHourRead
+def self.update_read_and_most_read_count
+  dir_path = "/home/ruby/new_one_hour_log"
+  articles_count = {}
+  sources=Source.all.collect{|s| Regexp.escape(s.alais_name)}.join("|")
+  sections=Section.all.collect{|ss| Regexp.escape(ss.alias_name)}.join("|")
+  sections << "|"
+  sections << Blog.all.collect{|sss| Regexp.escape(sss.url_part)}.join("|")
+   begin
+     Dir["#{dir_path}/*.hour"].each do | filename |
+       input = IO.popen("tac #{filename}","r")
+       puts"==========================================================#{filename}"
+       input.each do |line|
+         line=~/^\d+\.\d+\.\d+\.\d+\s\[(.+)\].*/i
+         if line.match(/^\d+\.\d+\.\d+\.\d+\s\[(.+)\].*\/(#{sources})\/(#{sections})\/(\d+)\/[^\/]+\sHTTP.*"\s200.*/i)	  
+         #if line.match(/^\d+\.\d+\.\d+\.\d+\s\[(.+)\].*\/(#{sections})\/.*-(\d+)\sHTTP.*"\s200.*/i)
+            articles_count[$4.to_i] = ( articles_count[$4.to_i] ) ?  articles_count[$4.to_i]+1 : 1 if  $4
+         end
+         
+         if line.match(/^\d+\.\d+\.\d+\.\d+\s\[(.+)\].*\/*GET\s(\/digital_assets\/(\d+)\/.*.pdf)+\sHTTP.*"\s200.*/i)
+             digital=DigitalAsset.find_by_id $3
+             if digital
+                digital.download_count = digital.download_count + 1 if not digital.download_count.blank?
+                digital.download_count = 1 if digital.download_count.blank?
+                digital.save
+             end
+         end
+
+        end
+       input.close_read if not input.closed?
+        FileUtils.rm "#{filename}"
+#       FileUtils.mv("#{filename}","#{dir_path}/processed_log/")
+     end
+   rescue Exception => e
+   end
+  articles_count.sort.each do | v |
+    article=Article.find v[0] rescue nil
+    if !article.blank? and !article.sites.blank?
+       puts"---------------------------------------------#{article.id}"
+       MostReadPerHour.create(:data_proxy_id=>article.sites.first.data_proxy_id,:article_id=>v[0],:most_read_count=>v[1])
+       Article.update_all("read_count = #{v[1].to_i+article.read_count.to_i}","id = #{article.id}")
+       end
+    end
+    start_time=(Time.now - 7.days).strftime("%Y-%m-%d %H:%M:%S")
+    end_time = Time.now.strftime("%Y-%m-%d %H:%M:%S")
+%w{nation_news}.each do | s |
+site = Site.find_by_short_name "#{s}"
+    hour_counts = MostReadPerHour.find_by_sql("select data_proxy_id, article_id, sum(most_read_count) as read_count from most_read_per_hours where created_at >= '#{start_time}' and created_at <= '#{end_time}' and data_proxy_id = '#{site.data_proxy_id}' group by data_proxy_id, article_id order by read_count DESC limit 20")
+    site.articles.update_all("most_read = 0")
+      hour_counts.each do | article |
+      Article.update_all("most_read = #{article.read_count.to_i}","id = #{article.article_id}")	 
+     end 
+   end
+end
+def self.update_most_read_per_day
+    start_time = Date.yesterday.strftime("%Y-%m-%d 00:00:00")
+    end_time = Date.yesterday.strftime("%Y-%m-%d 23:59:59")
+    daily_counts = MostReadPerHour.find_by_sql("select data_proxy_id, article_id, sum(most_read_count) as read_count from most_read_per_hours where created_at >= '#{start_time}' and created_at <= '#{end_time}' group by data_proxy_id, article_id")
+    daily_counts.each do |day_count|
+      MostReadPerDay.create(:data_proxy_id => day_count.data_proxy_id, :article_id => day_count.article_id, :most_read_count => day_count.read_count, :created_at => start_time)
+    end
+  end
+end

@@ -1,0 +1,98 @@
+<!--country type start-->
+<div id="country" data-trigger="#countryTrigger" class="jqmDialog jqdialogm jqmID3 jqmID4" style="width:550px;">
+    <div class="jqmdTL">
+        <div class="jqmdTR">
+            <div class="jqmdTC jqDrag">
+                Country
+            </div>
+        </div>
+    </div>
+    <div class="jqmdBL">
+        <div class="jqmdBR">
+            <div class="jqmdBC">
+                <div class="jqmdMSG">
+                    <div class="form_box_main">
+                        <fieldset>
+                            <div class="form_box form_box_width">
+                                <div class="form_box_inner">
+                                    <h1>Continent</h1>
+                                    <select multiple="multiple" class="field_design2" size="8" name="continentList" id="continentList">
+
+                                        <% @continents.sort_by{|e| e.name}.each do |continent| %>
+                                            <%= content_tag(:option, continent.name, { :value => continent.id }) %>
+                                        <% end %> <!-- continet end -->
+
+                                    </select>
+                                    <div class="select_btn">
+                                        <a class="select_all_country_box" data-selectdropdown="continentList" data-callfunction="fillRegion_SubRegion" href="javascript:void(0)">Select All</a>
+                                        <a class="cleardropdownslist" href="javascript:void(0)" data-cleardropdown="#continentList,#regionList,#subregionList,#countryList" style="float:right">Clear All</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                            <div class="form_box2 form_box_width">
+                                <div class="form_box_inner">
+                                    <h1>Region</h1>
+                                    <select multiple="multiple" class="field_design2" size="8" name="regionList" id="regionList">
+
+
+                                    </select>
+                                    <div class="select_btn">
+                                        <a class="select_all_country_box" data-selectdropdown="regionList" data-callfunction="fillSubRegion_Country_onRegionClick" href="javascript:void(0)">Select All</a>
+                                        <a class="cleardropdownslist" href="javascript:void(0)" data-cleardropdown="#regionList,#subregionList,#countryList" style="float:right">Clear All</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <div class="form_box form_box_width">
+                                <div class="form_box_inner">
+                                    <h1>Sub Region</h1>
+                                    <select multiple="multiple" class="field_design2" size="8" name="subregionList" id="subregionList">
+
+                                    </select>
+                                    <div class="select_btn">
+
+                                        <a class="select_all_country_box" data-selectdropdown="subregionList" data-callfunction="fillSubRegion_Country" href="javascript:void(0)">Select All</a>
+                                        <a class="cleardropdownslist" href="javascript:void(0)" data-cleardropdown="#subregionList,#countryList" style="float:right">Clear All</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                            <div class="form_box2 form_box_width">
+                                <div class="form_box_inner">
+                                    <h1>Country</h1>
+                                    <select multiple="multiple" class="field_design2" size="8" name="countryList" id="countryList">
+
+
+                                    </select>
+                                    <div class="select_btn">
+
+                                        <a class="select_all_country_box" data-selectdropdown="countryList" data-callfunction="" href="javascript:void(0)">Select All</a>
+                                        <a class="cleardropdownslist" href="javascript:void(0)" data-cleardropdown="#countryList" style="float:right">Clear All</a>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="spacer" style="background:#D9E8FB; margin-bottom:5px;"></div>
+
+                <input style="float:right; margin-right:0" class="new_btn jqmClose" value="Cancel" type="reset">
+                <input style="float:right;" class="new_btn jqmClose set_value_type" value="Save" data-getdropdown="countryList" data-displayInput="Country_Type" data-hiddenInput="Country_Type1" type="button" data-clearfield="true" data-clearInputfields="#Country_Type,#Country_Type1">
+                <div class="clear"></div>
+                <div class="spacer_10"></div>
+            </div>
+        </div>
+    </div>
+    <%= image_tag("close.gif",:alt=>"first",:class=>"jqmdX jqmClose") %>
+    <div id="country_json"></div>
+    <div class="loading_indicator_json" style="display:none;">
+        <img alt="loading" src="/images/ajax-loader_josn.gif">
+    </div>
+</div>
+<!--country type end-->
+

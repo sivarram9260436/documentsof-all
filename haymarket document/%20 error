@@ -1,0 +1,96 @@
+
+//////
+
+Started GET "/category/passenger-vehicles/page/605" for 180.210.206.177 at 2017-06-30 10:52:16 +0530
+  Processing by Wps::PagesController#listing as HTML
+  Parameters: {"path"=>"/category/passenger-vehicles/page/605"}
+====check_url==============/category/passenger-vehicles/page/605==============
+ ---- rem checking
+ -- rem -- nil -- nil --- nil
+-------------------@listing_page = #<UserDefinedListing id: 66, site_id: nil, template_type: nil, page_name: "Passenger-category-page", layout: "/layouts/autocar_pro", menu_id: nil, asset_group_id: 63, presentation_proxy_id: 3, active: true, url: "/category/passenger-vehicles", template: "category_page", type: "UserDefinedListing", copied_from: nil, blog_id: nil, layout_required: true, created_at: "2014-01-08 09:42:44", updated_at: "2014-01-25 06:35:43", cache: true>----------------
+-------------------@context = {:@category=>#<Category id: 229, parent_id: 0, name: "Passenger Vehicles", full_name: "Passenger Vehicles", full_alias_name: "passenger-vehicles", alias_name: "passenger-vehicles", sequence_number: nil, created_by: nil, updated_by: nil, created_at: "2014-01-07 07:31:19", updated_at: "2014-01-24 16:08:15", copied_from: nil, css: nil>}----------------
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_image.html.erb (58.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/comp/_section_map_to_list_page.html.erb (5.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_title.html.erb (7.6ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_author_date.html.erb (5.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_desc.html.erb (2.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/article_pages/partials/_social_list_list.html.erb (5.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_image.html.erb (73.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/comp/_section_map_to_list_page.html.erb (0.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_title.html.erb (3.6ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_author_date.html.erb (3.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_desc.html.erb (1.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/article_pages/partials/_social_list_list.html.erb (2.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_image.html.erb (63.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/comp/_section_map_to_list_page.html.erb (0.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_title.html.erb (3.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_author_date.html.erb (3.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_desc.html.erb (1.6ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/article_pages/partials/_social_list_list.html.erb (2.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_image.html.erb (18.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/comp/_section_map_to_list_page.html.erb (0.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_title.html.erb (3.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_author_date.html.erb (3.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_desc.html.erb (1.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/article_pages/partials/_social_list_list.html.erb (2.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_image.html.erb (21.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/comp/_section_map_to_list_page.html.erb (0.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_title.html.erb (3.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_author_date.html.erb (3.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_desc.html.erb (1.6ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/article_pages/partials/_social_list_list.html.erb (3.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_image.html.erb (61.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/comp/_section_map_to_list_page.html.erb (0.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_title.html.erb (3.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_author_date.html.erb (3.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_article_desc.html.erb (1.6ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/article_pages/partials/_social_list_list.html.erb (3.2ms)
+=============request.querystring ===========/category/passenger-vehicles/=====
+=============request.querystring ===========/category/passenger-vehicles/page/2=====
+=============request.querystring ===========/category/passenger-vehicles/page/604=====
+=============request.querystring ===========/category/passenger-vehicles/page/606=====
+=============request.querystring ===========/category/passenger-vehicles/page/604=====
+=============request.querystring ===========/category/passenger-vehicles/page/606=====
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_common_pagination.html.erb (3.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_category_page.html.erb (483.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/decoration/_decoration_yield.html.erb (0.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_container.html.erb (2672.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/category_page.html.erb within /layouts/autocar_pro (2681.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_seo_keys.html.erb (3.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_styles.html.erb (7.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_open_graph.html.erb (1.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_google_analytics.html.erb (0.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_social_media_script.html.erb (0.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_header_script_for_ad.html.erb (2.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_header_ad_responsive.html.erb (0.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_header_search.html.erb (2.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_login_links.html.erb (7.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_top_leaderboard.html.erb (1.9ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_header_leader_banner.html.erb (3.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_menus.html.erb (133.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_header_top_leader.html.erb (1.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_header.html.erb (196.0ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_middle_banner.html.erb (29.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_top_mpu1_homepage.html.erb (1.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_top_mpu2_homepage.html.erb (1.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_left_mpu.html.erb (1.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_container_right_response.html.erb (492.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_buttom_mpu_2_homepage.html.erb (1.8ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_right_common.html.erb (507.2ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/advers/_footer_leader_banner.html.erb (1.6ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_subscribe_newsletter.html.erb (2.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_footer_small_device.html.erb (3.2ms)
+=========2222222222222222222111v===============
+===666666666======111111111111v===============
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_fragment_content.html.erb (3.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/decoration/_decoration_yield.html.erb (0.1ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/listing_pages/partials/_container.html.erb (92.5ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_footer.html.erb (117.7ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/layouts/_javascripts.html.erb (6.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/authentication/_login_form.html.erb (55.4ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/authentication/_forget_password_form.html.erb (2.3ms)
+Rendered /home/ruby/CMS/Sites/autocar_pro/views/authentication/_registration_form.html.erb (31.8ms)
+cache ---- true ---- true ---- true ---- true ---- 200
+Completed 200 OK in 3818ms (Views: 1360.6ms | ActiveRecord: 2357.0ms | Solr: 0.0ms)
+
+

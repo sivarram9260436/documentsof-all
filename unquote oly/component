@@ -1,0 +1,47 @@
+@site.define_component('article_list',
+           :data_string=>%q{Article.by_site(@site.id).by_section_type("Article").updated_at_not_null.paginate(:all,:order=>sort_clause,:per_page =>sessn[:per_page],:page => params[:page])  },
+           :partial => '/admin/articles/article',
+           :xhtml_id => 'article_list',
+           :title => '',
+           :empty_message => '',
+           :error_message => 'Information currently unavailable',
+           :hide => false,
+           :hide_on_empty => false,
+           :hide_on_error => false,
+           :decoration => 'admin/decoration/decoration_article_list',
+           :data_as => :collection,
+           :pagination => true,
+           :header => @site.sources.length > 1 ? ['Article ID','Title','Source','Content type','Status','Author','Last Modified','Preview'] : ['ArticleD','Title','Content type','Status','Author','Last Modified','Preview'],
+           :sort_list =>{"Article ID"=>"id","Title"=>"title","Last Modified"=>"updated_at"}
+            )
+
+
+
+:value=>(@article and @article.tweet_text)
+
+
+
+:value => (@subscriber.subscriber_property.address1 if !@subscriber.subscriber_property.blank?),
+
+            <%= text_field 'subscriber_property', 'address1',:value => (@subscriber.subscriber_property.address1 if !@subscriber.subscriber_property.blank?),:class=>'textBoxWidth'%>
+
+
+ <%= text_field 'subscriber_property', 'Job_title',:value => (@subscriber.subscriber_property.Job_title if !@subscriber.subscriber_property.blank?),:class=>'textBoxWidth' %>
+
+
+<%= text_field 'subscriber_property', 'address2',:value => (@subscriber.subscriber_property.address2 if !@subscriber.subscriber_property.blank?),:class=>'textBoxWidth'%>
+
+<%= text_field 'subscriber_property', 'phone',:value => (@subscriber.subscriber_property.phone if !@subscriber.subscriber_property.blank?),:class=>'textBoxWidth'%>
+
+<%= text_field 'subscriber_property', 'fax',:value => (@subscriber.subscriber_property.fax if !@subscriber.subscriber_property.blank?),:class=>'textBoxWidth'%>
+
+<%= text_field 'subscriber_property', 'postal_code',:value => (@subscriber.subscriber_property.postal_code if@subscriber.subscriber_property.blank),:class=>'textBoxWidth'>
+
+<%= text_field 'subscriber_property', 'address1',:value => (@subscriber.subscriber_property.address1 if !@subscriber.subscriber_property.blank?),:class=>'textBoxWidth'%>
+
+
+
+
+
+
+:postal_code => params[:subscriber_property][:postal_code]

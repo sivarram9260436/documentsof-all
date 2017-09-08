@@ -1,0 +1,79 @@
+
+new_managed_account
+
+def new_managed_account
+@institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @managed_account=ManagedAccount.new
+    @form_action1="create_managed_account"
+    render :partial => "form_managed_account"
+ end
+
+
+
+
+def create_managed_account
+@institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+@managed_account = @institution_company.managed_accounts.new(params[:managed_account_id])
+    if @managed_account.save
+    render :partial => "add_managed_account"                                                
+    else
+     render :text => "error"
+    end
+end
+
+def edit_managed_account
+@institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @managed_account=ManagedAccount.find(params[:managed_account_id])
+    @form_action1="update_managed_account"
+    render :partial => "form_managed_account"
+  end
+
+
+
+def update_managed_account
+@institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @managed_account=ManagedAccount.find(params[:managed_account_id])
+      managed_account =@managed_account.update_attributes(params[:managed_account])
+if @managed_account.save
+    render :partial => "add_managed_account"
+ else
+     render :text => "errors"
+    end
+  end
+
+ def remove_managed_account
+@institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @managed_account=ManagedAccount.find(params[:managed_account_id])
+    event.delete
+    render :text => "deleted"
+end
+       
+
+##@dry_powder_events = @fund.dry_powders.order("date asc") || @fund.create_dry_powder_events
+
+@managed_account = @institution_company.managed_accounts.order("date asc") || @institution_company.create_managed_accounts
+
+
+      get "new_managed_account"
+      get "edit_managed_account"
+      post "create_managed_account"
+      post "update_managed_account"
+      post "remove_managed_account"
+
+
+<% @managed_account.each do |event|%>
+        <%= content_tag(:tr, { :class => "fund_events #{cycle('odd', 'even')} " }) do %>
+          
+            <%= content_tag(:td, (event.manager if event.manager)) %>
+            <%= content_tag(:td, (event.size if event.size)) %>
+           
+            <%= content_tag(:td, (link_to( ( image_tag("trash.png") ), {}, { :href => "javascript:void(0)", "managed-account-id" => event.id, :class => "delete_managed_account" } ) ) ) %>
+        <% end %><!-- tr-->
+    <% end %>
+<% end %><!-- table-->
+<%= content_tag(:table, {:class => "form-left form-left-new"}) do %>
+    <%= content_tag(:tr) do %>
+        <%= content_tag(:td,content_tag(:div,(link_to "Add Managed Accounts",{},{ :href => "/institutions/new_managed-account?institution_company_id=#{@institution_company_id.id}", :class => "color_box" }),{:class => "f-button"})) %>
+    <% end %>
+<% end %><!-- table-->
+

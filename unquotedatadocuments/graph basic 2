@@ -1,0 +1,91 @@
+{
+    "chart": {
+        "xaxisname": "Months",
+        "yaxisname": "Sales",
+        "caption": "Cumulative Sales",
+        "subcaption": "(From Dec-03 to Dec-04)",
+        "animation": "1",
+        "numdivlines": "2",
+        "numberprefix": "$",
+        "showvalues": "0",
+        "yaxisminvalue": "-2000",
+        "showborder": "0"
+    },
+    "categories": [
+        {
+            "category": [
+                
+                {
+                    "label": "Dec-04",
+                    "showlabel": "1"
+                }
+            ]
+        }
+    ],
+    "dataset": [
+        {
+            "seriesname": "Product1",
+            "color": "0080C0",
+            "data": [
+                {
+                    "value": "810"
+                }
+            ]
+        },
+        {
+            "seriesname": "Product2",
+            "color": "008040",
+            "data": [
+                {
+                    "value": "380"
+                },
+                
+            ]
+        },
+        {
+            "seriesname": "Product3",
+            "color": "FFFF00",
+            "data": [
+                {
+                    "value": "220"
+                }
+            ]
+        },
+        {
+            "seriesname": "Product4",
+            "color": "800080",
+            "data": [
+                {
+                    "value": "0"
+                }
+            ]
+        },
+        {
+            "seriesname": "Product5",
+            "color": "EB59CB",
+            "data": [
+                {
+                    "value": "0"
+                }
+            ]
+        },
+        {
+            "seriesname": "Cancelled",
+            "color": "FFCC00",
+            "data": [
+                {
+                    "value": "-50"
+                }
+            ]
+        },
+        {
+            "seriesname": "Deleted",
+            "color": "FF0000",
+            "data": [
+                {
+                    "value": "-180"
+                }
+            ]
+        }
+    ]
+}

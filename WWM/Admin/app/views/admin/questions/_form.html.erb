@@ -1,0 +1,232 @@
+<%#=form_for :question,@question, :url => {:action => (@question.new_record?) ? "create" : "update", :id => @question} do |f| -%>
+<div id="container">
+	<div class="section_block full_section">
+		<h2><%= @page_properties[:menu_title] %></h2>
+		<div class="article_new_main">
+			<%= form_for :question, :url => {:action => (@question.new_record?) ? "create" : "update", :id => @question.id} do |f| -%>
+			<%#= semantic_form_for ([:admin,@question]) do |f| %>
+			<div class="validation_box">
+				<%=raw error_messages_sorted(@question)%>
+			</div>
+			<%= f.hidden_field :entity_type, :value => 'Company' if ( params[:campaign_id] || params[:company_id] ) %>
+			<%= f.hidden_field :entity_id, :value => ( (@campaign.company.id if @campaign and  @campaign.company) || params[:company_id] ) if( params[:campaign_id] || params[:company_id] ) %>
+			<%= hidden_field_tag(:campaign_id, params[:campaign_id]) if params[:campaign_id] %>
+			<%= hidden_field_tag(:company_id, params[:company_id]) if params[:company_id] %>
+			<div class="form_data">
+				<label for="question_name">Question Text <span>*</span>:</label>
+				<%= f.text_field :name,:class=>'input_text',:size=>30 %>
+			</div>
+			
+			<div class="form_data">
+				<label for="question_prefilled_field_hint">Prefilled Field Hint:</label>
+				<%= f.text_field :prefilled_field_hint,:class=>'input_text',:size=>30 %>
+			</div>
+			<div class="form_data">
+				<label for="question_type">Select a Type of Question <span>*</span>:</label>
+				<%= f.select 'type',QUESTION_TYPES,{:include_blank => "Select"},:class => 'select_box question_change_type'%>
+			</div>
+			<div class="form_data" id="field_length_field">
+				<label for="inp_filed">Input Field Length:</label>
+				<%= f.text_field :input_field_length,:class=>'input_text',:size=>30,:id=>"inp_filed"%>
+			</div>
+			<div class="form_data">
+				<label for="question_verification_method_id">Verification Method:</label>
+				<%#=f.input :verification_method_id,:as => :select,:collection => ["Telephone number","Email"],:label=>"Verification Method:",:prompt => "select" %>
+				<%= f.select 'verification_method_id', VERIFICATION_METHOD.keys, {:include_blank => "Select",:selected => @verification_method ? @verification_method.name : ''},:onchange=>"verification_method_name(this)",:class => 'select_box'%>
+			</div>
+			<% unless( @verification_method.nil? ? true : @verification_method.name.blank?) %>
+			<div class="form_data" id = "verification">
+				<label for="text_head"> Enter Message:</label>
+				<%= text_field_tag 'verification_method_message','',:class=>'input_text',:size=>30 ,:value=> @verification_method.message %>
+			</div>
+			<%else %>
+			<div class="form_data" id="verification">
+				<label for="text_head"> Enter Message:</label>
+				<%= text_field_tag 'verification_method_message','',:class=>'input_text',:size=>30,:id=>"message_ver" %>
+			</div>
+			<%end %>
+			<div class="form_data" id='max_char' style='display:none'>
+				<label for="text_head"> Maximum Length <span>*</span>:</label>
+				<%= f.text_field :max_length,:maxlength =>4,:class=>'input_text',:size=>30 %>
+			</div>
+			<div class="form_data" id='max_val' style='display:none'>
+				<label for="text_head">Maximum Value <span>*</span>:</label>
+				<%= f.text_field :max_number,:class=>'input_text',:size=>30 %>
+			</div>
+			<div class="form_data" id='min_val' style='display:none'>
+				<label for="text_head">Minimum Value <span>*</span>:</label>
+				<%= f.text_field :min_number,:class=>'input_text',:size=>30 %>
+			</div>
+			<div class="form_data" id='allow_others' style='display:none'>
+				<label for="text_head">Allow Others:</label>
+				<%= f.check_box :allow_others %>
+			</div>
+			<div class="form_data" id='positive_val' style='display:none'>
+				<label for="text_head">Positive Value:</label>
+				<% value = @question.new_record?  ? '' :  ( @question.options.first.positive_value unless @question.options.blank?) %>
+				<%= text_field :boolean, :positive_value, :value => value, :class=>'input_text', :name =>'question[boolean][positive_value]'%>
+			</div>
+			<div class="form_data" id='negative_val' style='display:none'>
+				<label for="text_head">Negative Value:</label>
+				<% value = @question.new_record?  ? '' :  ( @question.options.first.negative_value unless @question.options.blank?) %>
+				<%= text_field :boolean, :negative_value, :value => value, :class=>'input_text', :name =>'question[boolean][negative_value]', :size=>30,:id=>"neg_number" %>
+				<%= render :partial => '/admin/questions/option', :collection => @question.options %>
+			</div>
+			<div class="form_data">
+				<ul style="list-style-type:none;font-size:1.2em;" id='add_option_txt_field'>
+					<%= render :partial => '/admin/questions/option', :collection => @question.options %>
+					<li></li>
+				</ul>
+			</div>
+			<div id='add_option'>
+				<a id="option" href="javascript:void(0)">Add Option</a>
+			</div>
+			<div class="common_listing_button">
+				<ul>
+					<!--li class="button">
+					<a id="option" href="javascript:void(0)">Add Option</a>
+					</li-->
+					<li class="button">
+						<%= submit_tag (@question and @question.new_record?) ? 'Save' : 'Update' %>
+					</li>
+					<li class="button">
+						<%= link_to("Cancel",{:controller=>"admin/questions",:action => "index"}) %>
+					</li>
+				</ul>
+			</div>
+			<%end %>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		jQuery("#add_option #option").click(function() {
+			var add_option = "<li class='option'> <nobr> Option: <input type='text' size='30' name='question[new_options][][name]' id='question_new_options__name' class='input_text'> <a href='javascript:void(0);' class='remove'><img height='15' src='/images/cancel_f2.png' alt='Remove'></a></nobr></li>";
+			jQuery("#add_option_txt_field li:last").after(add_option);
+		});
+	});
+
+	jQuery("#add_option_txt_field .remove").live("click", function() {
+		jQuery(this).parent().parent("li").remove();
+	});
+
+</script>
+<script type="text/javascript">
+	//  change_properties('')
+jQuery(document).ready(function(){
+jQuery('.question_change_type').change(function(){
+	
+var question_type = jQuery(this).find('option:selected').attr('value');
+
+
+	// alert('question_type='+question_type);
+	switch (question_type) {
+	case '':
+	hide_and_disable([], ['input_field_length','negative_val', 'positive_val', 'max_char', 'field_length_label', 'field_length_field','verification'], false)
+	break
+	case 'TextQuestion':
+	hide_and_disable(['max_char', 'field_length_label', 'field_length_field'], ['negative_val', 'positive_val', 'max_val', 'min_val', 'allow_others'], false)
+	break
+	case 'TextBlockQuestion':
+	hide_and_disable(['max_char', 'field_length_label', 'field_length_field'], ['negative_val', 'positive_val', 'max_val', 'min_val', 'allow_others'], false)
+	break
+	case 'NumberQuestion':
+	hide_and_disable(['max_val', 'min_val', 'field_length_label', 'field_length_field'], ['negative_val', 'positive_val', 'max_char', 'allow_others'], false)
+	break
+	case 'DateQuestion':
+	hide_and_disable([], ['negative_val', 'positive_val', 'max_char', 'max_val', 'min_val', 'allow_others', 'field_length_label', 'field_length_field'], false)
+	break
+	case 'YearQuestion':
+	hide_and_disable([], ['negative_val', 'positive_val', 'max_char', 'max_val', 'min_val', 'allow_others', 'field_length_label', 'field_length_field'], false)
+	break
+	case 'SingleAnswerQuestion':
+	hide_and_disable(['allow_others'], ['negative_val', 'positive_val', 'max_char', 'max_val', 'min_val', 'field_length_label', 'field_length_field'], true)
+	break
+	case 'MultipleAnswerQuestion':
+	hide_and_disable(['allow_others'], ['negative_val', 'positive_val', 'max_char', 'max_val', 'min_val', 'field_length_label', 'field_length_field'], true)
+	break
+	case 'BooleanQuestion':
+	hide_and_disable(['negative_val', 'positive_val'], ['max_char', 'max_val', 'min_val', 'allow_others', 'field_length_label', 'field_length_field'], false)
+	break
+	}
+	});
+
+	default_select();
+	verfication_default();
+	});
+
+	function default_select(){
+	var question_type =jQuery('.question_change_type option:selected').attr('value');
+
+	switch (question_type) {
+	case '':
+	hide_and_disable([], ['negative_val', 'positive_val', 'max_char', 'field_length_label', 'field_length_field', 'max_val', 'min_val', 'allow_others'], false)
+	break
+	case 'TextQuestion':
+	hide_and_disable(['max_char', 'field_length_label', 'field_length_field'], ['negative_val', 'positive_val', 'max_val', 'min_val', 'allow_others'], false)
+	break
+	case 'TextBlockQuestion':
+	hide_and_disable(['max_char', 'field_length_label', 'field_length_field'], ['negative_val', 'positive_val', 'max_val', 'min_val', 'allow_others'], false)
+	break
+	case 'NumberQuestion':
+	hide_and_disable(['max_val', 'min_val', 'field_length_label', 'field_length_field'], ['negative_val', 'positive_val', 'max_char', 'allow_others'], false)
+	break
+	case 'DateQuestion':
+	hide_and_disable([], ['negative_val', 'positive_val', 'max_char', 'max_val', 'min_val', 'allow_others', 'field_length_label', 'field_length_field'], false)
+	break
+	case 'YearQuestion':
+	hide_and_disable([], ['negative_val', 'positive_val', 'max_char', 'max_val', 'min_val', 'allow_others', 'field_length_label', 'field_length_field'], false)
+	break
+	case 'SingleAnswerQuestion':
+	hide_and_disable(['allow_others'], ['negative_val', 'positive_val', 'max_char', 'max_val', 'min_val', 'field_length_label', 'field_length_field'], true)
+	break
+	case 'MultipleAnswerQuestion':
+	hide_and_disable(['allow_others'], ['negative_val', 'positive_val', 'max_char', 'max_val', 'min_val', 'field_length_label', 'field_length_field'], true)
+	break
+	case 'BooleanQuestion':
+	hide_and_disable(['negative_val', 'positive_val'], ['max_char', 'max_val', 'min_val', 'allow_others', 'field_length_label', 'field_length_field'], false)
+	break
+	}
+	}
+
+	function hide_and_disable(show_elements, hide_elements, display_options){
+	for (i = 0; i < show_elements.length; i++) {
+	jQuery('#' + show_elements[i] + ' input').attr('enabled','enabled').removeAttr("disabled");
+	jQuery('#'+show_elements[i]).show();
+	}
+	for (i = 0; i < hide_elements.length; i++) {
+	jQuery('#' + hide_elements[i] + ' input').attr("disabled", "disabled");
+	jQuery('#'+hide_elements[i]).hide();
+	}
+	if (display_options) {
+	jQuery('#add_option').show()
+	jQuery('.option').css('display','block');
+	}
+	else {
+	jQuery('#add_option').hide()
+	jQuery('.option').css('display','none');
+	}
+	}
+
+	function verification_method_name(verification){
+
+	value = verification.value
+	if(value!=''){
+	jQuery('#verification').show();
+	}
+	else{
+	jQuery('#verification').hide();
+	}
+	}
+
+	function verfication_default(){
+	var verfication_type = jQuery('#question_verification_method_id option:selected').attr('value');
+	if(verfication_type=''){
+	jQuery('#verification').show();
+	}
+	else{
+	jQuery('#verification').hide();
+	}
+	}
+</script>
+

@@ -1,0 +1,54 @@
+<div  id="container">
+	<div class="section_block">
+		<h2><%= "New Category"%></h2>
+		<div class="section_content">
+
+			<div class="validation_box">
+				<%= raw error_messages(@directory_listing_category)%>
+			</div>
+
+			<%= javascript_include_tag "/autocomplete/auto_complete" %>
+			<%= stylesheet_link_tag '/autocomplete/themes/auto_complete/default' %>
+			<%= stylesheet_link_tag '/autocomplete/themes/shadow/auto_complete' %>
+
+			<%= hidden_field_tag "directory_listing_category[directory_ids][]", "#{@site.directories.first.id unless @site.directories.blank? }"%>
+			<%#= error_messages_for_text_changes 'directory_listing_category' %>
+			<%#= 'Errors prevented this Directory Listing Category from being saved' unless @directory_listing_category.errors.empty? %>
+
+			<div class="form_data">
+				<label for="directory_listing_category_parent_id">Parent Name:</label>
+				<%if @directory_listing_category.blank?%>
+				<%= collection_select 'directory_listing_category', 'parent_id',@site.directory_listing_categories.find(:all, :order => 'parent_id'), :id, :full_name, { :include_blank => true },:class=>'select_box' %>
+				<%else%>
+				<%= collection_select 'directory_listing_category', 'parent_id',@site.directory_listing_categories.find(:all, :order => 'parent_id').delete_if{|current_directory_listing_category| current_directory_listing_category==@directory_listing_category}, :id, :full_name, { :include_blank => true },:class=>'select_box' %>
+				<%end%>
+			</div>
+			<div class="form_data">
+				<label for="directory_listing_category_name">Name <span>*</span>:</label>
+				<%= text_field 'directory_listing_category', 'name',:class=>'input_text' %>
+			</div>
+			<div class="form_data">
+				<label for="directory_listing_category_alias_name">Page Slug:</label>
+				<%= text_field 'directory_listing_category', 'alias_name',:class=>'input_text' %>
+			</div>
+			<div class="form_data">
+				<label for="token-input-directory_listing_category_site_id">Site Name:</label>
+				<%= raw autocompletion_field("directory_listing_category_site",{:selected=>@directory_listing_category.sites,:default_selection => "Enter the Site"}) %>
+			</div>
+			<%if @directory_listing_category.new_record?%>
+			<%= render :partial => "directory_listing_category_new_edit" %>
+			<%else%>
+			<div id='add_option'></div>
+			<div id="site_form">
+				<div class="button">
+					<%= link_to('Update', 'javascript:void(0)', :onclick => "javascript: submit_directory_listing_category1();") if auhtorized?("/admin/directory_listing_categories","update")%>
+				</div>
+				<div class="button">
+					<%= link_to('Cancel',{:controller=>'admin/directory_listing_categories',:action => 'index'}) if auhtorized?("/admin/directory_listing_categories","index") %>
+				</div>
+			</div>
+			<%end%>
+		</div>
+	</div>
+</div>
+

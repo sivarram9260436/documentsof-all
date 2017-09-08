@@ -1,0 +1,80 @@
+  <%= content_tag(:table, { :class => "form-left add_lp_fund" }) do %>
+    <%= content_tag(:tr) do %>
+        <%= content_tag(:td, label_tag("Enter Keyword:"), { :class => "lab-field" }) %>
+        <%= content_tag(:td, text_field_tag("institution_office") ) %>
+        <%= content_tag(:td, { :class => "radio-button" }) do %>
+            <%= radio_button_tag("select_type[search]", "first_word") %>
+            <%= label_tag("First Word", nil, { :class => "lab-field lab-field-b" } ) %>
+        <% end %> <!-- td end -->
+        <%= content_tag(:td, { :class => "radio-button" }) do %>
+            <%= radio_button_tag("select_type[search]", "in_text", :checked => true) %>
+            <%= label_tag("In Text", nil, { :class => "lab-field lab-field-b" } ) %>
+        <% end %> <!-- td end -->
+        <%= content_tag(:td) do %>
+            <%= content_tag(:div, link_to("Search", {}, { :id => "get_lp_list", :href => "javascript:void(0)" } ), { :class => "f-button" }) %>
+        <% end %> <!-- td end -->
+    <% end %> <!-- tr end -->
+  <% end %> <!-- table end -->
+	
+
+
+def create_dry_powder_event
+    @fund=@site.funds.find_by_id(params[:fund_id])
+      @dry_powder_event = @fund.dry_powders.new(params[:dry_powder])
+   logger.info "==========create_dry_powder_event=========#{@fund.inspect}============"
+    if @dry_powder_event.save
+    render :partial => "add_dry_powder_event"
+    else
+     render :text => "error"
+    end
+end
+
+
+
+def update_dry_powder_event
+    @fund=@site.funds.find(params[:fund_id])
+    @dry_powder_event=DryPowder.find(params[:dry_powder_id])
+      lp_trade_event = @dry_powder_event.update_attributes(params[:dry_powder])
+      logger.info"========#{@dry_powder_event.inspect}=======update_dry_powder_event======="
+if @dry_powder_event.save
+    render :partial => "add_dry_powder_event"
+ else
+     render :text => "errors"                   errori    erroris
+    end
+  end
+
+
+
+
+
+
+function add_dry_powder_event(params)
+{
+        var path = window.location;
+        $.ajax({
+        type: 'POST',
+         url: path.protocol + "//" + path.host + "/funds/create_dry_powder_event",
+        dataType: 'html',
+        data: params,
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        success: function(data) {
+             if (data == "error") {
+               alert('Please enter 0 to 100 value in Percentage deployed')
+             }
+             else
+               {
+                $.colorbox.close();
+                window.location.reload();
+               }
+        }
+    });
+
+}
+
+ 
+
+ if (data == "error") {
+               alert('Please enter 0 to 100 value in Percentage deployed')
+             }
+             else
+

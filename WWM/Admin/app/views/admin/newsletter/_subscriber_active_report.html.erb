@@ -1,0 +1,15 @@
+<% unless subscriber_active_report.blank? %>
+<% sub = subscriber_active_report %>
+ <% per_page = 20 %>
+<tr>
+	<%= content_tag(:td, @i = @i.blank? ? ( ( params[:page].blank? ? 0 : params[:page].to_i-1 ) * ( per_page || 0 ).to_i + 1 ) : @i+1 ) %>
+         <td class="list_table">  <%= sub.first_name %></td>
+             <td class="list_table"> <%= sub.email_id %>  </td>
+         <td class="list_table"> <%= sub.company_name %> </td>
+       <td class="list_table">  <%= sub.job_title %> </td>
+        <td class="list_table"><%if sub.status == "Active"%><span style="color:green"><%= sub.status%></span><%else%><span style="color:red"><%= sub.status%></span><%end%></td>
+       <td class="list_table"><%= check_box_tag :chk_status,"#{sub.id}",false,:data=>{:status=>"#{sub.status}"},:class=>"chk_status" %></td>
+</tr>
+<% end %>
+
+ 

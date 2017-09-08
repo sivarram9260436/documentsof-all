@@ -1,0 +1,175 @@
+tag 0.4.8
+
+vi lib/spell_checker
+
+module SpellChecker
+  require 'net/https'
+  require 'uri'
+  require 'rexml/document'
+
+  ASPELL_WORD_DATA_REGEX = Regexp.new(/\&\s\w+\s\d+\s\d+(.*)$/)
+  ASPELL_PATH = "aspell"
+
+  def self.check_spelling(spell_check_text, command, lang)
+    xml_response_values = Array.new
+    spell_check_text = spell_check_text.join(' ') if command == 'checkWords'
+    spell_check_response = `echo "#{spell_check_text}" | #{ASPELL_PATH} -a -l #{lang}`
+    if (spell_check_response != '')
+      spelling_errors = spell_check_response.split("\n").slice(1..-1)
+      if (command == 'checkWords')
+        for error in spelling_errors
+          error.strip!
+          if (match_data = error.match(ASPELL_WORD_DATA_REGEX))
+            arr = match_data[0].split(' ')
+            xml_response_values << arr[1]
+          end
+        end
+      elsif (command == 'getSuggestions')
+        for error in spelling_errors
+          error.strip!
+          if (match_data = error.match(ASPELL_WORD_DATA_REGEX))
+            #xml_response_values << error.split(',')[1..-1].collect(&:strip!)
+            xml_response_values << error.split(':')[1].split(",").collect(&:strip!)
+            xml_response_values = xml_response_values.first
+          end
+        end
+      end
+    end
+    return xml_response_values
+  end
+end
+
+vi lib/spelling.rb
+
+module Spelling
+  require 'net/https'
+  require 'uri'
+  require 'rexml/document'
+
+  ASPELL_WORD_DATA_REGEX = Regexp.new(/\&\s\w+\s\d+\s\d+(.*)$/)
+  ASPELL_PATH = "aspell"
+
+  def self.check_spelling(spell_check_text, command, lang)
+    xml_response_values = Hash.new
+    spell_check_text = spell_check_text.join(' ') if command == 'spellcheck'
+    spell_check_response = `echo "#{spell_check_text}" | #{ASPELL_PATH} -a -l #{lang}`
+    if (spell_check_response != '')
+      spelling_errors = spell_check_response.split("\n").slice(1..-1)
+      if (command == 'spellcheck')
+        for error in spelling_errors
+          error.strip!
+          if (match_data = error.match(ASPELL_WORD_DATA_REGEX))
+            arr = match_data[0].split(' ')
+            xml_response_values[arr[1]] = error.split(',')[1..-1].collect(&:strip!)
+          end
+        end
+      elsif (command == 'getSuggestions')
+        for error in spelling_errors
+          error.strip!
+          if (match_data = error.match(ASPELL_WORD_DATA_REGEX))
+            xml_response_values << error.split(',')[1..-1].collect(&:strip!)
+            xml_response_values = xml_response_values.first
+          end
+        end
+      end
+    end
+    return xml_response_values
+  end
+end
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/controllers/deals_controller.rb 
+
+  skip_before_filter :verify_authenticity_token, :only => [:spellchecker]
+
+ 
+
+def spellchecker
+    headers["Content-Type"] = "text/plain"
+    headers["charset"] = "utf-8?"
+ #  suggestions = check_spelling(params[:params][1], params[:method], params[:params][0])
+  #  results = {"id" => nil, "result" => suggestions, "error" => nil}
+    suggestions = Spelling.check_spelling(params[:params][:words], params[:method], params[:params][:lang])
+    results = {"id" => nil, "result" => suggestions}
+    render :text => results.to_json
+   # return
+  end
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi config/routes/admin.rb 
+
+ post '/spellchecker', :to => "deals#spellchecker"
+ post "undefined"
+     post "spellchecker"
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/controllers/application_controller.rb 
+
+
+
+  include SpellChecker
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/assets/javascripts/tinymce_call.js 
+
+
+
+$(document).ready(function () {
+    
+    $.each($(".tiny_mce"), function(index, value) {
+
+        tinymce.init({
+            selector: "textarea#" + $(this).attr("id"),
+            theme: "modern",
+            width: 750,
+            height: 200,
+            menubar : false,
+             browser_spellcheck : true,
+            entity_encoding : "raw",
+            plugins: [
+                 " spellchecker advlist autolink link image lists charmap print preview hr anchor pagebreak ",
+                 "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                 "save table contextmenu directionality emoticons template paste textcolor"
+           ],
+           theme_advanced_path : false,
+           content_css: "/tinymce/custom_theme_content.css",
+           toolbar: "insertfile undo redo | bold italic underline | charmapi spellchecker",
+
+           spellchecker_callback: function(method, text, success, failure) {
+            tinymce.util.JSONRequest.sendRPC({
+                url: "/spellchecker",
+                method: "spellcheck",
+                params: {
+                    lang: this.getLanguage(),
+                    words: text.match(this.getWordCharPattern())
+                },
+                success: function(result) {
+                    success(result);
+                },
+                error: function(error, xhr) {
+                    failure("Spellcheck error:" + xhr.status);
+                }
+            });
+        },
+             spellchecker_rpc_url: '/spellchecker',
+           style_formats: [
+                {title: 'Bold text', inline: 'b'},
+                {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+                {title: 'Example 1', inline: 'span', classes: 'example1'},
+                {title: 'Example 2', inline: 'span', classes: 'example2'},
+                {title: 'Table styles'},
+                {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+            ]
+         });
+     
+     });
+
+});
+
+
+
+
+
+
+

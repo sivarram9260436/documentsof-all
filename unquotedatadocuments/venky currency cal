@@ -1,0 +1,58 @@
+http://www.unquotedata.com/fund/70707?search_id=253305&source=fund_search
+
+c = Fund.find 73753
+
+c.target_size =  "450.00"
+
+ c.currency
+  Currency Load (0.4ms)  SELECT "currencies".* FROM "currencies" WHERE "currencies"."id" = 67 LIMIT 1
+ => #<Currency id: 67, name: "Euros €m", value: nil, created_by: nil, updated_by: nil, created_at: "2014-09-06 05:08:19", updated_at: "2016-02-27 15:34:11", active: true> 
+
+
+source_currecny=c.currency = 67
+
+
+
+
+
+http://stage.unqdata.mergermarket.kreatio.info/fund/73753?search_id=253308&source=fund_search
+
+In that we are collecting Amount Raised value in Fund data table
+
+        c =Fund.find 73753
+
+        c.fund_target_amount
+
+        c.created_at.to_date.beginning_of_month  = Thu, 01 Jan 2015 
+
+      
+     
+
+         
+        uk_currency = Currency.by_name(UK_CURRENCY).first
+        uk_value = (c.fund_target_amount.to_f / ExchangeRate.by_currency(67).by_date("2015-01-01").first.ecu_rate) * (ExchangeRate.by_currency(uk_currency.id).by_date("2015-01-01").first.ecu_rate) =
+
+       us_currency = Currency.by_name(US_CURRENCY).first
+       us_value = (c.fund_target_amount.to_f / ExchangeRate.by_currency(67).by_date("2015-01-01").first.ecu_rate) * (ExchangeRate.by_currency(us_currency.id).by_date("2015-01-01").first.ecu_rate)
+
+
+       euro_currency = Currency.by_name(EURO_CURRENCY).first
+       euro_value = (c.fund_target_amount.to_f / ExchangeRate.by_currency(67).by_date("2015-01-01").first.ecu_rate) * (ExchangeRate.by_currency(euro_currency.id).by_date("2015-01-01").first.ecu_rate)
+
+
+       yen_currency = Currency.by_name(YEN_CURRENCY).first
+      yen_value = (c.fund_target_amount.to_f / ExchangeRate.by_currency(67).by_date("2015-01-01").first.ecu_rate) * (ExchangeRate.by_currency(yen_currency.id).by_date("2015-01-01").first.ecu_rate)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

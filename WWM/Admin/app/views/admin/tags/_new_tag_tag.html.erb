@@ -1,0 +1,73 @@
+<%if request.xhr?%>
+<%= javascript_include_tag 'new_admin','admin_new' %>
+<%end%>
+
+<div class="article_new_main">
+	<div id="validation_box"></div>
+	<%= form_tag( @tag.new_record? ? { :action => '/admin/tags/create' } : { :action => '/admin/tags/update', :id => @tag } , {:id=>"tag_form", :name => 'tag_form', :multipart => true } ) do %>
+	<div class="form_data">
+		<label for="text_head">Tag Name <span>*</span>:</label>
+		<%= text_field 'tag', 'name',:class=>'input_text' %>
+	</div>
+	<div class="form_data">
+		<label for="tag_alias_name">Alias Name:</label>
+		<%= text_field 'tag', 'alias_name',:class=>'input_text' %>
+	</div>
+	<div class="common_listing_button">
+		<ul>
+			<li class="button">
+				<%if params[:action] == "new"%>
+				<%= link_to("Save","javascript:void(0)",:id=>"edit_tag_opo",:class=>"ajax_call_tag_form","data-fname_id"=>"tag_form","data-update"=>"site_css_list","data-url"=>"/admin/tags/create")%>
+				<%else%>
+				<%= link_to("Update","javascript:void(0)",:id=>"edit_tag_opo",:class=>"ajax_call_tag_form","data-fname_id"=>"tag_form","data-update"=>"site_css_list","data-url"=>"/admin/tags/update/#{@tag.id}")%>
+				<%end%>
+			</li>
+			<li class="button">
+				<%#= link_to 'Close', 'javascript:void(0)',"data-update"=>"tag_new_edit", :class => 'close_button', :id =>"cancel_button" %>
+				<%= link_to("Close",:controller=>"tags",:action=>"index")%>
+			</li>
+		</ul>
+	</div>
+	<%end%>
+</div>
+<script type="text/javascript">
+	var ajax_form_serialize_method = jQuery.fn.ajax_post = function() {
+		var formval = "";
+        	formval += document.tag_form.tag_name.value;
+        	if (formval != "") {
+		var id = $(this).attr('id');
+		var data_url = $('#' + id).data('url');
+		var data_fname = $('#' + id).data('fname_id');
+		var update_id = $('#' + id).data('update');
+		$.ajax({
+			url : data_url,
+			type : 'POST',
+			data : $("form").serialize(),
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+			},
+			error : function() {
+				alert('eerrrr');
+			},
+			beforeSend : function() {
+				jQuery("#load_indicatior").show();
+			},
+			success : function(msg, textStatus, xhr) {
+				jQuery("#load_indicatior").hide();
+				if(xhr.status == 201) {
+					$("#validation_box").html(msg);
+				} else {
+					$("#tag").html(msg);
+					$('#tag_new_edit').html('');
+				}
+
+			},
+		});
+	} else {
+		alert("Tag name should not be blank");
+	}
+	}
+	jQuery(".ajax_call_tag_form").die("click");
+	jQuery(".ajax_call_tag_form").live("click", ajax_form_serialize_method);
+
+</script>

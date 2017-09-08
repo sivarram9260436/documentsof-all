@@ -1,0 +1,40 @@
+<html>
+<head>
+    <script type="text/javascript" src="src/jquery.min.js"></script>
+    <script type="text/javascript" src="src/jquery.tokeninput.js"></script>
+
+    <link rel="stylesheet" href="styles/token-input.css" type="text/css" />
+    <link rel="stylesheet" href="styles/token-input-facebook.css" type="text/css" />
+
+</head>
+
+<body>
+    <h1>jQuery Tokeninput Demos</h1>
+
+    <div>
+        <input type="text" id="demo-input-prevent-duplicates" name="blah" />
+        <!--input type="button" value="Submit" /-->
+  <div>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            /*$("#demo-input-prevent-duplicates").tokenInput("http://shell.loopj.com/tokeninput/tvshows.php", {
+                preventDuplicates: true
+            });*/
+             $("#demo-input-prevent-duplicates").tokenInput("http://shell.loopj.com/tokeninput/tvshows.php",
+                {
+                preventDuplicates: true,    
+                theme: "facebook",
+                minChars: 1,
+                hintText: "Please Enter Your Token",
+                noResultsText: "Token Not Found",
+                tokenValue: "author",
+		tokenName:"article[author_ids][]",
+                tokenNameNew:"article[author_ids][New]",
+		allowCreation: true
+               
+            });
+        });
+        </script>
+   
+</body>
+</html>

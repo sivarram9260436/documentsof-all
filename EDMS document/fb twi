@@ -1,0 +1,251 @@
+views
+
+
+<tr><td>Emergency no*:</td><td><%=personal.telephone_field :emergency_contact,:size => 14%></td>
+	<td>Blood group*:</td><td><%=personal.text_field :blood_group,:size => 14%></td></tr>
+     <tr> <td>Passport Number:</td><td><%=personal.text_field :blood_group,:size => 14%></td>
+   	<td>LinkedIn:</td><td><%=personal.text_field :blood_group,:size => 14%></td></tr>
+     <tr> <td>Facebook:</td><td><%=personal.text_field :blood_group,:size => 14%></td>
+      <td>Twitter:</td><td><%=personal.text_field :blood_group,:size => 14%></td></tr>
+
+
+
+
+
+
+
+
+
+
+rails generate migration add_email_to_users email:string
+
+
+
+command===
+   rails generate migration add_columns_to_personal_detail passport_number:string linkedin_url:string facebook_url:string twitter_url:string
+
+
+
+ rails generate migration add_column_to_employee_detail Actual_dob:integer
+
+
+Linked in URL, FaceBook URL, Twitter URL, Passport No - Edit and Create page of EDMS
+
+
+
+ PersonalDetail(id: integer, employee_detail_id: integer, pg_year: integer, ug_year: integer, diploma_year: integer, puc_year: integer, tenth_year: integer, anniversary_date: date, p_dob: date, local_address: string, permanent_address: string, changeof_address: string, personalmail_id: string, emergency_contact: string, blood_group: string, father_name: string, mother_name: string, company_name: string, designation: string, experience: string, pg: string, ug: string, diploma: string, puc: string, tenth: string, guardian: string, relationship: string, company_name2: string, designation2: string, experience2: string, created_at: datetime, updated_at: datetime, passport_number: string, linkedin_url: string, facebook_url: string, twitter_url: string) 
+
+ PersonalDetail.create( employee_detail_id:22, pg_year: 2011, ug_year: 2010, diploma_year: 2008, puc_year: 2006, tenth_year: 2000, anniversary_date: nil, p_dob: nil, local_address: "karthikeyanp\r\nudayarpalayam\r\nnatharaja theater opp", permanent_address: "karthikeyanp\r\nudayarpalayam\r\nnatharaja theater opp", changeof_address: "", personalmail_id: "sva@gmail.com", emergency_contact: "1236987453", blood_group: B+ve, father_name: str, mother_name: stri, company_name: sing, designation: sc, experience: 1, pg: "hh", ug: "soo", diploma: "jj", puc:"iii", tenth: "10", guardian: "siii", relationship: "father", company_name2: "vodafone cellular ltd", designation2: "saallle", experience2: nil, created_at: datetime, updated_at: datetime, passport_number: M12358964, linkedin_url:" siva", facebook_url: "sva", twitter_url: "siva") 
+
+
+
+
+
+PersonalDetail id: 221, employee_detail_id: 280, pg_year: 2011, ug_year: 2009, diploma_year: nil, puc_year: 2006, tenth_year: 2004, anniversary_date: nil, p_dob: nil, local_address: "karthikeyanp\r\nudayarpalayam\r\nnatharaja theater opp\r...", permanent_address: "105 manzoor thaikkal\r\ngandhiji road\r\nthanjavur-6130...", changeof_address: "", personalmail_id: "karthipkpp@gmail.com", emergency_contact: "9843245632", blood_group: "o+ve", father_name: "perumal", mother_name: "dhanalakshmip", company_name: "axis bank", designation: "business development executive", experience: "1", pg: "mba", ug: "bca", diploma: "", puc: "12", tenth: "10", guardian: "perumal ", relationship: "father", company_name2: "vodafone cellular ltd", designation2: "sales officer", experience2: "1", created_at: "2015-12-10 11:20:52", updated_at: "2015-12-10 11:20:52", passport_number: nil, linkedin_url: nil, facebook_url: nil, twitter_url: nil> 
+
+
+
+
+
+
+PersonalDetail id: 221, employee_detail_id: 280, pg_year: 2011, ug_year: 2009, diploma_year: nil, puc_year: 2006, tenth_year: 2004, anniversary_date: nil, p_dob: nil, local_address: "karthikeyanp\r\nudayarpalayam\r\nnatharaja theater opp\r...", permanent_address: "105 manzoor thaikkal\r\ngandhiji road\r\nthanjavur-6130...", changeof_address: "", personalmail_id: "karthipkpp@gmail.com", emergency_contact: "9843245632", blood_group: "o+ive", father_name: "perumal", mother_name: "dhanalakshmip", company_name: "axis bank", designation: "business development executive", experience: "1", pg: "mba", ug: "bca", diploma: "", puc: "12", tenth: "10", guardian: "perumal ", relationship: "father", company_name2: "vodafone cellular ltd", designation2: "sales officer", experience2: "1", created_at: "2015-12-10 11:20:52", updated_at: "2015-12-10 11:20:52", passport_number: 123654, linkedin_url: "testsiva", facebook_url: "testkkk", twitter_url:"lll"> 
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+PersonalDetail.find(221).update(:passport_number=>123456,:linked_url=>"siva",:facebook_url=>"iii",:twitter_url=>"opop")
+
+
+
+
+
+
+
+
+<td><%=p.personal_detail.emergency_contact if p.personal_detail%></td></tr>
+<tr><th>Change Of Address</th>
+
+
+
+==========================
+
+  show
+
+<td><%=p.personal_detail.passport_number if p.passport_number%></td></tr>
+<tr><th>Passport Number</th>
+
+<td><%=p.personal_detail.linkedin_url if p.linkedin_url%></td></tr>
+<tr><th>Linked IN</th>
+
+<td><%=p.personal_detail.linked_url if p.facebook_url%></td></tr>
+<tr><th>FaceBook</th>
+
+<td><%=p.personal_detail.linkedin_url if p.twitter_url%></td></tr>
+<tr><th>Twitter</th>
+
+==================
+
+index
+
+<td><%=p.personal_detail.emergency_contact if p.personal_detail%></td></tr>
+<tr><th align="left">Blood group:</th>
+
+
+
+<td><%=p.personal_detail.passport_number if p.personal_detail%></td></tr>
+<tr><th align="left">passport_number:</th>
+
+
+<td><%=p.personal_detail.linkedin_url if p.personal_detail%></td></tr>
+<tr><th align="left">Linked IN:</th>
+
+<tr><th align="left">Facebook:</th>
+<td><%=p.personal_detail.facebook_url if p.personal_detail%></td></tr>
+
+
+<tr><th align="left">Twitter:</th>
+<td><%=p.personal_detail.twitter_url if p.personal_detail%></td></tr>
+
+
+@link_facebook=["https://www.facebook.com/",<% @personal_detail.facebook_url %>].join
+
+  @link_twitter=["https://www.twitter.com/",<% @personal_detail.twitter_url %>].join
+
+====================
+
+
+edit
+
+
+<td>Blood group:</td><td><%=personal.text_field :blood_group,:size => 14%></td></tr>
+
+
+<td>Passportnumber:</td><td><%=personal.text_field :passport_number,:size => 14%></td></tr>
+
+
+<a href="http://www.w3schools.com/html/">Visit our HTML tutorial</a>
+
+<a href="">Facebook</a>
+
+<a href="http://www.w3schools.com/html/">Linkedin</a>
+<a href="http://www.w3schools.com/html/">Twitter</a>
+
+
+
+<%= link_to (body, url_options={controller: employee, action: edit}
+
+<%= link_to (body, url_options={controller: employee, action: edit}, html_options={}) %
+
+
+
+
+<%= link_to (body,{controller: employee, action: edit} %>
+
+
+
+======================================================================
+
+
+
+
+ @link_facebook=["https://www.facebook.com/",<% @personal_detail.facebook_url %>].join
+
+  @link_twitter=["https://www.twitter.com/",<% @personal_detail.twitter_url %>].join
+
+ @link_fb=["https://www.facebook.com/",<% @personal_detail.facebook_url %>].join
+
+
+
+
+personal_detail.facebook_ur
+
+
+https://www.facebook.com/sivarram?hc_ref=NEWSFEED
+
+
+
+
+
+fieldset>
+<legend class="field_set">Personal Details</legend>
+<table cellspacing="8">
+
+
+05:17 PM] hari shankar: <div class="field_set">
+	<ul>
+		<li>
+			<a href="@personal_detail.facebook_url">Facebook</a>
+		</li>
+		<li>
+			<a href=@personal_detail.twitter_url"">Twitter</a>
+		</li>
+
+	</ul>
+</div><!--breadcurmb-->
+
+
+=====================
+
+<tr><th align="left">Facebook:</th>
+    <td><%=p.personal_detail.facebook_url if p.personal_detail%></td></tr>
+
+
+  <tr><th align="left">Twitter:</th>
+    <td><%=p.personal_detail.twitter_url if p.personal_detail%></td></tr>
+
+==============================
+ <div class="field_set">
+    <ul>
+      <li>
+        <a href="@personal_detail.facebook_url">Facebook</a>
+      </li>
+      <li>
+        <a href=@personal_detail.twitter_url"">Twitter</a>
+      </li>
+
+    </ul>
+
+=================
+
+
+
+crt syntax
+
+
+<tr><th align="left">Facebook:</th>
+
+    <% @link_facebook=["https://www.facebook.com/", p.personal_detail.facebook_url ].join %>
+
+    <td><%= link_to p.personal_detail.facebook_url, @link_facebook %></td></tr>
+
+  <tr><th align="left">Twitter:</th>
+    <% @link_twitter=["https://twitter.com/", p.personal_detail.twitter_url ].join %>
+
+    <td><%= link_to p.personal_detail.twitter_url, @link_twitter %></td></tr>
+
+
+
+
+/www.linkedin.com/in
+
+
+<tr><th align="left">LinkedIn:</th>
+    <% @link_twitter=["https://www.linkedin.com/in", p.personal_detail.linkedin_url ].join %>
+
+    <td><%= link_to p.personal_detail.linkedin_url, @link_linkedin %></td></tr>
+
+
+
+===========================
+
+

@@ -1,0 +1,27 @@
+<%if params[:radio_text]=="plain_text"%>
+<div class="articlecolumnRight"
+<div id="plain_static">
+<tr>
+<td><label for="article_pullquote"> Plain Text:</label></td>
+<td><textarea  name="article[content]" rows ="10" cols ="60"><%= @article_content.content_with_asset if @article_content%></textarea>
+</tr>
+</div>
+</div>
+<%elsif params[:radio_text]=="html"%>
+<div class="articlecolumnRight" id="static_tinymc">
+<div class="articlecolumnRight" id="parentTinymce">
+<!--script type="text/javascript" src="/javascripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script-->
+<!--script type="text/javascript" src="/javascripts/tinymce/tinymce_split_update.js"></script-->
+
+
+</div>
+<textarea id="tinyid_5" name="article[content]" rows ="50" cols ="1" class="mceEditor" style='width:100%;'><%= @article_content.content_with_asset if @article_content%></textarea>
+<div id="word-count">
+Word Counts:<input readonly="true/" class="tiny_word_input" id="word_tinyid_1" value="0">
+</div>
+</div>
+<%end%>
+
+<script type="text/javascript" >
+	tinyMCEOnDemand("tinyid_5")
+</script>

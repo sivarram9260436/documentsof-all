@@ -1,0 +1,155 @@
+
+create a model
+
+rails generate model FundPerformance commitment:string gross_irr:string net_irr:integer tvpi:string  source:string fund_performance_date:date
+
+ name :FundPerformance
+
+=================================================================================================================================================================
+
+creating a migration file  in console only
+
+20170307061141_create_fund_performances.rb
+
+class CreateFundPerformances < ActiveRecord::Migration
+  def change
+    create_table :fund_performances do |t|
+      t.string :commitment
+      t.string :gross_irr
+      t.string :net_irr
+      t.string :tvpi
+      t.string :source
+      t.date :fund_performance_date
+
+      t.timestamps
+    end
+  end
+end
+
+
+
+CreateFundPerformances.new.change
+
+
+This also in console
+
+ActiveRecord::Migration.add_column :fund_performances, :fund_id, :integer
+ActiveRecord::Migration.add_column :fund_performance, :date_of_commitment, :date
+
+ActiveRecord::Migration.add_column :fund_performances, :performance_source, :text
+
+ActiveRecord::Migration.add_column :fund_performances, :currency_id, :integer
+
+ FundPerformance(id: integer, commitment: string, gross_irr: string, net_irr: string, tvpi: string, source: string, fund_performance_date: date, created_at: datetime, updated_at: datetime, date_of_commitment: date, performance_source: text, currency_id: integer) 
+
+
+ FundPerformance(id: integer, commitment: string, gross_irr: string, net_irr: string, tvpi: string, source: string, fund_performance_date: date, created_at: datetime, updated_at: datetime, fund_id: integer, date_of_commitment: date, performance_source: text, currency_id: integer) 
+
+
+#<FundPerformance id: 45, commitment: "185", gross_irr: "", net_irr: "11.14", tvpi: "1.3", source: "LP", fund_performance_date: "2016-09-01", created_at: "2017-04-13 13:45:33", updated_at: "2017-04-13 13:46:34", fund_id: 69807, date_of_commitment: nil, performance_source: nil, currency_id: 67> 
+
+=================================================================================================================================================================
+
+
+
+model 
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/models/fund.rb
+
+  line 12
+
+  has_many :fund_performances
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/models/fund_performance.rb 
+
+
+class FundPerformance < ActiveRecord::Base
+  belongs_to:fund
+  belongs_to :currency
+  attr_accessible :fund_id, :currency_id, :commitment, :fund_performance_date, :gross_irr, :net_irr, :source, :tvpi, :date_of_commitment, :performance_source
+
+end
+
+
+
+
+only add belongs to and fund_id other r automatically it generate
+
+
+
+ FundPerformance(id: integer, commitment: string, gross_irr: string, net_irr: string, tvpi: string, source: string, fund_performance_date: date, created_at: datetime, updated_at: datetime, fund_id: integer, date_of_commitment: date, performance_source: text, currency_id: integer) 
+ 
+
+
+=================================================================================================================================================================
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/controllers/funds_controller.rb 
+
+def new_fund_performance
+    @fund=@site.funds.find(params[:fund_id])
+    @fund_performance=FundPerformance.new
+    @form_action2="create_fund_performance"
+    render :partial => "form_fund_performance"
+ end
+
+
+
+def create_fund_performance
+    @fund=@site.funds.find_by_id(params[:fund_id])
+    #@fund.transaction do
+      @fund_performance = @fund.fund_performances.create(params[:fund_performance])
+   logger.info "==========create_fund_performance=========#{@fund.inspect}============"
+    #end
+    render :partial => "add_fund_performance"
+end
+
+
+def edit_fund_performance
+    @fund=@site.funds.find(params[:fund_id])
+    @fund_performance=FundPerformance.find(params[:fund_performance_id])
+    @form_action2="update_fund_performance"
+    render :partial => "form_fund_performance"
+  end
+
+
+
+
+def update_fund_performance
+    @fund=@site.funds.find(params[:fund_id])
+    @fund_performance=FundPerformance.find(params[:fund_performance_id])
+    #@fund.transaction do
+      fund_performance = @fund_performance.update_attributes(params[:fund_performance])
+      logger.info"========#{fund_performance.inspect}=======update_fund_performance======="
+   # end
+    render :partial => "add_fund_performance"
+  end
+
+ def remove_event_from_fund_performance
+    fund = Fund.find(params[:fund_id])
+    event = FundPerformance.find(params[:event_id])
+    event.delete
+    render :text => "deleted"
+end
+
+
+ note last end  should there for class
+=================================================================================================================================================================
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/controllers/funds_controller.rb 
+
+36 line
+
+def edit_fund
+@fund_performances = @fund.fund_performances.order("fund_performance_date asc") || @fund.create_fund_performances
+
+end
+
+
+
+=================================================================================================================================================================
+
+
+

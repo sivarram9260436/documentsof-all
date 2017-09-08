@@ -1,0 +1,13 @@
+
+
+ruby@merger-market:~/Unquote_data/WPS$ vi /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_terms_and_conditions.html.erb
+
+
+remove 62 line and add it 
+
+
+<%if @terms_conditions.gp_contribution_type.eql?("127")%>
+ <%= number_with_precision( (case (params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) when "euro" then gpc[:euro] when "uk" then gpc[:uk] when "us" then gpc[:us] when "yen"then gpc[:yen] end ),:delimiter => ',',:precision =>0) %>
+<%else @terms_conditions.gp_contribution_type.eql?("128")%>
+<%=@terms_conditions.gp_contribution %>
+<%end%>

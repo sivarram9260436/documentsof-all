@@ -1,0 +1,41 @@
+    <div class="section_block full_section">
+	<h2><%= @page_properties[:menu_title] %></h2>
+	<div class="section_content">
+
+		<%= form_tag({:action =>'save_multiple_gallery'} ,{:name=>'multi_user_search',:method=>"get"}) do %>
+		<div class="validation_box">
+			<%#=raw error_messages_sorted(@image_sequence)%>
+		</div>
+		<div class="form_data">
+			<label for="text_head">Gallery Title <span> * </span>:</label>
+			<%=text_field 'image_sequence','name',:class=>"input_text"%>
+		</div>
+		<div class="form_data">
+			<label for="text_head">Gallery Description:</label>
+			<%= text_area 'image_sequence','tag',:cols=>22,:rows=>4,:class=>"textarea_text" %>
+		</div>
+		<div class="form_data">
+			<label for="text_head">Site:</label>
+			<%if @image_sequence.blank?%>
+			<% @site_new=Site.find(session[:site_id])%>
+			<%else%>
+			<% @site_new=DataProxy.find(session[:site_id]).sites.first%>
+			<%end%>
+			<%= raw collection_select_with_select_all_other(:image_sequence,:data_proxy_id,User.find(session[:user_id]).sites.by_role_type("Admin").find(:all,:order=>"short_name").uniq,:id,:short_name,@site_new.short_name,"","","",html_options={:class=>"select_box"}) %>
+		</div>
+		<div class="form_data">
+			<label for="text_head">Uploaded By:</label>
+			<p>
+				<%= User.find(session[:user_id]).full_name%>
+			</p>
+		</div>
+		<div class="form_data">
+			<label for="text_head">Publish Date:</label>
+			<%= raw datetimepicker_input(:image_sequence, :publish_date, {:minDate => -20, :maxDate => "+1M +10D", :tabindex => 70}) %>
+		</div><!--form_data-->
+		<%= render :partial =>'upload_multiple_gallery'%>
+
+		<%end%>
+	</div>
+</div>
+

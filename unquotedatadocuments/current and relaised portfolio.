@@ -1,0 +1,109 @@
+@exit_investor_true
+
+
+
+ Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_investment_strategy.html.erb (452.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_fund_portfolio.html.erb (338.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_current_portfolio_companies.html.erb (507.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_realised_portfolio_companies.html.erb (1154.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_portfolio_of_investor.html.erb	 (22.7ms)	
+
+
+
+
+ <% if !current_profile.try(:deal_announced_date).blank? %>
+                <%= content_tag(:td, current_profile.deal_announced_date.strftime("%b %Y"), :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "center") %>
+                <%@current_profile << current_profile.deal_announced_date.strftime("%b %Y")%>
+            <% else %>
+                <%= content_tag(:td, "n/d", :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "center") %>
+                <%@current_profile << "n/d"%>
+            <% end %>
+
+
+
+
+
+
+
+
+ <% if !current_profile.blank? %>
+                <%= content_tag(:td, content_tag(:a, content_tag(:u, link_to_deal(current_profile.company_name, "#{current_profile.id}"))), :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                <%@current_profile << content_tag(:a, content_tag(:u, link_to_deal(current_profile.company_name, "#{current_profile.id}")))%>
+            <% end %>
+
+            <% if !current_profile.try(:deal_announced_date).blank? %>
+                <%= content_tag(:td, current_profile.deal_announced_date.strftime("%b %Y"), :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "center") %>
+                <%@current_profile << current_profile.deal_announced_date.strftime("%b %Y")%>
+            <% else %>
+                <%= content_tag(:td, "n/d", :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "center") %>
+                <%@current_profile << "n/d"%>
+            <% end %>
+
+
+
+
+
+
+<% if !current_profile.try(:exit_date).blank? %>
+                                        <%= content_tag(:td, exit_date.to_datetime.strftime("%b %Y"), :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "center") %> 
+                   <%@exit_investor_val << exit_date.to_datetime.strftime("%b %Y")%>
+                <% else %>
+                    <%= content_tag(:td, "n/d", :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "center") %>
+                    <%@exit_investor_val << "n/d"%>
+                <% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==========================================================================================================================================
+
+
+
+   <% @investor_exit.order("deal_announced desc").each do |current_profile| %>
+          <%@current_profile = []%>
+          <tr class="<%= cycle('row_even', 'row_odd') -%> result_table_hover_style">
+            <!-- <td><input type="checkbox" id="crntPortfolio" name="crntPortfolio" title="Select to compare" onclick="javascript:checkSelection('1','14975')"/></td> -->
+
+            <td style="border-bottom: 1px solid rgb(235, 235, 235);" width="4%">
+              <%= check_box_tag 'deals[compare]', value="#{current_profile.id}", checked=false, :id => "crntPortfolio", :class => "tooltip compare_check", :onclick => "javascript:void(0);", :title => "maximum 4 records can be compared at a time. Once selected please press the Compare button" %>
+              <%@current_profile << (check_box_tag 'deals[compare]', value="#{current_profile.id}", checked=false, :id => "crntPortfolio", :class => "tooltip compare_check", :onclick => "javascript:void(0);", :title => "maximum 4 records can be compared at a time. Once selected please press the Compare button")%>
+            </td>
+
+            <% if !current_profile.blank? %>
+                <%= content_tag(:td, content_tag(:a, content_tag(:u, link_to_deal(current_profile.company_name, "#{current_profile.id}"))), :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                <%@current_profile << content_tag(:a, content_tag(:u, link_to_deal(current_profile.company_name, "#{current_profile.id}")))%>
+            <% end %>
+
+            <% if !current_profile.try(:deal_announced_date).blank? %>
+                <%= content_tag(:td, current_profile.deal_announced_date.strftime("%b %Y"), :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "center") %>
+                <%@current_profile << current_profile.deal_announced_date.strftime("%b %Y")%>
+            <% else %>
+                <%= content_tag(:td, "n/d", :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "center") %>
+                <%@current_profile << "n/d"%>
+            <% end %>
+==========================================================================================================================================

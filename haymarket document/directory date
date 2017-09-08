@@ -1,0 +1,11 @@
+@site.directory_listings.order("updated_at desc").first
+
+
+
+
+@site.directory_listings.each do |b|
+1.9.3-p194 :033 >     b.start_date = "2017-02-27 00:00:00"
+		b.index_to_search_engine
+1.9.3-p194 :034?>   b.save
+1.9.3-p194 :035?>   end
+

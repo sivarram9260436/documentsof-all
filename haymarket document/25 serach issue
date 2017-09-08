@@ -1,0 +1,32 @@
+Started GET "/search?utf8=%E2%9C%93&facet=true&sort=recent&query=" for 192.168.15.55 at 2017-05-25 19:08:36 +0530
+  Processing by Wps::SearchController#search as HTML
+  Parameters: {"utf8"=>"✓", "facet"=>"true", "sort"=>"recent", "query"=>""}
+ ---- rem checking
+
+
+
+
+
+
+    @page_properties={:selected_menu=>'display_category',:menu_title=>'Display Category',:page_type=>"display_category_directories"}
+    #directory_category = @site.directory_listing_categories.where("full_alias_name ILIKE ?","#{params[:full_alias_name]}%")
+    directory_category = @site.directory_listing_categories.where("name =?",params[:name])
+    if !directory_category.blank?
+      @directory_listings = directory_category.last.directory_listings
+      render :template => "/directory/directory_category_page" , :layout => @site.get_layout
+    else
+      render 404
+    end
+
+
+
+
+Started GET "/directory_category/manufacturers-suppliers-pre-press-software-digital-proofing" for 103.38.240.1 at 2017-05-25 20:15:38 +0530
+  Processing by Wps::DirectoryController#display_category as HTML
+  Parameters: {"name"=>"manufacturers-suppliers-pre-press-software-digital-proofing"}
+ ---- rem checking
+ -- rem -- nil -- nil --- nil
+Completed 500 Internal Server Error in 74ms
+
+
+

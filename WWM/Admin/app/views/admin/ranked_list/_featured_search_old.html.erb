@@ -1,0 +1,170 @@
+<%= javascript_include_tag "/autocomplete/auto_complete" %>
+
+<% @sources=featured_search %>
+<div class="form_data">
+	<label for="advance_search_title"> Article Search: </label></td>
+	<%= text_field :search_data ,:title,:"size"=>24 ,:class=>"input_text" %>
+</div>
+<div class="form_data">
+	<label for="advance_search_section_id"> Article Type: </label>
+	<% @section=@site.sections.find_all_by_entity_type("Article") %>
+	<%= collection_select :search_data, :section_id, @section,:id,:name,options={:prompt=>'All'},:class=>"select_box" %>
+</div>
+<input type="hidden"  name="search_data[article_type]" id="search_data_article_typesearch" class="hidden_style" value="All">
+<!--div class="form_data">
+	<label for="advance_search_title"> Type: </label>
+	<%#= select_tag("search_data[article_type]", options_for_select(["All","Article","Blog"], "All"),{:class=>"select_box"}) %>
+</div-->
+<div class="form_data">
+	<label for="token-input-article_category_id">Category:</label>
+	<%= raw autocompletion_field("article_category",{:selected=>[],:default_selection=>"Enter the Taxonomy Name",:sort=>true})%>
+</div>
+<!--<div class="form_data"><label> Primary Medium:</label>
+<%#= raw autocompletion_field("search_medium")%>
+</div>-->
+<div class="common_button_parent">
+	<div class="button" id="main_search_new">
+		<a href="javascript:void(0);">Search</a>
+	</div>
+</div>
+<div class="fea_search_box">
+	<div id="article_list" class="update_pagination_block"></div>
+</div>
+<script type="text/javascript">
+	/*Drag and drop list items from Listsearch to List_taken*/
+	jQuery(function() {
+		drag_drop_listSearch();
+	});
+	function drag_drop_listSearch() {
+		jQuery("#list_search,#listTaken").sortable({
+			connectWith : '#listTaken',
+		});
+		jQuery("#listTaken").sortable({
+			containment : '#listTaken'
+		});
+	}
+
+	jQuery(function() {
+		jQuery("#collection_search").click(function() {
+			var get_val = jQuery("#search_data_id").val();
+			
+			var site_type = jQuery('#search_data_article_type').val();
+			var params = "search_data[id]=" + get_val + "&flag=feature" + "&article_type=" + site_type;
+			jQuery.ajax({
+				type : 'GET',
+				url : '/admin/articles/advance_search',
+				data : params,
+				success : function(data) {
+					jQuery(".content_table #list").html(data);
+					drag_drop_listSearch();
+				}
+			});
+
+		});
+		/*This code for collection search for site and portal*/
+		jQuery("div.source_search").click(function() {
+			//alert("test search");
+			var button_id = jQuery(this).attr("id");
+			var site_id = jQuery(this).find("a").data("siteid");
+			if(button_id == 'all_source_site') {
+				var pars = "site_id=" + site_id + "&status=site";
+				jQuery.ajax({
+					type : 'POST',
+					url : '/admin/ranked_list/get_source',
+					data : pars,
+					dataType : 'html',
+					success : function(update_portal) {
+						jQuery("#test").html(update_portal);
+					}
+				});
+			} else if(button_id == 'all_source_portal') {
+				var pars = "site_id=" + site_id + "&status=portal";
+				jQuery.ajax({
+					type : 'POST',
+					url : '/admin/ranked_list/get_source',
+					data : pars,
+					dataType : 'html',
+					success : function(update_portal) {
+						jQuery("#test").html(update_portal);
+					}
+				});
+			}
+		});
+		jQuery("#main_search_new").click(function() {
+			var section_id = jQuery('#search_data_section_id option:selected').val();
+			var title = jQuery('#search_data_title').val();
+			var sources = jQuery('select[name="search_data[source_ids][]"] option');
+			var categories = jQuery('input[name="article[category_ids][]"]');
+			var site_type = jQuery('#search_data_article_typesearch').val();
+			var primary_medium = jQuery('select[name="search_data[primary_medium][]"] option');
+			var source_ids = [];
+			jQuery(sources).each(function() {
+				source_ids.push(jQuery(this).val());
+			});
+			//source_ids=source_ids.not(-1);
+			var category_ids = [];
+			jQuery(categories).each(function() {
+				category_ids.push(jQuery(this).val());
+			});
+			//category_ids=category_ids.not(-1)
+			var primary_mediums = [];
+			jQuery(primary_medium).each(function() {
+				primary_mediums.push(jQuery(this).val());
+			});
+			//primary_mediums=primary_mediums.not(-1)
+			primary_mediums = [primary_mediums];
+			var params = "search_data[section_id]=" + section_id + "&search_data[title]=" + title + "&flag=feature" + "&search_data[source_ids]=" + source_ids  + "&article_type=" + site_type + "&search_data[primary_medium]=" + primary_mediums + "&search_data[category_ids]=" + category_ids;
+			jQuery.ajax({
+				type : 'GET',
+				url : '/admin/articles/advance_search',
+				data : params,
+				beforeSend : function() {
+					jQuery("#load_indicatior").show();
+				},
+				success : function(search_data) {
+					jQuery("#load_indicatior").hide();
+					jQuery("#article_list").html(search_data);
+					drag_drop_listSearch();
+				}
+			});
+		});
+	});
+</script>
+<script type="text/javascript">
+	jQuery(function() {
+		/*Code for save & return button*/
+		jQuery("#save_return_list").click(function() {
+			var get_action = jQuery("#new_featured_set").attr("action");
+			var rankedlistname = jQuery('#featured_set_name').val();
+			var blankRE = /^\s/;
+			if(rankedlistname.trim() == "") {
+				alert("Ranked List Name should not be blank.");
+				return false;
+			} else if(blankRE.test(rankedlistname)) {
+				alert("Ranked List Name should not start with a blank space.")
+				return false;
+			}
+			var list_value = jQuery("#listTaken").sortable('serialize', {
+				key : 'listTaken[]',
+				attribute : 'data-listid'
+			});
+			var setform_action = get_action + "?featured_set=" + list_value;
+			document.multi.action += "?" + list_value + '&flag=save';
+			document.multi.submit();
+			// jQuery("#new_featured_set").attr("action",setform_action);
+			// jQuery("#new_featured_set").submit();
+		});
+		/*code for save button*/
+		jQuery('.needAjax div.pagination a').live('click', function() {
+			var url = jQuery(this).attr("href");
+			var update_div = jQuery(this).parents('.update_pagination_block').attr("id");
+			jQuery("#" + update_div).load(url);
+			return false;
+		});
+	});
+
+</script>
+<style type="text/css">
+.article_container ul li.article_author_ids-facebook{background: none repeat scroll 0 0 #DEE7F8;}
+.article_container ul li.author_input_input_author-facebook{background:none;}
+</style>

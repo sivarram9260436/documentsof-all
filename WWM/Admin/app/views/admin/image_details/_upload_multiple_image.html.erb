@@ -1,0 +1,46 @@
+<div id="upload_multiple_image_overlay" style="display:none">
+     	<%= csrf_meta_tag %>
+	<%= javascript_include_tag "multiple_image" %>
+	<%= stylesheet_link_tag "multiple_image" %>
+
+	<h1>Choose images or drag them onto drop zone below</h1>
+	<%= error_messages_for_text_changes 'image','image_detail'%>
+	<%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+
+	<form id="multiple_image_upload" action="save_multiple_image" method="post" enctype="multipart/form-data">
+		<input type="file" id="fileField" name="fileField" multiple />
+		<%= hidden_field "image","site_id",:value=>"#{@site.id}" %>
+		<input type="hidden" value="Universal rights granted to all users" name="image[licence_type]" id="image_licence_type" class="hidden_style">
+	</form>
+
+	<div id="fileDrop">
+		<p>
+			Drop images here
+		</p>
+
+	</div>
+
+	<div id="files">
+		<h3>Image list</h3>
+		<a id="reset" href="#" title="Remove all files from list">Clear Image List</a>
+		<ul id="fileList"></ul>
+		<a id="upload" href="#" title="Upload all files in list">Upload Images</a>
+	</div>
+</div>
+
+<!-- Please do not copy any code from below this point -->
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-10142508-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+
+</script>

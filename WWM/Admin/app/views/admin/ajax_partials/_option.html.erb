@@ -1,0 +1,11 @@
+<% property_count = session[:property_count] = session[:property_count].blank? ? 1 : session[:property_count] + 1 %>
+<table>
+        <%= fields_for "site_propert", option do |option| %>
+            <%= content_tag(:tr, :class => 'site_property') do %>
+                        <%= content_tag(:td, option.label(:name, "Option #{property_count} :"),:style=>"width:14%" ) %>
+                        <%= content_tag(:td, option.text_field(:option, :name => 'poll[options][]', :class => 'input_text'),:style=>"width:40%") %>
+                    <%= content_tag(:td, link_to(image_tag("/images/new_button/cancel_f2.png" , :size => "15x15", :alt => "Remove"),"javascript:void(0);",:class => 'close_button_option')) %>
+        <% end %>
+        <% end %>
+</table>
+ <%# session[:property_count] = nil %>

@@ -1,0 +1,80 @@
+<div class="box_image_search">
+        <div class="image_video_manager" >
+          <%if media_list != [] %>
+                <%media_list.collect do | media_detail |%> 
+        <div class="align_video">  
+            <div class="media_below_image_for_loop" id="image_details_list_<%=media_detail.id%>">         
+                <%= media_detail.name.length > 12 ? media_detail.name[0..12]+"..." : media_detail.name %> 
+            </div>
+            
+                     
+                <%=link_to(image_tag("#{media_detail.image.thumbnail.image_path}",:alt=>"image",:width=>'80',:height=>'80'),"javascript:void(0)",:id=>"#{media_detail.id}","data-update"=>"video_ply","data-url"=> "/admin/media_details/media_videoplay/#{media_detail.id}","data-name"=> "#{media_detail.name}","data-value" => "#{media_detail.video_path}",:class => "ajax_call","data-param" => "name=#{media_detail.name}&value=#{media_detail.video_path}") if (media_detail.image and !media_detail.image.thumbnail.blank?)%>
+      
+            <p class="insert_download_buttons">               
+                <%=link_to("Insert" ,"javascript:void(0)",:id=>"{media_detail.id}",:class =>"select_video","data-videoid" => media_detail.id,"data-videoname" => media_detail.image.thumbnail.image_path) + "" + (link_to '', :action=>"edit", :controller=>"media_details", :id=>"#{media_detail.id}", :set_flag=>@flag) if ((@flag=="popup") and (media_detail.image and !media_detail.image.thumbnail.blank?))%>
+            </p>    
+             
+             <p class="insert_download_buttons">
+
+                <%= (link_to 'Edit' ,:action=>"edit",:controller=>"media_details",:id=>"#{media_detail.id}")  if (@flag!="popup")%>
+                 </p>    
+                            
+             <p class="insert_download_buttons">
+                <%= (link_to 'Download' ,:action=>"download",:controller=>"media_details",:id=>"#{media_detail.id}")if (@flag!="popup") %>
+             </p>
+               </div>
+               
+            <%end %>
+
+            <%else %>
+                No Video Found
+            <%end %>
+         </div>
+    </div>
+
+<script type="text/javascript">
+$('.select_video').unbind("click");
+$('.select_video').click(function(){
+confirmed = window.confirm("Do you want to upload this video");
+if (confirmed) 
+{
+var id=$(this).attr("id");
+var video_id=$(this).data('videoid');
+var video_name=$(this).data('videoname');
+var img_pre='<img src="'+video_name+'" alt="" />';
+window.opener.$('#prev_video').show();
+window.opener.$('#prev_video').html(img_pre);
+window.opener.$('#add_audio2').hide();
+window.opener.$('#no_video').hide();
+window.opener.$('#gen_video').hide();
+window.opener.$('#vid_close').hide();
+window.opener.$('#no_vid').show();
+window.opener.$('#article_media_detail_id').val(video_id);
+}else
+{
+ return false;
+}
+parent.close();
+});
+
+$('.remove_video').click(function(){
+        $('#gen_video').hide();
+        $('#add_video_div').show();
+        $('#prev_video').hide();
+        $('#no_vid').hide();
+        $('#vid_close').show();
+        $('#article_media_detail_id').attr("value","");
+});
+ </script>
+
+
+<style type="text/css">
+.tab_manager {   float: left;    margin: 10px;/*    width: 960px;*/}
+.box_image_search {float: left;    padding: 20px 10px;    width: 960px;}
+.image_video_manager {float:left;width:100%;}
+.image_video_manager .align_video {border: 1px solid #CCCCCC;    float: left;    height: 125px;    margin-bottom: 10px;    margin-right: 20px;    text-align: center;    width: 135px; padding: 10px 0;}
+.edit_download_buttons {padding-top:10px;  }
+.media_below_image_for_loop {font-size:1.2em;color:#000;padding-bottom:5px;}
+.edit_download_buttons a {padding-right:30px;text-align:left;}
+.edit_download_buttons a:last-child {text-align:right;padding-right:0px;}
+</style>

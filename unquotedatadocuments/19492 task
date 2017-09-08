@@ -1,0 +1,193 @@
+http://stage.unqdata.mergermarket.kreatio.info/fund/72633?search_id=117950&source=fund_search
+
+
+
+Parameters: {"search_id"=>"117950", "source"=>"fund_search", "fund_id"=>"72633"}
+
+
+
+
+
+
+
+
+
+
+Started GET "/fund/72633?search_id=117950&source=fund_search" for 127.0.0.1 at 2017-02-20 09:50:03 +0530
+Processing by Wps::UqFundsController#show_fund as HTML
+  Parameters: {"search_id"=>"117950", "source"=>"fund_search", "fund_id"=>"72633"}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd1xxxxxxxxxxxxxfalse
+WARNING: User#current is nil, are you including SentientController on your ApplicationController?
+WARNING: User#current is nil, are you including SentientController on your ApplicationController?
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_recently_viewed_funds.html.erb (970.4ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_profile_top_link.html.erb (174.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_currency_selection.html.erb (81.4ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_wsw_information.html.erb (6080.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_company_information.html.erb (6140.8ms)
+===========fund_event============#<FundEvent id: 36167, fund_id: 72633, fund_event_type_id: 1, event_date: "2007-04-01", amount_closed: "0.0", target: "200.0", final_close: "false", created_by: nil, updated_by: nil, created_at: "2014-09-06 07:06:44", updated_at: "2014-09-06 07:06:44">========
+===========fund_event============#<FundEvent id: 36168, fund_id: 72633, fund_event_type_id: 2, event_date: "2007-11-01", amount_closed: "150.0", target: "200.0", final_close: "false", created_by: nil, updated_by: nil, created_at: "2014-09-06 07:06:44", updated_at: "2014-09-06 07:06:44">========
+===========fund_event============#<FundEvent id: 36169, fund_id: 72633, fund_event_type_id: 5, event_date: "2008-09-01", amount_closed: "280.0", target: "200.0", final_close: "true", created_by: nil, updated_by: nil, created_at: "2014-09-06 07:06:44", updated_at: "2014-09-06 07:06:44">========
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_fund_data.html.erb (159.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_fund_description.html.erb (2.6ms)
+=======Geographic Preferences=============#<InvestmentPreference id: 71297, fund_id: 72633, investor_size_min: "15.0", investor_size_max: "35.0", average_investment_size: "0.0", deal_size_min: "0.0", deal_size_max: "0.0", target_deals_count_min: "0", target_deals_count_max: "0", target_deals_in_fund_life_cycle_count_min: "0", target_deals_in_fund_life_cycle_count_max: "0", co_invest_with_other_funds: "true", created_by: nil, updated_by: nil, created_at: "2014-09-06 07:06:44", updated_at: "2014-09-06 07:06:44">===========
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_investment_strategy.html.erb (150.0ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_terms_and_conditions.html.erb (443.4ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_fund_portfolio.html.erb (134.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_advisers_in_fund.html.erb (569.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_feedback_comments.html.erb (2.3ms)
+============wwwwwwwwwww========#<SavedSearch id: 117950, entity_type: "Fund", entity_id: nil, subscriber_id: 24327, search_type: "standard_search", search_params: {"utf8"=>"✓", "authenticity_token"=>"TMABZQ7WQgM7tZJgPOnLRHwrXfAq8m5D+Tg0Ar87xg4=", "sort"=>"name_sort", "order"=>"asc", "funds"=>{"currency"=>"uk", "fund_name_value"=>"", "fund_name"=>"", "investor_name_value"=>"", "investor_name"=>"", "country_name"=>"", "country"=>"", "fund_type_value"=>"", "fund_type"=>"", "event_dates_value"=>"", "event_dates"=>"", "start_month"=>"", "start_year"=>"", "end_month"=>"", "end_year"=>"", "target_from"=>"", "target_to"=>"", "keyword"=>"", "geogcountry_value"=>"", "geogcountry"=>"", "unverified"=>"Pending QC"}, "search_type"=>"standard_search", "controller"=>"wps/uq_funds", "action"=>"search", "page"=>1}, custom_search_params: nil, created_by: nil, updated_by: nil, created_at: "2017-02-20 04:10:01", updated_at: "2017-02-20 04:10:01", save_type: "back_to_search", name: nil>============
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/common/_personal_notes.html.erb (1.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/fund_profile.html.erb within /layouts/post_login (9624.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_seo_keys.html.erb (1.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_stylesheets.html.erb (4.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_head_scripts.html.erb (7.0ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/authentication/_header_logout.html.erb (1.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/listing_pages/partials/_post_login_menu.erb (438.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_header.html.erb (448.6ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/listing_pages/partials/_post_login_menu.erb (6.6ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_footer.html.erb (63.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_javascript.html.erb (0.5ms)
+Completed 200 OK in 12058ms (Views: 9824.1ms | ActiveRecord: 1012.1ms | Solr: 17.3ms)
+
+
+
+
+
+
+
+ def show_fund
+    @main_menu = Menu.only_parent_menus.by_name("After Login").first
+    @selected_menu = Menu.by_name("Funds").first
+    #funds = Fund.text_search({ :text => "", :page => 1, :per_page => PER_PAGE, :filters => {:fund_filter_id => [[params[:fund_id]], "ary"], :show_on_site => [true]} }).raw_results
+    funds = Fund.text_search({ :text => "", :page => 1, :per_page => PER_PAGE, :filters => {:fund_filter_id => [[params[:fund_id]], "ary"]} }).raw_results
+    if funds.map(&:primary_key).include?(params[:fund_id])
+       @fund = @site.funds.by_fund_id(params[:fund_id]).first
+       @event_date = @fund.fund_events.collect(&:event_date).compact.sort.first.beginning_of_month if !@fund.fund_events.blank? && !@fund.fund_events.collect(&:event_date).compact.sort.first.blank?
+
+      session[:currency] = params[:funds][:currency] if params[:funds] !=nil && params[:funds][:currency] !=nil
+
+      SubscriberLog.create(:entity_type => "Fund", :entity_id => @fund.id, :subscriber_id => session[:user_id], :log_type => "profile")
+
+      recent_fund = RecentView.by_subscriber(session[:user_id]).by_entity_type("Fund").order("created_at desc").limit(20)
+      # recent_fund = RecentView.by_subscriber(session[:user_id]).by_entity_type("Fund").limit(20)
+      if !recent_fund.collect(&:entity_type_id).include?(@fund.id)
+        RecentView.create(:subscriber_id => session[:user_id],:entity_type => @fund.class.name, :entity_type_id => @fund.id)
+      else
+        f=recent_fund.where(entity_type_id: @fund.id)
+        f.first.delete
+        RecentView.create(:subscriber_id => session[:user_id],:entity_type => @fund.class.name, :entity_type_id => @fund.id)
+      end
+      @recent_viewed =  RecentView.by_subscriber(session[:user_id]).by_entity_type("Fund").order("created_at desc").limit(20)
+      #@recent_viewed = RecentView.by_subscriber(session[:user_id]).by_entity_type("Fund").limit(20)
+      @investment_preference = @fund.investment_preference
+      @country_ids= @investment_preference.countries.pluck(:id) if @investment_preference.present?
+      @continent_countries = ContinentCountry.where(country_id: @country_ids)
+      if @continent_countries.present?
+         @regions= Region.where(:id=> @continent_countries.pluck(:region_id))
+         @sub_regions= SubRegion.where(:id=> @continent_countries.pluck(:sub_region_id))
+      end
+      if params[:search_id]
+       @back_search = SavedSearch.find_by_id(params[:search_id])
+      end
+      @terms_conditions = @fund.terms_condition
+      @fund_structure = @fund.fund_structure
+      @fund_event = @fund.fund_events
+      @fund_portifolios = @fund.deal_investments
+      @fund_lps = @fund.lp_funds
+
+  work_group_id = Subscriber.find(session[:user_id]).work_group_id
+       @subscriber_note = SubscriberNote.by_work_group(work_group_id).by_entity_type(@fund.class.name).by_entity_id(@fund.id).first
+
+      render :template => "/funds/fund_profile", :layout => "/layouts/post_login"
+    else
+      render_404_after_login
+    end
+  end
+
+
+
+
+
+
+ vi /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_terms_and_conditions.html.erb
+
+
+
+
+
+
+<% gpc = CurrencyExchange.get_other_currency_rates(@terms_conditions.gp_contribution.to_f,@fund.currency,@fund.created_at.blank? ? Date.today : @fund.created_at) %>
+
+
+
+
+ <%= number_with_precision( (case (params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) when "euro" then gpc[:euro] when "uk" then gpc[:uk] when "us" then gpc[:us] when "yen" then gpc[:yen] end ), :precision => 1, :delimiter => ',') %>
+
+
+
+
+
+
+
+
+
+
+///////Started GET "/funds/edit_fund?fund_id=70109&site_id=1&tab=Key_fund_specifics" for 127.0.0.1 at 2017-02-20 10:32:26 +0530
+Processing by FundsController#edit_fund as HTML
+  Parameters: {"fund_id"=>"70109", "site_id"=>"1", "tab"=>"Key_fund_specifics"}
+  Rendered funds/_fund_tabs.html.erb (6.7ms)
+  Rendered funds/_key_fund_specifics.html.erb (485.6ms)
+  Rendered funds/edit_fund.html.erb within layouts/application (505.0ms)
+  Rendered unquote/_css_image.html.erb (216.1ms)
+  Rendered unquote/_secondary_menu.html.erb (3.9ms)
+  Rendered unquote/_menu_container.html.erb (6.7ms)
+Completed 200 OK in 1790ms (Views: 706.1ms | ActiveRecord: 104.0ms | Solr: 0.0ms)
+
+
+
+
+
+
+
+Task #19492: MM>>Unquotedata>>Bug #19329: GP Contribution field in Fund Profile converting percentages
+
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/WPS$ vi /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_terms_and_conditions.html.erb
+
+
+
+
+ <% gpc = CurrencyExchange.get_other_currency_rates(@terms_conditions.gp_contribution.to_i,@fund.currency,@fund.created_at.blank? ? Date.today : @fund.created_at) %>
+
+
+ <%= number_with_precision( (case (params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) when "euro" then gpc[:euro] when "uk" then gpc[:uk] when "us" then gpc[:us] when "yen"then gpc[:euro] end ),:delimiter => ',',:precision =>0) %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%= content_tag(:tr, { :class => "gp_contr"}) do %>
+                                <%= content_tag(:td, label_tag("GP Contribution:"), {:class => "lab-field"}) %>
+                                <%= content_tag(:td, text_field(:terms_condition, :gp_contribution,:value => @terms_condition.gp_contribution.to_f > 0 ? @terms_condition.gp_contribution : nil), { :class =>"b-size"}) %>
+                                <%= content_tag(:td, select("terms_condition", "gp_contribution_type", [["Value", "127"], ["Percentage", "128"]],{ :include_blank => "Select" })) %>
+                        <% end %>
+
+
+
+
+

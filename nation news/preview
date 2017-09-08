@@ -1,0 +1,51 @@
+//////
+
+Started GET "/admin/articles/edit/96061" for 103.38.240.1 at 2017-04-24 03:28:38 -0400
+  Processing by Admin::ArticlesController#edit as HTML
+  Parameters: {"id"=>"96061"}
+Rendered admin/articles/_create_edit_buttons.html.erb (4.7ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/articles/_volumn_issue_form.html.erb (6.5ms)
+Rendered admin/articles/_article_content_edit.html.erb (2.0ms)
+Creating scope :limit. Overwriting existing method ExtendedAttribute.limit.
+-------------------------------------------------------------------Sun, 23 Apr 2017 17:11:00 GYT -04:00
+-------------------------------------------------------------------Sun, 23 Apr 2017 17:11:00 GYT -04:00
+-------------------------------------------------------------------
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/articles/_additional_data.js.erb (1.0ms)
+Rendered admin/articles/_form.html.erb (2541.2ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/articles/edit.html.erb within layouts/application (2542.8ms)
+===================================== 2 ===================
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/_mainmenu.html.erb (588.4ms)
+Completed 200 OK in 3851ms (Views: 3064.0ms | ActiveRecord: 122.1ms | Solr: 0.0ms)
+
+
+Started GET "/javascripts/jquery/addedit_admin.js" for 103.38.240.1 at 2017-04-24 03:28:42 -0400
+
+ActionController::RoutingError (No route matches [GET] "/javascripts/jquery/addedit_admin.js"):
+  lib/proc_title.rb:18:in `call'
+  lib/discard_stale_requests2.rb:36:in `call'
+
+
+
+Started GET "/javascripts/jquery/addedit_admin.js" for 103.38.240.1 at 2017-04-24 03:28:42 -0400
+
+ActionController::RoutingError (No route matches [GET] "/javascripts/jquery/addedit_admin.js"):
+  lib/proc_title.rb:18:in `call'
+  lib/discard_stale_requests2.rb:36:in `call'
+
+
+
+
+Started POST "/admin/articles/update_time" for 103.38.240.1 at 2017-04-24 03:30:16 -0400
+  Processing by Admin::ArticlesController#update_time as */*	
+  Parameters: {"html"=>nil}
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/articles/_preview_article_form.html.erb (186.6ms)
+Completed 200 OK in 2501ms (Views: 571.1ms | ActiveRecord: 242.2ms | Solr: 0.0ms)
+
+
+Started POST "/admin/articles/update_time" for 103.38.240.1 at 2017-04-24 03:32:48 -0400
+  Processing by Admin::ArticlesController#update_time as */*
+  Parameters: {"html"=>nil}
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/articles/_preview_article_form.html.erb (0.4ms)
+Completed 200 OK in 14ms (Views: 1.1ms | ActiveRecord: 3.3ms | Solr: 0.0ms)
+
+

@@ -1,0 +1,404 @@
+http://www.unquotedata.com/equitydebt/64470?search_id=211884&source=investor_search
+
+http://stage.unqdata.mergermarket.kreatio.info/equitydebt/64470?search_id=118003&source=investor_search
+
+
+
+
+https://pm.kreatio.com/work_packages/18851
+
+
+
+
+<fieldset>
+  <legend style="width:165px;">
+    Current Portfolio Companies
+  </legend>
+  <div style="_width:710px;" class="height_setting search_result_div_compare_current investor_deal_list" data-total_limit="<%= @investor_exit_count %>" data-url="/equitydebt/investor_current" data-increse="20" data-params='{"id" :<%= params[:investor_id] %>,"name":"investor"}' data-current_count="20">
+    <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" id="equity" class="cls_table_style3 tbl_style">
+      <tbody>
+      <tr style="background-color: rgb(229, 230, 232);">
+        <td width="2%" class="font_black_bold" style="border-bottom: 1px solid rgb(235, 235, 235);">&nbsp;</td>
+        <td width="21%" class="font_black_bold" style="border-bottom: 1px solid rgb(235, 235, 235);">Company Name</td>
+        <td width="10%" align="center" class="font_black_bold" style="border-bottom: 1px solid rgb(235, 235, 235);">Deal
+          Date
+        </td>
+        <td width="25%" class="font_black_bold" style="border-bottom: 1px solid rgb(235, 235, 235);">Sector</td>
+        <td width="14%" class="font_black_bold" style="border-bottom: 1px solid rgb(235, 235, 235);">Country</td>
+        <td width="16%" class="font_black_bold" style="border-bottom: 1px solid rgb(235, 235, 235);">Basic Deal Type
+        </td>
+
+ <%= content_tag (:td), :align => "right", :class => "font_black_bold", :width => "14%;", :style => "border-bottom: 1px solid rgb(235, 235, 235);" do %>
+
+        <!-- Deal Value head -->
+            Value <%= CURRENCY_DISPLAY[session[:currency] || (@user.currency !=nil && CURRENCY_SEND[@user.currency.name])] %>
+
+
+       <% end %>
+        <!-- Deal Value head -->
+      </tr>
+      <%@arr_investor_exit = []%>
+      <% @investor_exit.order("deal_announced desc").each do |current_profile| %>
+          <%@current_profile = []%>
+          <tr class="<%= cycle('row_even', 'row_odd') -%> result_table_hover_style">
+            <!-- <td><input type="checkbox" id="crntPortfolio" name="crntPortfolio" title="Select to compare" onclick="javascript:checkSelection('1','14975')"/></td> -->
+
+            <td style="border-bottom: 1px solid rgb(235, 235, 235);" width="4%">
+              <%= check_box_tag 'deals[compare]', value="#{current_profile.id}", checked=false, :id => "crntPortfolio", :class => "tooltip compare_check", :onclick => "javascript:void(0);", :title => "maximum 4 records can be compared at a time. Once selected please press the Compare button" %>
+              <%@current_profile << (check_box_tag 'deals[compare]', value="#{current_profile.id}", checked=false, :id => "crntPortfolio", :class => "tooltip compare_check", :onclick => "javascript:void(0);", :title => "maximum 4 records can be compared at a time. Once selected please press the Compare button")%>
+            </td>
+
+            <% if !current_profile.blank? %>
+                <%= content_tag(:td, content_tag(:a, content_tag(:u, link_to_deal(current_profile.company_name, "#{current_profile.id}"))), :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                <%@current_profile << content_tag(:a, content_tag(:u, link_to_deal(current_profile.company_name, "#{current_profile.id}")))%>
+            <% end %>
+
+            <% if !current_profile.try(:deal_announced_date).blank? %>
+                <%= content_tag(:td, current_profile.deal_announced_date.strftime("%b %Y"), :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "center") %>
+                <%@current_profile << current_profile.deal_announced_date.strftime("%b %Y")%>
+            <% else %>
+                <%= content_tag(:td, "n/d", :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "center") %>
+                <%@current_profile << "n/d"%>
+            <% end %>
+
+            <% if !current_profile.try(:sub_sector_name).blank? %>
+                <%= content_tag(:td, current_profile.sub_sector_name, :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                <%@current_profile << current_profile.sub_sector_name%>
+            <% else %>
+                <%= content_tag(:td, "n/d", :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                <%@current_profile << "n/d"%>
+            <% end %>
+
+            <% if !current_profile.try(:country_name).blank?  %>
+                <%= content_tag(:td, current_profile.country_name , :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                <%@current_profile << current_profile.country_name%>
+            <% else %>
+                <%= content_tag(:td, "n/d", :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                <%@current_profile << "n/d"%>
+            <% end %>
+
+            <% if !current_profile.try(:deal_specific).try(:deal_type).try(:parent).blank? %>
+                <%= content_tag(:td, current_profile.deal_specific.deal_type.parent.name, :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                <%@current_profile << current_profile.deal_specific.deal_type.parent.name%>
+            <% else %>
+                <%= content_tag(:td, "n/d", :style => "border-bottom: 1px solid rgb(235, 235, 235);") %>
+                <%@current_profile << "n/d"%>
+            <% end %>
+
+            <%= content_tag (:td), :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "right" do %>
+                <% case (session[:currency] || (@user.currency !=nil && CURRENCY_SEND[@user.currency.name])) %>
+            <% when "euro" %>
+                    <% if current_profile.deal_specific.deal_type_confidential.eql?(true) %>
+                        n/d (<%= show_confidential_value_range(current_profile.deal_specific.deal_value_euro_f) %>)
+                       <%@current_profile << "n/d" + "(#{show_confidential_value_range(current_profile.deal_specific.deal_value_euro_f)})"%>
+                    <% else %>
+                        <%=  number_with_precision(current_profile.deal_specific.deal_value_euro_f.blank? ? "n/d" : current_profile.deal_specific.deal_value_euro_f, :precision => 2, :delimiter => ',') %>
+                        <%= @current_profile << number_with_precision(current_profile.deal_specific.deal_value_euro_f.blank? ? "n/d" : current_profile.deal_specific.deal_value_euro_f, :precision => 2, :delimiter => ',')%>
+                    <% end %>
+                <% when "uk" %>
+                    <% if current_profile.deal_specific.deal_type_confidential.eql?(true) %>
+                        n/d (<%= show_confidential_value_range(current_profile.deal_specific.deal_value_uk_f) %>)
+                        <%@current_profile << "n/d" + "(#{show_confidential_value_range(current_profile.deal_specific.deal_value_uk_f)})"%>
+                    <% else %>
+                        <%= number_with_precision(current_profile.deal_specific.deal_value_uk_f.blank? ? "n/d" : current_profile.deal_specific.deal_value_uk_f, :precision => 2, :delimiter => ',') %>
+                         <%@current_profile << number_with_precision(current_profile.deal_specific.deal_value_uk_f.blank? ? "n/d" : current_profile.deal_specific.deal_value_uk_f, :precision => 2, :delimiter => ',') %>
+                    <% end %>
+                <% when "us" %>
+                    <% if current_profile.deal_specific.deal_type_confidential.eql?(true) %>
+                        n/d (<%= show_confidential_value_range(current_profile.deal_specific.deal_value_us_f) %>)
+                        <%@current_profile << "n/d" + "(#{show_confidential_value_range(current_profile.deal_specific.deal_value_us_f)})"%>
+                    <% else %>
+                        <%=  number_with_precision(current_profile.deal_specific.deal_value_us_f.blank? ? "n/d" : current_profile.deal_specific.deal_value_us_f, :precision => 2, :delimiter => ',') %>
+                        <% @current_profile << number_with_precision(current_profile.deal_specific.deal_value_us_f.blank? ? "n/d" : current_profile.deal_specific.deal_value_us_f, :precision => 2, :delimiter => ',') %>
+
+                    <% end %>
+                <% when "yen" %>
+                    <% if current_profile.deal_specific.deal_type_confidential.eql?(true) %>
+                        n/d (<%= show_confidential_value_range(current_profile.deal_specific.deal_value_yen_f) %>)
+                        <%@current_profile << "n/d" + "(#{show_confidential_value_range(current_profile.deal_specific.deal_value_yen_f)})"%>
+                    <% else %>
+                        <%= @current_profile <<  number_with_precision(current_profile.deal_specific.deal_value_yen_f.blank? ? "n/d" : current_profile.deal_specific.deal_value_yen_f, :precision => 2, :delimiter => ',') %>
+ <% @current_profile <<  number_with_precision(current_profile.deal_specific.deal_value_yen_f.blank? ? "n/d" : current_profile.deal_specific.deal_value_yen_f, :precision => 2, :delimiter => ',') %>
+                    <% end %>
+                <% else %>
+                    n/d
+                    <%@current_profile << "n/d"%>
+                <% end %>
+                <%= @current_profile << current_profile.deal_specific.deal_type_forecast.eql?(true) ? "est" : nil %>
+            <% end %>
+          </tr>
+          <%@arr_investor_exit << @current_profile%>
+      <% end %>
+ 
+      </tbody>
+    </table>
+    <div class="loading_indicator_proto" style="display:none;">
+      <%= image_tag("loader.gif", :alt => "loader") %>
+    </div>
+  </div>
+  <div class="spacer_10" id="page"></div>
+ <div style ="float:left; width:82%;font-family:verdana; font-size: 11px; color:black">
+
+<p><i> 
+This table only displays the most recent results. To view all results, please use the "Export" function</i> </p>
+</div>
+
+  <div style="float:right; padding:4px;">
+
+    <input type="button" class="submit_btn compareDeals_current compare" value="Compare" href="javascript:void(0);" name="Compare" data-searchurl="/compare_deals">
+    <input type="button" class="submit_btn profile_exportTrigger" value="Export" name="Export" data-valueurl="current_protofolio">
+  </div>
+</fieldset>
+
+<script type="text/javascript">
+    //compare list when click compare button
+    $(document).on('click', '.compareDeals_current', function () {
+        var comparecheck_length = $('.search_result_div_compare_current input[type="checkbox"].compare_check:checked').length
+        if (comparecheck_length < 2) {
+            alert("Please Select minimum 2 Deals to Compare!");
+            return false;
+        }
+        else {
+            var compare_checked_id = [];
+            var invest_id = <%= params[:investor_id].to_i%>;
+            $('.search_result_div_compare_current input[type="checkbox"].compare_check:checked').each(function () {
+                compare_checked_id.push('deals[]=' + $(this).attr('value'))
+            });
+            compare_checked_id.push('source-page=investor');
+            location.href = $(this).attr('data-searchurl') + '?investor_id=' + invest_id + '&' + compare_checked_id.join('&')
+        }
+    });
+
+    //don't check more than 4
+    $(document).on('click', '.search_result_div_compare_current input[type="checkbox"].compare_check', function () {
+        if ($('.search_result_div_compare_current input[type="checkbox"].compare_check:checked').length > 4) {
+            alert("Please Select only Four Deals");
+            $(this).attr('checked', false);
+            return false;
+        }
+    });
+</script>
+
+<%= javascript_include_tag "jquery.dataTables.min.js"%>
+<!--
+<script type="text/javascript">
+$(document).ready(function() {
+var dataSet= <%#= @arr_investor_exit.to_json.html_safe%>;
+    $('.cls_table_style3').DataTable( {
+        data: dataSet,
+        columns: [
+            {title: ""},
+            { title: "Company Name" },
+            { title: "Deal Date" },
+            { title: "Sector" },
+            { title: "Country" },
+            { title: "Basic Deal Type<%#= CURRENCY_DISPLAY[session[:currency] || (@user.currency !=nil && CURRENCY_SEND[@user.currency.name])]%>" },
+            { title: "Value" }],
+        "paging":   false,
+        "searching": false,
+        "info":     false,
+        "scrollY":        "415px",
+        "scrollCollapse": true,
+        columnDefs: [
+       { type: 'stringMonthYear', targets: 0 }
+     ]
+  
+    } );
+
+var table = $('#equity').DataTable();
+$('#equity thead').on('click', 'th', function () {
+ var index = table.column(this).index();
+var sortedCol = $('#equity').dataTable().fnSettings().aaSorting[0][0];
+if ($(this).attr("aria-sort") == "descending"){
+$('#equity thead th a').removeClass("decending ascending");
+$('#equity thead th a').css("color","black");
+$(this).html("<a class='decending xyz'>" + $(this).text()  + "</a>");
+}
+else
+{
+$('#equity thead th a').removeClass("decending ascending");
+$('#equity thead th a').css("color","black");
+$(this).html("<a class='ascending xyz'>" + $(this).text() + "</a>");
+}
+});
+
+$.extend(jQuery.fn.dataTableExt.oSort, {
+    "stringMonthYear-pre": function (s) {
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+ 
+        var dateComponents = s.split(" ");
+        dateComponents[0] = dateComponents[0].replace(",", "");
+        dateComponents[1] = jQuery.trim(dateComponents[1]);
+ 
+        var year = dateComponents[1];
+ 
+        var month = 0;
+        for (var i = 0; i < months.length; i++) {
+            if (months[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                month = i;
+                break;
+            }
+        }
+ 
+        return new Date(year, month, 1);
+    },
+ 
+    "stringMonthYear-asc": function (a, b) {
+        return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+    },
+ 
+    "stringMonthYear-desc": function (a, b) {
+        return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+    }
+});
+
+
+
+});
+</script>
+-->
+<script type="text/javascript">
+$(document).ready(function() {
+var dataSet= <%= @arr_investor_exit.to_json.html_safe%>;
+    $('.cls_table_style3').DataTable( {
+        data: dataSet,
+        columns: [
+            {title: ""},
+            { title: "Company Name" },
+            { title: "Deal Date" },
+            { title: "Sector" },
+            { title: "Country" },
+            { title: "Basic Deal Type" },
+            { title: "Value<%= CURRENCY_DISPLAY[session[:currency] || (@user.currency !=nil && CURRENCY_SEND[@user.currency.name])]%>"}],
+        "paging":   false,
+        "searching": false,
+        "info": false,
+        "scrollY": "425px",
+        "scrollCollapse": true,
+        "aoColumns": [ {title:""},  {title:"Company Name"}, { title:"Deal Date","sType": "stringMonthYear" }, {title:"Sector"}, {title:"Country"},{title:"Basic Deal Type"}, {title:"Value<%= CURRENCY_DISPLAY[session[:currency] || (@user.currency !=nil && CURRENCY_SEND[@user.currency.name])]%>","sType": "NumericOrBlank"} ]
+    } );
+
+$.extend(jQuery.fn.dataTableExt.oSort, {
+    "stringMonthYear-pre": function (s) {
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+ 
+        var dateComponents = s.split(" ");
+        dateComponents[0] = dateComponents[0].replace(",", "");
+        dateComponents[1] = jQuery.trim(dateComponents[1]);
+ 
+        var year = dateComponents[1];
+ 
+        var month = 0;
+        for (var i = 0; i < months.length; i++) {
+            if (months[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                month = i;
+                break;
+            }
+        }
+ 
+        return new Date(year, month, 1);
+    },
+ 
+    "stringMonthYear-asc": function (a, b) {
+        return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+    },
+ 
+    "stringMonthYear-desc": function (a, b) {
+        return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+    },
+
+                "NumericOrBlank-asc": function(x,y) {
+                   var retVal;
+                    x = (x = parseFloat($.trim(x).replace(/,/g,''))) ? x : 0;
+                    y = (y = parseFloat($.trim(y).replace(/,/g,''))) ? y : 0;
+                    if (x==y) retVal= 0;
+                    else retVal = (x>y) ? 1 : -1;
+                    return retVal;
+                },
+                "NumericOrBlank-desc": function(y,x) {
+                    var retVal;
+                    x = (x = parseFloat($.trim(x).replace(/,/g,''))) ? x : 0;
+                    y = (y = parseFloat($.trim(y).replace(/,/g,''))) ? y : 0;
+                    if (x==y) retVal= 0;
+                    else retVal = (x>y) ? 1 : -1;
+                    return retVal;
+                } 
+   
+});
+});
+</script>
+
+
+<style>
+.decending {
+    background: url(/images/ascending-arrow.gif) no-repeat right 5px;
+    color: #E3001B;
+    padding-right: 11px;
+}
+.ascending {
+    background: url(/images/desecending-arrow.gif) no-repeat right 5px;
+    color: #E3001B;
+    padding-right: 11px;
+}
+#lp_research_wrapper .sorting_asc[aria-sort="ascending"],#equity_wrapper .sorting_asc[aria-sort="ascending"]{
+
+
+
+    background-image:url(/images/desecending-arrow.gif);
+
+     background-repeat:no-repeat;
+
+    background-position:90% 19px;
+
+    color: #E3001B;
+
+    padding-right: 11px;
+
+}
+
+
+
+#lp_research_wrapper .sorting_desc[aria-sort="descending"],#equity_wrapper .sorting_desc[aria-sort="descending"]{
+
+    background-image:url(/images/ascending-arrow.gif);
+
+    background-repeat:no-repeat;
+
+    background-position: 90% 19px;
+
+    color: #E3001B;
+
+    padding-right: 11px;
+
+}
+
+#lp_research_wrapper .sorting_asc[aria-sort="ascending"]:first-child, #equity_wrapper .sorting_asc[aria-sort="ascending"]:first-child{background-image:none}
+
+</style>
+
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+var dataSet= <%= @arr_exit_investor_true.to_json.html_safe%>;
+console.log(dataSet);
+    $('.cls_lp_research').DataTable( {
+        data: dataSet,
+        columns: [
+            { title: "" },
+            { title: "Company Name" },
+            { title: "Exit Date" },
+            { title: "Sector" },
+            { title: "Country" },
+            { title: "Exit Route" },
+            { title: "Exit Value" },
+            { title: "Exit Status" }],
+        "order": [[ 1, "desc" ]],
+        "paging": false,
+        "searching": false,
+        "info": false,
+        "scrollY": "425px",
+        "scrollCollapse": true,
+

@@ -1,0 +1,29 @@
+["3989e8a1-58eb-49db-9038-1968f148204a", "pa21.png", Thu, 29 Jun 2017 19:45:21 EAT +03:00], ["6f2df3b3-12aa-4963-a637-458208069107", "pa20.png", Thu, 29 Jun 2017 19:44:59 EAT +03:00], ["47e3ffec-e981-4cce-a010-723e211ca7c2", "pa19.png", Thu, 29 Jun 2017 19:44:42 EAT +03:00], ["e9a95a0a-7764-4a3d-b2df-3fcf96354ceb", "pa18.png", Thu, 29 Jun 2017 19:44:26 EAT +03:00], ["bee1ccd3-6c63-4f3b-b124-e28927643278", "pa17.png", Thu, 29 Jun 2017 19:44:10 EAT +03:00], ["b21e2f31-2426-4d9d-b91b-fcdfa32fe6be", "pa16.png", Thu, 29 Jun 2017 19:43:54 EAT +03:00], ["8c375670-63a6-471e-9c2c-579527241a7b", "pa15.png", Thu, 29 Jun 2017 19:43:35 EAT +03:00], ["e43bd1e6-7bde-47db-8cc6-14c084332ad8", "pa14.png", Thu, 29 Jun 2017 19:43:22 EAT +03:00], ["7c4267d9-8709-479c-8612-b2f67287ce1c", "pa13.png", Thu, 29 Jun 2017 19:43:07 EAT +03:00], ["1a4f8907-a0f2-415a-bf6a-2dbb142f3b86", "pa12.png", Thu, 29 Jun 2017 19:42:53 EAT +03:00], ["057fbc38-3a1e-4afe-b7cb-22c74b1da593", "pa11.png", Thu, 29 Jun 2017 19:42:30 EAT +03:00], ["5cb14422-f001-4c3e-9e42-d000880c88db", "pa10.png", Thu, 29 Jun 2017 19:42:12 EAT +03:00], ["27f5c103-579a-419b-a8f0-87e12644e6be", "pa9.png", Thu, 29 Jun 2017 19:41:26 EAT +03:00], ["a94a8996-02e7-4d41-8069-588a68a56bfa", "pa8.png", Thu, 29 Jun 2017 19:41:10 EAT +03:00], ["fbbeafd8-54ab-4e57-a2e7-32aa00a9689d", "pa7.png", Thu, 29 Jun 2017 19:40:50 EAT +03:00], ["c14a6acc-2c9e-4279-91d5-74b7d940f1c3", "pa6.png", Thu, 29 Jun 2017 19:40:33 EAT +03:00], ["03c2ceaf-49ef-4034-ad27-a84882f9e576", "pa5.png", Thu, 29 Jun 2017 19:40:13 EAT +03:00], ["a0bf9e0f-582d-43c5-a5cb-76437f6a86c7", "pa4.png", Thu, 29 Jun 2017 19:39:54 EAT +03:00], ["1913e1e0-d448-4c1b-b190-e02f7b391cdb", "pa3.png", Thu, 29 Jun 2017 19:39:28 EAT +03:00], ["6f6084ed-f984-4bde-9d5d-409edb323014", "pa2.png", Thu, 29 Jun 2017 19:39:08 EAT +03:00], ["007637b1-0aab-484b-8587-70baa80f1f49", "pa1.png", Thu, 29 Jun 2017 19:38:48 EAT +03:00]
+
+
+
+
+Webdackimage::RootImage.where("name ilike '%.png'").order("created_at desc").limit(50).collect{|x| [x.id,x.name,x.created_at]}
+
+
+
+2017-06-29T19:43:54
+
+
+[2017-06-28T20:19:29.661241 #5825]
+
+[2017-06-29T20
+2017-06-29T09
+
+2017-06-2919:43:54
+
+
+
+
+
+ActionController::RoutingError (No route matches [GET] "/images/loading_bar.gif"):
+ActionController::RoutingError (No route matches [GET] "/images/loading_bar.gif"):
+ActionController::RoutingError (No route matches [GET] "/images/success.png"):
+
+ActionController::RoutingError (No route matches [GET] "/assets/jquery-ui/ui-bg_glass_75_e6e6e6_1x400.png"):
+

@@ -1,0 +1,147 @@
+$('#continentList').on('click',function(){
+   var arr2=[],str2;
+  $('#continentList option:selected').each(function(a,f){
+   str2=$(f).text();
+   arr2.push(str2)
+   });
+   if (arr2.toString() == ["Europe","Others"].toString())
+   $("#fund_selected_geo_name").val("Global");
+   else
+   $("#fund_selected_geo_name").val(arr2.toString());
+        
+  /*var b = $('#continentList option:selected').text();
+  $("#fund_selected_geo_name").val(b);*/
+  });
+
+
+
+
+
+
+
+
+/////Started GET "/funds/fetch_all_geographic_prefs_window?fund_id=69223&geographic_pref_id=geographic_prefs&popup=true&site_id=1" for 127.0.0.1 at 2017-03-20 10:28:54 +0530
+Processing by FundsController#fetch_all_geographic_prefs_window as HTML
+  Parameters: {"fund_id"=>"69223", "geographic_pref_id"=>"geographic_prefs", "popup"=>"true", "site_id"=>"1"}
+  Rendered funds/fetch_all_geographic_prefs_window.html.erb within layouts/application (533.2ms)
+  Rendered unquote/_css_image.html.erb (2.1ms)
+Completed 200 OK in 1445ms (Views: 504.7ms | ActiveRecord: 95.3ms | Solr: 0.0ms)
+
+
+
+
+
+/////////////////////////////Started GET "/lp/24092?search_id=117735&source=lp_search" for 127.0.0.1 at 2017-03-20 12:21:31 +0530
+Processing by Wps::UqLpsController#show_lp as HTML
+  Parameters: {"search_id"=>"117735", "source"=>"lp_search", "lp_id"=>"24092"}
+=========ssssssaaaaaaa======{:text=>"", :page=>1, :per_page=>20, :filters=>{:institution_filter_id=>[["24092"], "ary"], :show_on_site_with_all=>[true]}, :sort=>"Relevance", :gt_filters=>{}, :lt_filters=>{}, :not_by_filters=>{}, :not_by_gt_filters=>{}, :not_by_lt_filters=>{}, :dy_sort=>{}, :facets=>[], :fields=>[], :include_models=>[InstitutionCompanyInfo(id: integer, alt_company_name: string, county: string, investor_type_id: integer, email: string, web: string, new_profile_id: integer, created_at: datetime, updated_at: datetime, status_id: integer, company_description: text, note_description: text, data_proxy_id: integer, consultant_employee_type: string, last_date: datetime, updated_by: integer, active: boolean)]}
+=======query[filters]======{:institution_filter_id=>[["24092"], "ary"], :show_on_site_with_all=>[true]}
+============query[gt_filters]=========={}
+===========query[lt_filters]==========={}
+=======query[filters]======{:institution_filter_id=>[["24092"], "ary"], :show_on_site_with_all=>[true]}
+============query[gt_filters]=========={}
+===========query[lt_filters]==========={}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd1xxxxxxxxxxxxxfalse
+WARNING: User#current is nil, are you including SentientController on your ApplicationController?
+WARNING: User#current is nil, are you including SentientController on your ApplicationController?
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/lps/partials/profile/_recently_viewed.html.erb (412.4ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/lps/partials/profile/_profile_top_link.html.erb (19.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/lps/partials/profile/_currency_selection.html.erb (2.6ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/lps/partials/profile/_company_description.html.erb (1.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/lps/partials/profile/_company_information.html.erb (945.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/lps/partials/profile/_contact.html.erb (12.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/lps/partials/profile/_current_investment_plans.html.erb (609.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/lps/partials/profile/_private_equity_investment_history.html.erb (2.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/lps/partials/profile/_over_all_asset_allocation.html.erb (34.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/lps/partials/profile/_private_equity_fund_investment_portfolio.html.erb (327.6ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/lps/partials/profile/_feedback_comments.html.erb (2.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/common/_personal_notes.html.erb (1.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/lps/lps_profile.html.erb within /layouts/post_login (2501.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_seo_keys.html.erb (1.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_stylesheets.html.erb (5.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_head_scripts.html.erb (6.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/authentication/_header_logout.html.erb (1.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/listing_pages/partials/_post_login_menu.erb (40.4ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_header.html.erb (52.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/listing_pages/partials/_post_login_menu.erb (8.6ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_footer.html.erb (520.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_javascript.html.erb (0.6ms)
+Completed 200 OK in 3939ms (Views: 2901.1ms | ActiveRecord: 312.2ms | Solr: 6.9ms)
+
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin/app/views$ vi /home/ruby/Unquote_data/Sites/unquote_data_site/views/lps/partials/profile/_current_investment_plans.html.erb
+
+
+
+
+   <!-- Geographic Preferences -->
+                <!-- condition -->
+                <% if !@lp.blank? && !@lp.institution_pei_data.blank? && !@lp.institution_pei_data.geo_name.blank? %>
+                    <%= content_tag (:tr) do %>
+                        <%= content_tag(:td,content_tag(:strong,"Geographic Preferences:"),:width=>"40%") %>
+                    <%end%>
+                    <%= content_tag (:tr) do %>
+                    <%= content_tag(:td,@lp.institution_pei_data.geo_pref_text ? @lp.institution_pei_data.geo_pref_text.gsub(',',', ') : "n/d" ,:width=>"53%")%>    
+                    <% end %>
+                <%elsif !@lp.blank? && !@lp.institution_pei_data.blank? && !@lp.institution_pei_data.geo_pref_text.blank? %>
+                    <%= content_tag (:tr) do %>
+                        <%= content_tag(:td,content_tag(:strong,"Geographic Preferences:"),:width=>"40%") %>
+
+
+		<%end%>
+
+
+original code
+
+ <% if !@lp.blank? && !@lp.institution_pei_data.blank? && !@lp.institution_pei_data.geo_name.blank? %>
+                    <%= content_tag (:tr) do %>
+                        <%= content_tag(:td,content_tag(:strong,"Geographic Preferences:"),:width=>"40%") %>
+                    <%end%>
+                    <%= content_tag (:tr) do %>
+                    <%= content_tag(:td,@lp.institution_pei_data.geo_name ? @lp.institution_pei_data.geo_name.gsub(',',', ') : "n/d" ,:width=>"53%")%>    
+                    <% end %>
+                <%elsif !@lp.blank? && !@lp.institution_pei_data.blank? && !@lp.institution_pei_data.geo_pref_text.blank? %>
+                    <%= content_tag (:tr) do %>
+                        <%= content_tag(:td,content_tag(:strong,"Geographic Preferences:"),:width=>"40%") %>
+
+
+                    <%end%>
+
+
+
+
+
+
+////Started GET "/institutions/edit_institution?institution_company_id=24092&tab=pei_data" for 127.0.0.1 at 2017-03-20 12:24:25 +0530
+Processing by InstitutionsController#edit_institution as HTML
+  Parameters: {"institution_company_id"=>"24092", "tab"=>"pei_data"}
+  Rendered institutions/_institution_tabs.html.erb (8.8ms)
+======#<InstitutionPeiData id: 2492, hot_lead: false, hot_lead_date: nil, next_anticipated_month: "", next_anticipated_year: nil, active_mandate: false, active_mandate_date: nil, pei_data_investment_status_id: 5, consider_debut: "", co_investments: "", amount_invested_per_fund_min: nil, amount_invested_per_fund_max: nil, average_commitment_size_per_fund: nil, average_commitment_size_per_year: nil, private_equity_investment_history: "<p>At the end of 2000, the pension fund had approxi...", current_investment_plans: "<p>In November 2015, our contact Ms. Julie Halligan...", latest_strategic_update: "2015-11-06", summary: "<p>The pension fund does not invest in private equi...", currency_id: 67, institution_company_info_id: 24092, created_at: "2008-05-01 16:02:22", updated_at: "2017-03-20 05:24:48", next_anticipated_quarter: "", geo_pref_text: "Global", announced_date: nil, amount_invested_per_fund_min_uk: nil, amount_invested_per_fund_max_uk: nil, average_commitment_size_per_fund_uk: nil, amount_invested_per_fund_min_yen: nil, amount_invested_per_fund_max_yen: nil, average_commitment_size_per_fund_yen: nil, amount_invested_per_fund_min_euro: nil, amount_invested_per_fund_max_euro: nil, average_commitment_size_per_fund_euro: nil, amount_invested_per_fund_min_us: nil, amount_invested_per_fund_max_us: nil, average_commitment_size_per_fund_us: nil, geo_name: "Europe,Others"> ========Europe,Others========
+===================================== Europe,Others.hhhh} ===================
+  Rendered institutions/_listing_funds_in_pei_data.html.erb (48.3ms)
+  Rendered institutions/_pei_data.html.erb (158.4ms)
+  Rendered institutions/edit_institution.html.erb within layouts/application (512.2ms)
+  Rendered unquote/_css_image.html.erb (1.6ms)
+  Rendered unquote/_secondary_menu_investor.html.erb (3.3ms)
+  Rendered unquote/_investor_source_menu.html.erb (5.5ms)
+Completed 200 OK in 548ms (Views: 472.5ms | ActiveRecord: 64.7ms | Solr: 0.0ms)
+
+
+
+
+
+
+
+
+///////Started GET "/institutions/fetch_geographfic_pref_pei_data?geographic_pref_id=geographic_prefs&popup=true" for 127.0.0.1 at 2017-03-20 18:10:24 +0530
+Processing by InstitutionsController#fetch_geographfic_pref_pei_data as HTML
+  Parameters: {"geographic_pref_id"=>"geographic_prefs", "popup"=>"true"}
+  Rendered institutions/fetch_geographfic_pref_pei_data.html.erb within layouts/application (485.0ms)
+  Rendered unquote/_css_image.html.erb (1.6ms)
+Completed 200 OK in 1060ms (Views: 453.4ms | ActiveRecord: 93.1ms | Solr: 0.0ms)
+
+
+

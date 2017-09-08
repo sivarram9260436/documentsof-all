@@ -1,0 +1,177 @@
+ def deal_value_uk_export
+    if self.deal_specific.deal_type_confidential.eql?(true)
+      "n/d(#{show_confidential_value_range(self.deal_specific.deal_value_uk_f.to_f)})" if  self.deal_specific
+    else
+      "%.2f"% self.deal_specific.deal_value_uk_f.to_f if  self.deal_specific
+    end
+  end
+
+  def deal_value_us_export
+    if self.deal_specific.deal_type_confidential.eql?(true)
+      "n/d(#{show_confidential_value_range(self.deal_specific.deal_value_us_f.to_f)})" if  self.deal_specific
+    else
+      "%.2f"% self.deal_specific.deal_value_us_f.to_f if  self.deal_specific
+    end
+  end
+
+  def deal_value_euro_export
+    if self.deal_specific.deal_type_confidential.eql?(true)
+      "n/d(#{show_confidential_value_range(self.deal_specific.deal_value_euro_f.to_f)})"  if  self.deal_specific
+    else
+      "%.2f"% self.deal_specific.deal_value_euro_f.to_f  if  self.deal_specific
+    end
+  end
+
+  def deal_value_yen_export
+    if self.deal_specific.deal_type_confidential.eql?(true)
+      "n/d(#{show_confidential_value_range(self.deal_specific.deal_value_yen_f.to_f)})" if  self.deal_specific
+    else
+      "%.2f"% self.deal_specific.deal_value_yen_f.to_f if  self.deal_specific
+    end
+  end
+
+
+def value
+
+self.by_site_status.
+
+
+def value
+    self.deal_exits.collect { |a| a.turnover if a.turnover }.compact
+end
+
+
+def turnover_currency
+    deal_exits = self.deal_exits
+    deal_exit_loop = self.deal_exits.collect{|a| a.turnover}
+    if !self.deal_exits.blank?
+      event_date = self.deal_exits.collect{|a| a.created_at}.sort.first.beginning_of_month
+    else
+      event_date = nil
+    end
+    currency = CurrencyExchange.get_other_currency_rates(deal_exit_loop.to_f,self.currency,!event_date.blank? ? event_date : (self.created_at.blank? ? Date.today.beginning_of_month : self.created_at.beginning_of_month) )
+    return currency
+  end
+
+
+
+  def amount_raised_fund_announced_currency
+    fund_event = self.fund_events.by_type(FundEventType.by_name("Fund Announced").first.id).try(:first)
+    if !self.fund_events.blank?
+      event_date = self.fund_events.collect(&:event_date).sort.first.beginning_of_month
+    else
+      event_date = nil
+    end
+    currency = CurrencyExchange.get_other_currency_rates(fund_event.try(:amount_closed).to_f,self.currency,!event_date.blank? ? event_date : (self.created_at.blank? ? Date.today.beginning_of_month : self.created_at.beginning_of_month) )
+    return currency
+  end
+
+:sff => "amount_raised_fund_announced_euro", 
+
+def turnover_euro_value
+    currency_data = turnover_currency
+    if !currency_data.blank?
+          if currency_data[:euro].blank? || currency_data[:euro].to_f == 0
+            'n/d'
+          else
+            return  "%.2f"% currency_data[:euro]
+          end
+    else
+      return_empty_value
+    end
+  end
+
+
+  def amount_raised_fund_announced_euro
+    currency_data = amount_raised_fund_announced_currency
+    if !currency_data.blank?
+          if currency_data[:euro].blank? || currency_data[:euro].to_f == 0
+            'n/d'
+          else
+            return  "%.2f"% currency_data[:euro]
+          end
+    else
+      return_empty_value
+    end
+  end
+
+  def amount_raised_fund_announced_us
+    currency_data = amount_raised_fund_announced_currency
+    if !currency_data.blank?
+      if currency_data[:us].blank? || currency_data[:us].to_f == 0
+        'n/d'
+      else
+        return  "%.2f"% currency_data[:us]
+      end
+    else
+      return_empty_value
+    end
+  end
+
+  def amount_raised_fund_announced_uk
+    currency_data = amount_raised_fund_announced_currency
+    if !currency_data.blank?
+      if currency_data[:uk].blank? || currency_data[:uk].to_f == 0
+        'n/d'
+      else
+        return  "%.2f"% currency_data[:uk]
+      end
+    else
+      return_empty_value
+    end
+  end
+
+  def amount_raised_fund_announced_yen
+    currency_data = amount_raised_fund_announced_currency
+    if !currency_data.blank?
+      if currency_data[:yen].blank? || currency_data[:yen].to_f == 0
+        'n/d'
+      else
+        return  "%.2f"% currency_data[:yen]
+      end
+    else
+      return_empty_value
+    end
+  end
+
+
+
+
+def turnover_currency
+	    deal_exits = self.deal_exits
+	    deal_exit_loop = self.deal_exits.collect{|a| a.turnover}
+	    if !self.deal_exits.blank?
+	      event_date = self.deal_exits.collect{|a| a.created_at}.sort.first.beginning_of_month
+	    else
+	      event_date = nil
+	    end
+	    currency = CurrencyExchange.get_other_currency_rates(deal_exit_loop.to_f,self.currency,!event_date.blank? ? event_date : (self.created_at.blank? ? Date.today.beginning_of_month : self.created_at.beginning_of_month) )
+	    return currency
+	  end
+
+	def turnover_euro_value
+	    currency_data = turnover_currency
+	    if !currency_data.blank?
+		  if currency_data[:euro].blank? || currency_data[:euro].to_f == 0
+		    'n/d'
+		  else
+		    return  "%.2f"% currency_data[:euro]
+		  end
+	    else
+	      return_empty_value
+	    end
+	  end
+
+	 def amount_raised_fund_announced_us
+	    currency_data = amount_raised_fund_announced_currency
+	    if !currency_data.blank?
+	      if currency_data[:us].blank? || currency_data[:us].to_f == 0
+		'n/d'
+	      else
+		return  "%.2f"% currency_data[:us]
+	      end
+	    else
+	      return_empty_value
+	    end
+	  end
+

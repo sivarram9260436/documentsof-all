@@ -1,0 +1,149 @@
+<%if params[:type]=="site"%>
+<li class="button">
+<%if params[:action] == "new"or params[:action] == "static_new" or params[:action] == "save_and_publish"  or params[:action] == "copy_article" or params[:action]== "create" or @article.new_record?%>
+     <%if !!request.xhr?%>
+   	    <%= link_to('Save as publish', 'javascript:void(0)',"data-type" => 'new',"data-url" => "/admin/page/static_save_and_publish","data-returnurl" => "#{request.referer}","class" => "dataedit_form","data-fname" => "static_article", :id=>"save_publish_01")%> 
+        <%else%>
+    <%= link_to('Save and publish', 'javascript:void(0)',"data-type" => 'new',"data-url" => "/admin/static_page/save_and_publish","data-returnurl" => "#{request.referer}","class" => "dataedit_form","data-fname" => "static_article", :id=>"save_publish_01") %>
+    <%end%>
+<%else%>
+     <%if !!request.xhr?%>
+   	    <%= link_to('Update as publish', 'javascript:void(0)',"data-type" => 'edit',"data-url" => "/admin/page/static_update_and_publish","data-returnurl" => "#{request.referer}","class" => "dataedit_form","data-fname" => "static_article", :id=>"update_and_publish_#{@article.id}")%> 
+        <%else%>
+    <%= link_to('Update and publish', 'javascript:void(0)',"data-type" => 'edit',"data-url" => "/admin/static_page/update_and_publish","data-returnurl" => "#{request.referer}","class" => "dataedit_form","data-fname" => "static_article", :id=>"update_and_publish_#{@article.id}") %>
+    <%end%>
+<%end%>	 
+</li>
+<%else%>
+<%if @section_type==("spotlight" || "alternate_home_page") %>
+<li class="button">
+	<%if params[:action] == "new" or params[:action] == "static_new"  or params[:action] == "copy_article" or params[:action]== "create"  or @article.new_record?%>
+	<%= link_to('Save', 'javascript:void(0)',"data-type" => 'new',"data-url" => "/admin/static_page/save_and_publish","class" => "ajax_call_tag_form","data-fname" => "static_article", :id=>"Save_as_draft_01")%>
+		<%else%>
+	<%= link_to('Save', 'javascript:void(0)',"data-type" => 'edit',"data-url" => "/admin/static_page/update_and_publish/#{@article.id}","class" => "ajax_call_tag_form","data-fname" => "static_article", :id=>"Save_as_draft_01")%> 
+	<%end%>
+</li>
+<li class="button">	
+<%= link_to('Preview', 'javascript:void(0)',:id=>@article.id,:class=>"preview_select",:href => "http://#{request.host=='localhost' ? request.host_with_port : request.host}/admin/articles/preview_article?id=#{@article.id}")%> 	  
+</li>
+<%else%>
+<li class="button">
+   <%if params[:action] == "new" or params[:action] == "static_new"  or params[:action] == "copy_article" or params[:action]== "create"  or @article.new_record?%>    
+   <%if !!request.xhr?%>
+   	    <%= link_to('Save as draft', 'javascript:void(0)',"data-type" => 'new',"data-url" => "/admin/page/static_create?commit=save_as_draft","class" => "ajax_call_tag_form","data-fname" => "static_article", :id=>"Save_as_draft_01")%> 
+        <%else%>
+        <%= link_to('Save as draft', 'javascript:void(0)',"data-type" => 'new',"data-url" => "/admin/static_page/create?commit=save_as_draft","class" => "submit_form","data-fname" => "static_article", :id=>"Save_as_draft_01")%> 
+   <%end%>
+   <%else%>
+    <%if request.xhr?%>
+   	    <%= link_to('Save as draft', 'javascript:void(0)',"data-type" => 'edit',"data-url" => "/admin/page/static_update?commit=update_as_draft","class" => "ajax_call_tag_form","data-fname" => "static_article", :id=>"Save_as_draft_#{@article.id}")%> 
+        <%else%>
+    <%= link_to('Save as draft', 'javascript:void(0)',"data-type" => 'edit',"data-url" => "/admin/static_page/update?commit=update_as_draft","class" => "submit_form","data-fname" => "static_article", :id=>"Save_as_draft_#{@article.id}") %> 
+   <%end%>
+   <%end%>
+</li>
+<%if @section_type!="static-fragment"%>
+<li class="button">
+  <%if params[:action] == "new" or params[:action] == "static_new"  or params[:action] == "copy_article" or params[:action]== "create"  or @article.new_record?%>
+     <%if !!request.xhr?%>
+   	    <%= link_to('Save and request publish', 'javascript:void(0)',"data-type" => 'new',"data-url" => "/admin/page/static_create?commit=save","class" => "ajax_call_tag_form","data-fname" => "static_article", :id=>"Save_and_request_publish_01")%> 
+        <%else%>
+    <%= link_to('Save and request publish', 'javascript:void(0)',"data-type" => 'save',"data-url" => "/admin/static_page/create?commit=save","class" => "submit_form","data-fname" => "static_article", :id=>"Save_and_request_publish_01")%>
+    <%end%>
+  <%else%>    
+    <%if request.xhr?%>
+   	    <%= link_to('Save and request publish', 'javascript:void(0)',"data-type" => 'save',"data-url" => "/admin/page/static_update?commit=save","class" => "ajax_call_tag_form","data-fname" => "static_article", :id=>"Save_and_request_publish_01")%> 
+        <%else%>
+    <%= link_to('Save and request publish', 'javascript:void(0)',"data-type" => 'save',"data-url" => "/admin/static_page/update?commit=save","class" => "submit_form","data-fname" => "static_article", :id=>"Save_and_request_publish_01")%>
+   <%end%>
+  <%end%>
+</li>
+<%end%>
+<li class="button">
+<%if params[:action] == "new"or params[:action] == "static_new" or params[:action] == "save_and_publish"  or params[:action] == "copy_article" or params[:action]== "create"  or @article.new_record?%>
+     <%if !!request.xhr?%>
+   	    <%= link_to('Save as publish', 'javascript:void(0)',"data-type" => 'new',"data-url" => "/admin/page/static_save_and_publish","class" => "ajax_call_tag_form","data-fname" => "static_article", :id=>"save_publish_01")%> 
+        <%else%>
+    <%= link_to('Save and publish', 'javascript:void(0)',"data-type" => 'new',"data-url" => "/admin/static_page/save_and_publish","class" => "submit_form","data-fname" => "static_article", :id=>"save_publish_01") %>
+    <%end%>
+<%else%>
+     <%if !!request.xhr?%>
+   	    <%= link_to('Update as publish', 'javascript:void(0)',"data-type" => 'edit',"data-url" => "/admin/page/static_update_and_publish","class" => "ajax_call_tag_form","data-fname" => "static_article", :id=>"update_and_publish_#{@article.id}")%> 
+        <%else%>
+    <%= link_to('Update and publish', 'javascript:void(0)',"data-type" => 'edit',"data-url" => "/admin/static_page/update_and_publish","class" => "submit_form","data-fname" => "static_article", :id=>"update_and_publish_#{@article.id}") %>
+    <%end%>
+<%end%>	 
+</li>
+<%if @section_type!="static-fragment"%>
+<%unless @page_properties[:selected_menu]=="dynamic_articles"%>
+<li class="button">  
+    	<%if @page_properties[:selected_menu]!="static_articles"%>
+    	 <%= link_to('Preview', 'javascript:void(0)',:id=>@article.id,:class=>"preview_select",:href => "http://#{request.host=='localhost' ? request.host_with_port : request.host}/admin/articles/preview_article?id=#{@article.id}")%>
+    	<%elsif @section_type=="static-page"%>
+    	<%= link_to('Preview', 'javascript:void(0)',:id=>@article.id, :class=>"preview_select",:href => "http://#{@site.name}/preview_static_page?page_name=#{@article.url_part}")%>
+			<%#= link_to('Preview', 'javascript:void(0)', :onclick => "javascript:article_preview('http://#{@site.name}/preview_static_page?page_name=#{list_of_articles.url_part}');") %>	
+		<%end%>
+</li>
+<%end%>
+<%end%>
+<% if not @article.new_record?%>
+<%if (params[:action] == "edit" or params[:action] == "static_edit") and @article.published?%>
+<li class="button"> 
+<%if !!request.xhr?%>
+<%= link_to('Unpublish', 'javascript:void(0)',"data-type" => 'edit',"data-url" => "/admin/page/static_update?commit=unpublish","class" => "ajax_call_tag_form","data-fname" => "static_article", :id=>"unpublish_#{@article.id}") %>
+<%else%>
+<%= link_to('Unpublish', 'javascript:void(0)',"data-type" => 'edit',"data-url" => "/admin/static_page/update?commit=unpublish","class" => "submit_form","data-fname" => "static_article", :id=>"unpublish_#{@article.id}") %>
+<%end%>
+</li>
+<%end%>
+<%end%>
+<%if false%>
+<li class="button">  
+    <a href="javascript:void(0);" onclick='window.open("/admin/articles/show_all_histories/<%=@articles.id%>","mywindow","width=1000,height=900,scrollbars=yes");'>History</a>	
+</li>
+<%end%>
+
+<li class="button">
+<%if @page_properties[:selected_menu]=="static_articles"%>
+    <%=link_to('Cancel',{:controller=>'admin/static_page'}) %>	
+<%elsif @page_properties[:selected_menu]=="dynamic_articles"%>
+    <%=link_to('Cancel',{:controller=>'admin/static_page',:action => 'dynamic_articles'}) %>	
+<%else%>
+    <%=link_to('Cancel',{:controller=>'admin/static_page',:entity_type => params[:entity_type]}) %>	
+<%end%>
+<div id="preview_article">
+	<%= hidden_field_tag "check_submitted_time",Time.now%>
+		<%= hidden_field_tag "submitted"%>
+</div>
+</li>
+<%end%>
+<%end%>
+<script type="text/javascript">
+var ajax_form_serialize_method = jQuery.fn.ajax_post = function(){
+	var id = $(this).attr('id');
+	var data_url=$('#'+id).data('url');
+	var data_fname=$('#'+id).data('fname_id');
+	var update_id=$('#'+id).data('update');
+      $.ajax({
+                    url: data_url,
+                    type : 'POST',
+                    data: $("form").serialize(),
+                    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                    error: function() {alert('eerrrr');},
+                    beforeSend:function(){
+                          jQuery("#load_indicatior").show();
+                         },
+                    success: function(msg) {
+                    	    	jQuery("#load_indicatior").hide();
+                    	$("#"+update_id).html(msg);
+                    },
+                     complete:function(){
+                    //window.location.reload();
+                    }
+            });
+}
+jQuery(".ajax_call_tag_form").die("click");
+jQuery(".ajax_call_tag_form").live("click",ajax_form_serialize_method);
+</script>
+
+

@@ -1,0 +1,44 @@
+          <div class="inactive_tiny_holder" style="display:none;float:right">
+            <div class="text_holderi button"></div>
+            <div class="button">
+              <input type="button" value="Expand" onclick="expand('tinyid_<%= article_content_edit_counter+1%>')"/>
+            </div>
+          </div>
+
+
+      <div class="word_counter_holder" style="margin-top:6px;">
+          <label class="tiny_word_label"> Word Count : </label>
+            <input id="word_tinyid_<%= article_content_edit_counter+1 %>" class="tiny_word_input" readonly=true/>
+          </div>
+        </div>
+
+
+
+
+    <% if article_content_edit_counter == 0 %>
+        <script type="text/javascript">
+            setTimeout("tinyMCEOnDemand('tinyid_<%= article_content_edit_counter+1%>')", 1000);</script>
+    <% else %>
+        <script type="text/javascript">
+            timer = 1000 *<%= article_content_edit_counter+2%>;
+            setTimeout("tinyMCEOnDemand('tinyid_<%= article_content_edit_counter+1%>')", timer);</script>
+    <% end %>
+<% end %>
+
+
+
+
+
+
+    <% if article_content_new_counter == 0 %>
+        <script type="text/javascript">
+            setTimeout("tinyMCEOnDemand('tinyid_<%= article_content_new_counter+1%>')", 1000);</script>
+    <% else %>
+        <script type="text/javascript">
+            timer = 1000 *<%= article_content_new_counter+2%>;
+            setTimeout("tinyMCEOnDemand('tinyid_<%= article_content_new_counter+1%>')", timer);</script>
+    <% end %>
+<% end %>
+
+
+स्ट इंसान के स्वभाव का आईना होता है, तो गलत नहीं होगा। अगर वह अपने प्रोफाइल पर अक्सर अश्लील फोटो पोस्ट करता हो तो उसके स्वभाव को समझ जाएं और जितनी जल्दी हो सके, किनारा कर लें।

@@ -1,0 +1,39 @@
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_general_asset_allocation.html.erb 
+
+
+add in line 97
+
+
+<%= content_tag(:td, content_tag(:label,"Target private equity allocation:"), {:class => "lab-field look-bold"}) %>
+                                <%= content_tag(:td, text_field(:general_asset_allocation, :target_private_equity_allocation_min,:value => @general_asset_allocation.target_private_equity_allocation_min.to_f > 0 ? @general_asset_allocation.target_private_equity_allocation_min : nil), { :class =>"b-size n-size"}) %>
+                                <%= content_tag(:td, text_field(:general_asset_allocation, :target_private_equity_allocation_max,:value => @general_asset_allocation.target_private_equity_allocation_max.to_f > 0 ? @general_asset_allocation.target_private_equity_allocation_max : nil), { :class =>"b-size n-size r-size"}) %>
+                        <% end %><!-- tr -->
+
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_fund_portfolio_funds_in_pei_data.html.erb 
+ fully add 
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_directs_in_pei_data.html.erb
+fully add
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_manage_accounts_in_pei_data.html.erb 
+fully add
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_manage_accounts_in_pei_data.html.erb 
+fully add
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_form_direct_codirect.html.erb 
+fully add
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_pei_data.html.erb 
+ from primary to hot leads

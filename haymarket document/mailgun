@@ -1,0 +1,37 @@
+ vi config/environments/production.rb
+
+ #Mailgun
+  #config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+
+vi config/initializers/mail_gun_setup.rb       smtp_gmail.rb
+
+ActionMailer::Base.delivery_method = :smtp
+ActionMailer::Base.smtp_settings = {
+  :address => "smtp.mailgun.org",
+  :port => 587,
+  :authentication => :plain,
+  :domain => "clients.kreatio.com",
+  :user_name => "postmaster@clients.kreatio.com",
+  :password => "db3150910ae56313b87b60c1a7d34027"
+}
+
+vi config/environment.rb
+
+# Load the rails application
+require File.expand_path('../application', __FILE__)
+
+# Initialize the rails application
+NewKreatioCMS::Application.initialize!
+
+ # ActionMailer::Base.smtp_settings = {
+ #    :address              => "127.0.0.1",
+ #    :port                 => 25,
+ #    :domain               => "haymarketadmin.kreatio.com",
+ #    :enable_starttls_auto => false
+ #   }
+
+
+
+

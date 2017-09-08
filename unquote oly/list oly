@@ -1,0 +1,84 @@
+  def list
+    start =Time.sr_now
+    @page_properties={:selected_menu => 'article_menu', :menu_title => 'Articles'}
+    sort_init "updated_at"
+    start1 =Time.sr_now
+    sort_update
+    end_time1 =Time.sr_now
+    pagination_properites(true, "created_at", 30)
+    respond_to do |format|
+      format.html do
+        render :action => "list", :per_page => session[:per_page], :layout => false if request.xhr?
+      end
+      format.js do
+        render :update do |page|
+          page.replace_html 'article_list', component_table_list(@site.find_component_by_name("article_list"))
+        end
+      end
+    end
+    end_time =Time.sr_now
+  end
+
+
+
+
+  def list
+    @page_properties={:selected_menu=>'subscriber_menu',:menu_title=>"Individual Subscriber"}
+    sort_init "first_name"
+    sort_update
+    session[:per_page] = 30
+    pagination_properites(true, "created_at", 30)
+    params[:page]=params[:page].blank? ? 1 : params[:page]
+#params[:per_page]='30' if params[:per_page]==nil and session[:per_page]==nil
+   # session[:per_page]=params[:per_page] if params[:per_page]!=nil
+    @subscribers = @site.subscribers.sr_paginate(:all, :conditions => ["type =  ? ", "SubscriberIndividual"], :per_page => session[:per_page], :page => params[:page],:order=> "updated_at desc")
+
+    respond_to do |format|
+      format.html do
+           logger.info "==html==page=="
+        render :action => 'list'
+      end
+      format.js do
+        logger.info "==js==page=="
+          logger.info "==pagination==#{params[:page]}=="
+        render :update do |page|
+          page.replace_html 'subscriber_list', component_table_list(@site.find_component_by_name("subscriber_management_list"))
+        end
+      end
+
+    end
+
+
+
+@site.define_component('article_list',
+           :data_string=>%q{Article.by_site(@site.id).by_section_type("Article").updated_at_not_null.paginate(:all,:order=>sort_clause,:per_page =>session[:per_page],:page => params[:page])  },
+           :partial => '/admin/articles/article',
+           :xhtml_id => 'article_list',
+           :title => '',
+           :empty_message => '',
+           :error_message => 'Information currently unavailable',
+           :hide => false,
+           :hide_on_empty => false,
+           :hide_on_error => false,
+           :decoration => 'admin/decoration/decoration_article_list',
+           :data_as => :collection,
+           :pagination => true,
+           :header => @site.sources.length > 1 ? ['Article ID','Title','Source','Content type','Status','Author','Last Modified','Preview'] : ['Article ID','Title','Content type','Status','Author','Last Modified','Preview'],
+           :sort_list =>{"Article ID"=>"id","Title"=>"title","Last Modified"=>"updated_at"}
+            )
+
+
+
+@site.define_component("subscriber_management_list",
+                       :base => "base",
+                       :data_string => %q{ Subscriber.paginate(:all,:per_page => session[:per_page], :page => params[:page],:order=> "updated_at desc",) },
+                       :partial     => 'subscriber_list',
+                       :xhtml_id    => 'subscriber_management_list',
+                       :decoration  => '/admin/decoration/decoration_analysis_article_list',
+                       :title       => 'Subscriber List',
+                       :data_as     => :collection,
+                       :header      => ['Sn.','First Name', 'Last Name','Email','City','Expiry Date'],
+                       :sort_list   => {'First Name'=>'first_name'}, #,'Last Name'=> 'last_name','Email'=>'email_id'},
+                       :pagination  => true)
+
+

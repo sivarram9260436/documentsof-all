@@ -1,0 +1,246 @@
+
+<script tyep="text/javascript">
+	sort_list();
+	newsletter_check();
+	$('#ranklist_navmenu-h li a').click(function() {
+		newsletter_check();
+	}); 
+</script>
+<% ul_id = "list_#{articles[:type]}" %>
+
+<ul id=<%= ul_id %> class="fe_pui-autocomplete-holder" style="position: relative;">
+	<% articles[:data].each do |article| %>
+		<li class="fe_pui-autocomplete-box" id = '<%="#{articles[:type]}_#{article.id}"%>' data-listid='<%="#{article.id}"%>'>
+		    <p>
+		    	<span><%=article.id %>. <%=characters_by_count(article.title,25,"...")%></span>		
+<a class="closebutton" href="#" onclick="create_req('<%="#{articles[:type]}_#{article.id}"%>');"></a>
+                        <%= link_to('Preview', 'javascript:void(0)', :class => "featured_preview", :onclick => "javascript:article_preview('http://#{request.host=="localhost" ? request.host_with_port : request.host}/admin/articles/preview_article?id=#{article.id}');")%>		
+    </p>
+		</li>
+<%=puts "#{article.inspect}"%>
+		<%title=characters_by_count(article.title,25,"...")%>
+	<% end %>
+</ul>
+
+
+<div style="text-align: center;">
+	<%if not articles[:results].blank?%>
+	<div class = "needAjax">
+		<%if params[:from]=="newsletter"%>
+		<%= previous_next_listing_page((articles[:results] ),{:params=>{:type=>articles[:type],:from=>"newsletter"},:page_links=>false}) %>
+		<%else%>
+		<%= previous_next_listing_page((articles[:results] ),{:params=>{:type=>articles[:type]},:page_links=>false}) %>
+		<%end%>
+	</div>
+	<%end%>
+	<%if not articles[:data].blank? and articles[:results].blank?%>
+	<div class = "needAjax">
+		<%if params[:from]=="newsletter"%>
+		<%= previous_next_listing_page(( articles[:data]),{:page_links=>false,:from=>"newsletter"}) %>
+		<%else%>
+		<%= previous_next_listing_page(( articles[:data]),{:page_links=>false}) %>
+		<%end%>
+	</div>
+	<%end%>
+</div>
+<script type="text/javascript">
+	var sort_list = function(){
+		$("#listTaken").sortable({
+           revert : true,
+          /* receive:function(){
+           		$(this).find('li.fe_pui-autocomplete-box').each(function(){
+           			$(this).attr('id','fe_'+$(this).attr('data-listid'))
+           		});
+           },*/
+           stop:function(event,ui){
+           	$(this).find('li.fe_pui-autocomplete-box').each(function(){
+           		        var list_id = $(this).attr('data-listid');
+        $('#listTaken li.fe_pui-autocomplete-box[data-listid="'+list_id+'"]').not('#listTaken li.fe_pui-autocomplete-box[data-listid="'+list_id+'"]:first').remove()
+                });
+           }
+    });
+    $( "#list_latest>li" ).draggable({
+	      connectToSortable: "#listTaken",
+	      helper: "clone",
+	      revert : false,
+	});
+
+        /*Drag and drop list items from Listsearch to List_taken*/
+
+        drag_drop_listSearch();
+	}
+$(function() {
+    sort_list();
+});
+
+$(function() {
+    $("#listTaken").sortable({
+           revert : true,
+           stop:function(event,ui){
+                $(this).find('li.fe_pui-autocomplete-box').each(function(){
+                        var list_id = $(this).attr('data-listid');
+        $('#listTaken li.fe_pui-autocomplete-box[data-listid="'+list_id+'"]').not('#listTaken li.fe_pui-autocomplete-box[data-listid="'+list_id+'"]:first').remove()
+                });
+           }
+    });
+    $( "#list_most_rated>li" ).draggable({
+      connectToSortable: "#listTaken",
+      helper: "clone",
+      revert : false,
+    });
+	drag_drop_listSearch();
+}); 
+
+	function drag_drop_listSearch() {
+		$("#list_search,#article_list").sortable({
+			connectWith : '#listTaken',
+		});
+		jQuery("#list_asset_group_article,#listTaken").sortable({
+			connectWith : '#listTaken'
+		});
+		$("#listTaken").sortable({
+			containment : '#listTaken'
+		});
+	}
+
+	$(function() {
+		$("#collection_search").click(function() {
+			var get_val = $("#search_data_id").val();
+			var site_type = $('#search_data_article_type').val();
+			var params = "search_data[id]=" + get_val + "&flag=feature" + "&article_type=" + site_type;
+			$.ajax({
+				type : 'GET',
+				url : '/admin/articles/advance_search',
+				data : params,
+				success : function(data) {
+					jQuery(".content_table #list").html(data);
+					drag_drop_listSearch();
+				}
+			});
+
+		});
+		/*This code for collection search for site and portal*/
+		$("div.source_search").click(function() {
+			//alert("test search");
+			var button_id = $(this).attr("id");
+			var site_id = $(this).find("a").data("siteid");
+			if (button_id == 'all_source_site') {
+				var pars = "site_id=" + site_id + "&status=site";
+				$.ajax({
+					type : 'POST',
+					url : '/admin/ranked_list/get_source',
+					data : pars,
+					dataType : 'html',
+					success : function(update_portal) {
+						$("#test").html(update_portal);
+					}
+				});
+			} else if (button_id == 'all_source_portal') {
+				var pars = "site_id=" + site_id + "&status=portal";
+				$.ajax({
+					type : 'POST',
+					url : '/admin/ranked_list/get_source',
+					data : pars,
+					dataType : 'html',
+					success : function(update_portal) {
+						jQuery("#test").html(update_portal);
+					}
+				});
+			}
+		});
+
+		jQuery("#main_search").click(function() {
+			var section_id = jQuery('#search_data_section_id option:selected').val();
+			var title = jQuery('#search_data_title').val();
+			var sources = jQuery('select[name="search_data[source_ids][]"] option');
+			var categories = jQuery('select[name="search_data[category_ids][]"] option');
+			var site_type = jQuery('#search_data_article_type').val();
+			var primary_medium = jQuery('select[name="search_data[primary_medium][]"] option');
+			var source_ids = [];
+			jQuery(sources).each(function() {
+				source_ids.push(jQuery(this).val());
+			});
+			//source_ids=source_ids.not(-1);
+			var category_ids = [];
+			jQuery(categories).each(function() {
+				category_ids.push(jQuery(this).val());
+			});
+			//category_ids=category_ids.not(-1)
+			var primary_mediums = [];
+			jQuery(primary_medium).each(function() {
+				primary_mediums.push(jQuery(this).val());
+			});
+			//primary_mediums=primary_mediums.not(-1)
+			primary_mediums = [primary_mediums];
+			var params = "search_data[section_id]=" + section_id + "&search_data[title]=" + title + "&flag=feature" + "&search_data[source_ids]=" + source_ids + "&search_data[category_ids]=" + category_ids + "&article_type=" + site_type + "&search_data[primary_medium]=" + primary_mediums;
+			jQuery.ajax({
+				type : 'GET',
+				url : '/admin/articles/advance_search',
+				data : params,
+				beforeSend : function() {
+					jQuery("#load_indicatior").show();
+				},
+				success : function(search_data) {
+					jQuery("#load_indicatior").hide();
+					jQuery("#article_list").html(search_data);
+					drag_drop_listSearch();
+					$('#article_list').sortable('destroy');
+				}
+			});
+		});
+	});
+
+	/*jQuery("#list_most_rated,#listTaken").sortable({
+		connectWith : '#listTaken'
+	});*/
+		/*code for save button*/
+		jQuery('.needAjax div.pagination a').live('click', function() {
+			var url = jQuery(this).attr("href");
+			var update_div = jQuery(this).parents('.update_pagination_block').attr("id");
+			jQuery("#" + update_div).load(url);
+			return false;
+		});
+</script>
+<script type="text/javascript">
+	function newsletter_check() {
+		$('.list_asset_group_article li p span.example').each(function() {
+			var self = this;
+			/*gurudath*/
+			// Setup title
+			// var header = $(self).parents('tr + .optionhead:first td.name').text().replace(': {', '');
+			var title = $(self).siblings('.title').text();
+
+			$(self).qtip({
+				content : {
+					text : $(self).html(),
+					title : {
+						text : title
+					}
+				},
+				position : {
+					corner : {
+						target : 'topMiddle',
+						tooltip : 'bottomMiddle'
+					}
+				},
+
+				style : {
+					border : {
+						width : 5
+					},
+					tip : {
+						corner : 'bottomMiddle'
+					},
+					name : 'dark',
+					width : {
+						max : 150,
+						min : 50
+					},
+					padding : 14
+				},
+
+			}).html('check').show();
+		});
+	}
+
+</script>

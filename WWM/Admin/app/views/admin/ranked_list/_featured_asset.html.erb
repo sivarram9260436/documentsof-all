@@ -1,0 +1,119 @@
+<%= hidden_field_tag "featured_set" ,"id",:value=>featured_asset[:featured_set_id]%>
+<div class="drag_drop_list" class="assest test">
+	<ul class="fe_pui-autocomplete-holder" id="listTaken">
+		<li style="height:35px;"></li>
+		<%if featured_asset[:articles].class.to_s!="String"%>
+		<% for featured_asset in  featured_asset[:articles]%>
+		<% asset = featured_asset.digital_asset %>
+		<%if asset!=nil%>
+		<li class="fe_pui-autocomplete-box" id="fe_<%= asset.id%>" data-listid='<%= "#{asset.id}"%>'>
+			<p>
+				<span id="tip_<%= asset.id %>"><%= asset.id %>. <%= characters_by_count(asset.name,25,"...") %></span>
+				<%= link_to('', 'javascript:void(0)', :onclick => "javascript: create_req('fe_#{asset.id}');",:class=>"closebutton") %>
+			</p>
+		</li>
+		<%end%>
+		<%end %>
+		<%end %>
+	</ul>
+</div>
+<div id="save_return_asset_list_value" style="display:none">
+	<input type="hidden" value="list" name="path">
+</div>
+<div id="save_asset_item" style="display:none">
+	<input type="hidden" value="edit" name="path">
+</div>
+
+<div class="ranked_list_button">
+	<div class="button" id="save_return_asset_list">
+		<%if params[:action] == "new" %>
+		<%= link_to('Save & Return To List', 'javascript:void(0)',"data-type" => 'new',"data-url" => "/admin/ranked_list/create?path=list","class" => "submit_form" ,"data-fname" => "ranklist", :id=>"save_asset_rank_list_01") %>
+		<%else%>
+
+		<%= link_to('Save & Return To List', 'javascript:void(0)',"data-type" => 'edit',"data-url" => "/admin/ranked_list/update?path=list","class" => "submit_form ","data-fname" => "ranklist", :id=>"save_asset_rank_list_01") %>
+		<%end%>
+	</div>
+
+	<div class="button" id="save_collections">
+		<%= link_to('Save', 'javascript:void(0)',"data-type" => 'edit',"data-url" => "/admin/ranked_list/update?path=edit","class" => "submit_form","data-fname" => "ranklist", :id=>"update_asset_rank_list_03") %>
+	</div>
+	<div class="button">
+		<%= link_to("Cancel",{:controller=>"admin/ranked_list",:action => "index",:entity_type=>params[:entity_type]}) %>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		jQuery("#update_asset_rank_list_02").click(function() {
+			$("#save_return_asset_list_value input").attr({
+				'name' : 'path',
+				'value' : 'list'
+			});
+			$('#save_asset_item input').removeAttr('name');
+		});
+		jQuery("#update_asset_rank_list_03").click(function() {
+			$("#save_asset_item input").attr({
+				'name' : 'path',
+				'value' : 'edit'
+			});
+			$('#save_return_asset_list_value input').removeAttr('name');
+		});
+
+		jQuery("#save_asset_rank_list_01").click(function() {
+			$("#save_return_asset_list_value input").attr({
+				'name' : 'path',
+				'value' : 'list'
+			});
+			$('#save_asset_item input').removeAttr('name');
+		});
+	}); 
+</script>
+<script type="text/javascript">
+	jQuery(function() {
+		/*Code for save & return button*/
+		jQuery("#save_return_asset_list").click(function() {
+			var get_action = jQuery("#update_asset_rank_list_03").attr("data-url");
+			var rankedlistname = jQuery('#featured_set_name').val();
+			var blankRE = /^\s/;
+			if (rankedlistname.trim() == "") {
+				alert("Ranked List Name should not be blank.");
+				return false;
+			} else if (blankRE.test(rankedlistname)) {
+				alert("Ranked List Name should not start with a blank space.")
+				return false;
+			}
+			var list_value = jQuery("#listTaken").sortable('serialize', {
+				key : 'listTaken[]'
+			});
+			var setform_action = get_action + "?featured_set=" + list_value + "&entity_type=asset";
+			document.multi.action += "?" + list_value + '&flag=save' + '&entity_type=digital_asset';
+			document.multi.submit();
+			// jQuery("#new_featured_set").attr("action",setform_action);
+			// jQuery("#new_featured_set").submit();
+		});
+		/*code for save button*/
+		jQuery("#save_collections").click(function() {
+			var get_action = jQuery("#new_featured_set").attr("action");
+			var rankedlistname = jQuery('#featured_set_name').val();
+			var blankRE = /^\s/;
+			if (rankedlistname.trim() == "") {
+				alert("Ranked List Name should not be blank.")
+				return false;
+			} else if (blankRE.test(rankedlistname)) {
+				alert("Ranked List Name should not start with a blank space.")
+				return false;
+			}
+
+			var list_value = jQuery("#listTaken").sortable('serialize', {
+				key : 'listTaken[]'
+			});
+			var setform_action = get_action + "?featured_set=" + list_value + '&flag=save';
+
+			document.multi.action += "?" + list_value + '&flag=save' + '&entity_type=digital_asset';
+			document.multi.submit();
+			// jQuery("#new_featured_set").attr("action",setform_action);
+			// jQuery("#new_featured_set").submit();
+		});
+	});
+
+</script>

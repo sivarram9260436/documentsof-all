@@ -1,0 +1,28 @@
+<h1>Editing the details</h1>
+
+<% if flash[:notice] %>
+    <div class="notice"> <b><%= flash[:notice] %></b></div>
+<% end %>
+<%= form_for @user,:url => {:controller => "users" ,:action => "update"} do |f| %>
+
+    <p>
+      <%= f.label :title %><br>
+      <%= f.text_field :name %>
+    </p>
+
+    <p>
+      <%= f.label :email %><br>
+      <%= f.text_field :email %>
+    </p>
+
+    <p>
+
+   <%= link_to 'you want to change the password',:controller=>"users",:action=>"password" %>
+
+    </p>
+
+      <p>
+      <%= f.submit "submit" %>
+    </p>
+<% end %>
+

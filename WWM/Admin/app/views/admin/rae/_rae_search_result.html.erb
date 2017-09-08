@@ -1,0 +1,7 @@
+<tr class="list_table">
+  <td><%=link_to(rae_search_result.id,"javascript:void(0)",:id=>"edit_subscriber",:class=>"change",:onclick=>"image_popup(this)","data-url"=>"/admin/rae/subscriber_edit/#{rae_search_result.id}")%> </td>
+  <td> <%= rae_search_result.first_name %> </td>
+  <td> <%= rae_search_result.last_name %> </td>
+  <td> <%= rae_search_result.created_at.strftime("%d/%m/%Y") %> </td>
+  <td><%=link_to("Edit","javascript:void(0)",:id=>"edit_subscriber",:class=>"change",:onclick=>"image_popup(this)","data-url"=>"/admin/rae/subscriber_edit/#{rae_search_result.id}")%></td>
+</tr>

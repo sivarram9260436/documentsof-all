@@ -1,0 +1,53 @@
+<script src="/javascripts/jquery.min.js" type="text/javascript"></script>
+<%= stylesheet_link_tag 'jquery/jquery-ui-dialog','new_pages','article_new.css','article.css','ddsmoothmenu.css','date-picker','fcbkcomplete_style','jquery-ui'%>
+<div id="container" style="padding-top 20px;">
+	<div class="section_block full_section">
+		<h2><%= @page_properties[:menu_title] %></h2>
+		<%= form_tag({:action=>'create_newsletter'},{:class=>'source_form'})%>
+		<%= hidden_field_tag("newsletter[newsletter_id]",@newsletter_id)%>
+		<div id='load_indicate' style="display:none">
+		<%=image_tag('/images/loading_process2.gif')%>
+		</div>
+		<div class="article_new_main">
+			<div class="form_data">
+				<label for="text_head">Test Users :</label>
+				<br/>
+				<br/>
+				<%@subscribers["data"].each do |a|%><%= a["email"]%>
+				<br/>
+				<%end%>
+			</div>
+		</div>
+	</div>
+	<div class='button'>
+			<%=link_to('Send Newsletter To All',"javascript:void(0)",:id=>"submit_form",:class=>'check')%>
+	</div>
+</div>
+<div class="button">
+<script type="text/javascript">
+	jQuery(".check").click(function() {
+		var data_url = $('.source_form').attr('action')
+		$.ajax({
+			url : data_url,
+			type : 'POST',
+			data : $(".source_form").serialize(),
+			dataType:'json',
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+				$('#load_indicate').show();
+			},
+			success : function(msg) {
+				if(msg.status==false){
+					alert(msg.text)
+					parent.$.fn.colorbox.close();
+				 	parent.location.reload();
+				}
+				else{
+				 parent.$.fn.colorbox.close();
+				 parent.location.reload();
+				}
+			},
+        });
+	});
+</script>
+

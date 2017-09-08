@@ -1,0 +1,109 @@
+
+
+
+
+
+///////////////////[User Name === senthil,  Site Name === unquote] 
+
+Processing Admin::SubscribersController#list (for 192.168.15.55 at 2017-04-04 15:21:05) [GET]
+[User Name === senthil,  Site Name === unquote] Rendering template within layouts/sites
+[User Name === senthil,  Site Name === unquote] Rendering admin/subscribers/list
+[User Name === senthil,  Site Name === unquote] End rendering widget subscriber_management_list == 0.366464s 
+[User Name === senthil,  Site Name === unquote] Completed in 1019ms (View: 757, DB: 53) | 200 OK [http://cms.mergermarket.kreatio.info/admin/subscribers/list]
+[User Name === senthil,  Site Name === unquote] 
+
+Processing ApplicationController#index (for 192.168.15.55 at 2017-04-04 15:21:06) [GET]
+[User Name === senthil,  Site Name === unquote] 
+ActionController::RoutingError (No route matches "/autocomplete/themes/auto_complete/default.css" with {:method=>:get}):
+  unicorn (4.1.1) lib/unicorn/http_server.rb:528:in `process_client'
+  unicorn (4.1.1) lib/unicorn/http_server.rb:600:in `worker_loop'
+  unicorn (4.1.1) lib/unicorn/http_server.rb:485:in `spawn_missing_workers'
+  unicorn (4.1.1) lib/unicorn/http_server.rb:135:in `start'
+  unicorn (4.1.1) bin/unicorn_rails:209
+  /home/ruby/.rvm/gems/ruby-1.8.7-p370@rails2/bin/unicorn_rails:23:in `load'
+  /home/ruby/.rvm/gems/ruby-1.8.7-p370@rails2/bin/unicorn_rails:23
+  /home/ruby/.rvm/gems/ruby-1.8.7-p370@rails2/bin/ruby_executable_hooks:15
+
+
+[User Name === senthil,  Site Name === unquote] 
+
+Processing ApplicationController#index (for 192.168.15.55 at 2017-04-04 15:21:07) [GET]
+[User Name === senthil,  Site Name === unquote] 
+ActionController::RoutingError (No route matches "/autocomplete/themes/shadow/auto_complete.css" with {:method=>:get}):
+  unicorn (4.1.1) lib/unicorn/http_server.rb:528:in `process_client'
+  unicorn (4.1.1) lib/unicorn/http_server.rb:600:in `worker_loop'
+  unicorn (4.1.1) lib/unicorn/http_server.rb:485:in `spawn_missing_workers'
+  unicorn (4.1.1) lib/unicorn/http_server.rb:135:in `start'
+  unicorn (4.1.1) bin/unicorn_rails:209
+  /home/ruby/.rvm/gems/ruby-1.8.7-p370@rails2/bin/unicorn_rails:23:in `load'
+  /home/ruby/.rvm/gems/ruby-1.8.7-p370@rails2/bin/unicorn_rails:23
+  /home/ruby/.rvm/gems/ruby-1.8.7-p370@rails2/bin/ruby_executable_hooks:15
+
+
+[User Name === senthil,  Site Name === unquote] 
+
+Processing ApplicationController#index (for 192.168.15.55 at 2017-04-04 15:21:10) [GET]
+[User Name === senthil,  Site Name === unquote] 
+ActionController::RoutingError (No route matches "/autocomplete/themes/shadow/auto_complete.css" with {:method=>:get}):
+  unicorn (4.1.1) lib/unicorn/http_server.rb:528:in `process_client'
+  unicorn (4.1.1) lib/unicorn/http_server.rb:600:in `worker_loop'
+  unicorn (4.1.1) lib/unicorn/http_server.rb:485:in `spawn_missing_workers'
+  unicorn (4.1.1) lib/unicorn/http_server.rb:135:in `start'
+  unicorn (4.1.1) bin/unicorn_rails:209
+  /home/ruby/.rvm/gems/ruby-1.8.7-p370@rails2/bin/unicorn_rails:23:in `load'
+  /home/ruby/.rvm/gems/ruby-1.8.7-p370@rails2/bin/unicorn_rails:23
+  /home/ruby/.rvm/gems/ruby-1.8.7-p370@rails2/bin/ruby_executable_hooks:15
+
+
+[User Name === senthil,  Site Name === unquote] 
+
+Processing ApplicationController#index (for 192.168.15.55 at 2017-04-04 15:21:10) [GET]
+[User Name === senthil,  Site Name === unquote] 
+ActionController::RoutingError (No route matches "/autocomplete/themes/auto_complete/default.css" with {:method=>:get}):
+  unicorn (4.1.1) lib/unicorn/http_server.rb:528:in `process_client'
+  unicorn (4.1.1) lib/unicorn/http_server.rb:600:in `worker_loop'
+  unicorn (4.1.1) lib/unicorn/http_server.rb:485:in `spawn_missing_workers'
+  unicorn (4.1.1) lib/unicorn/http_server.rb:135:in `start'
+  unicorn (4.1.1) bin/unicorn_rails:209
+  /home/ruby/.rvm/gems/ruby-1.8.7-p370@rails2/bin/unicorn_rails:23:in `load'
+  /home/ruby/.rvm/gems/ruby-1.8.7-p370@rails2/bin/unicorn_rails:23
+  /home/ruby/.rvm/gems/ruby-1.8.7-p370@rails2/bin/ruby_executable_hooks:15
+
+
+
+SubscriberIndividual
+
+model
+
+
+Processing Admin::SubscribersController#edit (for 192.168.15.55 at 2017-04-04 15:54:29) [GET]
+[User Name === senthil,  Site Name === unquote]   Parameters: {"id"=>"35987"}
+[User Name === senthil,  Site Name === unquote] Rendering template within layouts/sites
+[User Name === senthil,  Site Name === unquote] Rendering admin/subscribers/edit
+[User Name === senthil,  Site Name === unquote] Completed in 478ms (View: 433, DB: 14) | 200 OK [http://cms.mergermarket.kreatio.info/admin/subscribers/edit/35987]
+
+
+
+@site.define_component("subscriber_management_list",
+    :base => "base",
+    :data_string => %q{ Subscriber.sr_paginate(:all, :conditions => ["type =  ? ", "SubscriberIndividual"], :per_page => session[:per_page], :page => params[:page],:order=> sort_clause) },
+    :partial     => 'subscriber_list',
+    :xhtml_id    => 'subscriber_management_list',
+    :decoration  => '/admin/decoration/decoration_analysis_article_list',
+    :title       => 'Subscriber List',
+    :data_as     => :collection,
+    :pagination  => true,
+    :header      => ['First Name', 'Last Name','Email','Start Date','End Date'],
+    :sort_list   => {'Name'=>'first_name'})
+
+>> SubscriberProperty .column_names
+=> ["id", "solutation", "title", "phone", "extn", "fax", "job_role_id", "industry_id", "level_of_aquisition_id", "business_size_id", "campaign_id", "end_user_company_name", "Job_title", "address1", "address2", "address3", "city", "country_id", "county_id", "postal_code", "terms_acceptance", "magazine_receive_status", "status", "data_source", "registration_date", "old_id", "updated_by", "created_by", "newsletter_membership", "created_at", "updated_at", "company_user_company_id", "question", "answer", "subscriber_id"]
+	
+
+
+ {"subscription"=>{"product_id"=>"", "start_date"=>"April 25,2016", "end_date"=>"April 25,2016", "subscription_type"=>"Yes"}, "subscriber_property"=>{"country_id"=>"", "phone"=>"", "address1"=>"", "job_title"=>""}, "id"=>"35987", "subscriber"=>{"company_type"=>"", "first_name"=>"Giri", "site_id"=>"2", "email_id"=>"giri@kreatio.com", "last_name"=>"Rao"}, "commit"=>"Update"}
+[User Name === senthil,  Site Name === unquote] 
+
+
+ActiveRecord::Migration.add_column :subscribers, :site_id, :integer
+

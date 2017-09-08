@@ -1,0 +1,53 @@
+<style>
+.hh {text-transform: initial;
+}
+</style>
+
+<%= javascript_include_tag "jquery-1.9.1.min.js", "jquery.tokeninput.js","jquery.colorbox.js"  %>
+<%= stylesheet_link_tag "unquote-data", "token-input-mac", "unq-global", "colorbox", :media => "all" %>
+<%= render :partial => "/unquote/css_image" %>
+
+<%= form_tag({ :controller => "institutions", :action => @form_action1 }, { :id => "form_managed_accounts" }) do %>
+   <%= content_tag(:table, {:class => "form-left"}) do %>
+	  	
+	 <%= hidden_field_tag "institution_company_id" ,@institution_company_id %>
+	 <%= hidden_field_tag "managed_account_id" ,@managed_account.new_record? ? nil : params[:managed_account_id]%>
+	  	
+    <%= content_tag(:tr) do %>
+          <%= content_tag(:td, label_tag("Manager:"), {:class => "lab-field"}) %>
+	  <%= content_tag(:td, text_field(:managed_account, :manager, :value => (@managed_account.manager ? @managed_account.manager: nil)), { :class =>"b-size"}) %>
+    <% end %><!-- tr -->
+    
+
+ <%= content_tag(:tr) do %>
+          <%= content_tag(:td, label_tag("Size:"), {:class => "lab-field hh"}) %>
+          <% @managed_account =  @managed_account %>
+           <%= content_tag(:td, text_field(:managed_account, :size, :value => (@managed_account.size ? @managed_account.size: nil)), { :class =>"b-size"}) %>
+  <% end %>
+
+    
+   
+
+    <% end %><!-- table -->
+<% end %> <!--form end -->
+<%= content_tag(:script, { :type => "text/javascript" }) do %>
+$(function() {
+    $(document).on("click", '#save_managed_account', function() {
+         var params =$("#form_managed_accounts").serialize();
+        parent.add_managed_account(params);
+    });
+    
+$(document).on("click", '#update_managed_account', function() {
+        var params =$("#form_managed_accounts").serialize();
+        var event_id =$("#managed_account_id").val();
+        parent.update_managed_account(params,event_id);
+    });
+    
+    $(document).on("click", '.close_color_box', function() {
+    	parent.close_color_box();
+    	
+    });
+
+});
+<% end %>
+

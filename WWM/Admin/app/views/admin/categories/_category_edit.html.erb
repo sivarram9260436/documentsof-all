@@ -1,0 +1,174 @@
+<%if !! request.xhr?%>
+<%= javascript_include_tag 'admin','new_admin','admin_new' %>
+<%= stylesheet_link_tag 'fcbkcomplete_style'%>
+<%end%>
+<% @category = category_edit[:category] %>
+<%= hidden_field("category" , "id", :value => ( @category and @category.id )) %>
+<div id="category_update">
+<div class="section_block full_section">
+	<h2><%= @page_properties[:menu_title] %></h2>
+<div class="section_content">
+		<div id="site_form">
+				<div class="validation_box">
+					<%= error_messages_for_text_changes 'category' %>
+				</div>
+				<div class="form_data">
+					<label for="category_parent_id"> Parent Name: </label>
+					<% categories = @site.categories.find(:all, :order => 'parent_id') %>
+					<%= collection_select 'category', 'parent_id',( @category.blank? ? categories : categories.delete_if{|current_category| current_category == @category}), :id, :full_name, { :include_blank => '--- Please select --- ' }, :class=>'select_box' %>
+				</div>
+				<div class="form_data">
+					<label for="category_name"> Name: </label>
+					<%= text_field 'category', 'name',:class=>'input_text' %>
+				</div>
+				<div class="form_data">
+					<label for="category_alias_name"> Page Slug: </label>
+					<%= text_field 'category', 'alias_name',:class=>'input_text' %>
+				</div>
+				<!--tr>
+
+				<label for="category_sequence_number">
+				Sequence Number:
+
+				</label>
+
+				<%= text_field 'category', 'sequence_number',:class=>'input_text' %>
+
+				</tr-->
+				<div class="form_data">
+					<label for="token-input-category_site_id"> Site Name: </label>
+					<%if params[:action] == "new"%> 
+						 <%= raw autocompletion_field("category_site_list",{:selected=>Array(@site),:auto=>true})%>
+
+					<%else%>
+					 	<%= raw autocompletion_field("category_site_list",{:selected=>@category.sites})%>
+
+					<%end%>
+				</div>
+
+                <%if false%> 
+					<div class="form_data">					
+						<label for="site_name"> </label>
+					 	<%= link_to "Autonomy Categorization",:controller=>"categories",:action=>"autonomy_categorization",:id=>@category.id%>	</div>
+				<%end%>
+                
+                <div id="tag_form">		
+						<%= error_messages_for_text_changes 'congiguration_group' %>
+				          <div class="button">
+							<%= content_tag(:li, add_option_ajax('Add Property', 'property','property_form'), :colspan => 3, :class => 'button')%>
+						  </div>
+							<%if not @category.new_record?%>
+							<%= content_tag(:ul,content_tag(:li, fetch_fields(@category.property,'property_form'), :id => 'property', :colspan => 3)) %>
+							<%end%>
+				</div></br>		
+				
+				
+					<%if not !!request.xhr?%>
+						<div class="button">
+							<%= link_to("Close",:controller=>"categories",:action=>"index")%>
+						</div>	
+					<%else%>
+					<%#=link_to("Close","javascript:void(0)",:id=>"close_cat",:class=>"ajax_call_update","data-update"=>"site_css_list","data-url"=>"/admin/categories/index")%>
+					<%end%>
+
+					
+						<% if @category.id==nil %>
+							<div class="button" id="submit">
+								<%= link_to("Save","javascript:void(0)",:id=>"edit_tag_opo",:class=>"ajax_call_tag_form","data-fname_id"=>"category_form","data-update"=>"site_css_list","data-url"=>"/admin/categories/create")%>
+							</div>	
+							<div class="button">
+							<%= link_to("Close",:controller=>"categories",:action=>"index")%>
+							</div>	
+						<% else %>
+							<div class="button" id="submit">
+								<%= link_to("Update","javascript:void(0)",:id=>"edit_tag_opo",:class=>"ajax_call_tag_form","data-fname_id"=>"category_form","data-update"=>"site_css_list","data-url"=>"/admin/categories/update"	)%>
+							</div>	
+							<div class="button">
+							<%= link_to("Close",:controller=>"categories",:action=>"index")%>
+							</div>	
+						<% end %>
+					
+					
+	</div>
+
+	
+<div id="tag_form">
+	<div id="option_update"></div>
+</div>
+
+
+		
+	
+</div>
+</div>
+ <div id='property_evaluate'></div>
+ </div>
+ </div>
+</div>
+ <script type="text/javascript">
+ var add_element=jQuery.fn.ajax_append_element = function() { 
+          
+           var id=$(this).attr("id");
+           var data_url=$(this).data('url');
+           var data_param=$(this).data('param');
+           var update_id=$(this).data('update');
+              $.ajax({
+                        url: data_url,
+                        data:  "id="+data_param,
+                        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                        error: function() {alert('eerrrr');},
+                        success: function(msg) {
+                        $("#"+update_id).append(msg);
+                        funcRegister();
+                        }
+                  });
+};
+jQuery(".ajax_append").unbind("click");
+jQuery(".ajax_append").click(add_element);
+</script>
+<script type="text/javascript">
+	var ajax_form_serialize_method = jQuery.fn.ajax_post = function() {
+		var id = $(this).attr('id');
+		var data_url = $('#' + id).data('url');
+		var data_fname = $('#' + id).data('fname_id');
+		var update_id = $('#' + id).data('update');
+		$.ajax({
+			url : data_url,
+			type : 'POST',
+			data : $("form").serialize(),
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+			},
+			error : function() {
+				alert('eerrrr');
+			},
+			beforeSend : function() {
+				jQuery("#load_indicatior").show();
+			},
+			success : function(msg) {
+				jQuery("#load_indicatior").hide();
+				$("#demo2").html(msg);
+				jQuery("#table_content").html("");
+				window.close();
+			},
+			complete : function() {
+				$('#category_update').html('');
+			}
+		});
+	}
+	jQuery(".ajax_call_tag_form").die("click");
+	jQuery(".ajax_call_tag_form").live("click", ajax_form_serialize_method);
+</script>
+<script type="text/javascript">
+	jQuery("#submit").click(function() {
+		var t = jQuery("#category_name").attr("value");
+		if(t == '' || t == null) {
+			alert("name should not be blank");
+			return false;
+		} else {
+			return true;
+		}
+	});
+
+</script>
+

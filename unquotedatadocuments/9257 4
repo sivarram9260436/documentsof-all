@@ -1,0 +1,63 @@
+class AddDealCompanyInformationToExitExportData < ActiveRecord::Migration
+  def change
+   add_column :exit_export_data, :deal_company_information,:text
+
+end
+end
+
+
+
+class AddDryPowderToFundExportData < ActiveRecord::Migration
+  def change
+   add_column :dry_powder, :fund_dry_powder,:text
+
+end
+end
+
+ActiveRecord::Migration.add_column :fund_export_data, :fund_dry_powder, :text
+
+ExportDataMigration.exit_export
+
+
+class AddColumnInDealSpecific < ActiveRecord::Migration
+  def up
+    add_column :deal_specifics, :date_estimated, :string
+  end
+
+  def down
+    remove_column :deal_specifics, :date_estimated
+  end
+end
+~         
+ExportDataMigration.fund_export
+ExportDataMigration.fund_dry_powder
+
+
+ExportDataMigration.exit_export
+
+
+	class AddGeoNameToInstitutionPeiData < ActiveRecord::Migration
+    def change
+    add_column :institution_pei_data, :geo_name,:string
+  end
+  end
+
+
+
+class AddColoumToInstitutionPeiData< ActiveRecord::Migration
+  def change
+    add_column :institution_pei_fund_type_preferences ,:basic_fund_type_id,:integer
+  end
+end
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin/app/assets/javascripts$ vi country_selection.js
+
+
+
+class AddDealCompanyInformationToExitExportData < ActiveRecord::Migration
+  def change
+   add_column :exit_export_data, :deal_company_information,:text
+
+end
+end

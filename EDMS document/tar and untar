@@ -1,0 +1,8 @@
+tar xvfz filename.tar.gz   unzip
+
+tar -cvf Admin_new.tar.gz Admin_new     copy
+
+
+
+cp -R config ../Admin_new/
+

@@ -1,0 +1,257 @@
+
+////////////Started GET "/equitydebt/64470?search_id=118158&source=investor_search" for 127.0.0.1 at 2017-03-10 11:34:15 +0530
+Processing by Wps::UqEquityDebtController#show_investor as HTML
+  Parameters: {"search_id"=>"118158", "source"=>"investor_search", "investor_id"=>"64470"}
+=========ssssssaaaaaaa======{:text=>"", :page=>1, :per_page=>20, :filters=>{:investor_filter_id=>[["64470"], "ary"], :show_on_site=>[true]}, :sort=>"Relevance", :gt_filters=>{}, :lt_filters=>{}, :not_by_filters=>{}, :not_by_gt_filters=>{}, :not_by_lt_filters=>{}, :dy_sort=>{}, :facets=>[], :fields=>[], :include_models=>[InvestorGroup(id: integer, created_at: datetime, updated_at: datetime, group_name: string, investor_company_type_id: integer, city_id: integer, email: string, web: string, status_id: integer, show_vc_tab: boolean, show_in_reports: boolean, vc_updated: boolean, list_in_vc_guide: boolean, show_in_ma_guide_and_report: boolean, company_description: text, created_by: integer, updated_by: integer, old_wsw_id: integer, data_proxy_id: integer, wsw_profile: boolean, country_id: integer, phone: string, fax: string, note_description: string, last_date: datetime, deal_value_euro_f: float, deal_value_us_f: float, deal_value_uk_f: float, deal_value_yen_f: float)]}
+=======event_dates======{:investor_filter_id=>[["64470"], "ary"], :show_on_site=>[true]}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd1xxxxxxxxxxxxxfalse
+WARNING: User#current is nil, are you including SentientController on your ApplicationController?
+WARNING: User#current is nil, are you including SentientController on your ApplicationController?
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_recentlyviewed.html.erb (47.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_profile_top_link.html.erb (3.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_currency_selection.html.erb (1.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_company_information.html.erb (36.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_contacts.html.erb (588.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_company_description.html.erb (0.9ms)
+=========ssssssaaaaaaa======{:page=>1, :per_page=>1, :filters=>{:investor_ids=>[64470], :show_on_site=>[true]}, :facets=>["country_name", "deal_type_parent_children", "industry_name"], :value_field=>:deal_value_uk_f, :sum_value=>[["deal_uk"]], :sort=>"Relevance", :gt_filters=>{}, :lt_filters=>{}, :not_by_filters=>{}, :not_by_gt_filters=>{}, :not_by_lt_filters=>{}, :dy_sort=>{}, :fields=>[], :include_models=>[Deal(id: integer, deal_parent_id: integer, status_id: integer, company_name: string, company_alternate_name: text, website: string, created_date: datetime, company_founded: string, staff_count: integer, currency_id: integer, company_status_id: integer, turnover: string, ebit: string, ebitda: string, turnover_type: string, ebit_type: string, ebitda_type: string, turnover_year: integer, ebit_year: integer, ebitda_year: integer, sub_sector_id: integer, company_information: text, life_science: boolean, cleantech: boolean, infrastructuree: boolean, created_by: integer, updated_by: integer, created_at: datetime, updated_at: datetime, city_id: integer, show_in_report: boolean, include_in_email: boolean, country_id: integer, region_id: integer, ebit_confidential: boolean, ebit_forecast: boolean, ebit_estimated: boolean, ebitda_confidential: boolean, ebitda_forecast: boolean, ebitda_estimated: boolean, turnover_confidential: boolean, turnover_forecast: boolean, turnover_estimated: boolean, turnover_euro: string, turnover_uk: string, turnover_us: string, turnover_yen: string, ebit_euro: string, ebit_uk: string, ebit_us: string, ebit_yen: string, ebitda_euro: string, ebitda_uk: string, ebitda_us: string, ebitda_yen: string, data_proxy_id: integer, shown_in_reports: boolean, note_description: text, last_date: datetime, company_id: integer, new_ebit_year: datetime, new_ebitda_year: datetime, new_turnover_year: datetime, sub_sector_name: string, deal_value: float, deal_type_name: string, deal_announced: date, country_name: string, deal_final_exit_date: date)]}
+=======event_dates======{:investor_ids=>[64470], :show_on_site=>[true]}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd1xxxxxxxxxxxxxfalse
+=========ssssssaaaaaaa======{:page=>1, :per_page=>1, :filters=>{:investor_ids=>[64470], :show_on_site=>[true]}, :facets=>["industry_name"], :sum_value=>[["deal_uk", "industry_name"]], :sum_facet=>true, :sort=>"Relevance", :gt_filters=>{}, :lt_filters=>{}, :not_by_filters=>{}, :not_by_gt_filters=>{}, :not_by_lt_filters=>{}, :dy_sort=>{}, :fields=>[], :include_models=>[Deal(id: integer, deal_parent_id: integer, status_id: integer, company_name: string, company_alternate_name: text, website: string, created_date: datetime, company_founded: string, staff_count: integer, currency_id: integer, company_status_id: integer, turnover: string, ebit: string, ebitda: string, turnover_type: string, ebit_type: string, ebitda_type: string, turnover_year: integer, ebit_year: integer, ebitda_year: integer, sub_sector_id: integer, company_information: text, life_science: boolean, cleantech: boolean, infrastructuree: boolean, created_by: integer, updated_by: integer, created_at: datetime, updated_at: datetime, city_id: integer, show_in_report: boolean, include_in_email: boolean, country_id: integer, region_id: integer, ebit_confidential: boolean, ebit_forecast: boolean, ebit_estimated: boolean, ebitda_confidential: boolean, ebitda_forecast: boolean, ebitda_estimated: boolean, turnover_confidential: boolean, turnover_forecast: boolean, turnover_estimated: boolean, turnover_euro: string, turnover_uk: string, turnover_us: string, turnover_yen: string, ebit_euro: string, ebit_uk: string, ebit_us: string, ebit_yen: string, ebitda_euro: string, ebitda_uk: string, ebitda_us: string, ebitda_yen: string, data_proxy_id: integer, shown_in_reports: boolean, note_description: text, last_date: datetime, company_id: integer, new_ebit_year: datetime, new_ebitda_year: datetime, new_turnover_year: datetime, sub_sector_name: string, deal_value: float, deal_type_name: string, deal_announced: date, country_name: string, deal_final_exit_date: date)]}
+=======event_dates======{:investor_ids=>[64470], :show_on_site=>[true]}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd1xxxxxxxxxxxxxfalse
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_chart.html.erb (107.6ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_detailed_profile.html.erb (803.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_investment_strategy.html.erb (388.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_fund_portfolio.html.erb (680.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_current_portfolio_companies.html.erb (160.9ms)
+============current_profile=======352890=====aaaa==========[nil]
+============current_profile=======343442=====aaaa==========["01/06/2012", nil]
+============current_profile=======336250=====aaaa==========[nil]
+============current_profile=======361093=====aaaa==========["01/09/2009", nil]
+============current_profile=======358595=====aaaa==========[nil]
+============current_profile=======339739=====aaaa==========[nil]
+============current_profile=======366466=====aaaa==========["01/08/2012", "01/08/2014", "01/12/2015"]
+============current_profile=======366632=====aaaa==========["01/03/2015"]
+============current_profile=======357253=====aaaa==========["01/02/2015"]
+============current_profile=======337043=====aaaa==========["01/02/2015"]
+============current_profile=======348041=====aaaa==========["01/06/2014"]
+============current_profile=======361851=====aaaa==========["01/07/2013"]
+============current_profile=======368759=====aaaa==========["01/06/2013"]
+============current_profile=======336151=====aaaa==========["01/04/2011", "01/01/2013"]
+============current_profile=======368127=====aaaa==========["01/09/2012"]
+============current_profile=======333652=====aaaa==========["01/06/2014", "01/05/2012"]
+============current_profile=======359439=====aaaa==========["01/08/2011"]
+============current_profile=======341446=====aaaa==========["01/04/2011"]
+============current_profile=======370058=====aaaa==========["01/10/2010"]
+============current_profile=======339491=====aaaa==========["01/02/2000"]
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_realised_portfolio_companies.html.erb (1487.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_portfolio_of_investor.html.erb (43.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_feedback_comments.html.erb (2.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_export.html.erb (7.4ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/common/_personal_notes.html.erb (1.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/equity_debt_profile.html.erb within /layouts/post_login (14755.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_seo_keys.html.erb (1.0ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_stylesheets.html.erb (3.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_head_scripts.html.erb (4.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/authentication/_header_logout.html.erb (1.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/listing_pages/partials/_post_login_menu.erb (27.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_header.html.erb (35.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/listing_pages/partials/_post_login_menu.erb (6.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_footer.html.erb (42.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_javascript.html.erb (287.9ms)
+Completed 200 OK in 17402ms (Views: 14077.2ms | ActiveRecord: 1978.0ms | Solr: 76.0ms)
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/WPS$ vi /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/profile/_chart.html.erb
+
+
+
+
+
+<!--script type="text/javascript" src="javascripts/fusion_chart.js"></script-->
+<%= javascript_include_tag 'fusioncharts-xt-ol/js/fusioncharts.js' %>
+
+<script type="text/javascript">
+
+    <% deals = Deal.text_search({ :page => 1, :per_page => 1,:filters => { :investor_ids => [@investor_group.id], :show_on_site => [true] }, :facets => ["country_name","deal_type_parent_children","industry_name"], :value_field => CURRENCY[session[:currency] || CURRENCY_SEND[@user.currency.name]].to_sym, :sum_value => [[DEAL_CURRENCY_MAP[session[:currency] || CURRENCY_SEND[@user.currency.name]]]]}) %>
+
+    <% indu  = Deal.text_search({ :page => 1, :per_page => 1,:filters => { :investor_ids => [@investor_group.id], :show_on_site => [true] }, :facets => ["industry_name"], :sum_value => [[DEAL_CURRENCY_MAP[session[:currency] || CURRENCY_SEND[@user.currency.name]], "industry_name"]], :sum_facet => true }) %>
+
+    <% fund  = Fund.text_search({ :page => 1, :per_page => 1,:filters => { :investor_ids => [@investor_group.id], :show_on_site => [true] }, :facets => ["industry_name","country_name"], :sum_value => [[DEAL_CURRENCY_MAP[session[:currency] || CURRENCY_SEND[@user.currency.name]], "industry_name"]], :sum_facet => true }) %>
+
+  
+
+
+    var Advanced_Deal_Type = <%= raw deals.facet(:deal_type_parent_children).rows.sort_by{ |q| q.value }.collect { |facet| { :label => facet.value.titleize, :value => facet.count } }.to_json %>
+
+    var Advanced_Country = <%= raw deals.facet(:country_name).rows.sort_by{ |q| q.value }.collect { |facet| { :label => facet.value.titleize, :value => facet.count } }.to_json %>
+
+    var multi_category = [
+        { "category": <%= raw indu.stats(CURRENCY[session[:currency]]).facet("industry_name").rows.sort_by{ |q| (q.count + q.missing) }.collect{|a| { :label => a.value.titleize } if !a.value.blank? }.to_json %> }
+    ]
+    var multi_dataset = [
+        {
+            "parentYAxis": "P",
+            "seriesname": "Value (<%= CURRENCY_SYMBOLS[session[:currency] || CURRENCY_SEND[@user.currency.name] ]%>m)",
+            "data": <%= raw indu.stats(CURRENCY[session[:currency]]).facet("industry_name").rows.sort_by{ |q| (q.count + q.missing) }.collect{|a| { :value =>  number_with_precision(a.sum, :precision => 2) } if !a.value.blank? }.to_json %>
+        },
+        {
+            "parentYAxis": "S",
+            "seriesname": "Volume",
+            "data": <%= raw indu.stats(CURRENCY[session[:currency]]).facet(:industry_name).rows.sort_by{ |q| (q.count + q.missing)}.collect{|a| { :value => a.count } if !a.value.blank?  }.to_json %>
+        }
+
+      
+     {
+            "parentYAxis": "M",
+            "seriesname": "Volume",
+            "data": <%= raw indu.stats(CURRENCY[session[:currency]]).facet(:industry_name).rows.sort_by{ |q| (q.count + q.missing)}.collect{|a| { :value => a.count } if !a.value.blank?  }.to_json %>
+        }
+       
+
+    ]
+</script>
+
+
+<%= content_tag (:fieldset) do %>
+    <%= content_tag(:legend, "Charts", :style => "width:165px;") %>
+    <div class="graph" id="chartdiv_profile" style="width: 355px;height: 345px;"></div>
+    <div class="graph" id="chartdiv_k1"></div>
+    <div class="graph"></div>
+    <div class="graph1" id="chartdiv_k2"></div>
+    <%= content_tag(:div, '', :class => "clear") %>
+<% end %>
+
+<script type="text/javascript">
+    FusionCharts.setCurrentRenderer('javascript');
+    var myChart = new FusionCharts("Doughnut2D.swf", "myChartId1", "345", "325", "0", "0");
+    myChart.setJSONData({
+        "chart": {
+            "logoPosition": "BR",
+            "rotateValues": "0",
+            "useRoundEdges": "1",
+            "formatNumber": "0",
+            "formatNumberScale": "0",
+            "valuePadding": "10",
+            "exportEnabled": "1",
+            "exportAtClient": "1",
+            "exportHandler": "fcExporter1",
+            "caption": "Advanced Deal Type",
+            "xAxisName": "Volume",
+            "yAxisName": "Advanced Deal Type",
+            "chartBottomMargin" : "20",
+            "enableSmartLabels" : "1",
+            "numberPrefix": "",
+            "showvalues": "0",
+            "showlabels": "1",
+            "showlegend": "1",
+            "pieRadius":"35",
+            "logoURL": "/images/powered-by-unquote.gif",
+            "exportFormats": 'PNG|JPG|PDF|SVG',
+            "exportaction": 'download',
+            "exporttargetwindow": '_self',
+            "html5ExportHandler": "http://export.api3.fusioncharts.com/"
+        },
+        "data": Advanced_Deal_Type
+    });
+    myChart.render("chartdiv_profile");
+    FusionCharts.setCurrentRenderer('javascript');
+    var myChart1 = new FusionCharts("Doughnut2D.swf", "myChartId2", "345", "325", "0", "0");
+    myChart1.setJSONData({
+        "chart": {
+            "logoPosition": "BR",
+            "rotateValues": "0",
+            "useRoundEdges": "1",
+            "formatNumber": "0",
+            "formatNumberScale": "0",
+            "valuePadding": "10",
+            "exportEnabled": "1",
+            "exportAtClient": "1",
+            "exportHandler": "fcExporter1",
+            "caption": "Country",
+            "xAxisName": "Volume",
+            "yAxisName": "Country",
+            "chartBottomMargin" : "20",
+            "numberPrefix": "",
+            "showvalues": "0",
+            "showlabels": "1",
+            "showlegend": "1",
+            "logoURL": "/images/powered-by-unquote.gif",
+            "exportFormats": 'PNG|JPG|PDF|SVG',
+            "exportaction": 'download',
+            "exporttargetwindow": '_self',
+            "html5ExportHandler": "http://export.api3.fusioncharts.com/"
+        },
+        "data": Advanced_Country
+    });
+    myChart1.render("chartdiv_k1");
+    FusionCharts.setCurrentRenderer('javascript');
+    var myChart2 = new FusionCharts("MSCombiDY2D.swf", "myChartId3", "700", "325", "0", "0");
+    myChart2.setJSONData({
+        "chart": {
+            "logoPosition": "BR",
+            "rotateValues": "0",
+            "useRoundEdges": "1",
+            "formatNumber": "0",
+            "formatNumberScale": "0",
+            "valuePadding": "10",
+            "exportEnabled": "1",
+            "exportAtClient": "1",
+            "exportHandler": "fcExporter1",
+            "caption": "Industry",
+            "xAxisName": "Industry",
+            "numberPrefix": "",
+            "showvalues": "0",
+            "showlabels": "1",
+            "showlegend": "1",
+            "pYAxisName": "Value (<%= CURRENCY_SYMBOLS[session[:currency] || CURRENCY_SEND[@user.currency.name]]%>m)",
+            "sYAxisName": "Volume",
+            "logoURL": "/images/powered-by-unquote.gif",
+            "exportFormats": 'PNG|JPG|PDF|SVG',
+            "exportaction": 'download',
+            "exporttargetwindow": '_self',
+            "html5ExportHandler": "http://export.api3.fusioncharts.com/"
+        },
+        "categories": multi_category,
+        "dataset": multi_dataset
+    });
+    myChart2.render("chartdiv_k2");
+
+    myChart3.render("chartdiv_k3");
+    FusionCharts.setCurrentRenderer('javascript');
+    var myChart2 = new FusionCharts("MSCombiDY2D.swf", "myChartId4", "500", "325", "0", "0");
+    myChart2.setJSONData({
+        "chart": {
+            "logoPosition": "BR",
+            "rotateValues": "0",
+            "useRoundEdges": "1",
+            "formatNumber": "0",
+            "formatNumberScale": "0",
+            "valuePadding": "10",
+            "exportEnabled": "1",
+            "exportAtClient": "1",
+            "exportHandler": "fcExporter1",
+            "caption": "Industry",
+            "xAxisName": "Industry",
+            "numberPrefix": "",
+            "showvalues": "0",
+            "showlabels": "1",
+            "showlegend": "1",
+            "pYAxisName": "Value (<%= CURRENCY_SYMBOLS[session[:currency] || CURRENCY_SEND[@user.currency.name]]%>m)",
+            "sYAxisName": "Volume",
+            "logoURL": "/images/powered-by-unquote.gif",
+            "exportFormats": 'PNG|JPG|PDF|SVG',
+            "exportaction": 'download',
+            "exporttargetwindow": '_self',
+            "html5ExportHandler": "http://export.api3.fusioncharts.com/"
+        },
+        "categories": multi_category,
+        "dataset": multi_dataset
+    });
+
+</script>
+
+
+

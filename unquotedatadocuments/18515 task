@@ -1,0 +1,13 @@
+{title:"Value<%= CURRENCY_DISPLAY[params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || @user.currency !=nil && CURRENCY_SEND[@user.currency.name]] %>
+
+
+
+     
+    "aoColumns": [ {title:"Company Name"}, { title:"Deal Date","sType": "stringMonthYear" }, {title:"Sector"}, {title:"Country"},{title:"Basic Deal Type"}, {title:"Value<%= CURRENCY_DISPLAY[params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || @user.currency !=nil && CURRENCY_SEND[@user.currency.name]] %>", "sType": "NumericOrBlank"}, {title:"Exit Status"} ]
+    } );
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/WPS$ vi /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_fund_portfolio.html.erb
+

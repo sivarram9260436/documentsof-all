@@ -1,0 +1,39 @@
+<%= form_tag({:controller=>'/admin/polls',:action => 'index'}) do %>
+<div class="section_block full_section">
+	<h2>Poll Search</h2>
+	<div class="search_fields">
+			<p>
+				<label for="content"> Question:</label>
+				<%if !params[:search_data].blank?%>
+				<%= text_field 'search_data',  "question", :value =>params[:search_data]["question"]%>
+				<%else%>
+				<%= text_field 'search_data',  "question", :value =>''%>
+				<%end%>
+			</p>
+			
+		<p>
+		  <label for="search_data_status">Status:</label> 
+		  <%if params[:search_data] and not params[:search_data][:status].blank?%>
+			<%= select_tag('search_data[status]',options_for_select([['All',''],['Active',1],['InActive',0]],params[:search_data][:status].to_i)) %>
+		 <%else%>
+			<%= select_tag('search_data[status]',options_for_select([['All',''],['Active',1],['InActive',0]])) %>
+		 <%end%>
+		</p>
+		
+				<div class="button">
+					<%=submit_tag "Search"%>					
+				</div>
+			<%#= submit_tag("Search",:class=>"submit blue_submit")%>
+			
+			
+		
+	</div>
+</div>
+
+<%end%>
+
+<%= params[:search_data] ? component_table_list(SrComponent.find_component_by_name('poll_list_search')) : component_table_list(SrComponent.find_component_by_name('poll_list_new')) %>
+
+
+<%#= component_table_list(SrComponent.find_component_by_name('poll_list_new')) %>
+

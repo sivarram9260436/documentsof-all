@@ -1,0 +1,16 @@
+  <td bgcolor="#EBF3DB"><%=LeaveType.find(t.leave_type_id).leave_types if LeaveType.find(t.leave_type_id).leave_types != "Maternity" &&  LeaveType.find(t.leave_type_id).leave_types != "Study Leave"%></td>
+
+
+
+1.9.3-p194 :045 >   ActiveRecord::Migration.add_column :employee_details, :cc, :string
+
+
+
+
+@jay=@leave_record.employee_detail.cc
+
+sivaram@sivaram:~/Desktop/EDMS$ vi app/mailers/approved_mailer.rb 
+
+mail(:from=>@sender,:to=>@to,:cc=>[@tl,@sender,@jay,"jeganr@kreatio.com"].compact,:subject=>"Leave Approved") if @off == "Kreatio"
+
+3 added

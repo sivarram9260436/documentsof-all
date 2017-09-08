@@ -1,0 +1,1086 @@
+class Exit < ActiveRecord::Base
+
+  # relationships
+  has_many :deal_exits
+  has_many :deals, :through => :deal_exits
+  has_many :deal_exit_advisors
+  has_many :deal_exit_investors
+
+  has_many :all_deals, :through => :deal_exits, :source => :deal
+  has_many :deal_specifics, :through => :all_deals, :source => :deal_specific
+  has_many :exit_deals_status, :through => :deal_exits, :source => :deal, :order => "status.sequence_order"
+  has_many :all_deal_status_sequence_order, :through => :all_deals, :source => :status
+
+  has_many :deal_sub_sectors, :through => :all_deals, :source => :sub_sector
+  has_many :sector_relations, :through => :deal_sub_sectors, :source => :sector_relations
+  has_many :deal_sector, :through => :sector_relations, :source => :sector
+  has_many :deal_super_sector, :through => :sector_relations, :source => :super_sector
+  has_many :deal_industry, :through => :sector_relations, :source => :industry
+
+  has_many :advisor_components, :through => :deal_exit_advisors, :source => :advisor_group_component
+  has_many :advisors, :through => :advisor_components, :source => :advisor_group
+
+  has_many :investors, :through => :deal_exit_investors, :source => :investor_group
+
+  has_many :ext_invs_true, :through => :deal_exit_investors, :conditions => {"deal_exit_investors.final_exit" => "true"}, :source => :investor_group
+  has_many :ext_invs_false, :through => :deal_exit_investors, :conditions => {"deal_exit_investors.final_exit" => "false"}, :source => :investor_group
+
+  has_many :all_deals_status_applied, :through => :deal_exits, :source => :deal, :uniq => true, :conditions => ["deals.status_id in (?)", Status.by_names(['Publish', 'Pending QC'])]
+  has_many :all_deal_specifics_status_applied, :through => :all_deals_status_applied, :source => :deal_specific, :uniq => true
+
+  belongs_to :city
+  belongs_to :country
+  belongs_to :sub_sector
+  belongs_to :exit_type
+  belongs_to :currency
+  belongs_to :status
+  belongs_to :data_proxy
+
+  attr_accessible :name, :alternate_name, :updated_by, :last_date, :exit_description, :note_description, :	business_description, :exit_type_id, :exit_value, :exit_date, :market, :acquirer, :staff_count, :turnover, :ebit, :ebit_year, :ebitda, :ebitda_year, :status_id,
+                  :turnover_confidential, :turnover_forecast, :turnover_estimated, :ebit_confidential, :ebit_estimated, :ebit_forecast, :ebitda_estimated, :ebitda_confidential, :ebitda_forecast, :exitvalue_confidential,
+                  :exitvalue_estimated, :turnover_year, :ebit_year, :ebitda_year, :country_id, :sub_sector_id, :currency_id
+
+  include Sidekiq::Worker
+
+  #name scopes
+  scope :latest, :order => 'exits.updated_at desc'
+  scope :by_exit_id, lambda { |exit_id| {:conditions => ["id = ?", exit_id]} }
+  scope :valid_for_sites, lambda { |valid_status| where(status_id: valid_status) }
+  scope :sort_by_alphabet, lambda { |alpha_sort| {:conditions => ["UPPER(name) LIKE UPPER(?)", alpha_sort.upcase + "%%"]} }
+  scope :by_exit_ids, lambda { |exit_ids| {:conditions => ["id in (?)", exit_ids]} }
+  scope :by_name, lambda { |exit_name| {:conditions => ["UPPER(name) LIKE UPPER(?)", "%%" + exit_name.upcase + "%%"]} unless exit_name.nil? }
+  scope :by_name_with_first_word, lambda { |name| {:conditions => ["UPPER(name) LIKE UPPER(?)", name.upcase + "%%"]} }
+  scope :by_site_status, {:conditions => ["status_id = ? OR status_id = ?", Status.by_type("exit").by_name("Publish").first.id, Status.by_type("exit").by_name("Pending QC").first.id]}
+
+  # Solr search implemented with Sunspot plugin
+  mandatory_index_fields, optional_index_fields, indexing_filed_types, boost_index_fields = {:id => :id, :name => :name},
+      {:country_id => :country_id, :investor_name => :investor_name, :investor_ids => :investor_ids, :exit_type => :exit_type, :sub_sector_id => :sub_sector_id, :market => :market, :acquirer => :acquirer, :money_multiple => :money_multiple, :irr => :irr, :vendor_type => :vendor_type, :vendor_name => :vendor_name, :exit_date => :exit_date, :show_on_site => :show_on_site, :alternate_name => :alternate_name, :updated_at => :updated_at, :exit_type_name => :exit_type_name, :country_name => :country_name, :vendor_type_name => :vendor_type_name, :deal_name => :deal_name, :sub_sector_name => :sub_sector_name, :exit_description => :exit_description, :vendor_name_str => :vendor_name_str},
+      {:time => [:exit_date, :created_at, :updated_at],
+       :time_array => [],
+       :double => [:exit_value, :id, :exit_value_euro_f, :exit_value_uk_f, :exit_value_us_f, :exit_value_yen_f, :exit_filter_id],
+       :double_array => [:money_multiple, :irr, :investor_name, :deal_value, :investor_ids],
+       :boolean => [:show_on_site],
+       :non_array_filter => [:name, :name_sort, :country_id, :exit_type, :sub_sector_id, :no_exit_value, :no_exit_date, :no_exit_investors, :status_name, :alternate_name, :exit_type_name, :country_name, :sub_sector_name, :exit_description, :investor_name_str, :deal_name_str, :deal_name_str_rev, :market_str, :acquirer_str, :sub_sector_name, :industry_name, :sector_name, :super_sector_name, :exit_quarter, :vendor_name_str, :exit_year, :exit_month, :exit_value_uk_range, :exit_value_euro_range, :exit_value_us_range, :exit_value_yen_range, :deal_basic_sector_name, :deal_advanced_sector_name, :deal_super_sector_name, :deal_industry_name, :exit_route_id],
+       :array_filter => [:vendor_name, :vendor_type, :vendor_type_name, :market, :acquirer, :investor_name, :deal_name, :basic_deal, :advanced_deal, :existing_investor, :deal_value_uk_range, :deal_value_euro_range, :deal_value_yen_range, :deal_value_us_range, :advisor_name, :deal_sub_sector_ids]},
+      {:name => 5.0}
+
+  # calling the search engine to the current model
+  use_search_engine(mandatory_index_fields, optional_index_fields, indexing_filed_types, boost_index_fields)
+
+  include ActionView::Helpers::SanitizeHelper
+
+  def name_sort
+    self.name.downcase if self.name
+  end
+
+  def exit_filter_id
+    self.id
+  end
+
+  def investor_name
+    self.deal_exit_investors.collect { |exit_inv| exit_inv.investor_group.group_name if exit_inv.investor_group }.compact
+  end
+
+  def investor_ids
+    self.deal_exit_investors.collect { |exit_inv| exit_inv.investor_group.id if exit_inv.investor_group }.compact
+  end
+
+  def exit_id
+    self.id
+  end
+
+  def investor_name_str
+    investor_name.sort.join(", ")
+  end
+
+  def exit_investor_name_str
+    self.deal_exit_investors.collect { |exit_inv| exit_inv.investor_group.id if exit_inv.investor_group }.compact.join(", ")
+  end
+
+  def exit_investors_true_export
+    if !self.ext_invs_true.pluck("group_name").blank?
+      self.ext_invs_true.pluck("group_name").join(", ")
+    else
+      "n/d"
+    end
+  end
+
+  def exit_investors_false_export
+    if !self.ext_invs_false.pluck("group_name").blank?
+      self.ext_invs_false.pluck("group_name").join(", ")
+    else
+      "n/d"
+    end
+  end
+
+  def deal_name
+    self.deal_exits.pluck("name")
+  end
+
+  def deal_name_str
+    deal_name.sort.join(", ")
+  end
+
+  def deal_name_str_rev
+    deal_name.sort.reverse.join(", ")
+  end
+
+  def money_multiple
+    self.deal_exit_investors.collect { |investor| investor.money_multiple }.compact.collect(&:to_f)
+  end
+
+  def irr
+    self.deal_exit_investors.collect { |investor| investor.irr }.compact.collect(&:to_f)
+  end
+
+  def market
+    self.deal_exits.blank? ? [super()] : self.deal_exits.collect { |deal_exit| deal_exit.market }.compact
+  end
+
+  def market_str
+    market.sort.join(", ").upcase
+  end
+
+  def market_export
+    if market.reject { |c| c.nil? || c.empty? }.blank?
+      "n/d"
+    else
+      market.reject { |c| c.nil? || c.empty? }.sort.join(", ")
+    end
+  end
+
+  def acquirer
+    self.deal_exits.blank? ? [super()] : self.deal_exits.collect { |deal_exit| deal_exit.acquirer }.compact
+  end
+
+  def acquirer_str
+    acquirer.sort.join(", ").upcase
+  end
+
+  def acquirer_export
+    if acquirer.reject { |c| c.nil? || c.empty? }.blank?
+      "n/d"
+    else
+      acquirer.reject { |c| c.nil? || c.empty? }.sort.join(", ")
+    end
+  end
+
+  def vendor_type
+    self.deal_exits.collect { |investor| investor.deal.deal_specific.vendor_id if investor.deal && investor.deal.deal_specific }.compact
+  end
+
+  def vendor_type_name
+    #self.deal_exits.collect { |investor| investor.deal.deal_specific.vendor.name if investor.deal && investor.deal.deal_specific && deal.deal_specific.vendor}.compact
+  end
+
+  def vendor_name
+    self.deal_exits.collect { |investor| investor.deal.deal_specific.vendor_name if investor.deal && investor.deal.deal_specific }.compact
+  end
+
+  def vendor_name_str
+    vendor_name.sort.join(",").upcase
+  end
+
+  def status_name
+    self.status.name if self.status
+  end
+
+  def no_exit_value
+    self.exit_value.blank?
+  end
+
+  def no_exit_date
+    self.exit_date.blank?
+  end
+
+  def no_exit_investors
+    self.deal_exit_investors.blank?
+  end
+
+  def exit_type_name
+    self.exit_type.name if self.exit_type
+  end
+
+  def country_name
+    if !self.all_deals.blank?
+      self.all_deals.first.country_name
+    else
+      self.country.name if self.country
+    end
+  end
+
+  def country_name_export
+    if !self.all_deals.blank?
+      self.all_deals.first.country_name
+    else
+      self.country.blank? ? "n/d" : self.country.name
+    end
+  end
+
+  def country_id
+    if !self.all_deals.blank?
+      self.all_deals.first.country_id
+    else
+      self.country.id if self.country
+    end
+  end
+
+  def sub_sector_name
+    self.sub_sector.name if self.sub_sector
+  end
+
+  def basic_deal
+    self.deal_exits.collect { |each_exit| each_exit.deal.deal_specific.deal_type.parent.name if each_exit.deal && each_exit.deal.deal_specific && each_exit.deal.deal_specific.deal_type && each_exit.deal.deal_specific.deal_type.parent }.compact
+  end
+
+  def advanced_deal
+    self.deal_exits.collect { |each_exit| each_exit.deal.deal_specific.deal_type.name if each_exit.deal && each_exit.deal.deal_specific && each_exit.deal.deal_specific.deal_type }.compact
+  end
+
+  def existing_investor
+    self.deal_exit_investors.collect { |deal_exit| deal_exit.investor_group.group_name if deal_exit.investor_group }.compact
+  end
+
+  def exit_description_text
+    self.exit_description.html_safe if self.exit_description
+  end
+
+  def exit_description_export
+    if !self.exit_description.blank? || !self.exit_description.nil?
+      Sanitize.clean(sanitize(self.exit_description.strip))
+    else
+      "n/d"
+    end
+  end
+
+  def deal_sub_sector_ids
+    if !self.all_deals.blank?
+      self.deal_sub_sectors.pluck("sub_sectors.id")
+    else
+      [] << self.sub_sector.id if !self.sub_sector.blank?
+    end
+  end
+
+  def deal_basic_sector_name
+    if !self.all_deals.blank?
+      self.deal_sector.pluck("sectors.name").uniq.join(", ")
+    else
+      self.sub_sector.sector_relations.first.sector.name if !self.sub_sector.blank? && !self.sub_sector.sector_relations.first.blank? && !self.sub_sector.sector_relations.first.sector.blank?
+    end
+  end
+
+  def deal_advanced_sector_name
+    if !self.all_deals.blank?
+      self.deal_sub_sectors.pluck("sub_sectors.name").uniq.join(", ")
+    else
+      self.sub_sector.name if !self.sub_sector.blank?
+    end
+  end
+
+  def deal_super_sector_name
+    if !self.all_deals.blank?
+      self.deal_super_sector.pluck("super_sectors.name").uniq.join(", ") if !self.sector_relations.first.blank? && !self.sector_relations.first.super_sector.blank?
+    else
+      self.sub_sector.sector_relations.first.super_sector.name if !self.sub_sector.blank? && !self.sub_sector.sector_relations.first.blank? && !self.sub_sector.sector_relations.first.super_sector.blank?
+    end
+  end
+
+  def deal_industry_name
+    if !self.all_deals.blank?
+      self.deal_industry.pluck("sec_industries.name").uniq.join(", ") if !self.sector_relations.first.blank? && !self.sector_relations.first.industry.blank?
+    else
+      self.sub_sector.sector_relations.first.industry.name if !self.sub_sector.blank? && !self.sub_sector.sector_relations.first.blank? && !self.sub_sector.sector_relations.first.industry.blank?
+    end
+  end
+
+  def self.to_csv(exits, work_group_path)
+    CSV.open("#{Rails.root}/public/#{work_group_path}", "wb") do |csv|
+      csv << ["Exit Id", "Old Id", "Exit Name", "Exit Year", "Exit Type", "Exit Investors"]
+
+      Exit.where(:id => exits).find_each(batch_size: 20) do |exit|
+        csv << [exit.id, (OldXmlDataImport.by_entity_type('Exit').by_entity_id(exit.id).first.old_id if OldXmlDataImport.by_entity_type('Exit').by_entity_id(exit.id).first), exit.name, exit.exit_date, (exit.exit_type.name if exit.exit_type), (exit.deal_exit_investors.collect { |exit_inv| exit_inv.investor_group.group_name if exit_inv.investor_group }.compact.join if exit.deal_exit_investors)]
+      end
+    end
+  end
+
+  def self.search_exit_export(exits, work_group_path, ok_cancel, user)
+    workbook = WriteXLSX.new("#{Rails.root}/public/#{work_group_path}")
+    worksheet = workbook.add_worksheet
+    worksheet.set_column('A:F', 15)
+
+    text_format = workbook.add_format # Add a format
+    text_format.set_bold
+    #text_format.set_bg_color('pink')
+
+    worksheet.write('A1', 'Exit Id', text_format)
+    worksheet.write('B1', 'Old Id', text_format)
+    worksheet.write('C1', 'Exit Name', text_format)
+    worksheet.write('D1', 'Exit Year', text_format)
+    worksheet.write('E1', 'Exit Type', text_format)
+    worksheet.write('F1', 'Exit Investors', text_format)
+
+    k = 1
+    Exit.where(:id => exits).find_each(batch_size: 20) do |exit|
+
+      worksheet.write(k, 0, (exit.id))
+      worksheet.write(k, 1, (OldXmlDataImport.by_entity_type('Exit').by_entity_id(exit.id).first.old_id if OldXmlDataImport.by_entity_type('Exit').by_entity_id(exit.id).first))
+      worksheet.write(k, 2, (exit.name if exit.name))
+      worksheet.write(k, 3, (exit.exit_date.strftime("%Y") if exit.exit_date))
+      worksheet.write(k, 4, (exit.exit_type.name if exit.exit_type))
+      worksheet.write(k, 5, (exit.deal_exit_investors.collect { |exit_inv| exit_inv.investor_group.group_name if exit_inv.investor_group }.compact.join if exit.deal_exit_investors))
+
+      k += 1
+    end
+    workbook.close
+    if ok_cancel == "true"
+      if !User.where(:id => user).blank?
+        admin_user = User.find(user)
+        UnquoteMailer.export_mail_for_admin_user(admin_user, work_group_path, ADMIN_URL_EXPORT).deliver
+      end
+    end
+  end
+
+  def self.search_exit_export_wdxlsx(exits, work_group_path, ok_cancel, user)
+    hd_col = ['Exit Id','Old Id','Exit Name','Exit Year','Exit Type','Exit Investors']
+
+    s = Wdxlsx::SheetGen.new(Wdxlsx::XlsxTemplate, "" , hd_col.count)
+    s.header_row(hd_col)
+    exits.in_groups_of(500) do |exit_list|
+      Exit.where(:id => exit_list).find_each(batch_size: 20) do |exit|
+        a=[]
+
+        a << "#{exit.id}"
+        a << "#{OldXmlDataImport.by_entity_type('Exit').by_entity_id(exit.id).first.old_id if OldXmlDataImport.by_entity_type('Exit').by_entity_id(exit.id).first}"
+        a << "#{exit.name if exit.name}"
+        a << "#{exit.exit_date.strftime("%Y") if exit.exit_date}"
+        a << "#{exit.exit_type.name if exit.exit_type}"
+        a << "#{exit.deal_exit_investors.collect { |exit_inv| exit_inv.investor_group.group_name if exit_inv.investor_group }.compact.join if exit.deal_exit_investors}"
+
+        s.row(a)
+      end
+    end
+    out_file = s.save("#{Rails.root}/public/#{work_group_path}")
+    if ok_cancel == "true"
+      if !User.where(:id => user).blank?
+        admin_user = User.find(user)
+        UnquoteMailer.export_mail_for_admin_user(admin_user,work_group_path,ADMIN_URL_EXPORT).deliver
+      end
+    end
+  end
+
+  def industry_name
+    self.sub_sector.sector_relations.first.industry.name if self.sub_sector && self.sub_sector.sector_relations && self.sub_sector.sector_relations.first.industry
+  end
+
+  def super_sector_name
+    self.sub_sector.sector_relations.first.super_sector.name if self.sub_sector && self.sub_sector.sector_relations && self.sub_sector.sector_relations.first.super_sector
+  end
+
+  def sector_name
+    self.sub_sector.sector_relations.first.sector.name if self.sub_sector && self.sub_sector.sector_relations && self.sub_sector.sector_relations.first.sector
+  end
+
+  def exit_quarter
+    "#{self.exit_date.year} - #{QUARTER[self.exit_date.month]}" if self.exit_date
+  end
+
+  def exit_date_value
+    self.exit_date.strftime("%d-%m-%Y") if self.exit_date
+  end
+
+  def exit_date_export
+    if !self.exit_date.blank?
+      self.try(:exit_date).try(:strftime, "%b %Y")
+    else
+      "n/d"
+    end
+  end
+
+  def exit_year
+    self.exit_date.year if self.exit_date
+  end
+
+  def exit_month
+    self.exit_date.strftime("%b %Y") if self.exit_date
+  end
+
+  def deal_value
+    self.deal_specifics.pluck("deal_specifics.deal_value").map(&:to_f) if !self.deal_specifics.blank?
+  end
+
+  def advisor_name
+    self.advisors.by_site_status.uniq.collect(&:name) if self.advisors && self.advisors.by_site_status
+  end
+
+  #for site specific search
+  def show_on_site
+    self.status.name.eql?("Pending QC") || self.status.name.eql?("Publish") if self.status
+  end
+
+  def exit_route_name
+    self.exit_type.name if self.exit_type
+  end
+
+  def exit_route_id
+    self.exit_type.id if self.exit_type
+  end
+
+  def exit_route_name_export
+    if !self.exit_type.blank?
+      self.exit_type.name if self.exit_type
+    else
+      "n/d"
+    end
+  end
+
+  def self.generate_xlsx_for_export(work_book_path, export_columns, keyword, acquirer, market, vendor_name, total_pages, sort, order, filters, gt_filters, lt_filters, sub_log, currency_value, present_user, ok_cancel)
+
+    Ambient.init
+    Ambient.currency = currency_value
+    Ambient.subscriber_user = present_user
+    row = START_ROW
+    searched_text = search_query_display.gsub("\n","" ).gsub("\r","" ).gsub("\t","" ).gsub("<font class=\"bold_red\">", "").gsub("</font>", "")
+    Export.xlsx_export(work_book_path, "You have searched for: #{searched_text}", "unquote_data_site", ok_cancel) do |worksheet, header_format, data_format, footer_format|
+      auth_export_columns = export_columns.dup
+
+      export_columns.collect { |column| column.gsub(" ", "_") }.each do |column|
+
+        if EXPORT_DATA_MAPPING[:exit][column.gsub("@", "_").to_sym].blank?
+          auth_export_columns.delete(column.gsub("_", " "))
+        end
+      end
+
+      auth_export_columns.each do |column|
+        if EXIT_DOLLOR_SYMBOL.include? column
+          worksheet.write(10, auth_export_columns.index(column), "#{column} #{CURRENCY_SYMBOLS[currency_value]}m", header_format)
+        else
+          worksheet.write(10, auth_export_columns.index(column), column.gsub("@", "/"), header_format)
+        end
+      end
+
+      curr_vl = {"euro" => "_euro", "uk" => "_uk", "us" => "_us", "yen" => "_yen"}
+      gsubed_export_columns = auth_export_columns.collect { |column| column.gsub(" ", "_").gsub("@", "_").gsub("Exit_value", "Exit_value#{curr_vl[currency_value]}") }
+      powered_by = 0
+
+      (1..total_pages).to_a.each do |page|
+
+        exits = Exit.text_search({:text => keyword, :multiple_keyword => {:acquirer => {:value => (acquirer.upcase if acquirer), :fields => [:acquirer]}, :market => {:value => (market.upcase if market), :fields => [:market]}, :vendor_name => {:value => (vendor_name.upcase if vendor_name), :fields => [:vendor_name_str]}}, :page => page, :per_page => 500, :dy_sort => sort.blank? ? {:exit_date => :asc} : {sort.strip.to_sym => order.strip.to_sym}, :sort => "Relevance", :filters => filters, :gt_filters => gt_filters, :lt_filters => lt_filters})
+
+        exit_columns = gsubed_export_columns.collect { |column| EXPORT_DATA_MAPPING[:exit][column.to_sym] }.join(", ")
+        exit_ids = exits.raw_results.map(&:primary_key)
+        order_col = sort.blank? ? "exit_date asc" : "#{sort.strip} #{order.strip}  NULLS FIRST"
+
+        ExitExportData.where(:exit_id => exit_ids).order(order_col).select("exit_date, #{sort}, #{exit_columns}").group("exit_id, exit_date, #{sort}, #{exit_columns}").each do |individual_exit|
+          gsubed_export_columns.each do |column|
+            worksheet.write(row, gsubed_export_columns.index(column), individual_exit[EXPORT_DATA_MAPPING[:exit][column.to_sym]], data_format)
+          end #gsubed_export_columns
+          row = row + 1
+          powered_by = row
+        end #individual_exit
+
+      end #total_pages
+      worksheet.merge_range("A#{powered_by+2}:D#{powered_by+2}", CHART_EXCEL_FOOTER, footer_format)
+    end # export end
+  end
+
+  def self.generate_wdxlsx_for_export_job(job_id,work_book_path, export_columns, keyword, acquirer, market, vendor_name,total_pages, sort, order, filters, gt_filters, lt_filters, sub_log, currency_value, present_user,ok_cancel,search_query_display)
+
+    @export_job = ExportJob.create(:job_id => job_id, :status => "pending" , :work_book_path =>work_book_path, :selectedColDeal => export_columns, :keyword =>keyword,:acquirer => acquirer,:market => market, :vendor_name => vendor_name, :total_pages => total_pages, :sort => sort, :order => order, :filters => filters, :gt_filters => gt_filters, :lt_filters => lt_filters, :currency =>currency_value, :present_user => present_user, :subscriber_log => sub_log, :ok_cancel => ok_cancel, :search_query_display => search_query_display  )
+    logger.info "========generate_wdxlsx_for_export_job=====#{@export_job.inspect}=========="
+    generate_wdxlsx_for_export(work_book_path, export_columns, keyword, acquirer, market, vendor_name, total_pages, sort, order, filters, gt_filters, lt_filters, sub_log, currency_value, present_user, ok_cancel, search_query_display)
+
+    @export_job.update_attributes(:status => "completed" )
+ logger.info "========generate_wdxlsx===========#{@export_job.inspect}=========="
+
+  end
+
+
+  def self.generate_wdxlsx_for_export(work_book_path, export_columns, keyword, acquirer, market, vendor_name, total_pages, sort, order, filters, gt_filters, lt_filters, sub_log, currency_value, present_user, ok_cancel, search_query_display)
+    Ambient.init
+    Ambient.currency = currency_value
+    Ambient.subscriber_user = present_user
+ logger.info "=============acquirer_value===========#{acquirer}========"
+    logger1 = Logger.new("#{Rails.root}/log/development.log")
+    cst = Time.now
+    searched_text = search_query_display.gsub("\n","" ).gsub("\r","" ).gsub("\t","" ).gsub("<font class=\"bold_red\">", "").gsub("</font>", "")
+    auth_export_columns = export_columns.dup
+    export_columns.collect { |column| column.gsub(" ", "_") }.each do |column|
+      if EXPORT_DATA_MAPPING[:exit][column.gsub("@", "_").to_sym].blank?
+        auth_export_columns.delete(column.gsub("_", " "))
+      end
+    end
+
+    hd_col = []
+    auth_export_columns.each do |column|
+      if EXIT_DOLLOR_SYMBOL.include? column
+        hd_col <<  "#{column} #{CURRENCY_DISPLAY[currency_value]}"
+      else
+        hd_col <<  column.gsub("@","/").to_s
+      end
+    end
+    plan_curr_vl = { "euro" => "_euro", "uk" => "_uk", "us" => "_us", "yen" => "_yen" }
+
+    subscriber_user = Subscriber.find(present_user)
+    if subscriber_user.subscriber_access_level && subscriber_user.subscriber_access_level.extract_confidential_values_via_aggregated_serach.eql?(true)
+      single_curr_vl = { "euro" => "_euro_est", "uk" => "_uk_est", "us" => "_us_est", "yen" => "_yen_est" }
+      conf_curr_vl = { "euro" => "_euro_conf", "uk" => "_uk_conf", "us" => "_us_conf", "yen" => "_yen_conf" }
+    else
+      single_curr_vl = { "euro" => "_euro_f", "uk" => "_uk_f", "us" => "_us_f", "yen" => "_yen_f" }
+      conf_curr_vl = { "euro" => "_euro_f", "uk" => "_uk_f", "us" => "_us_f", "yen" => "_yen_f" }
+    end
+logger.info "=============acquirer_value22222===========#{auth_export_columns.inspect}========"
+    curr_vl = {"euro" => "_check_est_euro", "uk" => "_check_est_uk", "us" => "_check_est_us", "yen" => "_check_est_yen"}
+    gsubed_export_columns = auth_export_columns.collect { |column| (EXIT_EBIT.include?column) ? "#{column}#{conf_curr_vl[currency_value]}" : column.gsub(" ", "_").gsub("@", "_").gsub("Exit_value", "Exit_value#{curr_vl[currency_value]}").gsub("Original_Deal_Value", "Deal_value#{single_curr_vl[currency_value]}").gsub("Original_Debt_in_Deal", "Original_Debt_in_Deal#{plan_curr_vl[currency_value]}") }
+
+    sort_val = { "name_sort" => "name","country_name" => "country_name","exit_date" => "exit_date_value","exit_type_name" => "exit_type_name","sub_sector_name" => "basic_sector_name" }
+  logger.info "=============acquirer_value33333===========#{gsubed_export_columns.inspect}========"
+    sort_curr_vl = { "exit_value_euro_f" => "exit_value_euro", "exit_value_uk_f" => "exit_value_uk", "exit_value_us_f" => "exit_value_us", "exit_value_yen_f" => "exit_value_yen" }
+
+    if sort_val[sort].nil?
+      sort_insta =  sort_curr_vl[sort]
+    else
+      sort_insta = sort_val[sort]
+    end
+
+    s = Wdxlsx::SheetGen.new(Wdxlsx::XlsxTemplate, "You have searched for: #{searched_text}" , auth_export_columns.count)
+    s.header_row(hd_col)
+
+    (1..total_pages).to_a.each do |page|
+      exits = Exit.text_search({:text => keyword, :multiple_keyword => {:acquirer => {:value => (acquirer.upcase if acquirer), :fields => [:acquirer]}, :market => {:value => (market.upcase if market), :fields => [:market]}, :vendor_name => {:value => (vendor_name.upcase if vendor_name), :fields => [:vendor_name_str]}}, :page => page, :per_page => 500, :dy_sort => sort.blank? ? {:exit_date => :asc} : {sort.strip.to_sym => order.strip.to_sym}, :sort => "Relevance", :filters => filters, :gt_filters => gt_filters, :lt_filters => lt_filters})
+
+   logger.info "=============exit_value1111===========#{exits.inspect}========"
+logger.info "=============EXPORT_DATA_MAPPING[:exit]===========#{EXPORT_DATA_MAPPING[:exit]}========"
+      exit_columns = gsubed_export_columns.collect { |column| EXPORT_DATA_MAPPING[:exit][column.to_sym] }.join(", ")
+logger.info "=============exit_columns===========#{exit_columns}========"
+      exit_ids = exits.raw_results.map(&:primary_key)
+      order_col = sort.blank? ? "exit_date_value asc" : "#{sort_insta.strip} #{order.strip}  NULLS FIRST"
+
+      ExitExportData.where(:exit_id => exit_ids).order(order_col).select("exit_date,exit_date_value,#{sort_insta}, #{exit_columns}").group("exit_id, exit_date,exit_date_value,#{sort_insta}, #{exit_columns}").each do |individual_exit|
+        a=[]
+        gsubed_export_columns.each do |column|
+          a << (individual_exit[EXPORT_DATA_MAPPING[:exit][column.to_sym]]).to_s
+        end #gsubed_export_columns
+        ## a= a.collect{|x| x.gsub(" ","").split(",").uniq*","}   #tamil_commented
+        s.row(a)
+      end #individual_exit
+    end #total_pages
+    out_file = s.save("#{Rails.root}/public/#{work_book_path}")
+    if ok_cancel == "true"
+      if !Subscriber.where(:id => Ambient.subscriber_user).blank?
+        subscriber = Subscriber.find(Ambient.subscriber_user)
+        UnquoteMailer.export_mail_for_subcriber(subscriber,work_book_path,SITE_URL_EXPORT).deliver
+      end
+    end
+    logger.info "------Exit stand all time --#{Time.now-cst}--------------"
+  end
+
+
+  def self.generate_xlsx_for_custom_export(work_book_path, export_columns, ta_query, total_pages, sort, order, currency, present_user, ok_cancel)
+    Ambient.init
+    Ambient.currency = currency
+    Ambient.subscriber_user = present_user
+    row = START_ROW
+    Export.xlsx_export(work_book_path, "You have searched for: #{ta_query}", "unquote_data_site", ok_cancel) do |worksheet, header_format, data_format, footer_format|
+      auth_export_columns = export_columns.dup
+
+      export_columns.collect { |column| column.gsub(" ", "_") }.each do |column|
+        if EXCEL_EXPORT_MAPPING[:exit][column.gsub("@", "_").to_sym].blank?
+          auth_export_columns.delete(column.gsub("_", " "))
+        end
+      end
+
+      auth_export_columns.each do |column|
+        if EXIT_DOLLOR_SYMBOL.include? column
+          worksheet.write(10, auth_export_columns.index(column), "#{column} #{CURRENCY_SYMBOLS[currency]}m", header_format)
+        else
+          worksheet.write(10, auth_export_columns.index(column), column.gsub("@", "/"), header_format)
+        end
+      end
+
+      curr_vl = {"euro" => "_euro", "uk" => "_uk", "us" => "_us", "yen" => "_yen"}
+      gsubed_export_columns = auth_export_columns.collect { |column| column.gsub(" ", "_").gsub("@", "_").gsub("Exit_value", "Exit_value#{curr_vl[currency]}") }
+      powered_by = 0
+
+      (1..total_pages).to_a.each do |page|
+        exits = Exit.custom_search({:text => ta_query, :module => :exit, :page => page, :per_page => PER_PAGE, :dy_sort => sort.blank? ? {:exit_date => :asc} : {sort.strip.to_sym => order.strip.to_sym}, :sort => "Relevance", :currency => currency})
+
+        exit_columns = gsubed_export_columns.collect { |column| EXPORT_DATA_MAPPING[:exit][column.to_sym] }.join(", ")
+        exit_ids = exits.raw_results.map(&:primary_key)
+        order_col = sort.blank? ? "exit_date asc" : "#{sort.strip} #{order.strip}  NULLS FIRST"
+
+        ExitExportData.where(:exit_id => exit_ids).order(order_col).select("exit_date, #{exit_columns}").group("exit_id, exit_date, #{exit_columns}").each do |individual_exit|
+          gsubed_export_columns.each do |column|
+            worksheet.write(row, gsubed_export_columns.index(column), individual_exit[EXPORT_DATA_MAPPING[:exit][column.to_sym]], data_format)
+          end #gsubed_export_columns
+          row = row + 1
+          powered_by = row
+        end #individual_exit
+      end #total_pages
+
+      worksheet.merge_range("A#{powered_by+2}:D#{powered_by+2}", CHART_EXCEL_FOOTER, footer_format)
+    end # export end
+  end
+
+  def self.generate_wdxlsx_for_custom_export_job(job_id,work_book_path, export_columns, ta_query, total_pages, sort, order, currency, present_user, ok_cancel)
+    @export_job = ExportJob.create(:job_id => job_id, :status => "started" , :work_book_path =>work_book_path, :selectedColDeal => export_columns, :keyword =>ta_query, :total_pages => total_pages, :sort => sort, :order => order,:currency =>currency, :present_user => present_user,:ok_cancel => ok_cancel)
+    generate_wdxlsx_for_custom_export(work_book_path, export_columns, ta_query, total_pages, sort, order, currency, present_user, ok_cancel)
+   @export_job.update_attributes(:status => "completed" )
+ logger.info "========generate_wdxlsx===========#{@export_job.inspect}=========="
+ end
+  
+
+  def self.generate_wdxlsx_for_custom_export(work_book_path, export_columns, ta_query, total_pages, sort, order, currency, present_user, ok_cancel)
+
+    Ambient.init
+    Ambient.currency = currency
+    Ambient.subscriber_user = present_user
+
+    logger = Logger.new("#{Rails.root}/log/development.log")
+    cst = Time.now
+
+    auth_export_columns = export_columns.dup
+    export_columns.collect { |column| column.gsub(" ", "_") }.each do |column|
+      if EXCEL_EXPORT_MAPPING[:exit][column.gsub("@", "_").to_sym].blank?
+        auth_export_columns.delete(column.gsub("_", " "))
+      end
+    end
+
+    hd_col = []
+    auth_export_columns.each do |column|
+      if EXIT_DOLLOR_SYMBOL.include? column
+        hd_col <<  "#{column} #{CURRENCY_DISPLAY[currency]}"
+      else
+        hd_col <<  column.gsub("@","/").to_s
+      end
+    end
+    plan_curr_vl = { "euro" => "_euro", "uk" => "_uk", "us" => "_us", "yen" => "_yen" }
+
+    subscriber_user = Subscriber.find(present_user)
+    if subscriber_user.subscriber_access_level && subscriber_user.subscriber_access_level.extract_confidential_values_via_aggregated_serach.eql?(true)
+      single_curr_vl = { "euro" => "_euro_est", "uk" => "_uk_est", "us" => "_us_est", "yen" => "_yen_est" }
+      conf_curr_vl = { "euro" => "_euro_conf", "uk" => "_uk_conf", "us" => "_us_conf", "yen" => "_yen_conf" }
+    else
+      single_curr_vl = { "euro" => "_euro_f", "uk" => "_uk_f", "us" => "_us_f", "yen" => "_yen_f" }
+      conf_curr_vl = { "euro" => "_euro_f", "uk" => "_uk_f", "us" => "_us_f", "yen" => "_yen_f" }
+    end
+
+    curr_vl = {"euro" => "_check_est_euro", "uk" => "_check_est_uk", "us" => "_check_est_us", "yen" => "_check_est_yen"}
+    gsubed_export_columns = auth_export_columns.collect { |column| (EXIT_EBIT.include?column) ? "#{column}#{conf_curr_vl[currency]}" : column.gsub(" ", "_").gsub("@", "_").gsub("Exit_value", "Exit_value#{curr_vl[currency]}").gsub("Original_Deal_Value", "Deal_value#{single_curr_vl[currency]}").gsub("Original_Debt_in_Deal", "Original_Debt_in_Deal#{plan_curr_vl[currency]}") }
+
+    sort_val = { "name_sort" => "name","country_name" => "country_name","exit_date" => "exit_date_value","exit_type_name" => "exit_type_name","sub_sector_name" => "basic_sector_name" }
+
+    sort_curr_vl = { "exit_value_euro_f" => "exit_value_euro", "exit_value_uk_f" => "exit_value_uk", "exit_value_us_f" => "exit_value_us", "exit_value_yen_f" => "exit_value_yen" }
+
+    if sort_val[sort].nil?
+      sort_insta =  sort_curr_vl[sort]
+    else
+      sort_insta = sort_val[sort]
+    end
+
+    s = Wdxlsx::SheetGen.new(Wdxlsx::XlsxTemplate, "You have searched for: #{ta_query}" , auth_export_columns.count)
+    s.header_row(hd_col)
+
+    (1..total_pages).to_a.each do |page|
+      exits = Exit.custom_search({:text => ta_query, :module => :exit, :page => page, :per_page => 500, :dy_sort => sort.blank? ? {:exit_date => :asc} : {sort.strip.to_sym => order.strip.to_sym}, :sort => "Relevance", :currency => currency})
+
+      exit_columns = gsubed_export_columns.collect { |column| EXPORT_DATA_MAPPING[:exit][column.to_sym] }.join(", ")
+      exit_ids = exits.raw_results.map(&:primary_key)
+      order_col = sort.blank? ? "exit_date_value asc" : "#{sort_insta.strip} #{order.strip}  NULLS FIRST"
+
+      ExitExportData.where(:exit_id => exit_ids).order(order_col).select("exit_date,exit_date_value, #{exit_columns}").group("exit_id, exit_date,exit_date_value, #{exit_columns}").each do |individual_exit|
+
+        a=[]
+        gsubed_export_columns.each do |column|
+          a << (individual_exit[EXPORT_DATA_MAPPING[:exit][column.to_sym]]).to_s
+        end #gsubed_export_columns
+        s.row(a)
+      end #individual_exit
+    end #total_pages
+    out_file = s.save("#{Rails.root}/public/#{work_book_path}")
+    if ok_cancel == "true"
+      if !Subscriber.where(:id => Ambient.subscriber_user).blank?
+        subscriber = Subscriber.find(Ambient.subscriber_user)
+        UnquoteMailer.export_mail_for_subcriber(subscriber,work_book_path,SITE_URL_EXPORT).deliver
+      end
+    end
+    logger.info "------Exit custom all time --#{Time.now-cst}--------------"
+  end
+
+  def self.chart_export_table(matched_exits, exits, xaxis, yaxis, multy_yaxis, currency, work_book_path, search_query_display, filters, gt_filters, lt_filters, search_type, taQuery)
+
+    row = START_ROW
+    searched_text = search_query_display.gsub("\n", "").gsub("\r", "").gsub("\t", "").gsub("<font class=\"bold_red\">", "").gsub("</font>", "")
+    Export.xlsx_export(work_book_path, "You have searched for: #{searched_text}") do |worksheet, header_format, data_format, footer_format|
+      case yaxis
+        when "Value"
+          worksheet.write(10, 0, "Value by #{xaxis}", header_format)
+        when "Volume"
+          worksheet.write(10, 0, "Volume by #{xaxis}", header_format)
+      end
+
+      if multy_yaxis == "multiChecked"
+        worksheet.write(10, 1, "Volume", header_format)
+        worksheet.write(10, 2, "Value", header_format)
+      else
+        case yaxis
+          when "Value"
+            worksheet.write(10, 1, "#{yaxis}" + " " +"("+ "#{CURRENCY_SYMBOLS[currency]}" + "m" + ")", header_format)
+          when "Volume"
+            worksheet.write(10, 1, "#{yaxis}", header_format)
+        end
+      end
+      powered_by = 0
+      case xaxis
+        when "Deal value"
+          @table = exits.facet(EXIT_DEAL_VALUE_RANGE.fetch(currency).to_sym).rows
+          @table.sort_by { |q| q.value }.each do |exit_table|
+            if !exit_table.value.blank?
+              worksheet.write(row, 0, exit_table.value, data_format)
+              if multy_yaxis == "multiChecked"
+                worksheet.write(row, 1, exit_table.count, data_format)
+                worksheet.write(row, 2, (matched_exits.stats(EXIT_CURRENCY[currency]).facet(EXIT_DEAL_VALUE_RANGE[currency]).rows.map { |sf| "%.2f" % sf.sum if sf.value.eql?("#{exit_table.value}") }.compact.first), data_format)
+              else
+                case yaxis
+                  when "Value"
+                    worksheet.write(row, 1, (matched_exits.stats(EXIT_CURRENCY[currency]).facet(EXIT_DEAL_VALUE_RANGE[currency]).rows.map { |sf| "%.2f" % sf.sum if sf.value.eql?("#{exit_table.value}") }.compact.first), data_format)
+                  when "Volume"
+                    worksheet.write(row, 1, exit_table.count, data_format)
+                end
+              end # if
+              row = row + 1
+            end # table
+            powered_by = row
+          end
+        when "Exit value"
+          @table = exits.facet(EXIT_VALUE_RANGE.fetch(currency).to_sym).rows
+          @table.sort_by { |q| q.value }.each do |exit_table|
+            if !exit_table.value.blank?
+              worksheet.write(row, 0, exit_table.value, data_format)
+              if multy_yaxis == "multiChecked"
+                worksheet.write(row, 1, exit_table.count, data_format)
+                worksheet.write(row, 2, (matched_exits.stats(EXIT_CURRENCY[currency]).facet(EXIT_VALUE_RANGE[currency]).rows.map { |sf| "%.2f" % sf.sum if sf.value.eql?("#{exit_table.value}") }.compact.first), data_format)
+              else
+                case yaxis
+                  when "Value"
+                    worksheet.write(row, 1, (matched_exits.stats(EXIT_CURRENCY[currency]).facet(EXIT_VALUE_RANGE[currency]).rows.map { |sf| "%.2f" % sf.sum if sf.value.eql?("#{exit_table.value}") }.compact.first), data_format)
+                  when "Volume"
+                    worksheet.write(row, 1, exit_table.count, data_format)
+                end
+              end # if
+              row = row + 1
+            end # table
+            powered_by = row
+          end
+        when "Month"
+          @table = exits.facet(EXPORT_EXIT_CHART.fetch(xaxis).to_sym).rows
+          @table.sort_by { |q| Date.parse(q.value.blank? ? Date.today.to_s : q.value) }.each do |exit_table|
+            if !exit_table.value.blank?
+              worksheet.write(row, 0, exit_table.value.titleize, data_format)
+              if multy_yaxis == "multiChecked"
+                worksheet.write(row, 1, exit_table.count, data_format)
+                worksheet.write(row, 2, (matched_exits.stats(EXIT_CURRENCY[currency]).facet(EXPORT_EXIT_CHART[xaxis]).rows.map { |sf| "%.2f" % sf.sum if sf.value.eql?("#{exit_table.value}") }.compact.first), data_format)
+              else
+                case yaxis
+                  when "Value"
+                    worksheet.write(row, 1, (matched_exits.stats(EXIT_CURRENCY[currency]).facet(EXPORT_EXIT_CHART[xaxis]).rows.map { |sf| "%.2f" % sf.sum if sf.value.eql?("#{exit_table.value}") }.compact.first), data_format)
+                  when "Volume"
+                    worksheet.write(row, 1, exit_table.count, data_format)
+                end
+              end # if
+              row = row + 1
+            end # table
+            powered_by = row
+          end
+        when "Adviser used"
+          @table = exits.facet(EXPORT_EXIT_CHART.fetch(xaxis).to_sym).rows
+          @table.sort_by { |q| q.value }.each do |exit_table|
+            if !exit_table.value.blank?
+              worksheet.write(row, 0, exit_table.value.titleize, data_format)
+              if multy_yaxis == "multiChecked"
+                worksheet.write(row, 1, exit_table.count, data_format)
+                if search_type == "custom_search"
+                  worksheet.write(row, 2, (matched_exits.facet(EXPORT_EXIT_CHART[xaxis]).rows.map { |sf| "%.2f" % (Exit.custom_search({:text => taQuery, :module => :exit, :page => 1, :per_page => 1, :filters => {EXPORT_EXIT_CHART[xaxis].to_sym => [[sf.value], "ary"]}, :currency => currency, :facets => [EXPORT_EXIT_CHART[xaxis]], :sum_value => [[EXIT_CURRENCY_MAP[currency], EXPORT_EXIT_CHART[xaxis]]]}).stats(EXIT_CURRENCY[currency]).sum) if sf.value.eql?("#{exit_table.value}") }.compact.first), data_format)
+                else
+                  worksheet.write(row, 2, (matched_exits.facet(EXPORT_EXIT_CHART[xaxis]).rows.map { |sf| "%.2f" % (Exit.text_search({:page => 1, :per_page => 1, :filters => filters.merge!(EXPORT_EXIT_CHART[xaxis].to_sym => [sf.value]), :gt_filters => gt_filters, :lt_filters => lt_filters, :facets => [EXPORT_EXIT_CHART[xaxis]], :sum_value => [[EXIT_CURRENCY_MAP[currency], EXPORT_EXIT_CHART[xaxis]]]}).stats(EXIT_CURRENCY[currency]).sum) if sf.value.eql?("#{exit_table.value}") }.compact.first), data_format)
+                end
+              else
+                case yaxis
+                  when "Value"
+                    if search_type == "custom_search"
+                      worksheet.write(row, 1, (matched_exits.facet(EXPORT_EXIT_CHART[xaxis]).rows.map { |sf| "%.2f" % (Exit.custom_search({:text => taQuery, :module => :exit, :page => 1, :per_page => 1, :filters => {EXPORT_EXIT_CHART[xaxis].to_sym => [[sf.value], "ary"]}, :currency => currency, :facets => [EXPORT_EXIT_CHART[xaxis]], :sum_value => [[EXIT_CURRENCY_MAP[currency], EXPORT_EXIT_CHART[xaxis]]]}).stats(EXIT_CURRENCY[currency]).sum) if sf.value.eql?("#{exit_table.value}") }.compact.first), data_format)
+                    else
+                      worksheet.write(row, 1, (matched_exits.facet(EXPORT_EXIT_CHART[xaxis]).rows.map { |sf| "%.2f" % (Exit.text_search({:page => 1, :per_page => 1, :filters => filters.merge!(EXPORT_EXIT_CHART[xaxis].to_sym => [sf.value]), :gt_filters => gt_filters, :lt_filters => lt_filters, :facets => [EXPORT_EXIT_CHART[xaxis]], :sum_value => [[EXIT_CURRENCY_MAP[currency], EXPORT_EXIT_CHART[xaxis]]]}).stats(EXIT_CURRENCY[currency]).sum) if sf.value.eql?("#{exit_table.value}") }.compact.first), data_format)
+                    end
+                  when "Volume"
+                    worksheet.write(row, 1, exit_table.count, data_format)
+                end
+              end # if
+              row = row + 1
+            end # table
+            powered_by = row
+          end
+        else
+          @table = exits.facet(EXPORT_EXIT_CHART.fetch(xaxis).to_sym).rows
+          @table.sort_by { |q| q.value }.each do |exit_table|
+            if !exit_table.value.blank?
+              worksheet.write(row, 0, exit_table.value.titleize, data_format)
+              if multy_yaxis == "multiChecked"
+                worksheet.write(row, 1, exit_table.count, data_format)
+                worksheet.write(row, 2, (matched_exits.stats(EXIT_CURRENCY[currency]).facet(EXPORT_EXIT_CHART[xaxis]).rows.map { |sf| "%.2f" % sf.sum if sf.value.eql?("#{exit_table.value}") }.compact.first), data_format)
+              else
+                case yaxis
+                  when "Value"
+                    worksheet.write(row, 1, (matched_exits.stats(EXIT_CURRENCY[currency]).facet(EXPORT_EXIT_CHART[xaxis]).rows.map { |sf| "%.2f" % sf.sum if sf.value.eql?("#{exit_table.value}") }.compact.first), data_format)
+                  when "Volume"
+                    worksheet.write(row, 1, exit_table.count, data_format)
+                end
+              end # if
+              row = row + 1
+            end # table
+            powered_by = row
+          end
+      end
+      worksheet.merge_range("A#{powered_by+2}:D#{powered_by+2}", CHART_EXCEL_FOOTER, footer_format)
+    end # xlsx end
+  end
+
+  def index_investors
+    if  !self.investors.blank?
+      self.investors.each do |i|
+        i.index_to_search_engine
+      end
+    end
+  end
+
+  def index_advisors
+    if  !self.advisors.blank?
+      self.advisors.each do |i|
+        i.index_to_search_engine
+      end
+    end
+  end
+
+  def exit_value_uk_est
+    "%.2f"% self.exit_value_uk_f + "#{self.exitvalue_estimated ? '(est)' : ''}" if !self.exit_value_uk_f.blank?
+  end
+
+  def exit_value_us_est
+    "%.2f"% self.exit_value_us_f + "#{self.exitvalue_estimated ? '(est)' : ''}" if !self.exit_value_us_f.blank?
+  end
+
+  def exit_value_euro_est
+    "%.2f"% self.exit_value_euro_f + "#{self.exitvalue_estimated ? '(est)' : ''}" if !self.exit_value_euro_f.blank?
+  end
+
+  def exit_value_yen_est
+    "%.2f"% self.exit_value_yen_f + "#{self.exitvalue_estimated ? '(est)' : ''}" if !self.exit_value_yen_f.blank?
+  end
+
+  def exit_value_export
+    if self.exit_value.blank? || self.exit_value.to_f == 0
+      "n/d"
+    else
+      if self.exitvalue_confidential
+        "n/d #{self.exitvalue_estimated ? '(est)' : ''}"
+      else
+        case Ambient.currency
+          when "euro"
+            return "%.2f"% self.exit_value_euro_f + "#{self.exitvalue_estimated ? '(est)' : ''}" if !self.exit_value_euro_f.blank?
+          when "us"
+            return "%.2f"% self.exit_value_us_f + "#{self.exitvalue_estimated ? '(est)' : ''}" if !self.exit_value_us_f.blank?
+          when "uk"
+            return "%.2f"% self.exit_value_uk_f + "#{self.exitvalue_estimated ? '(est)' : ''}" if !self.exit_value_uk_f.blank?
+          when "yen"
+            return "%.2f"% self.exit_value_yen_f + "#{self.exitvalue_estimated ? '(est)' : ''}" if !self.exit_value_yen_f.blank?
+        end
+      end
+    end
+  end
+
+  def industry_name_export
+    if !self.sub_sector.blank?
+      self.try(:sub_sector).try(:sector_relations).try(:first).try(:industry).try(:name)
+    else
+      self.try(:deals).try(:first).try(:sub_sector).try(:sector_relations).try(:first).try(:industry).try(:name)
+    end
+  end
+
+  def super_sector_name_export
+    if !self.sub_sector.blank?
+      self.try(:sub_sector).try(:sector_relations).try(:first).try(:super_sector).try(:name)
+    else
+      self.try(:deals).try(:first).try(:sub_sector).try(:sector_relations).try(:first).try(:super_sector).try(:name)
+    end
+  end
+
+  def basic_sector_name_export
+    if !self.sub_sector.blank?
+      self.try(:sub_sector).try(:sector_relations).try(:first).try(:sector).try(:name)
+    else
+      self.try(:deals).try(:first).try(:sub_sector).try(:sector_relations).try(:first).try(:sector).try(:name)
+    end
+  end
+
+  def advanced_sector_name_export
+    if !self.sub_sector.blank?
+      self.try(:sub_sector).try(:name)
+    else
+      self.try(:deals).try(:first).try(:sub_sector).try(:name)
+    end
+  end
+
+  def exit_value_euro_f
+    super.to_f
+  end
+
+  def exit_value_uk_f
+    super.to_f
+  end
+
+  def exit_value_us_f
+    super.to_f
+  end
+
+  def exit_value_yen_f
+    super.to_f
+  end
+
+  def value_range(val)
+    case val
+      when 0.0..5.0
+        "0-5"
+      when 5.1..10.0
+        "5-10"
+      when 10.1..20.0
+        "10-20"
+      when 20.1..50.0
+        "20-50"
+      when 50.1..100.0
+        "50-100"
+      when 100.1..250.0
+        "100-250"
+      when 250.1..500.0
+        "250-500"
+      when 500.1..1000.0
+        "500-1000"
+      when 1000.1..5000.0
+        "1000-5000"
+      when 5000.1..10000.0
+        "5000-10000"
+      else
+        "10000+"
+    end
+  end
+
+  def exit_value_uk_range
+    value_range(exit_value_uk_f.to_f) if self.exit_value_uk_f
+  end
+
+  def exit_value_euro_range
+    value_range(exit_value_euro_f.to_f) if self.exit_value_euro_f
+  end
+
+  def exit_value_yen_range
+    value_range(exit_value_yen_f.to_f) if self.exit_value_yen_f
+  end
+
+  def exit_value_us_range
+    value_range(exit_value_us_f.to_f) if self.exit_value_us_f
+  end
+
+  def deal_value_uk_range
+    self.all_deals_status_applied.collect { |deal| deal.deal_value_uk_range if deal.deal_value_uk_range } if self.all_deals_status_applied
+  end
+
+  def deal_value_euro_range
+    self.all_deals_status_applied.collect { |deal| deal.deal_value_euro_range if deal.deal_value_euro_range } if self.all_deals_status_applied
+  end
+
+  def deal_value_yen_range
+    self.all_deals_status_applied.collect { |deal| deal.deal_value_yen_range if deal.deal_value_yen_range } if self.all_deals_status_applied
+  end
+
+  def deal_value_us_range
+    self.all_deals_status_applied.collect { |deal| deal.deal_value_us_range if deal.deal_value_us_range } if self.all_deals_status_applied
+  end
+
+  def exit_status_export
+    if !self.deal_exit_investors.blank?
+      final_exit = self.deal_exit_investors.pluck("final_exit")
+      if final_exit.include?("false")
+        "n/a-Currently Held"
+      else
+        "Realised"
+      end
+    else
+      "n/a-Currently Held"
+    end
+  end
+
+  def self.deal_select_for_exit(exit_id)
+    ActiveRecord::Base.connection.select_all("select temp.id from  (select deal.id,deal.deal_announced,st.sequence_order from exits as exit
+  left outer join deal_exits as deal_exit on deal_exit.exit_id = exit.id
+  left outer join deals as deal on deal.id = deal_exit.deal_id
+  left outer join statuses as st on deal.status_id = st.id
+  where exit.id = #{exit_id}
+  group by deal.id,deal.deal_announced,st.sequence_order) as temp
+  order by temp.sequence_order,temp.deal_announced desc")
+  end
+
+  def exit_value_check_est_us
+    if self.exit_value.blank? || self.exit_value.to_f == 0
+      "n/d"
+    else
+      if self.exitvalue_confidential
+        "n/d #{self.exitvalue_estimated ? '(est)' : ''}"
+      else
+        return "%.2f"% self.exit_value_us_f + "#{self.exitvalue_estimated ? '(est)' : ''}" if !self.exit_value_us_f.blank?
+      end
+    end
+  end
+
+  def exit_value_check_est_uk
+    if self.exit_value.blank? || self.exit_value.to_f == 0
+      "n/d"
+    else
+      if self.exitvalue_confidential
+        "n/d #{self.exitvalue_estimated ? '(est)' : ''}"
+      else
+        return "%.2f"% self.exit_value_uk_f + "#{self.exitvalue_estimated ? '(est)' : ''}" if !self.exit_value_us_f.blank?
+      end
+    end
+  end
+
+  def exit_value_check_est_yen
+    if self.exit_value.blank? || self.exit_value.to_f == 0
+      "n/d"
+    else
+      if self.exitvalue_confidential
+        "n/d #{self.exitvalue_estimated ? '(est)' : ''}"
+      else
+        return "%.2f"% self.exit_value_yen_f + "#{self.exitvalue_estimated ? '(est)' : ''}" if !self.exit_value_us_f.blank?
+      end
+    end
+  end
+
+  def exit_value_check_est_euro
+    if self.exit_value.blank? || self.exit_value.to_f == 0
+      "n/d"
+    else
+      if self.exitvalue_confidential
+        "n/d #{self.exitvalue_estimated ? '(est)' : ''}"
+      else
+        return "%.2f"% self.exit_value_euro_f + "#{self.exitvalue_estimated ? '(est)' : ''}" if !self.exit_value_us_f.blank?
+      end
+    end
+  end
+
+  def exit_date_format_export
+    if !self.exit_date.blank?
+      self.try(:exit_date).try(:strftime, "%Y-%m-01")
+    else
+      "n/d"
+    end
+  end
+end
+

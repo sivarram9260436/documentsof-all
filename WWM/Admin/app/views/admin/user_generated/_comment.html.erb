@@ -1,0 +1,98 @@
+<tr>
+    <td>
+            <%if  (params[:action]== "index" || params[:action]== "poll_generated" || params[:action]== "service_generated" || params[:action]== "authors_generated") %>
+          <input type="checkbox" class="checkbox_style" id="<%=comment.id%>" name="comment[published][]" value="<%=comment.id%>" />
+            <%= link_to comment.id,:controller => 'user_generated',:action => 'comment_complaint',:id=>comment.id,:path=>params[:action],:page=>params[:page],:search_data=>params[:search_data],:entity_type=>@comment_type %>
+            <%else %>
+             <input type="checkbox" class="checkbox_style" id="<%=comment.id%>" name="comment[published][]" value="<%=comment.id%>" />
+            <%= link_to comment.id,:controller => 'user_generated',:action => 'comment_complaint',:id=>comment.id,:path=>@path,:page=>params[:page],:search_data=>params[:search_data] %>
+            <%end %>
+            
+    </td>
+    <td>
+        <span>
+        	<%if @comment_type == "Article"%>
+		        <%= link_to(image_tag("/images/new_button/preview.jpg", :alt => "Preview"), 'javascript:void(0)', :onclick => "javascript:article_preview('http://#{request.host=="localhost" ? request.host_with_port : request.host}/admin/articles/preview_article?id=#{comment.article.id}');") if !comment.article.blank? %>
+       		<%end%>
+        	<%if comment.title and  comment.title.length > 30%>
+			<%@title=comment.title[0..30]+"..."%>
+			<%else%>
+			<%@title=comment.title || ""%>
+			<%end%>
+			<%if  (params[:action]== "index" || params[:action]== "poll_generated" || params[:action]== "service_generated" || params[:action]== "authors_generated") %>
+                       <%puts comment.inspect%>
+            <%= link_to @title,:controller => 'user_generated',:action => 'comment_complaint',:id=>comment.id,:path=>params[:action],:entity_type=>@comment_type,:page=>params[:page],:search_data=>params[:search_data] %>
+            <%else %>
+    <%puts comment.inspect%>
+            <%= link_to @title,:controller => 'user_generated',:action => 'comment_complaint',:id=>comment.id,:path=>@path,:page=>params[:page],:search_data=>params[:search_data] %>
+            <%end %>
+            
+        </span>
+    </td>
+    <td>
+        <%=comment.entity_id %>
+    </td>
+    <td>
+        <%=comment.created_at.nil? ?  "" : comment.created_at.strftime("%d - %B - %Y %H:%M" )  %>
+    </td>
+    <td>
+    		<%if comment.user_name and comment.user_name.length > 20%>
+			<%@author=comment.user_name[0..20]+"..."%>
+			<%else%>
+			<%@author=comment.user_name%>
+			<%end%>
+        <span id="ip_<%=comment.id%>"><%=@author %>
+        </span>
+    </td>
+    <td>
+        <%=comment.status %>
+        <script type="text/javascript">
+                //<![CDATA[ 
+                {
+                    new Tip('<%=comment.id%>', "<table><tr><td><%=comment.description.gsub('"','\"').gsub('&#xD;',' ')%></td></tr></table>", {
+                        title: "<table><tr><td>Description</td></tr></table>",
+                        border: 2,
+                        radius: 2,
+                        style: 'darkgrey',
+                        stem: 'topLeft',
+                        delay: 2,
+                        hook: {
+                            tip: 'topLeft',
+                            mouse: true
+                        },
+                        offset: {
+                            x: 14,
+                            y: 14
+                        }
+                    });
+                    
+                }
+                //]]>
+        </script>
+        <script type="text/javascript">
+            //<![CDATA[ 
+            {
+                new Tip('ip_<%=comment.id%>', "<table><tr><td><%=comment.ip_address%></td></tr></table>", {
+                    title: "<table><tr><td>Ip Address</td></tr></table>",
+                    border: 2,
+                    radius: 2,
+                    style: 'darkgrey',
+                    stem: 'topLeft',
+                    delay: 2,
+                    hook: {
+                        tip: 'topLeft',
+                        mouse: true
+                    },
+                    offset: {
+                        x: 14,
+                        y: 14
+                    }
+                });
+                
+            }
+            //]]>
+        </script>
+    </td>
+</tr>
+
+

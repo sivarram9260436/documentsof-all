@@ -1,0 +1,8 @@
+<%= content_tag (:fieldset) do %>
+    <%= content_tag(:legend, (content_tag(:span, "Primary LPs in #{@fund.name}")), :style => "width:auto;") %>
+    <div style="_width:710px; height:auto; overflow-x:hidden;">
+      <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" id="table_style2" class="cls_table_style2 tbl_style">
+
+
+ruby@merger-market-stage:~/Unquote_data/WPS$ vi ../Sites/unquote_data_site/views/funds/partials/profile/_lps_in_fund.html.erb 
+

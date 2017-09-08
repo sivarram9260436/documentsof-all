@@ -1,0 +1,288 @@
+<%if @dry_powder_event.present? %>
+
+<%= content_tag (:fieldset) do %>
+    <%= content_tag(:legend, (content_tag(:span, "Dry Powder")), :style => "width:auto;") %>
+    <div style="_width:710px; height:auto; overflow-x:hidden;">
+      <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" id="table_style99" class="cls_table_style_part tbl_style">
+        <tbody>
+        <%= content_tag (:tr) do %>
+            <%= content_tag(:td, 'Percentage deployed', :class => "head bdr_left bdr_btm bdr_tp", :width => "26%;") %>
+            <%= content_tag(:td, 'Date', :class => "head bdr_left bdr_btm bdr_tp", :width => "19%;") %>
+            <%= content_tag(:td, 'Source', :class => "head bdr_left bdr_btm bdr_tp", :width => "19%;") %>
+        <% end %>
+
+        <% if @dry_powder_event !=nil %>
+            <%@arr_dry_powder = []%>
+            <%@dry_powder_event.sort_by{|evn| evn.date || Date.today }.each do |dry_powder|%>
+
+                <%@dry_powder = []%>
+                <!-- table start -->
+                <%= content_tag (:tr) do %>
+
+                    <%if !dry_powder.percentage_deployed.blank? %>
+                        <%= content_tag(:td,"#{dry_powder.percentage_deployed}",:class=>"bdr_btm white_bg",:align=>"left" )%>
+                        <%@dry_powder << dry_powder.percentage_deployed%>
+                    <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                        <%@dry_powder << "n/d"%>
+                    <% end %>
+
+
+                    <%if !dry_powder.date.blank? %>
+                        <%= content_tag(:td,"#{dry_powder.date.strftime("%b %Y")}",:class=>"bdr_btm white_bg",:align=>"left" )%>
+                        <%@dry_powder << dry_powder.date.strftime("%b %Y").to_s%>
+                    <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                        <%@dry_powder << "n/d"%>
+                    <% end %>
+
+                    <%if !dry_powder.source.blank? %>
+                        <%= content_tag(:td,"#{dry_powder.source}",:class=>"bdr_btm white_bg",:align=>"left" )%>
+                        <%@dry_powder << dry_powder.source%>
+                    <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                        <%@dry_powder << "n/d"%>
+                    <% end %>
+
+                <% end %>
+                <!-- table end -->
+                <% @arr_dry_powder << @dry_powder%>
+            <% end %>
+        <% end %>
+    <%#= render :partial => "/funds/partials/profile/dry_powder_chart" %>
+    <% logger.info"=====fund=========#{@fund.inspect}================="%>
+<% if !@fund.dry_powders.blank? %>
+<% dry_object = @fund.dry_powders.order("updated_at desc").first %>
+<% if !dry_object.blank? %>
+<% percentage_val = dry_object.percentage_deployed.strip.blank? ? "0" : dry_object.percentage_deployed.strip %>
+<% if ("0".."19").to_a.include?(percentage_val.to_i) %>
+<% colur_code_value = '#488214' %>
+<% elsif ("20".."54").to_a.include?(percentage_val) %>
+<% colur_code_value = '#ffff00' %>
+<% elsif ("55".."69").to_a.include?(percentage_val)%>
+<% colur_code_value = '#ffa500' %>
+<% elsif ("70".."100").to_a.include?(percentage_val) %>
+<% colur_code_value = '#ff0000' %>
+<% elsif ("101".."1000").to_a.include?(percentage_val) %>
+<% colur_code_value = '#488224' %>
+
+<% end %>
+        </tbody>
+      </table>
+    <%#= render :partial => "/funds/partials/profile/dry_powder_chart" %>
+    </div>
+<% end %>
+
+<%= javascript_include_tag "jquery.dataTables.min.js"%>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var dataSet= <%= @arr_dry_powder.to_json.html_safe%>;
+        console.log(dataSet);
+        $('.cls_table_style_part').DataTable( {
+            data: dataSet,
+            "order": [[ 1, "desc" ]],
+            columns: [
+                { title: "Percentage deployed" },
+                { title: "Date" },
+                { title: "Source" }],
+            "paging":   false,
+            "searching": false,
+            "info":  false,
+            "scrollY": "425px",
+            "scrollCollapse": true,
+            "aoColumns": [ { title:"Percentage deployed (%)"},{title:"Date","sType": "stringMonthYear"}, {title:"Source"}]
+        } );
+        $.extend(jQuery.fn.dataTableExt.oSort, {
+            "stringMonthYear-pre": function (s) {
+                var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                var dateComponents = s.split(" ");
+                dateComponents[0] = dateComponents[0].replace(",", "");
+                dateComponents[1] = jQuery.trim(dateComponents[1]);
+                var year = dateComponents[1];
+                var month = 0;
+                for (var i = 0; i < months.length; i++) {
+                    if (months[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                        month = i;
+                        break;
+                    }
+                }
+                var allMonths = ['Jan','Feb','Mar', "Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+                for (var i = 0; i < allMonths.length; i++) {
+                    if (allMonths[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                        month = i;
+                        break;
+                    }
+                }
+                return new Date(year, month, 1);
+            },
+            "stringMonthYear-asc": function (a, b) {
+                return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+            },
+            "stringMonthYear-desc": function (a, b) {
+                return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+            },
+
+            "NumericOrBlank-pre": function (s){
+                var a = parseFloat($.trim(s).replace(/,/,''));
+                if(a==0){return "0";}else if(a>0){return a;}else{return " "}
+            },
+            "NumericOrBlank-asc": function(a,b) {
+                return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+            },
+            "NumericOrBlank-desc": function(b,a) {
+                return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+            }
+
+        });
+    });
+</script>
+
+<%= javascript_include_tag 'fusioncharts-xt-ol/js/fusioncharts.js' %>
+<%= content_tag (:fieldset) do %>
+<%#= content_tag(:legend, "Charts", :style => "width:165px;") %>
+<!-- <div class="graph"></div> --!>
+<%= content_tag(:div, '', :class => "clear") %>
+<script type="text/javascript">
+FusionCharts.ready(function(){
+var fusioncharts = new FusionCharts({
+type: 'stackedbar2d',
+renderAt: 'chart-container',
+width: '500',
+height: '200',
+dataFormat: 'json',
+dataSource: {
+"chart": {
+"caption": "Fund deployment",
+"subCaption": "Dry powder",
+"paletteColors": "<%= colur_code_value %>",
+"bgColor": "#ffffff",
+"borderAlpha": "20",
+"showCanvasBorder": "0",
+"usePlotGradientColor": "0",
+"plotBorderAlpha": "10",
+"legendBorderAlpha": "0",
+"legendShadow": "0",
+"valueFontColor": "#ffffff",
+"showXAxisLine": "1",
+"xAxisLineColor": "#999999",
+"divlineColor": "#999999",
+"divLineDashed": "1",
+"showAlternateVGridColor": "0",
+"subcaptionFontBold": "0",
+"subcaptionFontSize": "14",
+"showHoverEffect": "1",
+  "yAxisMaxvalue": "100",
+        "yAxisMinvalue": "0"
+},
+
+"categories": [{
+"category": [{
+}]
+}],
+
+"dataset": [{
+"seriesname": "percentage <%= dry_object.percentage_deployed %>(%)",
+"data": [{
+"value": "<%= dry_object.percentage_deployed %>(%)"
+} ]
+}]
+}
+}
+);
+fusioncharts.render();
+});
+</script>
+<div id="chart-container">
+</div>
+<%end%>
+<% end %>
+<% end %>
+<style>
+#chart-container { float: left; width: 100%; text-align: center;}
+</style>
+
+
+<style>
+
+
+    .decending {
+        background: url(/images/ascending-arrow.gif) no-repeat right 5px;
+        color: #E3001B;
+        padding-right: 11px;
+    }
+    .ascending {
+        background: url(/images/desecending-arrow.gif) no-repeat right 5px;
+        color: #E3001B;
+        padding-right: 11px;
+    }
+    .tbl_style .bdr_tp {
+        border-top: solid #D9D9D9 1px;
+    }
+    .tbl_style .bdr_btm {
+        border-bottom: solid #D9D9D9 1px;
+    }
+    .tbl_style tr th {
+        background: #E5E6E8;
+        padding: 8px 5px 8px 5px;
+        font-weight: bold;
+        color: #000;
+        text-align: left;
+    }
+    .tbl_style tr th:hover {
+        color: red;
+        cursor:pointer;
+    }
+    .tbl_style tr td {
+        vertical-align: middle;
+        margin-left: 0px;
+    }
+    .porfile_right_mid fieldset table td {
+        padding: 5px 5px;
+        vertical-align: top;
+    }
+
+    .tbl_style .white_bg {
+        background: #fff;
+    }
+    .tbl_style tr td {
+        border-bottom: solid #D9D9D9 1px;
+        border-right: solid #D9D9D9 1px;
+    }
+    .tbl_style tr td {
+        vertical-align: middle;
+    }
+    .tbl_style fieldset table td {
+        padding: 5px 5px;
+        vertical-align: top;
+    }
+    .tbl_style fieldset table td {
+        padding: 5px 5px;
+        vertical-align: top;
+    }
+    .tbl_style tr td {
+        font-size: 11px;
+    }
+    .tbl_style {
+        font-size: 11px;
+    }
+
+    #table_style99_wrapper th.sorting_asc ,#table_style2_wrapper th{
+
+        background-image: url(/images/ascending-arrow.gif);
+        background-repeat: no-repeat;
+        background-position: 98% center;
+    }
+
+
+    #table_style99_wrapper th.sorting_desc {
+
+        background-image: url(/images/desecending-arrow.gif)!important;
+        background-repeat: no-repeat;
+        background-position: 98% center;
+
+    }
+
+</style>
+<%end%>
+

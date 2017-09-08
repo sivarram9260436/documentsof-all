@@ -1,0 +1,23 @@
+<%= form_tag(admin_newsletter_newsletter_change_status_path({:search_data=>params[:search_data],:page=>params[:page]}), {:id=>"change_status_form", :multipart => true}) do %> 
+ <%#= form_tag({:controller=>"admin/newsletter",:action => 'newsletter_change_status',:search_data=>params[:search_data],:page=>params[:page]},{method: 'get',:id=>"change_status_form"}) do %>
+  <%= button_tag "Change Status",:id=>"btn_change_status",:type=>"button",:class=>"btn_change_status"%>
+ <%end%>
+
+<style>
+.btn_change_status {
+    height: 25px;
+    background-color: #6A8B92;
+   /* background: none repeat scroll 0 center transparent;*/
+    border: 0 none;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    padding: 5px;
+    width: auto;
+    height: 25px;
+    margin: 14px 20px 0 507px;
+    border-radius: 5px;
+    padding: 3px;
+}
+</style>

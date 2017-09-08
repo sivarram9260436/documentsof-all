@@ -1,0 +1,246 @@
+ DirectoryListing.where("county_id",227)
+  DirectoryListing Load (1.1ms)  SELECT "directory_listings".* FROM "directory_listings" WHERE (county_id)
+PG::DatatypeMismatch: ERROR:  argument of WHERE must be type boolean, not type integer
+LINE 1: ...ory_listings".* FROM "directory_listings"  WHERE (county_id)
+                                                             ^
+: SELECT "directory_listings".* FROM "directory_listings"  WHERE (county_id)
+ActiveRecord::StatementInvalid: PG::DatatypeMismatch: ERROR:  argument of WHERE must be type boolean, not type integer
+LINE 1: ...ory_listings".* FROM "directory_listings"  WHERE (county_id)
+                                                             ^
+: SELECT "directory_listings".* FROM "directory_listings"  WHERE (county_id)
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/postgresql_adapter.rb:1021:in `exec'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/postgresql_adapter.rb:1021:in `exec_no_cache'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/postgresql_adapter.rb:602:in `block in exec_query'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/abstract_adapter.rb:244:in `block in log'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activesupport-3.1.3/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/abstract_adapter.rb:239:in `log'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/postgresql_adapter.rb:601:in `exec_query'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/postgresql_adapter.rb:1116:in `select'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/abstract/database_statements.rb:18:in `select_all'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/base.rb:470:in `find_by_sql'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/relation.rb:111:in `to_a'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/relation.rb:436:in `inspect'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands/console.rb:45:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands.rb:40:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'1.9.3-p194 :015 > 
+1.9.3-p194 :016 >   
+1.9.3-p194 :017 >   
+1.9.3-p194 :018 >   
+1.9.3-p194 :019 >   
+1.9.3-p194 :020 >   County.where("name","Hampshire")
+  County Load (0.8ms)  SELECT "counties".* FROM "counties" WHERE (name)
+PG::DatatypeMismatch: ERROR:  argument of WHERE must be type boolean, not type character varying
+LINE 1: SELECT "counties".* FROM "counties"  WHERE (name)
+                                                    ^
+: SELECT "counties".* FROM "counties"  WHERE (name)
+ActiveRecord::StatementInvalid: PG::DatatypeMismatch: ERROR:  argument of WHERE must be type boolean, not type character varying
+LINE 1: SELECT "counties".* FROM "counties"  WHERE (name)
+                                                    ^
+: SELECT "counties".* FROM "counties"  WHERE (name)
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/postgresql_adapter.rb:1021:in `exec'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/postgresql_adapter.rb:1021:in `exec_no_cache'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/postgresql_adapter.rb:602:in `block in exec_query'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/abstract_adapter.rb:244:in `block in log'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activesupport-3.1.3/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/abstract_adapter.rb:239:in `log'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/postgresql_adapter.rb:601:in `exec_query'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/postgresql_adapter.rb:1116:in `select'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/abstract/database_statements.rb:18:in `select_all'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/connection_adapters/abstract/query_cache.rb:63:in `select_all'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/base.rb:470:in `find_by_sql'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/relation.rb:111:in `to_a'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/relation.rb:436:in `inspect'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands/console.rb:45:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands.rb:40:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'1.9.3-p194 :021 > 
+1.9.3-p194 :022 >   
+1.9.3-p194 :023 >   
+^[[A^[[A1.9.3-p194 :County.where("name = ?","Hampshire")
+  County Load (1.6ms)  SELECT "counties".* FROM "counties" WHERE (name = 'Hampshire')
+ => [#<County id: 227, country_id: 340, name: "Hampshire", old_id: nil, updated_by: nil, created_by: nil, created_at: "2017-02-27 07:39:48", updated_at: "2017-02-27 07:39:48">] 
+1.9.3-p194 :025 > 
+1.9.3-p194 :026 >   
+1.9.3-p194 :027 >   County.where("name = ?","Kent")
+  County Load (2.7ms)  SELECT "counties".* FROM "counties" WHERE (name = 'Kent')
+ => [#<County id: 220, country_id: 340, name: "Kent", old_id: nil, updated_by: nil, created_by: nil, created_at: "2017-02-27 06:26:08", updated_at: "2017-02-27 06:26:08">] 
+1.9.3-p194 :028 > 
+1.9.3-p194 :029 >   County.where("name = ?","malta")
+  County Load (1.9ms)  SELECT "counties".* FROM "counties" WHERE (name = 'malta')
+ => [] 
+1.9.3-p194 :030 > County.where("name = ?","Malta")
+  County Load (5.0ms)  SELECT "counties".* FROM "counties" WHERE (name = 'Malta')
+ => [#<County id: 222, country_id: 340, name: "Malta", old_id: nil, updated_by: nil, created_by: nil, created_at: "2017-02-27 06:27:35", updated_at: "2017-02-27 06:27:35">] 
+1.9.3-p194 :031 > 
+1.9.3-p194 :032 >   Country.where("name = ?","Afghanistan")
+  Country Load (2.5ms)  SELECT "countries".* FROM "countries" WHERE (name = 'Afghanistan')
+ => [#<Country id: 265, name: "Afghanistan", old_id: nil, updated_by: nil, created_by: nil, created_at: "2015-05-12 12:53:38", updated_at: "2015-05-12 12:53:38", country_type: "Registration">, #<Country id: 3, name: "Afghanistan", old_id: nil, updated_by: nil, created_by: nil, created_at: "2014-01-31 05:24:48", updated_at: "2014-01-31 05:24:48", country_type: "Teaser">] 
+1.9.3-p194 :033 > 
+1.9.3-p194 :034 >   
+1.9.3-p194 :035 >   c=_
+ => [#<Country id: 265, name: "Afghanistan", old_id: nil, updated_by: nil, created_by: nil, created_at: "2015-05-12 12:53:38", updated_at: "2015-05-12 12:53:38", country_type: "Registration">, #<Country id: 3, name: "Afghanistan", old_id: nil, updated_by: nil, created_by: nil, created_at: "2014-01-31 05:24:48", updated_at: "2014-01-31 05:24:48", country_type: "Teaser">] 
+1.9.3-p194 :036 > c.county
+NoMethodError: undefined method `county' for #<ActiveRecord::Relation:0x00000009c17380>
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/relation.rb:459:in `method_missing'
+	from (irb):36
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands/console.rb:45:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands.rb:40:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p194 :037 > c.count
+c.count
+1.9.3-p194 :037 > c.count
+c.count
+1.9.3-p194 :037 > Country.where("name = ?","Afghanistan")
+  Country Load (2.9ms)  SELECT "countries".* FROM "countries" WHERE (name = 'Afghanistan')
+ => [#<Country id: 265, name: "Afghanistan", old_id: nil, updated_by: nil, created_by: nil, created_at: "2015-05-12 12:53:38", updated_at: "2015-05-12 12:53:38", country_type: "Registration">, #<Country id: 3, name: "Afghanistan", old_id: nil, updated_by: nil, created_by: nil, created_at: "2014-01-31 05:24:48", updated_at: "2014-01-31 05:24:48", country_type: "Teaser">] 
+1.9.3-p194 :038 > 
+1.9.3-p194 :039 >   
+1.9.3-p194 :040 >   c=_
+ => [#<Country id: 265, name: "Afghanistan", old_id: nil, updated_by: nil, created_by: nil, created_at: "2015-05-12 12:53:38", updated_at: "2015-05-12 12:53:38", country_type: "Registration">, #<Country id: 3, name: "Afghanistan", old_id: nil, updated_by: nil, created_by: nil, created_at: "2014-01-31 05:24:48", updated_at: "2014-01-31 05:24:48", country_type: "Teaser">] 
+1.9.3-p194 :041 > 
+1.9.3-p194 :042 >   c.counties
+NoMethodError: undefined method `counties' for #<ActiveRecord::Relation:0x00000009717d80>
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/relation.rb:459:in `method_missing'
+	from (irb):42
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands/console.rb:45:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands.rb:40:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p194 :043 > County
+ => County(id: integer, country_id: integer, name: string, old_id: string, updated_by: integer, created_by: integer, created_at: datetime, updated_at: datetime) 
+1.9.3-p194 :044 > c.counties
+NoMethodError: undefined method `counties' for #<ActiveRecord::Relation:0x00000009717d80>
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/relation.rb:459:in `method_missing'
+	from (irb):44
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands/console.rb:45:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands.rb:40:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p194 :045 > c.countries
+NoMethodError: undefined method `countries' for #<ActiveRecord::Relation:0x00000009717d80>
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/relation.rb:459:in `method_missing'
+	from (irb):45
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands/console.rb:45:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands.rb:40:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p194 :046 > c.counties
+NoMethodError: undefined method `counties' for #<ActiveRecord::Relation:0x00000009717d80>
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/activerecord-3.1.3/lib/active_record/relation.rb:459:in `method_missing'
+	from (irb):46
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands/console.rb:45:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands.rb:40:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p194 :047 > 
+1.9.3-p194 :048 >   
+1.9.3-p194 :049 >   c
+ => [#<Country id: 265, name: "Afghanistan", old_id: nil, updated_by: nil, created_by: nil, created_at: "2015-05-12 12:53:38", updated_at: "2015-05-12 12:53:38", country_type: "Registration">, #<Country id: 3, name: "Afghanistan", old_id: nil, updated_by: nil, created_by: nil, created_at: "2014-01-31 05:24:48", updated_at: "2014-01-31 05:24:48", country_type: "Teaser">] 
+1.9.3-p194 :050 > 
+1.9.3-p194 :051 >   c.count
+c.count
+1.9.3-p194 :051 >   c.last
+ => #<Country id: 3, name: "Afghanistan", old_id: nil, updated_by: nil, created_by: nil, created_at: "2014-01-31 05:24:48", updated_at: "2014-01-31 05:24:48", country_type: "Teaser"> 
+1.9.3-p194 :052 > 
+1.9.3-p194 :053 >   v=_
+ => #<Country id: 3, name: "Afghanistan", old_id: nil, updated_by: nil, created_by: nil, created_at: "2014-01-31 05:24:48", updated_at: "2014-01-31 05:24:48", country_type: "Teaser"> 
+1.9.3-p194 :054 > v.count
+v.counties                       v.country_type=                  v.country_type_change            v.country_type_will_change!
+v.counties=                      v.country_type?                  v.country_type_changed?          v.county_ids
+v.country_type                   v.country_type_before_type_cast  v.country_type_was               v.county_ids=
+1.9.3-p194 :054 > v.counties
+  County Load (55.6ms)  SELECT "counties".* FROM "counties" WHERE "counties"."country_id" = 3
+ => [] 
+1.9.3-p194 :055 > c
+ => [#<Country id: 265, name: "Afghanistan", old_id: nil, updated_by: nil, created_by: nil, created_at: "2015-05-12 12:53:38", updated_at: "2015-05-12 12:53:38", country_type: "Registration">, #<Country id: 3, name: "Afghanistan", old_id: nil, updated_by: nil, created_by: nil, created_at: "2014-01-31 05:24:48", updated_at: "2014-01-31 05:24:48", country_type: "Teaser">] 
+1.9.3-p194 :056 > v.counties
+ => [] 
+1.9.3-p194 :057 > 
+1.9.3-p194 :058 >   
+1.9.3-p194 :059 >   Country.where("name = ?","Germany")
+  Country Load (2.4ms)  SELECT "countries".* FROM "countries" WHERE (name = 'Germany')
+ => [#<Country id: 328, name: "Germany", old_id: nil, updated_by: nil, created_by: nil, created_at: "2015-05-12 12:53:38", updated_at: "2015-05-12 12:53:38", country_type: "Registration">, #<Country id: 84, name: "Germany", old_id: nil, updated_by: nil, created_by: nil, created_at: "2014-01-31 05:24:49", updated_at: "2014-01-31 05:24:49", country_type: "Teaser">] 
+1.9.3-p194 :060 > 
+1.9.3-p194 :061 >   o=_
+ => [#<Country id: 328, name: "Germany", old_id: nil, updated_by: nil, created_by: nil, created_at: "2015-05-12 12:53:38", updated_at: "2015-05-12 12:53:38", country_type: "Registration">, #<Country id: 84, name: "Germany", old_id: nil, updated_by: nil, created_by: nil, created_at: "2014-01-31 05:24:49", updated_at: "2014-01-31 05:24:49", country_type: "Teaser">] 
+1.9.3-p194 :062 > o.count
+o.count
+1.9.3-p194 :062 > o.count
+o.count
+1.9.3-p194 :062 > o.first
+ => #<Country id: 328, name: "Germany", old_id: nil, updated_by: nil, created_by: nil, created_at: "2015-05-12 12:53:38", updated_at: "2015-05-12 12:53:38", country_type: "Registration"> 
+1.9.3-p194 :063 > 
+1.9.3-p194 :064 >   
+1.9.3-p194 :065 >   i=_
+ => #<Country id: 328, name: "Germany", old_id: nil, updated_by: nil, created_by: nil, created_at: "2015-05-12 12:53:38", updated_at: "2015-05-12 12:53:38", country_type: "Registration"> 
+1.9.3-p194 :066 > i.counties
+  County Load (2.3ms)  SELECT "counties".* FROM "counties" WHERE "counties"."country_id" = 328
+ => [] 
+1.9.3-p194 :067 > o.last
+ => #<Country id: 84, name: "Germany", old_id: nil, updated_by: nil, created_by: nil, created_at: "2014-01-31 05:24:49", updated_at: "2014-01-31 05:24:49", country_type: "Teaser"> 
+1.9.3-p194 :068 > i=_
+ => #<Country id: 84, name: "Germany", old_id: nil, updated_by: nil, created_by: nil, created_at: "2014-01-31 05:24:49", updated_at: "2014-01-31 05:24:49", country_type: "Teaser"> 
+1.9.3-p194 :069 > i.counties
+  County Load (1.6ms)  SELECT "counties".* FROM "counties" WHERE "counties"."country_id" = 84
+ => [] 
+1.9.3-p194 :070 > 
+1.9.3-p194 :071 >   
+1.9.3-p194 :072 >   Country.where("name = ?","Argentinia")
+  Country Load (1.6ms)  SELECT "countries".* FROM "countries" WHERE (name = 'Argentinia')
+ => [] 
+1.9.3-p194 :073 > Country.where("name = ?","argentinia")
+  Country Load (1.6ms)  SELECT "countries".* FROM "countries" WHERE (name = 'argentinia')
+ => [] 
+1.9.3-p194 :074 > 
+1.9.3-p194 :075 >   
+1.9.3-p194 :076 >   Country.where("name = ?","Argentinia")
+  Country Load (1.9ms)  SELECT "countries".* FROM "countries" WHERE (name = 'Argentinia')
+ => [] 
+1.9.3-p194 :077 > 
+1.9.3-p194 :078 >   
+1.9.3-p194 :079 >   Country.where("name = ?","argentinia")
+  Country Load (2.2ms)  SELECT "countries".* FROM "countries" WHERE (name = 'argentinia')
+ => [] 
+1.9.3-p194 :080 > 
+1.9.3-p194 :081 >   Country.where("name = ?","Argentina")
+  Country Load (2.0ms)  SELECT "countries".* FROM "countries" WHERE (name = 'Argentina')
+ => [#<Country id: 271, name: "Argentina", old_id: nil, updated_by: nil, created_by: nil, created_at: "2015-05-12 12:53:38", updated_at: "2015-05-12 12:53:38", country_type: "Registration">, #<Country id: 13, name: "Argentina", old_id: nil, updated_by: nil, created_by: nil, created_at: "2014-01-31 05:24:48", updated_at: "2014-01-31 05:24:48", country_type: "Teaser">] 
+1.9.3-p194 :082 > 
+
+1.9.3-p194 :083 >   
+1.9.3-p194 :084 >   q=_
+ => [#<Country id: 271, name: "Argentina", old_id: nil, updated_by: nil, created_by: nil, created_at: "2015-05-12 12:53:38", updated_at: "2015-05-12 12:53:38", country_type: "Registration">, #<Country id: 13, name: "Argentina", old_id: nil, updated_by: nil, created_by: nil, created_at: "2014-01-31 05:24:48", updated_at: "2014-01-31 05:24:48", country_type: "Teaser">] 
+1.9.3-p194 :085 > q.first
+ => #<Country id: 271, name: "Argentina", old_id: nil, updated_by: nil, created_by: nil, created_at: "2015-05-12 12:53:38", updated_at: "2015-05-12 12:53:38", country_type: "Registration"> 
+1.9.3-p194 :086 > l=_
+ => #<Country id: 271, name: "Argentina", old_id: nil, updated_by: nil, created_by: nil, created_at: "2015-05-12 12:53:38", updated_at: "2015-05-12 12:53:38", country_type: "Registration"> 
+1.9.3-p194 :087 > l.count
+l.counties                       l.country_type=                  l.country_type_change            l.country_type_will_change!
+l.counties=                      l.country_type?                  l.country_type_changed?          l.county_ids
+l.country_type                   l.country_type_before_type_cast  l.country_type_was               l.county_ids=
+1.9.3-p194 :087 > l.count
+l.counties                       l.country_type=                  l.country_type_change            l.country_type_will_change!
+l.counties=                      l.country_type?                  l.country_type_changed?          l.county_ids
+l.country_type                   l.country_type_before_type_cast  l.country_type_was               l.county_ids=
+1.9.3-p194 :087 > l.counties
+  County Load (3.9ms)  SELECT "counties".* FROM "counties" WHERE "counties"."country_id" = 271
+ => [] 
+1.9.3-p194 :088 > q.last
+ => #<Country id: 13, name: "Argentina", old_id: nil, updated_by: nil, created_by: nil, created_at: "2014-01-31 05:24:48", updated_at: "2014-01-31 05:24:48", country_type: "Teaser"> 
+1.9.3-p194 :089 > 
+1.9.3-p194 :090 >   l=_
+ => #<Country id: 13, name: "Argentina", old_id: nil, updated_by: nil, created_by: nil, created_at: "2014-01-31 05:24:48", updated_at: "2014-01-31 05:24:48", country_type: "Teaser"> 
+1.9.3-p194 :091 > l.counties
+  County Load (1.1ms)  SELECT "counties".* FROM "counties" WHERE "counties"."country_id" = 13
+ => [] 
+1.9.3-p19

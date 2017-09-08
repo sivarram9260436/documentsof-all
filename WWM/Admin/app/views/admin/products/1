@@ -1,0 +1,257 @@
+
+
+<script type="text/javascript" src="/javascripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<% @asset_group = form_left %>
+<table class="article_form">
+	<div class="form_data">
+		<label for="text_head">Product Name*:</label>
+		<%= text_field :product,:name,:class=>'input_text',:size=>30,:flash=>true %>
+             </div>
+  		
+		<div class="form_data">
+			<label for="text_head">Display Label:</label>
+			<%= text_field :product,:display_label,:class=>'input_text',:size=>30,:flash=>true %>
+		</div>
+		<div class="form_data">
+			<label for="text_head">Url:</label>
+			<%= text_field :product,:url,:class=>'input_text',:size=>30,:flash=>true %>
+                </div>
+                <div class="form_data">
+                        <label for="product_description">Description:</label>
+                           <%= text_area :product,:description, {:rows =>5, :cols => 40,:class=>"input_text"} %>
+		</div>
+		<div class="form_data">
+                      <label for="product_description"> Product Type*:</label>
+                          <%= select(:product,:product_type,PRODUCT_TYPE,{},html_options={:class=>"select_box"})%>
+	         </div>
+	<%if @product and @product.product_type=="Questionnaires"%>
+	<% auth_hide="display:none"%>
+	<%else%>
+	<% quest_hide="display:none"%>
+	<%end%>
+	<tr class="Questionnaires" style="<%if !@product or (@product and @product.product_type=="Authorized") %>display:none;<%end%>" style="<%= quest_hide%>" style="display: none;">
+		<div class="form_data">
+                      <label for="product_description"> Questionnairy name: </label>
+                     <%= collection_select(:product,:questionnaire_id,@site.questionnaires,:id,:name,{:prompt=>"select"},:class=>"input_text")%>
+		</div>
+		
+		<div class="form_data">
+                       <label for="asset_id"> Product Criteria*: </label> 
+                        <% selected_asset_groups = @product.asset_groups %>
+			<%= raw autocompletion_field("product_asset_group_ids",{:selected=>selected_asset_groups,:default_selection=>"Enter the Product Criteria"})%>
+			<%#= autocompletion_field("product", "asset_group_ids", @asset_group, { :default_selection => "Enter the Product Criteria", :empty_message => "Product Criteria not found", :sort => true}) %>
+		</div>
+		
+		<div class="form_data">
+                    <label for="asset_id"> Teaser Type*: <label>
+                        <%= collection_select :product,:teaser_type_id,@teaser_types,:id,:name,options={:prompt=>'Select Teaser Type'},:class=>"input_text" %>
+		</div>
+						<tr class="Authorized" style="<%= auth_hide%>">
+		<div class="form_data">
+                     <label for="product_allowed_no_of_articles"> Key Icon: </label> 
+                       <%= radio_button( :product, :key_icon.to_s, true )%> Yes
+		       <%=radio_button( :product, :key_icon, false )%> No
+		</div>
+							<tr class="Authorized" style="<%= auth_hide%>">
+		<div class="form_data">
+                   <label for="product_allowed_no_of_articles"> Play Video: </label> <%= radio_button( :product, :play_video.to_s, true )%> Yes
+		      <%= radio_button( :product, :play_video, false )%> No
+		</div>
+								<tr class="Authorized" style="<%= auth_hide%>">
+                  <div class="form_data">
+                    <label for="product_name"> New user action headline </label> 
+                        <%= text_field :product,:action_headline,:class=>'input_text',:size=>30%>
+               	</div>
+									<tr>
+										<div class="productscolumnRight" id="parentTinymce">
+											<tr>
+												New user action content:
+												<script type="text/javascript">
+													tinyMCE.init({
+														mode : "specific_textareas",
+														editor_selector : "mceEditor",
+														theme : "advanced",
+														width : 320,
+														plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+
+														// Theme options
+														theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect",
+														theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,undo,redo",
+														theme_advanced_toolbar_location : "top",
+														theme_advanced_toolbar_align : "left",
+														theme_advanced_statusbar_location : "bottom",
+														theme_advanced_resizing : true,
+
+														// Skin options
+														skin : "o2k7",
+														skin_variant : "silver",
+<div class="form_data">
+        <label for="text_head"><span>Product Name*:</span>:</label>    
+        <%= text_field :product,:name,:class=>'input_text',:size=>30,:flash=>true %>
+</div>
+<div class="form_data">
+        <label for="text_head"><span>Display Label:</span>:</label>  
+        <%= text_field :product,:display_label,:class=>'input_text',:size=>30,:flash=>true %>
+</div> 
+<div class="form_data">
+        <label for="text_head"><span> Url:</span>:</label>  
+        <%= text_field :product,:url,:class=>'input_text',:size=>30,:flash=>true %>
+</div> 
+<div class="form_data">
+        <label for="text_head"><span>Description:</span>:</label>  
+        <%= text_area :product,:description, {:rows =>5, :cols => 40,:class=>"input_text"} %>
+</div> 
+<div class="form_data">
+        <label for="text_head"><span>Product Type*:</span>:</label>  
+        <%=select(:product,:product_type,PRODUCT_TYPE,{},html_options={:class=>"input_text"})%>
+        <%if @product and @product.product_type=="Questionnaires"%>
+           <%auth_hide="display:none"%>
+       <%else%>
+          <%quest_hide="display:none"%>
+       <%end%>
+       <!--<tr class="Questionnaires" style="<=#%if !@product or (@product and @product.product_type=="Authorized") %>display:none;<#%end%>" style="<%=quest_hide%>" style="display: none;"-->
+</div> 
+<div class="form_data">
+        <label for="text_head"><span>Questionnairy name:</span>:</label>  
+        <%=collection_select(:product,:questionnaire_id,@site.questionnaires,:id,:name,{:prompt=>"select"},:class=>"input_text")%>
+</div>                
+<div class="form_data">
+        <label for="text_head"><span>Product Criteria*:</span>:</label>  
+        <% selected_asset_groups = @product.asset_groups %>
+            <%= raw autocompletion_field("product_asset_group_ids",{:selected=>selected_asset_groups,:default_selection=>"Enter the Product Criteria"})%>
+</div> 
+<div class="form_data">
+        <label for="text_head"><span>Teaser Type*:</span>:</label>  
+         <%= collection_select :product,:teaser_type_id,@teaser_types,:id,:name,options={:prompt=>'Select Teaser Type'},:class=>"input_text" %>
+</div>  
+<div class="form_data">
+        <label for="text_head"><span>Key Icon:</span>:</label>  
+         <%= radio_button( :product, :key_icon.to_s, true )%> Yes
+         <%= radio_button( :product, :key_icon, false )%> No
+</div>
+<div class="form_data">
+        <label for="text_head"><span>Play Video:</span>:</label>  
+         <%= radio_button( :product, :play_video.to_s, true )%> Yes
+         <%= radio_button( :product, :play_video, false )%> No
+</div> 
+<div class="form_data">
+        <label for="text_head"><span>New user action headline:</span>:</label>  
+         <%= text_field :product,:action_headline,:class=>'input_text',:size=>30%>
+</div> 
+
+       <div class="productscolumnRight" id="parentTinymce"> 
+
+    
+         New user action content:
+       <script type="text/javascript"> 
+                tinyMCE.init({
+                mode : "specific_textareas",
+                editor_selector : "mceEditor",
+                theme : "advanced",
+                width : 320,
+                plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+
+														// Example content CSS (should be your site CSS)
+														content_css : "css/example.css",
+
+														// Drop lists for link/image/media/template dialogs
+														template_external_list_url : "js/template_list.js",
+														external_link_list_url : "js/link_list.js",
+														external_image_list_url : "js/image_list.js",
+														media_external_list_url : "js/media_list.js",
+
+														// Replace values for the template plugin
+														template_replace_values : {
+															username : "Some User",
+															staffid : "991234"
+														}
+
+													});
+
+												</script>
+												<textarea id="tinyid_1" name="product[product_action_content]" value="product[product_action_content]" rows ="10" cols ="1" class="mceEditor" style='width:100%;'><%= @product.product_action_content if @product%></textarea>
+										</div>
+									</tr>
+									<tr class="Authorized" style="<%= auth_hide%>">
+										<td class="asset_form"><label for="product_name"> Expired action headline: </label> <%= text_field :product,:expired_action_headline,:class=>'input_text',:size=>30%>
+									</tr>
+									<div class="productscolumnRight" id="parentTinymce">
+										<tr class="Authorized" style="<%= auth_hide%>">
+											Expired action content:
+											<script type="text/javascript">
+												tinyMCE.init({
+													mode : "specific_textareas",
+													editor_selector : "mceEditor",
+													theme : "advanced",
+													width : 320,
+													plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+
+													// Theme options
+													theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect",
+													theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,undo,redo",
+													theme_advanced_toolbar_location : "top",
+													theme_advanced_toolbar_align : "left",
+													theme_advanced_statusbar_location : "bottom",
+													theme_advanced_resizing : true,
+                 });
+                </script>
+<textarea id="tinyid_1" name="product[product_action_content]" value="product[product_action_content]" rows ="10" cols ="1" class="mceEditor" style='width:100%;'><%= @product.product_action_content if @product%></textarea>              
+       
+    
+    <tr class="Authorized" style="<%=auth_hide%>">    
+        
+        <td>Expired action headline:
+            <%= text_field :product,:expired_action_headline,:class=>'input_text',:size=>30%>
+        </td>
+    </tr>
+ <div class="productscolumnRight" id="parentTinymce">
+    
+    <tr class="Authorized" style="<%=auth_hide%>">
+       
+    
+      <td>Expired action content:
+    
+    <script type="text/javascript"> 
+                tinyMCE.init({
+                mode : "specific_textareas",
+                editor_selector : "mceEditor",
+                theme : "advanced",
+                width : 320,
+                plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+
+													// Skin options
+													skin : "o2k7",
+													skin_variant : "silver",
+
+													// Example content CSS (should be your site CSS)
+													content_css : "css/example.css",
+
+													// Drop lists for link/image/media/template dialogs
+													template_external_list_url : "js/template_list.js",
+													external_link_list_url : "js/link_list.js",
+													external_image_list_url : "js/image_list.js",
+													media_external_list_url : "js/media_list.js",
+
+													// Replace values for the template plugin
+													template_replace_values : {
+														username : "Some User",
+														staffid : "991234"
+													}
+
+												});
+
+											</script>
+											<textarea name="product[expired_action_content]"  value="product[expired_action_content]" =rows ="10" cols ="1" class="mceEditor" style='width:10%;'><%= @product.product_action_content if @product%></textarea>
+									</div> </div>
+									</div>
+</table>
+                 });
+                </script>
+<textarea name="product[expired_action_content]"  value="product[expired_action_content]" =rows ="10" cols ="1" class="mceEditor" style='width:10%;'><%= @product.product_action_content if @product%></textarea>
+        </td>
+         
+      </tr>     	
+</div>
+</div>
+    </tr> 
+</table>

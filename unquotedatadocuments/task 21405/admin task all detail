@@ -1,0 +1,1519 @@
+
+
+
+InstitutionPeiData
+
+
+
+ActiveRecord::Migration.add_column :institution_pei_datas, :primary_funds, :string
+
+ActiveRecord::Migration.add_column :institution_pei_data, :secondary_funds, :string
+
+ActiveRecord::Migration.add_column :institution_pei_data, :co_investment_managed_accounts, :string
+
+ActiveRecord::Migration.add_column :institution_pei_data, :direct_investments, :string
+
+ActiveRecord::Migration.add_column :institution_pei_data, :funds_of_funds, :string
+
+ActiveRecord::Migration.add_column :institution_pei_data, :debut_funds, :string
+
+Fund size preference
+
+ActiveRecord::Migration.add_column :institution_pei_data, :fund_size_preference_from, :string
+
+ActiveRecord::Migration.add_column :institution_pei_data, :fund_size_preference_to, :string
+
+
+
+
+ActiveRecord::Migration.add_column :institution_pei_data, :commitments_per_year_us, :float
+
+ActiveRecord::Migration.add_column :institution_pei_data, :commitments_per_year_euro, :float
+
+
+
+ActiveRecord::Migration.add_column :institution_pei_data, :commitments_per_year_uk, :float
+
+ActiveRecord::Migration.add_column :institution_pei_data, :commitments_per_year_yen, :float
+
+
+ActiveRecord::Migration.add_column :institution_pei_data, :commitments_per_year, :float
+
+ActiveRecord::Migration.add_column :institution_pei_data, :market_value_of_investments, :float
+
+
+
+ActiveRecord::Migration.add_column :institution_pei_data, :funded_commitments, :float
+ActiveRecord::Migration.add_column :institution_pei_data, :unfunded_commitments, :float
+ActiveRecord::Migration.add_column :institution_pei_data, :net_irr_inception, :string
+
+
+ActiveRecord::Migration.add_column :institution_pei_data, :net_irr_year, :string
+ActiveRecord::Migration.add_column :institution_pei_data, :tvpi, :string
+
+ActiveRecord::Migration.add_column :institution_pei_data, :date_of_market, :date
+ActiveRecord::Migration.add_column :institution_pei_data, :date_of_funded, :date
+ActiveRecord::Migration.add_column :institution_pei_data, :date_of_unfunded, :date
+
+============================================================================================================================================================================
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_pei_data.html.erb 
+
+
+<%= content_tag(:table, {:class => "spacing_table"}) do %>
+    <%= content_tag(:tr) do %>
+        <%= content_tag (:td) do %>
+            <%= content_tag(:strong, "Company name:") %>
+            <%= content_tag(:span, "#{@institution_office.company_name}",{:class => "view_name"})%>
+        <% end %><!-- td -->
+    <% end %><!-- heading -->
+<% end %><!-- table -->
+<% @tinymce_required = true %>
+<%= form_tag({ :controller => "institutions", :action => @form_action }, { :id => "pei_form" }) do %>
+    <%= content_tag(:table, {:class => "form-left form-left-new"}) do %>
+        <%=  hidden_field_tag "institution_company_id",(@institution_company.new_record? ? nil : @institution_company.id)%>
+        <%=  hidden_field_tag "tab", params[:tab]%>
+        <%=  hidden_field_tag "institution_company[status_id]", "#{@institution_company.new_record? ? nil : @institution_company.status.id}"%>
+
+
+<!-- newly added-->
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Primary Funds:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, select(:pei_data, :primary_funds,[["Yes","Yes"] ,["No", "No"],["n/d" ,"n/d"]],{:include_blank => "select" })) %>
+        <% end %><!--tr -->
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Secondary Funds:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, select(:pei_data, :secondary_funds,[["Yes","Yes"] ,["No", "No"],["n/d" ,"n/d"]],{:include_blank => "select" })) %>
+        <% end %><!--tr -->
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Co-Investment/Managed Accounts:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, select(:pei_data, :co_investment_managed_accounts,[["Yes","Yes"] ,["No", "No"],["n/d" ,"n/d"]],{:include_blank => "select" })) %>
+        <% end %><!--tr -->
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Direct Investments:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, select(:pei_data, :direct_investments,[["Yes","Yes"] ,["No", "No"],["n/d" ,"n/d"]],{:include_blank => "select" })) %>
+        <% end %><!--tr -->
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Funds of Funds:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, select(:pei_data, :funds_of_funds,[["Yes","Yes"] ,["No", "No"],["n/d" ,"n/d"]],{:include_blank => "select" })) %>
+        <% end %><!--tr -->
+
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Debut Funds:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, select(:pei_data, :debut_funds,[["Yes","Yes"] ,["No", "No"],["n/d" ,"n/d"]],{:include_blank => "select" })) %>
+        <% end %><!--tr -->
+<!-- ended-->
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Hot Lead:"), { :class => "lab-field" }) %>
+
+            <%= content_tag(:td, {:class => " b-size n-size"}) do%>
+                <%= check_box_tag("pei_data[hot_lead]",true, (@pei_data.hot_lead if @pei_data.hot_lead ),{:class => "conf_check move-check-box"}) %>
+                <%= text_field(:pei_data, :hot_lead_date,  :value => @pei_data.hot_lead_date.blank? ? nil : @pei_data.hot_lead_date.strftime("%d/%m/%Y"), :readonly => true,:class => "datepicker") %>
+                &nbsp;&nbsp; <%= link_to( "clear", {}, { :href => "javascript:void(0)",:class => "clear_text_value" } ) %>
+            <% end %>
+            <%= content_tag(:td, label_tag("Currency:"), {:class => "lab-field currecy-move-straight"}) %>
+            <%= content_tag(:td, collection_select(:pei_data, :currency_id, Currency.all.sort_by(&:name),:id,:name,{:include_blank => "select" },{:class => "select_box_general"})) %>
+        <% end %><!--tr -->
+
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Next anticipated investment:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td) do %>
+                <%= content_tag(:td, select(:pei_data, :next_anticipated_month, [["January", "1"], ["February", "2"],["March","3"],["April","4"],["May","5"],["June","6"],[ "July", "7"],["August","8"],["September","9"],["October","10"],["November","11"],["December","12"]], { :include_blank => "select" },{:class => "select_box_quater month_select", :id=>"month_select"}) ) %>
+                <%= content_tag(:td, select(:pei_data, :next_anticipated_quarter, [["Quarter 1", "1"], ["Quarter 2", "2"],["Quarter 3","3"],["Quarter 4","4"]], { :include_blank => "select" },{:class => "select_box_quater quater_select", :id=>"quater_select"}) ) %>
+                <%= content_tag(:td, select(:pei_data, :next_anticipated_year, ((Date.today).year-5..(Date.today).year+5).to_a.reverse.collect{ |year| [year, year] }, { :include_blank => "select" })) %>
+            <% end %><!--td -->
+        <% end %><!--tr -->
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td,  label_tag("Active mandate:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td,{:class => " b-size n-size"}) do%>
+                <%= check_box_tag("pei_data[active_mandate]",true,@pei_data.active_mandate,{:class => "conf_check move-check-box"}) %>
+                <%= text_field(:pei_data, :active_mandate_date,:value => @pei_data.active_mandate_date.blank? ? nil : @pei_data.active_mandate_date.strftime("%d/%m/%Y"),:readonly => true, :class => "datepicker") %>
+                &nbsp;&nbsp; <%= link_to( "clear", {}, { :href => "javascript:void(0)",:class => "clear_text_value" } ) %>
+            <% end %>
+        <% end %><!--tr -->
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td,  content_tag(:label,"Investment Status:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, collection_select(:pei_data, :pei_data_investment_status_id,PeiDataInvestmentStatus.all.sort_by(&:name), :id, :name,{:include_blank => "select" }, { :class => "select_box"})) %>
+        <% end %><!--tr -->
+
+        <%= content_tag(:tr) do %>
+            <% selected_geo = @pei_data.countries.order(:name).uniq.collect{ |geo| { "id" => geo.id, "name" => geo.name } if geo.id }.compact %>
+            <%= content_tag(:td, label_tag("Geographic Preferences:"), { :class => "lab-field" } ) %>
+            <%= content_tag(:td, text_field(:pei_data, :geo_pref_text,:readonly => true)) %>
+	<%logger.info "======#{@pei_data.inspect} ========#{@pei_data.geo_name}========" %>
+<%= hidden_field(:pei_data, :geo_name,:value => @pei_data.geo_name.present? ?  @pei_data.geo_name : nil) %>
+<% logger.info "===================================== #{@pei_data.geo_name}.hhhh} ===================" %>
+
+
+            <%= content_tag(:td, text_field_tag("geographic_prefs", "", { :class => "auto_complete", "data-url" => "/institutions/get_geography_prefs", "data-duplicate" => "false",  "data-hint-text" => "Type to search Geography prefs ", "data-no-result" => "No Geography prefs found", "data-searching-text" => "Fetching Geography prefs","data-selected" => (selected_geo).to_json}),:style => "display:none") %>
+		        <%#= hidden_field(:pei_data, :geo_name,:value => @pei_data.geo_name ? @pei_data.geo_name : nil )%>
+
+            <%= content_tag(:td, { :class => "success_remove move_executives_geo" }) do %>
+	            <%#= hidden_field(:pei_data, :geo_name,:value => @pei_data.geo_name ? @pei_data.geo_name : nil )%>
+            
+    <%= link_to "View All Geographic Prefs" ,fetch_geographfic_pref_pei_data_institutions_path( :popup => "true",:geographic_pref_id => "geographic_prefs"),{:class =>"popup_window"} %>
+            <% end %> <!-- td -->
+        <% end %> <!-- tr end -->
+
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, content_tag(:label,"Fund Type Preference:"), { :class => "lab-field" } ) %>
+            <%=content_tag(:td,(select_tag 'fund_type_preferences[]', options_for_select(InstitutionPeiFundTypePreference.all.sort_by(&:name).map {|type| [type.name, type.id]}, @pei_data.institution_pei_fund_type_preferences.map {|j| j.id}), :multiple => true, :size => 6,:class =>"select_box_multiple")) %>
+        <% end %> <!-- tr end -->
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Consider Co-investments:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, select(:pei_data, :co_investments,[["Yes","yes"] ,["No", "no"]],{:include_blank => "select" })) %>
+        <% end %><!--tr -->
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td,  content_tag(:label,"Consider Debut:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, select(:pei_data, :consider_debut ,[["Yes","yes"] ,["No", "no"]],{:include_blank => "select" })) %>
+        <% end %><!--tr -->
+
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, content_tag(:label,"Sector Preference:"), { :class => "lab-field" } ) %>
+            <%=content_tag(:td,(select_tag 'sector_preferences[]', options_for_select(InstitutionPeiSectorPreference.order(:name).map {|type| [type.name, type.id]}, @pei_data.institution_pei_sector_preferences.map {|j| j.id}), :multiple => true, :size => 6,:class =>"select_box_multiple")) %>
+        <% end %> <!-- tr end -->
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Investment Range:"), {:class => "lab-field look-bold"}) %>
+        <% end %><!--tr -->
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td,  content_tag(:label,"Minimum invest per fund (#{@pei_data.currency.name if @pei_data.currency}):"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :amount_invested_per_fund_min,:value => (@pei_data.amount_invested_per_fund_min.to_f > 0 ? @pei_data.amount_invested_per_fund_min : nil)),{:class => "b-size n-size"}) %>
+        <% end %><!--tr -->
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td,  content_tag(:label,"Max invest per fund (#{@pei_data.currency.name if @pei_data.currency}): "), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :amount_invested_per_fund_max,:value => (@pei_data.amount_invested_per_fund_max.to_f > 0 ? @pei_data.amount_invested_per_fund_max : nil)),{:class => "b-size n-size"}) %>
+        <% end %><!--tr -->
+
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td,  content_tag(:label,"Average commitment size per fund (#{@pei_data.currency.name if @pei_data.currency}): "), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :average_commitment_size_per_fund,:value => (@pei_data.average_commitment_size_per_fund.to_f > 0 ? @pei_data.average_commitment_size_per_fund : nil)),{:class => "b-size n-size"}) %>
+        <% end %><!--tr -->
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Average no. of commitment made per year:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :average_commitment_size_per_year,:value => (@pei_data.average_commitment_size_per_year.to_f > 0 ? @pei_data.average_commitment_size_per_year : nil)),{:class => "b-size n-size"}) %>
+
+
+       <% end %><!--tr -->
+   
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Commitments per year(#{@pei_data.currency.name if @pei_data.currency}) :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :commitments_per_year,:value => (@pei_data.commitments_per_year.to_f > 0 ? @pei_data.commitments_per_year : nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+ <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Fund size preference From :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :fund_size_preference_from,:value => (@pei_data.fund_size_preference_from.to_f > 0 ? @pei_data.fund_size_preference_from: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Fund size preference To :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :fund_size_preference_to,:value => (@pei_data.fund_size_preference_to.to_f > 0 ? @pei_data.fund_size_preference_to: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+
+     <br />
+        <%= content_tag(:tr, { :class => "bus_des_tr"} ) do %>
+            <%= content_tag(:td, content_tag(:strong, "Private Equity Investment History", { :class => "bus_des"}), { :colspan => "4" }) %>
+        <% end %> <!-- tr -->
+
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, text_area(:pei_data, :private_equity_investment_history , { :class => "tiny_mce" }), { :colspan => "4" }) %>
+        <% end %> <!-- tr -->
+
+        <br />
+        <%= content_tag(:tr, { :class => "bus_des_tr"} ) do %>
+            <%= content_tag(:td, content_tag(:strong, "Current Investment Plans ", { :class => "bus_des"}), { :colspan => "4" }) %>
+        <% end %> <!-- tr -->
+
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, text_area(:pei_data, :current_investment_plans, { :class => "tiny_mce" }), { :colspan => "4" }) %>
+        <% end %> <!-- tr -->
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Latest Strategic update:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+                <%= text_field(:pei_data, :latest_strategic_update,:value => @pei_data.latest_strategic_update.blank? ? nil : @pei_data.latest_strategic_update.strftime("%d/%m/%Y"),:readonly => true,:class =>"datepicker") %>
+                &nbsp;&nbsp; <%= link_to( "clear", {}, { :href => "javascript:void(0)",:class => "clear_text_value" } ) %>
+            <% end %>
+        <% end %><!--tr -->
+
+        <%= content_tag(:tr, { :class => "bus_des_tr"} ) do %>
+            <%= content_tag(:td, content_tag(:strong, "Summary", { :class => "bus_des"}), { :colspan => "4" }) %>
+        <% end %> <!-- tr -->
+
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, text_area(:pei_data, :summary, { :class => "tiny_mce" }), { :colspan => "4" }) %>
+        <% end %> <!-- tr -->
+
+    <% end %><!--table -->
+   
+    <%= render "fund_portfolio_funds_in_pei_data"%>
+
+    <%= render "listing_funds_in_pei_data"%>
+		<%= render "directs_in_pei_data"%>
+
+		<%= render "manage_accounts_in_pei_data"%>
+
+  
+    <%= content_tag(:div, link_to("Save & Pending QC", {}, { :href => "javascript:void(0)", :class => "pei_data_institution","data-status" => Status.by_type("institution").by_name("Pending QC").first.id }),{:class => "f-button move-down-save"}) %>
+    <%= content_tag(:div, link_to("Save & Verified", {}, { :href => "javascript:void(0)", :class => "pei_data_institution","data-status" => Status.by_type("institution").by_name("Save & Verified").first.id }),{:class => "f-button move-down-save-pend"}) %>
+<% end %>
+
+
+<% content_for :form_validation do %>
+    <%= content_tag(:script) do %>
+
+        $(document).ready(function () {
+            $("#pei_form").validate({
+                rules: {
+ 
+ 
+"pei_data[fund_size_preference_from]" : { number: true },
+                        "pei_data[commitments_per_year]" : { number: true },
+                                          "pei_data[fund_size_preference_to]" :{ number: true },
+	
+
+"pei_data[market_value_of_investments]" :{ number: true },
+                        "pei_data[funded_commitments]" :{ number: true },
+                                          "pei_data[unfunded_commitments]" :{ number: true }
+
+              
+                },
+                messages: {
+                        
+                      
+"pei_data[fund_size_preference_from]" : { number: "Please enter a valid number" },
+                        "pei_data[commitments_per_year]" :{ number: "Please enter a valid number" },
+                                          "pei_data[fund_size_preference_to]" : { number: "Please enter a valid number" },
+
+
+"pei_data[market_value_of_investments]" :{ number: "Please enter a valid number" },
+                        "pei_data[funded_commitments]" :{ number: "Please enter a valid number" },
+                                          "pei_data[unfunded_commitments]" : { number: "Please enter a valid number" }
+
+
+
+              
+                }
+            });
+        });
+
+    <% end %> <!-- script tag end -->
+<% end %>
+
+
+============================================================================================================================================================================
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/models/institution_pei_data.rb 
+
+
+   attr_accessible :hot_lead,:hot_lead_date,:next_anticipated_quarter,:seed_funds,:co_investments,:pei_data_investment_status_id,:amount_invested_rs_fund_investments,:amount_invested_rs_funds,:next_anticipated_month,:next_anticipated_year,:active_mandate,:active_mandate_date,:typical_commitment_size_id,:preferred_liquidity_requirements , :investment_history,:current_investment_plans,:latest_strategic_update,:summary,:currency_id,:institution_company_info_id,:consider_debut, :amount_invested_per_fund_min, :amount_invested_per_fund_max, :average_commitment_size_per_fund, :geo_pref_text, :average_commitment_size_per_year, :private_equity_investment_history, :amount_invested_per_fund_min_uk,:amount_invested_per_fund_max_uk, :average_commitment_size_per_fund_uk, :announced_date, :amount_invested_per_fund_min_yen,:amount_invested_per_fund_max_yen, :average_commitment_size_per_fund_yen, :amount_invested_per_fund_min_us,:amount_invested_per_fund_max_us, :average_commitment_size_per_fund_us, :amount_invested_per_fund_min_euro,:amount_invested_per_fund_max_euro, :average_commitment_size_per_fund_euro,:name,:geo_name,:primary_funds,:secondary_funds,:co_investment_managed_accounts,:direct_investments,:funds_of_funds,:debut_funds,:commitments_per_year_us,:commitments_per_year_euro,:commitments_per_year_uk,:commitments_per_year_yen,:commitments_per_year,:fund_size_preference_from,:fund_size_preference_to,:market_value_of_investments,:funded_commitments,:unfunded_commitments,:net_irr_inception,:net_irr_year,:tvpi,:date_of_market,:date_of_funded,:date_of_unfunded,:commitement_value_yen, :commitement_value_us, :commitement_value_uk, :commitement_value_euro
+
+
+
+=========================================================================================================================================================================
+===
+create a partial
+
+
+
+ <%= render "fund_portfolio_funds_in_pei_data"%>  befor that check partial in 
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ grep -rn "fund_portfolio_funds_in_pei_data" app/views/
+app/views/institutions/_pei_data.html.erb:214:    <%= render "fund_portfolio_funds_in_pei_data"%>
+                                         
+                                                  <%= render "listing_funds_in_pei_data"%>
+138 line 
+                                                   <%= render "directs_in_pei_data"%>
+
+                                                <%= render "manage_accounts_in_pei_data"%>
+ 
+
+=========================================================================================================================================================================
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_fund_portfolio_funds_in_pei_data.html.erb
+
+
+
+
+<%= content_tag(:table, {:class => "spacing_table"}) do %>
+    <%= content_tag(:tr) do %>
+        <%= content_tag (:td) do %>
+<% end %>
+<% end %>
+<% end %>
+<%= form_tag({ :controller => "institutions", :action => @form_action }, { :id => "pei_form" }) do %>
+    <%= content_tag(:table, {:class => "form-left form-left-new"}) do %>
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Market value of investments(#{@pei_data.currency.name if @pei_data.currency}) :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :market_value_of_investments,:value => (@pei_data.market_value_of_investments.to_f > 0 ? @pei_data.market_value_of_investments : nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+ <%#= content_tag(:tr) do%>
+
+            <%#= content_tag(:td, content_tag(:label,"Market value of investments date:"), { :class => "lab-field" }) %>
+            <%#= content_tag(:td,{ :class => " b-size n-size"}) do%>
+                <%#= text_field(:pei_data, :date_of_market,:value => @pei_data.date_of_market.blank? ? nil : @pei_data.date_of_market.strftime("%d/%m/%Y"),:readonly => true,:class =>"datepicker") %>
+           <%#= link_to( "clear", {}, { :href => "javascript:void(0)",:class => "clear_text_value" } ) %>
+            <%# end %>
+        <%# end %><!--tr -->
+
+
+<%= content_tag(:tr) do%>
+     <%= content_tag(:td, content_tag(:label,"Market value of investments Date: "), { :class => "lab-field" }) %>
+ <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+   <%#= content_tag(:label, "Market value of investments date:",{:class => "lab-field"}) %>
+   <%= date_select(:pei_data, :date_of_market, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+                                <% end %>
+<%end%>
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Funded commitments (#{@pei_data.currency.name if @pei_data.currency}) :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :funded_commitments,:value => (@pei_data.funded_commitments.to_f > 0 ? @pei_data.funded_commitments : nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+
+
+
+
+<%= content_tag(:tr) do%>
+     <%= content_tag(:td, content_tag(:label,"Funded commitments Date: "), { :class => "lab-field" }) %>
+ <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+
+   <%= date_select(:pei_data, :date_of_funded, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+                                <% end %>
+
+<%end%>
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Unfunded commitments(#{@pei_data.currency.name if @pei_data.currency}) :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :unfunded_commitments,:value => (@pei_data.unfunded_commitments.to_f > 0 ? @pei_data.unfunded_commitments : nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+
+
+<%= content_tag(:tr) do%>
+     <%= content_tag(:td, content_tag(:label,"UnFunded commitments Date: "), { :class => "lab-field" }) %>
+ <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+
+   <%= date_select(:pei_data, :date_of_unfunded, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+                                <% end %>
+
+
+<%end%>
+
+
+ <%#= content_tag(:tr) do%>
+
+            <%#= content_tag(:td, content_tag(:label,"Unfunded commitments date:"), { :class => "lab-field" }) %>
+            <%#= content_tag(:td,{ :class => " b-size n-size"}) do%>
+                <%#= text_field(:pei_data, :date_of_unfunded,:value => @pei_data.date_of_unfunded.blank? ? nil : @pei_data.date_of_unfunded.strftime("%d/%m/%Y"),:readonly => true,:class =>"datepicker") %>
+                <%#= link_to( "clear", {}, { :href => "javascript:void(0)",:class => "clear_text_value" } ) %>
+            <%# end %>
+        <%# end %><!--tr -->
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Net IRR (since inception):"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :net_irr_inception,:value => (@pei_data.net_irr_inception.to_f > 0 ? @pei_data.net_irr_inception: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Net IRR (1 year):"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :net_irr_year,:value => (@pei_data.net_irr_year.to_f > 0 ? @pei_data.net_irr_year: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"TVPI:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :tvpi,:value => (@pei_data.tvpi.to_f > 0 ? @pei_data.tvpi: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+<% end %>
+<% end %>
+
+
+
+=========================================================================================================================================================================
+
+
+app/views/institutions/_pei_data.html.erb
+
+                            check that partial is created in that
+
+ <%= render "manage_accounts_in_pei_data"%>
+
+
+=========================================================================================================================================================================
+
+
+
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_manage_accounts_in_pei_data.html.erb
+
+
+<% @inst   = @institution_company.managed_accounts %>
+<%= content_tag(:div ,{ :class => "international_off"}) do %>
+    <%= content_tag(:table ,{:class =>"basic_listing", :width => "94%" }) do %>
+        <%= content_tag(:tr) do %>
+                        <%#= content_tag(:th, check_box_tag("select_real_portfolio2")) %>
+            <%= content_tag(:th, "Manager") %>
+            <%= content_tag(:th, "Size") %>
+            <%= content_tag(:th, " ") %>
+        <% end %>
+        <% @inst.each do |institution_office| %>
+            <% if institution_office %>
+   <%#= content_tag(:tr) do %>
+                <%#= content_tag(:td,check_box_tag("real_portfolio",institution_office.id,false,{:class =>"real_portfolio_source"}),{:align => "centre"} )%>
+                <%= content_tag(:tr,:class =>"list_lp_fund_pei") do %>
+
+                <%#= content_tag(:td, (institution_office.manager if institution_office.manager) )%>
+          <%= content_tag(:td) do %>
+       <%= link_to "#{institution_office.manager if institution_office.manager}",edit_managed_account_institutions_path(:managed_account_id => institution_office.id,:institution_company_id => params[:institution_company_id],:tab => params[:tab],:popup => "true"),{:class =>"popup_window"} %>
+
+<% end %>
+                <%= content_tag(:td,("#{number_with_precision(institution_office.size, :precision => 2) if institution_office.size} #{institution_office.currency.name if institution_office.currency}") )%>
+
+                <%= content_tag(:td) do %>
+                    <%= link_to( ( image_tag("trash.png") ), {}, { :href => "javascript:void(0)", "managed-account-id" => institution_office.id, :class => "delete_manage_account" } ) %>
+                <% end %>
+            <% end %>
+<% end %>
+<% end %>
+        <% end %>
+    <%# end %>
+<%# end %>
+    <%= content_tag(:div,(link_to "Add Manged account",new_managed_account_institutions_path(:institution_company_id => @institution_company.id,:tab => params[:pei_data],:popup => "true"),{:class =>"popup_window"}),{:class => "f-button"}) %>
+<%#end%><!-- first div end -->
+<%end%>
+
+
+=========================================================================================================================================================================
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/models/managed_account.rb 
+
+
+class ManagedAccount < ActiveRecord::Base
+#belongs_to :institution_company_info
+         belongs_to :institution_company_info
+   belongs_to :currency
+
+  attr_accessible :manager,:size,:institution_company_info_id,:currency_id
+
+end
+
+=========================================================================================================================================================================
+
+in console run this
+
+ManagedAccount
+
+want to run after move all to live
+
+
+class CreateManagedAccount < ActiveRecord::Migration
+  def change
+    create_table :managed_accounts do |t|
+      t.string :manager
+      t.string :size
+      t.integer :institution_company_info_id
+      t.integer :currency_id
+      
+
+      t.timestamps
+    end
+  end
+end
+     =========================================================================================================================================================================
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_form_managed_account.html.erb
+
+<%= form_tag({:controller => "institutions", :action => @form_action}, {:id => "institution_form"}) do %>
+
+    <%= content_tag(:table, {:class => "form-left fundraiser"}) do %>
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, content_tag(:h3, "Managed accounts")) %>
+        <% end %>
+
+        <%= hidden_field_tag "institution_company_id", params[:institution_company_id] %>
+        <%= hidden_field_tag "managed_account_id", (@managed_account.new_record? ? nil : @managed_account.id) %>
+        <%= hidden_field_tag "tab", params[:tab] %>
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, label_tag("manager:"), {:class => "lab-field"}) %>
+            <% @manager =  @managed_account %>
+            <%= content_tag(:td, text_field(:managed_account, :manager)) %>
+
+        <% end %>
+
+
+
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, label_tag("Currency:"), {:class => "lab-field"}) %>
+            <% @manager =  @managed_account %>
+            <%= content_tag(:td, collection_select(:managed_account, :currency_id, Currency.all.sort_by(&:name), :id, :name, {:include_blank => "select"})) %>
+        <% end %>
+
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, content_tag(:label, "Size:"), {:class => "lab-field"}) %>
+            <%= content_tag(:td, {:class => " b-size n-size"}) do %>
+                <% @manager =  @managed_account %>
+                <%= text_field(:managed_account, :size) %>
+            <% end %>
+        <% end %>
+
+
+    <% end %>
+
+
+    <%= content_tag(:div, {:class => "bussiness-descp"}) do %>
+        <%= content_tag(:div, {:class => "descp-content"}) do %>
+            <%= content_tag(:div, {:class => "center"}) do %>
+                <%= content_tag(:div, {:class => "f-button"}) do %>
+                    <%= submit_tag("Save") %>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% end %>
+<% end %>
+
+
+
+=========================================================================================================================================================================
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/controllers/institutions_controller.rb 
+
+
+
+  def edit_institution
+
+add this
+ def create_institution
+    status = Status.by_type("institution").by_name("Save & Verified").first.id
+    InstitutionCompanyInfo.transaction do
+      @institution_company = @site.institution_company_infos.create(:status_id => status, :last_date =>Time.zone.now)
+      @institution_office = @institution_company.institution_offices.create(:company_name => params[:company_name],:primary => "true",:main_office => true)
+      @institution_company.index_to_search_engine
+    end
+   redirect_to :action => "edit_institution" , :institution_company_id => @institution_company.id ,:tab => "company_info"
+  end
+
+  def edit_institution
+   @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+   @institution_office = @institution_company.institution_offices.by_main_office(true).first
+  @managed_account = @institution_company.managed_accounts || @institution_company.create_managed_account
+
+   case params[:tab]
+    when "company_info"
+      @institution_office = @institution_company.institution_offices.by_main_office(true).first
+    when "general_asset_allocation"
+      @general_asset_allocation = @institution_company.institution_general_asset_allocation || @institution_company.create_institution_general_asset_allocation
+    when "hedge_fund_data"
+      @hedge_fund_data = @institution_company.institution_hedge_fund_data || @institution_company.create_institution_hedge_fund_data
+    when "real_estate_data"
+      @real_estate_data = @institution_company.institution_real_estate_data || @institution_company.create_institution_real_estate_data
+    when "pei_data"
+   @managed_account = @institution_company.managed_accounts || @institution_company.create_managed_account
+   @pei_data = @institution_company.institution_pei_data || @institution_company.create_institution_pei_data
+    end
+   @form_action = "update_institution"
+  end
+
+after this
+
+
+ @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+   @institution_office = @institution_company.institution_offices.by_main_office(true).first
+
+
+=========================================================================================================================================================================
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/controllers/institutions_controller.rb 
+
+
+add this 
+
+ when "pei_data"
+   @managed_account = @institution_company.managed_accounts || @institution_company.create_managed_account
+   @pei_data = @institution_company.institution_pei_data || @institution_company.create_institution_pei_data
+    end
+
+
+=========================================================================================================================================================================
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/controllers/institutions_controller.rb 
+
+
+
+def new_managed_account
+   @form_action = "create_managed_account"
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @managed_account = @institution_company.managed_accounts.new
+  end
+
+  def create_managed_account
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    ManagedAccount.transaction do
+     @managed_account = @institution_company.managed_accounts.create(params[:managed_account])
+       @institution_company.update_attributes(last_date: Time.zone.now)
+    end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+  def edit_managed_account
+   @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @managed_account = ManagedAccount.find(params[:managed_account_id])
+    @form_action = "update_managed_account"
+  end
+
+  def update_managed_account
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @managed_account = ManagedAccount.find(params[:managed_account_id])
+    @managed_account.update_attributes(params[:managed_account])
+    @managed_account.save
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+
+  def remove_managed_account
+   @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+   event = ManagedAccount.find(params[:event_id])
+   event.delete
+   render :text => "deleted"
+   end
+
+
+
+
+  def new_direct_codirect
+    @form_action = "create_direct_codirect"
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @direct = @institution_company.codirects.new
+  end
+
+  def create_direct_codirect
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    Codirect.transaction do
+      @direct = @institution_company.codirects.create(params[:codirect])
+      @institution_company.update_attributes(last_date: Time.zone.now)
+    end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+  def edit_direct_codirect
+    @form_action = "update_direct_codirect"
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @direct=Codirect.find(params[:codirect_id])
+  end
+
+
+  def update_direct_codirect
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    @institution_company.transaction do
+     @direct=Codirect.find(params[:codirect_id])
+    #@direct=@institution_company.codirects.find(params[:codirect_id])
+    @direct.update_attributes(params[:codirect])
+     if !@direct.commitment.blank?
+        curr_average_commitment_size_per_codiect = CurrencyExchange.get_other_currency_rates((@direct.commitment.blank? ? 0 : @direct.commitment.to_f), @direct.currency, ((@direct.try(:created_at).blank?) ? Date.today.beginning_of_month : @direct.created_at.to_date.beginning_of_month))
+        @direct.commitement_value_yen = curr_average_commitment_size_per_codiect[:yen]
+        @direct.commitement_value_us = curr_average_commitment_size_per_codiect[:us]
+        @direct.commitement_value_uk = curr_average_commitment_size_per_codiect[:uk]
+        @direct.commitement_value_euro = curr_average_commitment_size_per_codiect[:euro]
+        @direct.save
+      else
+        @direct.commitement_value_yen = nil
+        @direct.commitement_value_us = nil
+        @direct.commitement_value_uk = nil
+        @direct.commitement_value_euro = nil
+        @direct.save
+    end
+
+    @direct.save
+      end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+  end
+
+
+  def remove_event_from_direct_codirect
+    @institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id])
+    event = Codirect.find(params[:event_id])
+    event.delete
+    render :text => "deleted"
+  end
+
+
+  def get_auto_deal_name
+    deals = @site.deals.by_comp_and_alt_comp_name(params[:q].strip).limit(AUTO_COMPLETION_LIMIT)
+    render :json => deals.collect{ |deal| { :id => deal.id, :name => "#{deal.company_name} #{"(" + deal.deal_specific.deal_announced.strftime("%b %Y") + ")" if deal.deal_specific && deal.deal_specific.deal_announced}".strip } }
+  end
+
+  def get_deal_name
+    deal_name_select = {}
+    deal_name = Deal.find(params[:deal_id])
+    deal_name_select.merge!( { :deal_id => deal_name.id, :deal_name => deal_name.company_name } ) unless deal_name.blank?
+    render :json => deal_name_select
+  end
+
+
+  before private
+
+
+private is at 956 line
+
+
+=========================================================================================================================================================================
+adddddd
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi config/routes/admin.rb 
+
+in institutions
+
+add at 473 line
+
+      get "new_managed_account"
+      get "edit_managed_account"
+      post "create_managed_account"
+      post "update_managed_account"
+      post "remove_managed_account"
+
+
+
+      get "new_direct_codirect"
+      get "edit_direct_codirect"
+      post "create_direct_codirect"
+      post "update_direct_codirect"
+      post "remove_event_from_direct_codirect"
+
+
+      get "get_auto_deal_name"
+      get "get_deal_name"
+
+
+=========================================================================================================================================================================
+
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/assets/javascripts/unquote-data.js 
+
+
+
+line 1955 after lp trade both(manage and direct account)
+
+
+$(function() {
+    $(document).on("click", '.delete_manage_account', function() {
+        var path = window.location;
+        var $this = $(this);
+        var params = "event_id=" + $(this).attr("managed-account-id") + "&institution_company_id=" + $("#institution_company_id").val();
+
+        var deleteConfirm = confirm("Are you sure?");
+                        if (deleteConfirm == true)
+                         {
+                        $.ajax({
+                            type: 'GET',
+                            url: path.protocol + "//" + path.host + "/institutions/remove_managed_account",
+                            dataType: 'html',
+                            data: params,
+                            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                            success: function(data) {
+                                window.location.reload()
+                            }
+                        });
+                    }// confirm do
+    });
+});
+
+
+
+$(function() {
+    $(document).on("click", '.delete_direct_account', function() {
+        var path = window.location;
+        var $this = $(this);
+        var params = "event_id=" + $(this).attr("codirect-account-id") + "&institution_company_id=" + $("#institution_company_id").val();
+
+
+        var deleteConfirm = confirm("Are you sure?");
+        if (deleteConfirm == true)
+        {
+            $.ajax({
+                type: 'POST',
+                url: path.protocol + "//" + path.host + "/institutions/remove_event_from_direct_codirect",
+                dataType: 'html',
+                data: params,
+                beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                success: function(data) {
+                    window.location.reload()
+                }
+            });
+        }// confirm do
+    });
+});
+
+
+
+
+
+
+
+
+after add end fund
+
+
+
+
+
+
+
+
+//managedaccount
+
+function add_managed_account(params)
+{
+        var path = window.location;
+        $.ajax({
+        type: 'POST',
+         url: path.protocol + "//" + path.host + "/institutions/create_managed_account",
+        dataType: 'html',
+        data: params,
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        success: function(data) {
+
+                $.colorbox.close();
+                //$(".fund_events:last").after(data);
+                window.location.reload()
+        }
+    });
+
+}
+
+
+function update_managed_account(params,event_id)
+{
+        var fund_performance_id = event_id;
+        var path = window.location;
+        alert("me");
+        $.ajax({
+        type: 'POST',
+         url: path.protocol + "//" + path.host + "/institutions/update_managed_account",
+        dataType: 'html',
+        data: params,
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        success: function(data) {
+                $.colorbox.close();
+                window.location.reload()
+        }
+    });
+
+}
+
+(function() {
+    $(document).on("click", '.delete_managed_account', function() {
+        var path = window.location;
+        var $this = $(this);
+        var params = "event_id=" + $(this).attr("managed-account-id") + "&institution_id=" + $("#institution_id").val();
+
+        var deleteConfirm = confirm("Are you sure?");
+                        if (deleteConfirm == true)
+                         {
+                        $.ajax({
+                            type: 'POST',
+                            url: path.protocol + "//" + path.host + "/institutions/remove_event_from_managed_account",
+                            dataType: 'html',
+                            data: params,
+                            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                            success: function(data) {
+                                window.location.reload()
+                            }
+                        });
+                    }// confirm do
+    });
+});
+
+
+
+$(function() {
+    $(document).on("click", '#select_real_portfolio2', function() {
+        if ($(this).is(':checked')) {
+        $('.real_portfolio_source').prop('checked', true);
+    } else {
+         $('.real_portfolio_source').prop('checked', false);
+    }
+         });
+});
+
+$(function() {
+    $(document).on("click", '.managed_account', function() {
+        var path = window.location;
+        var $this = $(this);
+        $("#institution_company_status_id").val($this.attr("data-status"));
+           $('#managed_account_form').submit();
+    });
+});
+
+
+if required
+$(document).on('click','#downloadExcelIndividual',function(){
+change this to
+$(document).on('click','.downloadExcelIndividual',function(){
+
+
+
+=========================================================================================================================================================================
+want to start
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_show.html.erb
+
+
+(no needed) if require add (not in stage)
+<%#=@institution_company  = InstitutionCompanyInfo.find(params[:institution_company_id]) %>
+<%#=@institution_company.managed_accounts %>
+<%# @managed_account = InstitutionCompanyInfo.find(params[:institution_company_id]).managed_accounts.new %> 
+<%= form_tag({ :controller => "institutions", :action => @form_action22 }, { :id => "institution_form" }) do %>
+<%#= form_tag :controller => 'institutions', :action => 'create_managed_account' do %>
+
+   <%= content_tag(:table, {:class => "form-left fundraiser"}) do %>
+    <%= content_tag(:tr) do %>
+       <%= content_tag(:td , content_tag(:h3 ,"Managed accounts" ) )%>
+    <% end %> <!-- tr -->
+    <%=  hidden_field_tag "institution_company_id",params[:institution_company_id]%>
+    <%=  hidden_field_tag "managed_account_id",(@managed_account.new_record? ? nil : @managed_account.id)%> 
+    <%=  hidden_field_tag "tab", params[:tab]%>
+     <%= content_tag(:tr) do%>
+		  <%= content_tag(:td,  label_tag("manager:"), { :class => "lab-field" }) %>
+ <%= content_tag(:td, text_field(:managed_account, :manager )) %>
+		  
+	  <% end %><!--tr -->
+	  
+	  <%#= content_tag(:tr) do%>
+		  <%#= content_tag(:td,  label_tag("size:"), { :class => "lab-field" }) %>
+ <%#= content_tag(:td, text_field(:managed_account, :size )) %>
+
+	  <%# end %><!--tr -->
+
+
+ <%= content_tag(:tr) do %>
+                <%= content_tag(:td, label_tag("Currency:"), {:class => "lab-field"}) %>
+                <%= content_tag(:td, collection_select(:managed_account, :currency_id, Currency.all.sort_by(&:name),:id,:name,{:include_blank => "select" })) %>
+     <% end %><!-- tr -->
+
+     <%= content_tag(:tr) do%>
+       <%= content_tag(:td,  content_tag(:label,"Size:"), { :class => "lab-field" }) %>
+       <%= content_tag(:td,{:class => " b-size n-size"}) do%>
+               <%= text_field(:managed_account, :size)%>
+       <% end %>
+     <% end %><!--tr -->
+	 
+     
+
+        <%# end %> <!-- tr -->
+	    <%# end %><!--table -->
+
+ <% end %>
+
+
+     <%= content_tag(:div, { :class => "bussiness-descp" }) do %>
+	        <%= content_tag(:div, { :class => "descp-content" }) do %>
+	            <%= content_tag(:div, { :class => "center" }) do %>
+	                <%= content_tag(:div, { :class => "f-button" }) do %>
+	                    <%= submit_tag("Save") %>
+                            <%#= submit_tag "Save",:controller => "institutions", :action => 'create_managed_account' ,:method => "put" %>
+			 <%#= submit_tag "Save", :class => "btn btn-primary", :id => "abcd" %>
+	                <% end %> <!-- f-button end -->
+	            <% end %> <!-- center end -->
+	           <%end%>
+	        <% end %> <!-- descp-content end -->
+        <%# end %> <!-- tr -->
+            <% end %><!--table -->
+
+=========================================================================================================================================================================
+
+InstitutionGeneralAssetAllocation
+
+ActiveRecord::Migration.add_column :institution_general_asset_allocations, :target_private_equity_allocation_min, :float
+
+ActiveRecord::Migration.add_column :institution_general_asset_allocations, :target_private_equity_allocation_max, :float
+
+##############Target private equity allocation = free text box in each column (amount and %)
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_general_asset_allocation.html.erb
+
+
+line 97 add
+
+
+
+	 <%= content_tag(:tr) do %>
+		                        <%= content_tag(:td, content_tag(:label,"Target private equity allocation:"), {:class => "lab-field look-bold"}) %>
+		                        <%= content_tag(:td, text_field(:general_asset_allocation, :target_private_equity_allocation_min,:value => @general_asset_allocation.target_private_equity_allocation_min.to_f > 0 ? @general_asset_allocation.target_private_equity_allocation_min : nil), { :class =>"b-size n-size"}) %>
+		                        <%= content_tag(:td, text_field(:general_asset_allocation, :target_private_equity_allocation_max,:value => @general_asset_allocation.target_private_equity_allocation_max.to_f > 0 ? @general_asset_allocation.target_private_equity_allocation_max : nil), { :class =>"b-size n-size r-size"}) %>
+		                <% end %><!-- tr -->
+
+=========================================================================================================================================================================
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/models/institution_general_asset_allocation.rb 
+
+at last add
+
+,target_private_equity_allocation_max,:target_private_equity_allocation_min
+
+=========================================================================================================================================================================
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/models/currency.rb 
+
+
+ has_many :managed_accounts
+  has_many :codirects
+
+  at last add
+
+=========================================================================================================================================================================
+
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_edit_direct.html.erb 
+
+<script type ="text/javascript">var kre_propertyToSearch = "company_name";</script>
+<%#= javascript_include_tag "jquery-1.9.1.min.js", "jquery.tokeninput.js","jquery-ui.js","jquery.colorbox.js","jquery.validate.js","unquote-data1.js" %>
+<%= stylesheet_link_tag "unquote-data", "token-input-mac", "unq-global", "colorbox", :media => "all" %>
+<%= render :partial => "/unquote/css_image" %>
+<%= form_tag({:controller => "institutions", :action => @form_action}, {:id => "institution_form"}) do %>
+    <%= hidden_field_tag "institution_company_id", params[:institution_company_id] %>
+    <%= hidden_field_tag "tab", params[:tab] %>
+    <%= hidden_field_tag "codirect_id" ,@direct.new_record? ? nil : params[:codirect_id]%>
+
+
+
+    <%= content_tag(:table, {:class => "form-left fundraiser"}) do %>
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, content_tag(:h3, "Direct/Co-Investments")) %>
+        <% end %>
+
+
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, label_tag("Deal Name:"), {:class => "lab-field"}) %>
+            <% get_deal_name = @direct.deal_name_id.blank? ? [] : Deal.find_by_id(@direct.deal_name_id) %>
+            <% selected_deal_name = get_deal_name.blank? ? [] : [{:id => get_deal_name.id, :company_name => get_deal_name.company_name}] %>
+            <% @deal_name_id =  @direct %>
+            <%= content_tag(:td, text_field("codirect", "deal_name_id", {:class => "auto_complete", "data-url" => "/institutions/get_auto_deal_name", "data-duplicate" => "false", "data-selection-limit" => "1", "data-selected" => (selected_deal_name).to_json, "data-hint-text" => "Type to search existing Deals", "data-no-result" => "No Deal found", "data-searching-text" => "Fetching Deals", "data-on-add-call-function" => "add_institution_name", "data-on-delete-call-function" => "clear_data", "data-success-update" => "update_institution" })) %>
+        <% end %>
+
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, label_tag("Commitment:"), {:class => "lab-field"}) %>
+            <% @direct.id%>
+            <%= content_tag(:td, text_field(:codirect, :commitment, :value => (@direct.commitment ? @direct.commitment : nil))) %>
+
+        <% end %>
+
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, label_tag("Currency:"), {:class => "lab-field"}) %>
+            <% @codirect =  @direct %>
+            <%= content_tag(:td, collection_select(:codirect, :currency_id, Currency.all.sort_by(&:name), :id, :name, {:include_blank => "select"}, { :class => "select_box"})) %>
+
+        <% end %>
+
+    <% end %>
+
+
+
+    <%= content_tag(:div, {:class => "bussiness-descp"}) do %>
+        <%= content_tag(:div, {:class => "descp-content"}) do %>
+            <%= content_tag(:div, {:class => "center"}) do %>
+                <%= content_tag(:div, {:class => "f-button"}) do %>
+                    <%= submit_tag("Save") %>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% end %>
+<% end %>
+
+<%= content_tag(:script, { :type => "text/javascript" }) do %>
+
+    $(document).ready(function(){
+    if ($(".token-input-list-mac").length > 1){
+    $(".token-input-list-mac").first().remove();
+    }
+    });
+
+    function add_institution_name(deal_id) {
+    var path = window.location;
+    var params = "deal_id=" + deal_id;
+    $.ajax({
+    type: 'GET',
+    url: path.protocol + "//" + path.host + "/institutions/get_deal_name",
+    dataType: 'json',
+    data: params,
+    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+    success: function(data) {
+    $('#loader').hide();
+    $("#codirect_deal_id").tokenInput("clear");
+    //$("#token-input-codirect_deal_id").attr('disabled', 'disabled');
+    if(data["codirect_deal_id"]!=null){
+    $("#codirect_deal_id").tokenInput("add", {id: data["deal_id"], name: data["company_name"]});
+    $('#codirect_deal_id').parents('td').find('li span.token-input-delete-token-mac').hide();
+    }
+    }
+    });
+    }
+
+<% end %>
+<style>
+  ul.token-input-list-mac, ul.token-input-list-size2 {
+    overflow: hidden;
+    min-height: 22px !important;
+    max-height: auto;
+    height: 1%;
+    cursor: text;
+    font-size: 12px;
+    font-family: Verdana;
+    min-height: 1px;
+    z-index: 999;
+    margin: 0;
+    padding: 3px;
+    background: #fff;
+    border: 1px solid #C3C6C8;
+    width: 285px;
+  }
+</style>
+
+
+=========================================================================================================================================================================s
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/edit_direct_codirect.html.erb 
+
+<%= render "edit_direct"%>
+
+=========================================================================================================================================================================
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_fund_portfolio_funds_in_pei_data.html.erb 
+
+
+
+<%= content_tag(:table, {:class => "spacing_table"}) do %>
+    <%= content_tag(:tr) do %>
+        <%= content_tag (:td) do %>
+<% end %>
+<% end %>
+<% end %>
+<%= form_tag({ :controller => "institutions", :action => @form_action }, { :id => "pei_form" }) do %>
+    <%= content_tag(:table, {:class => "form-left form-left-new"}) do %>
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Market value of investments(#{@pei_data.currency.name if @pei_data.currency}) :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :market_value_of_investments,:value => (@pei_data.market_value_of_investments.to_f > 0 ? @pei_data.market_value_of_investments : nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+ <%#= content_tag(:tr) do%>
+
+            <%#= content_tag(:td, content_tag(:label,"Market value of investments date:"), { :class => "lab-field" }) %>
+            <%#= content_tag(:td,{ :class => " b-size n-size"}) do%>
+                <%#= text_field(:pei_data, :date_of_market,:value => @pei_data.date_of_market.blank? ? nil : @pei_data.date_of_market.strftime("%d/%m/%Y"),:readonly => true,:class =>"datepicker") %>
+           <%#= link_to( "clear", {}, { :href => "javascript:void(0)",:class => "clear_text_value" } ) %>
+            <%# end %>
+        <%# end %><!--tr -->
+
+
+<%= content_tag(:tr) do%>
+     <%= content_tag(:td, content_tag(:label,"Market value of investments Date: "), { :class => "lab-field" }) %>
+ <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+   <%#= content_tag(:label, "Market value of investments date:",{:class => "lab-field"}) %>
+   <%= date_select(:pei_data, :date_of_market, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+                                <% end %>
+<%end%>
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Funded commitments (#{@pei_data.currency.name if @pei_data.currency}) :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :funded_commitments,:value => (@pei_data.funded_commitments.to_f > 0 ? @pei_data.funded_commitments : nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+
+
+
+
+<%= content_tag(:tr) do%>
+     <%= content_tag(:td, content_tag(:label,"Funded commitments Date: "), { :class => "lab-field" }) %>
+ <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+
+   <%= date_select(:pei_data, :date_of_funded, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+                                <% end %>
+
+<%end%>
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Unfunded commitments(#{@pei_data.currency.name if @pei_data.currency}) :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :unfunded_commitments,:value => (@pei_data.unfunded_commitments.to_f > 0 ? @pei_data.unfunded_commitments : nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+
+
+<%= content_tag(:tr) do%>
+     <%= content_tag(:td, content_tag(:label,"UnFunded commitments Date: "), { :class => "lab-field" }) %>
+ <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+
+   <%= date_select(:pei_data, :date_of_unfunded, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+                                <% end %>
+
+
+<%end%>
+
+
+ <%#= content_tag(:tr) do%>
+
+            <%#= content_tag(:td, content_tag(:label,"Unfunded commitments date:"), { :class => "lab-field" }) %>
+            <%#= content_tag(:td,{ :class => " b-size n-size"}) do%>
+                <%#= text_field(:pei_data, :date_of_unfunded,:value => @pei_data.date_of_unfunded.blank? ? nil : @pei_data.date_of_unfunded.strftime("%d/%m/%Y"),:readonly => true,:class =>"datepicker") %>
+                <%#= link_to( "clear", {}, { :href => "javascript:void(0)",:class => "clear_text_value" } ) %>
+            <%# end %>
+        <%# end %><!--tr -->
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Net IRR (since inception):"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :net_irr_inception,:value => (@pei_data.net_irr_inception.to_f > 0 ? @pei_data.net_irr_inception: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Net IRR (1 year):"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :net_irr_year,:value => (@pei_data.net_irr_year.to_f > 0 ? @pei_data.net_irr_year: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+<%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"TVPI:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :tvpi,:value => (@pei_data.tvpi.to_f > 0 ? @pei_data.tvpi: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+<% end %>
+<% end %>
+
+
+
+
+=========================================================================================================================================================================
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_directs_in_pei_data.html.erb
+
+
+<% @inst   = @institution_company.codirects %>
+<%= content_tag(:div ,{ :class => "international_off"}) do %>
+    <%= content_tag(:h3 ,"Direct/Co-Investments:",{:class =>"wsw_office", :style => "height: 0px;"})  %>
+    <%= content_tag(:table ,{:class =>"basic_listing", :width => "94%" }) do %>
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:th, "Deal Name") %>
+            <%= content_tag(:th, "Commitement") %>
+            <%= content_tag(:th, "Deal Type") %>
+            <%= content_tag(:th, "Deal Value") %>
+            <%= content_tag(:th, "Currency") %>
+            <%= content_tag(:th, "Country") %>
+            <%= content_tag(:th, "Equity Lead") %>
+            <%= content_tag(:th, "Date") %>
+            <%= content_tag(:th, " ") %>
+        <% end %>
+        <% @inst.each do |institution_office| %>
+            <% if institution_office %>
+                <%= content_tag(:tr,:class =>"list_lp_fund_pei") do %>
+
+                    <%= content_tag(:td) do %>
+                        <%#= link_to "#{Deal.find_by_id(institution_office.deal_name_id).company_name if Deal.find_by_id(institution_office.deal_name_id) && Deal.find_by_id(institution_office.deal_name_id).company_name}",edit_deal_deals_path(:deal_id => institution_office.deal_name_id,:institution_company_id => params[:institution_company_id], :tab => "company_information") %>
+  
+ <%= link_to "#{Deal.find_by_id(institution_office.deal_name_id).company_name if Deal.find_by_id(institution_office.deal_name_id) && Deal.find_by_id(institution_office.deal_name_id).company_name}",edit_direct_codirect_institutions_path(:codirect_id => institution_office.id,:institution_company_id => params[:institution_company_id],:tab => params[:tab],:popup => "true"),{:class =>"popup_window"} %>                    
+<% end %>
+
+                    <%#= content_tag(:td) do %>
+                        <%#= link_to "#{institution_office.commitment if institution_office.commitment}",edit_direct_codirect_institutions_path(:codirect_id => institution_office.id,:institution_company_id => params[:institution_company_id],:tab => params[:tab],:popup => "true"),{:class =>"popup_window"} %>
+                                <%= content_tag(:td, (institution_office.commitment if institution_office.commitment rescue nil))%>
+                    <%# end %>
+
+                    <%= content_tag(:td, (Deal.find_by_id(institution_office.deal_name_id).deal_type_name rescue nil)) %>
+                    <%= content_tag(:td, (Deal.find_by_id(institution_office.deal_name_id).deal_value rescue nil)) %>
+                    <%= content_tag(:td, (institution_office.currency.name if institution_office.currency rescue nil))%>
+                    <%= content_tag(:td, (Deal.find_by_id(institution_office.deal_name_id).country.name rescue nil)) %>
+                    <%#= content_tag(:td, (Deal.find_by_id(institution_office.deal_name_id).deal_investments.first.investment_type.name if Deal.find_by_id(institution_office.deal_name_id).deal_investments.first.investment_type.name == "Equity Lead" or Deal.find_by_id(institution_office.deal_name_id).deal_investments.first.investment_type.name == "Equity syndicate"   rescue nil)) %>
+
+
+
+
+                    <%= content_tag(:td, (Deal.find_by_id(institution_office.deal_name_id).deal_investments.first.investor_group_component.name if Deal.find_by_id(institution_office.deal_name_id).deal_investments.first.investment_type.name == "Equity Lead" or Deal.find_by_id(institution_office.deal_name_id).deal_investments.first.investment_type.name == "Equity syndicate" && deal_investor.investor_group_component.name  rescue nil)) %>
+
+                    <%= content_tag(:td, (Deal.find_by_id(institution_office.deal_name_id).deal_date rescue nil)) %>
+
+
+
+                    <%= content_tag(:td) do %>
+                        <%= link_to( ( image_tag("trash.png") ), {}, { :href => "javascript:void(0)", "codirect-account-id" => institution_office.id, :class => "delete_direct_account" } ) %>
+
+                    <% end %>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% end %>
+    <%= content_tag(:div,(link_to "Add Direct/Co-Investments",new_direct_codirect_institutions_path(:institution_company_id => @institution_company.id,:tab => params[:pei_data],:popup => "true"),{:class =>"popup_window"}),{:class => "f-button"}) %>
+<%end%>
+
+
+
+=========================================================================================================================================================================
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi app/views/institutions/_form_direct_codirect.html.erb 
+
+<%= form_tag({:controller => "institutions", :action => @form_action}, {:id => "institution_form"}) do %>
+    <%= hidden_field_tag "institution_company_id", params[:institution_company_id] %>
+    <%= hidden_field_tag "tab", params[:tab] %>
+    <%= hidden_field_tag "codirect_id" ,@direct.new_record? ? nil : params[:codirect_id]%>
+
+
+
+    <%= content_tag(:table, {:class => "form-left fundraiser"}) do %>
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, content_tag(:h3, "Direct/Co-Investments")) %>
+        <% end %>
+
+
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, label_tag("Deal Name:"), {:class => "lab-field"}) %>
+            <% get_deal_name = @direct.deal_name_id.blank? ? [] : Deal.find_by_id(@direct.deal_name_id) %>
+            <% selected_deal_name = get_deal_name.blank? ? [] : [{:id => get_deal_name.id, :company_name => get_deal_name.company_name}] %>
+            <% @deal_name_id =  @direct %>
+            <%= content_tag(:td, text_field("codirect", "deal_name_id", {:class => "auto_complete", "data-url" => "/institutions/get_auto_deal_name", "data-duplicate" => "false", "data-selection-limit" => "1", "data-selected" => (selected_deal_name).to_json, "data-hint-text" => "Type to search existing Deals", "data-no-result" => "No Deal found", "data-searching-text" => "Fetching Deals", "data-on-add-call-function" => "add_institution_name", "data-on-delete-call-function" => "clear_data", "data-success-update" => "update_institution" })) %>
+        <% end %>
+
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, label_tag("Commitment:"), {:class => "lab-field"}) %>
+            <% @direct.id%>
+            <%= content_tag(:td, text_field(:codirect, :commitment, :value => (@direct.commitment ? @direct.commitment : nil))) %>
+
+        <% end %>
+
+        <%= content_tag(:tr) do %>
+            <%= content_tag(:td, label_tag("Currency:"), {:class => "lab-field"}) %>
+            <% @codirect =  @direct %>
+            <%= content_tag(:td, collection_select(:codirect, :currency_id, Currency.all.sort_by(&:name), :id, :name, {:include_blank => "select"}, { :class => "select_box"})) %>
+
+        <% end %>
+
+    <% end %>
+
+
+
+    <%= content_tag(:div, {:class => "bussiness-descp"}) do %>
+        <%= content_tag(:div, {:class => "descp-content"}) do %>
+            <%= content_tag(:div, {:class => "center"}) do %>
+                <%= content_tag(:div, {:class => "f-button"}) do %>
+                    <%= submit_tag("Save") %>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% end %>
+<% end %>
+
+<%= content_tag(:script, { :type => "text/javascript" }) do %>
+
+
+    function add_institution_name(deal_id) {
+    var path = window.location;
+    var params = "deal_id=" + deal_id;
+    $.ajax({
+    type: 'GET',
+    url: path.protocol + "//" + path.host + "/institutions/get_deal_name",
+    dataType: 'json',
+    data: params,
+    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+    success: function(data) {
+    $('#loader').hide();
+    $("#codirect_deal_id").tokenInput("clear");
+    //$("#token-input-codirect_deal_id").attr('disabled', 'disabled');
+    if(data["codirect_deal_id"]!=null){
+    $("#codirect_deal_id").tokenInput("add", {id: data["deal_id"], name: data["company_name"]});
+    $('#codirect_deal_id').parents('td').find('li span.token-input-delete-token-mac').hide();
+    }
+    }
+    });
+    }
+
+<% end %>
+<style>
+  ul.token-input-list-mac, ul.token-input-list-size2 {
+    overflow: hidden;
+    min-height: 22px !important;
+    max-height: auto;
+    height: 1%;
+    cursor: text;
+    font-size: 12px;
+    font-family: Verdana;
+    min-height: 1px;
+    z-index: 999;
+    margin: 0;
+    padding: 3px;
+    background: #fff;
+    border: 1px solid #C3C6C8;
+    width: 285px;
+  }
+</style>
+
+
+
+
+=========================================================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=========================================================================================================================================================================
+

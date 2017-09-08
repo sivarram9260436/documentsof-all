@@ -1,0 +1,7 @@
+ <%= image_tag(@gallery.image_properties.first.image.get_image(80,80,'square').image_path, :alt => "no_image_available") rescue nil%>   496
+
+
+date urgrnt task in article _foem in view page
+
+
+496 line

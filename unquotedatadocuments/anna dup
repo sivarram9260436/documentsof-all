@@ -1,0 +1,7 @@
+            InvestorExportData.where(:investor_group_id => investor_loop["investor_id"],:deal_id => deals).uniq.order("investor_name asc").each do |investor_export_data|
+
+
+2346
+
+
+app/models/investor_group

@@ -1,0 +1,26 @@
+<%if !fund_event.blank? and !fund_event.amount_closed.blank? %>
+                                                <%= content_tag (:td),:class=>"bdr_left bdr_btm white_bg",:align=>"right" do %>
+                                                        <% cer = CurrencyExchange.get_other_currency_rates((fund_event.fund.fund_target_amount.blank? ? 0 : fund_event.fund.fund_target_amount.to_f), fund_event.fund.currency, (fund_event.fund.created_at.blank? ? Date.today.beginning_of_month : fund_event.fund.created_at.to_date.beginning_of_month)) %>
+                                                        <%# cer = CurrencyExchange.get_other_currency_rates(fund_event.fund.fund_target_amount.to_f,@fund.currency,!@event_date.blank? ? @event_date : (@fund.created_at.blank? ? Date.today : @fund.created_at) ) %>
+                                                        <%= number_with_precision( (case (params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) when "euro" then cer[:euro] when "uk" then cer[:uk] when "us" then cer[:us] when "yen" then cer[:yen] end ), :precision => 2, :delimiter => ',') %>
+                                                <%end%>
+<%else%>
+                                                <%= content_tag(:td,"n/d",:class=>"bdr_left bdr_btm white_bg",:align=>"right")%>
+                                        <%end%>
+                                        <!-- amoun closed -->
+
+
+
+
+<% @portfolio << number_with_precision(portfolio.deal.deal_specific.instance_eval(CURRENCY[params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || @user.currency !=nil && CURRENCY_SEND[@user.currency.name]]), :precision => 2, :delimiter => ',') %>
+
+
+
+
+
+
+ <%@portfolio << number_with_precision(portfolio.deal.deal_specific.instance_eval(CURRENCY[params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || @user.currency !=nil && CURRENCY_SEND[@user.currency.name]]) when "euro" then cer[:euro] when "uk" then cer[:uk] when "us" then cer[:us] when "yen" then cer[:yen] end ), :precision => 2, :delimiter => ',') %>
+
+
+<%#= @portfolio << number_with_precision(portfolio.deal.deal_specific.instance_eval(CURRENCY[params[:funds] !=nil && params[:funds][:currency] !=nil && params[:funds][:currency] || session[:currency] || @user.currency !=nil && CURRENCY_SEND[@user.currency.name]])) when "euro" then cer[:euro] when "uk" then cer[:uk] when "us" then cer[:us] when "yen" then cer[:yen] end ), :precision => 2, :delimiter => ',') %>
+

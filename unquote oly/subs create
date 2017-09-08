@@ -1,0 +1,29 @@
+@subscriber.site ? sub_site=@subscriber.site.id : sub_site=0
+  if @subscriber.blank? or sub_site != @site.id
+
+
+
+
+def create
+  @page_properties={:selected_menu=>'subscriber_menu',:menu_title=>" New Subscriber"}
+  @subscriber = Subscriber.find(:first,:conditions=>["UPPER(email_id) = ?",params[:subscriber][:email_id].strip.upcase]) if params[:subscriber] and params[:subscriber][:email_id]
+  if @subscriber.blank? or @subscriber.site.id != @site.id
+    @subscriber = Subscriber.new(params[:subscriber])
+    @subscriber.type = "SubscriberIndividual"
+    @subscriber.site_id = @site.id
+    @subscriber.save #and params[:subscriber][:email_id] != ""
+    #@subscriber = @site.subscribers.new(params[:subscriber])
+    #@subscriber.type = "SubscriberIndividual"
+    #@subscriber.save
+    @subscriber_property = SubscriberProperty.new(:phone => params[:subscriber_property][:phone],:fax => params[:subscriber_property][:fax],:address1 => params[:subscriber_property][:address1],:address2 => params[:subscriber_property][:address2],:address3 => params[:subscriber_property][:address3],:city => params[:subscriber_property][:city], :country_id => params[:subscriber_property][:country_id].to_i, :comment => params[:subscriber_property][:comment],  :status=> true)
+    @subscriber_property.subscriber_id = @subscriber.id
+    @subscriber_property.Job_title =  params[:subscriber_property][:Job_title]
+    @subscriber_property.save(:validate => false)
+    @subscription = Subscription.create(:subscription_type => params[:subscription][:subscription_type] == "Yes" ? "trial" : "paid",:product_id => params[:subscription][:product_id],:start_date => params[:subscription][:start_date],:end_date => params[:subscription][:end_date],:subscriber_id => @subscriber.id,:remaining_no_of_articles => 20,:allowed_no_of_articles => 20)
+    flash[:notice] = 'Subscriber has been created successfully.'
+    redirect_to :action => 'list'
+  else
+    render :action => 'new'
+  end
+end
+

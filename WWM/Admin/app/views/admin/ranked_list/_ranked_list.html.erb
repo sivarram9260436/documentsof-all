@@ -1,0 +1,14 @@
+<% set=ranked_list%>
+<tr>
+	<td> <%= set.id %> </td>
+	<td class="list_table"> <%if not request.xhr?%>
+	<%if params[:entity_type]%>
+	<%= link_to set.name,:controller => 'ranked_list',:action => 'edit',:id=>set.id,:entity_type=>params[:entity_type] %>
+	<%else%>
+	<%= link_to set.name,:controller => 'ranked_list',:action => 'edit',:id=>set.id %>
+	<%end%>
+	<%else%>
+	<%= link_to("#{set.name}","javascript:void(0)",:id=>set.id,:class=>"ajax_call_update","data-update"=>"site_css_list","data-url"=>"/admin/data_list/rankedlist_edit/#{set.id}")%>
+	<%end%> </td>
+	<td> <%= set.created_at.strftime("%d - %B - %Y - %r") if set.created_at %> </td>
+</tr>

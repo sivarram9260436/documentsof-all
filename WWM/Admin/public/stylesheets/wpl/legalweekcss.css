@@ -1,0 +1,134 @@
+#legalweek a:hover.legal {
+	color:#8E8E8E;}
+
+#legalweek a.legal {
+	color:#841010;
+	font-weight:bold;
+	text-decoration:none;}	
+
+
+#legalweek #header {
+	font-family:Arial,Helvetica,Sans-Serif;
+	font-size:12px;
+	line-height:1.4em;
+	margin:auto;
+	width: 1005px;
+	background: #000 url(/images/legalweek/images/bg-header.gif) repeat-x top;}
+
+	#legalweek #header p {
+		margin: 0;
+		padding: 0;}
+
+#legalweek #logo {
+	float:left;
+	padding:67px 0 0 8px;}
+
+#legalweek #navigation { clear: left; padding-top:20px;}	
+
+	#legalweek #navigation ul { 
+		zoom: 1;
+		list-style-type: none;
+		background: #000 url(/images/legalweek/images/bg-top-nav.gif) repeat-x top;
+		overflow: hidden;
+		margin: 0;
+		padding: 0 15px;}	
+	
+	#legalweek #navigation li { 
+		float: left;
+		font-weight: bold;}	
+
+	#legalweek #navigation li a { 
+		display: block;
+		padding: 7px 12px 5px 12px;}	
+		
+	#legalweek #navigation li a:hover { 
+		background: #000 url(/images/legalweek/images/bg-top-nav-hover.gif) repeat-x bottom;
+		padding: 7px 12px 5px 12px;
+		border-top: 1px solid #fff;
+		color: #000;}	
+	#legalweek #navigation li.active a{ 
+		background: #000 url(/images/legalweek/images/bg-top-nav-highlight.gif) repeat-x bottom;
+		border: 1px solid #fff;
+		border-bottom: 0 none;
+		padding: 7px 12px 5px 12px;
+		color:#000;
+		}
+
+	#legalweek #navigation li span { 
+		display: block;
+		background: #000 url(/images/legalweek/images/bg-top-nav-highlight.gif) repeat-x bottom;
+		border: 1px solid #fff;
+		border-bottom: 0 none;
+		padding: 6px;}	
+	
+	#legalweek #navigation li a { 
+		color: #fff;
+		text-decoration: none;}	
+
+		#legalweek #navigation ul.nested { 
+			background: #fff url(/images/legalweek/images/bg-sub-nav.gif) repeat-x top;}	
+
+		#legalweek #navigation ul.nested li { 
+			background: transparent url(/images/legalweek/images/legalweekbg-sub-nav-divider.gif) no-repeat center right;
+			padding: 0;}	
+
+		#legalweek #navigation ul.nested li.last { background: none;}	
+
+			#legalweek #navigation ul.nested li.last a { padding: 6px 0 5px 6px;}	
+		
+		#legalweek #navigation ul.nested li a { 
+			color: #000;
+			padding: 6px 10px 5px 6px;}	
+		#legalweek #navigation ul.nested li a:hover { 
+
+			background: none;
+			border-top: 0 none;
+			color: #005288;
+			text-decoration: underline;}	
+
+		#legalweek #navigation ul.nested li span { 
+			background: #fff url(/images/legalweek/images/bg-sub-nav-highlight.gif) repeat-x top;
+			color: #005288;}	
+
+	#legalweek #footer {
+		font-family:Arial,Helvetica,Sans-Serif;
+		font-size:12px;
+		line-height:1.4em;
+		margin:0;
+		clear:both;
+		padding:30px 0pt 0pt 0px;}
+			
+		#legalweek #footer p {
+			font-size:90%;
+			margin:0pt 0pt 20px;
+			text-align:center;}
+			
+		#legalweek #footer li {
+			background:transparent url(/images/legalweek/images/bg-dots-menu-static.gif) no-repeat scroll right center;
+			display:inline;
+			list-style-type:none;
+			padding:0pt 10px;}
+			
+		#legalweek #footer li.lastStaticItem {
+			background-image:none;
+			padding:0pt 0pt 0pt 10px;}
+			
+		#legalweek .footerMenu {
+			line-height:2em;
+			text-align:center;}
+			
+		#legalweek .footerMenu a {
+			font-size:110%;
+			font-weight:normal;}
+			
+		#legalweek .footerMenu li {
+			background:transparent url(/images/legalweek/images/bg-dots-menu-static.gif) no-repeat scroll right center;
+			display:inline;
+			list-style-type:none;
+			padding:0pt 10px;}
+			
+		#legalweek .footerMenu li.lastStaticItem {
+			background-image:none;
+			padding:0pt 0pt 0pt 10px;}
+			
+		

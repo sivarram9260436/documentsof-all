@@ -1,0 +1,39 @@
+<%if session[:role_type]=="Author" %>
+                <div class="section_block">                    
+                   <h2> RECENT ARTICLES</h2>
+                      <div class="section_content">
+                        <div class="simple_list">
+                           <ul>                                            
+                                                         
+                             <%if @articles_by_user%>
+
+                              <%for article in @articles_by_user %>
+                               <li>
+                                 <%= link_to article.title[0..50],:controller => 'articles',:action => 'edit',:id=>article.id if auhtorized?("admin/articles","edit") %>
+                               </li>
+                             <%end %>
+                            <%else%>
+                               <li>
+                               </li>
+                            <%end%>
+                            </ul>
+                        </div>
+                      </div> 
+                </div>
+                <%else%>
+                
+                <div class="section_block">    
+                  <h2>MOST RECENT CONTENT</h2>
+                     <div class="section_content">
+                        <div class="simple_list">                   
+                            <ul>
+                                <li></li>
+                                <li></li>                                
+                            </ul>
+
+                        </div>
+                    </div>
+                </div> 
+
+                <%end%><!-- section_block -->
+

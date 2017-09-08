@@ -1,0 +1,14 @@
+tail -100f log/unicorn_err.log
+
+
+
+error
+
+/home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/unicorn-4.6.3/lib/unicorn/socket_helper.rb:147:in `initialize': Address already in use - bind(2) (Errno::EADDRINUSE)
+
+
+
+ps -ef |grep unicorn
+
+
+kill: (27029) --no. is process id kill it

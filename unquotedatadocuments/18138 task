@@ -1,0 +1,133 @@
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_saved_search.html.erb (46.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_default_standard_tab.html.erb (10.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_custom_search.html.erb (5.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_fund_left.html.erb (19.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_search_result_top.html.erb (6.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/common/_before_search_top.html.erb (3.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/common/_before_search_down.html.erb (2.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_down_content.html.erb (0.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_before_search.html.erb (15.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_search_result.html.erb (25.6ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_country.html.erb (1.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_geo_pref.html.erb (4.0ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_fund_type.html.erb (5.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_fund_name.html.erb (2.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_event_dates.html.erb (7.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_investor_name.html.erb (1.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_chart.html.erb (3.4ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_export.html.erb (2.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_save.html.erb (1.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/fund_search.html.erb within /layouts/post_login (136.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_seo_keys.html.erb (0.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_stylesheets.html.erb (2.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_head_scripts.html.erb (3.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/authentication/_header_logout.html.erb (1.0ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/listing_pages/partials/_post_login_menu.erb (236.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_header.html.erb (244.0ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/listing_pages/partials/_post_login_menu.erb (4.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_footer.html.erb (32.4ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_javascript.html.erb (0.4ms)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////Started GET "/funds-search" for 127.0.0.1 at 2017-01-19 16:54:55 +0530
+Processing by Wps::UqFundsController#fund_search as HTML
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_saved_search.html.erb (83.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_default_standard_tab.html.erb (8.0ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_custom_search.html.erb (4.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_fund_left.html.erb (15.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_search_result_top.html.erb (6.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/common/_before_search_top.html.erb (2.4ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/common/_before_search_down.html.erb (1.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_down_content.html.erb (0.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_before_search.html.erb (11.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_search_result.html.erb (21.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_country.html.erb (1.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_geo_pref.html.erb (2.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_fund_type.html.erb (3.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_fund_name.html.erb (1.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_event_dates.html.erb (302.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_investor_name.html.erb (2.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_chart.html.erb (6.4ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_export.html.erb (5.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_save.html.erb (2.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/fund_search.html.erb within /layouts/post_login (469.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_seo_keys.html.erb (1.4ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_stylesheets.html.erb (4.5ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_head_scripts.html.erb (5.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/authentication/_header_logout.html.erb (1.4ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/listing_pages/partials/_post_login_menu.erb (31.7ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_header.html.erb (42.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/listing_pages/partials/_post_login_menu.erb (5.4ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_footer.html.erb (42.6ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_javascript.html.erb (0.5ms)
+
+
+
+
+
+
+
+   
+   /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_default_standard_tab.html.erb
+vi 
+
+<%= content_tag(:legend,"Amount Raised" + CURRENCY_DISPLAY[params[:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]],:style=>"width:100px;")%>
+
+
+
+<%= content_tag(:legend,"Amount Raised " + CURRENCY_DISPLAY[params[:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]],:style=>"width:100px;")%>
+
+
+
+
+
+
+
+
+
+
+<%= content_tag(:legend,"Amount Raised " + CURRENCY_SYMBOLS[params[:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]],:style=>"width:100px;")%>
+
+rerun
+
+
+
+
+
+49 line 
+	/home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_b2s_standard.html.erb
+
+
+
+live also done thae task 
+
+live 55
+ Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/_b2s_standard.html.erb (12.5ms)
+
+
+params off[to] is there
+
+
+so no issue  oly in stage issue is there
+
+
+
+
+
+
+
+

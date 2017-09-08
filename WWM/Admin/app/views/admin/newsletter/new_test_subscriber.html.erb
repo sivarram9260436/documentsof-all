@@ -1,0 +1,13 @@
+<div id="container" style="padding-top 20px;">
+	<div class="section_block full_section">
+		<h2><%= "New Test Subscriber" %></h2>
+<div class="article_new_main">
+ <div class="validation_box">
+      <%= raw error_messages(@test_subscriber)%>
+                        </div>
+<%= form_tag(:controller=>"newsletter",:action=>"create_test_subscriber") do%>
+<%=render :partial=>"/admin/newsletter/form"%>
+<%end%>
+</div>
+</div>
+</div>

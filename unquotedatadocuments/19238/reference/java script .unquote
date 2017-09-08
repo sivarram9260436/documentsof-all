@@ -1,0 +1,87 @@
+after 1937 line
+
+
+//fund_performance
+
+function add_fund_performance(params)
+{
+        var path = window.location;
+        $.ajax({
+        type: 'POST',
+         url: path.protocol + "//" + path.host + "/funds/create_fund_performance",
+        dataType: 'html',
+        data: params,
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        success: function(data) {
+
+                $.colorbox.close();
+                //$(".fund_events:last").after(data);
+                window.location.reload()
+        }
+    });
+
+}
+
+function update_fund_performance(params,event_id)
+{
+        var fund_performance_id = event_id;
+        var path = window.location;
+        alert("me");
+        $.ajax({
+        type: 'POST',
+         url: path.protocol + "//" + path.host + "/funds/update_fund_performance",
+        dataType: 'html',
+        data: params,
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        success: function(data) {
+                $.colorbox.close();
+                window.location.reload()
+        }
+    });
+
+}
+$(function() {
+    $(document).on("click", '.delete_fund_performance', function() {
+        var path = window.location;
+        var $this = $(this);
+        var params = "event_id=" + $(this).attr("fund-performance-event-id") + "&fund_id=" + $("#fund_id").val();
+
+        var deleteConfirm = confirm("Are you sure?");
+                        if (deleteConfirm == true)
+                         {
+                        $.ajax({
+                            type: 'POST',
+                            url: path.protocol + "//" + path.host + "/funds/remove_event_from_fund_performance",
+                            dataType: 'html',
+                            data: params,
+                            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                            success: function(data) {
+                                window.location.reload()
+                            }
+                        });
+                    }// confirm do
+    });
+});
+
+
+
+/* end funds*/
+
+====================================================================================================================================================
+ruby@merger-market-stage:~/Unquote_data/Admin$ vi config/routes/admin.rb 
+
+
+Routes:-
+
+  resources :funds do
+    collection do
+after 178
+
+      get "new_fund_performance"
+      get "edit_fund_performance"
+      post "create_fund_performance"
+      post "update_fund_performance" 
+      post "remove_event_from_fund_performance"
+
+====================================================================================================================================================
+

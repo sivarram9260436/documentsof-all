@@ -1,0 +1,16 @@
+@exit_investor_true_count
+
+for realised
+
+
+
+
+
+          @investor_exit_count ---current
+
+
+
+       @investor_exit_count = (investor_investments + deal_exit_investors).count
+
+   investor_investments = @investor_group.direct_deals.not_by_status_delete
+   deal_exit_investors = @investor_group.exit_deals_partial.by_not_ids(@investor_group).where("deals.status_id != ?", Status.by_type("deal").by_name("Delete").first.id)

@@ -1,0 +1,12 @@
+<%@data.each_with_index do |d,index| %>
+
+<div class="poll_cont_comp_result">
+        <div class="new_poll">
+                <label for=""> <%= d[0].to_s %></br><span><%= @final_array[index] %>%</span>(<%= d[1]%><%= "votes"%>) </label>
+        </div>
+        <div class="poll_result_bar_main">
+                <div style="width: <%= @final_array[index]%>%;" class="poll_result_bar_cnt"></div>
+        </div>
+</div>
+
+<%end %>

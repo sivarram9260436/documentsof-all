@@ -1,0 +1,571 @@
+
+.fieldWithErrors {
+ /* padding: 2px;
+  background-color: red;
+  display: table;
+  */
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 1px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  /* list-style: none; */
+}
+
+
+
+
+a.for_link{
+color:#316283!important;
+text-decoration:underline;
+background:none;
+}
+a.for_link:hover{
+color:#316283!important;
+text-decoration:underline;
+background:none;
+}
+
+input.filter_date
+{
+width:80px;
+}
+input.text_style
+{
+    border:1px;   
+    border-style:solid;
+    width:400px !important;
+    border-color:#888888  !important;
+    font-family:verdana;
+    font-size:11px;
+      
+}
+input.password_style
+{
+    border:1px;   
+    border-style:solid;
+    width:400px !important;
+     border-color:#888888 !important;
+     font-family:verdana;
+     font-size:11px;
+}
+
+input.checkbox_style
+{
+   border:0px;
+   border-style:solid;
+    border-color:#888888 !important;
+    font-family:verdana;
+    font-size:11px;
+}
+input.file_style
+{
+    border:1px;
+   border-style:solid;
+    border-color:#888888 !important;
+    font-family:verdana;
+    font-size:11px;
+     
+
+}
+input.submit_style
+{
+   border:0px;
+   border-style:solid;     
+   height:22px;
+   background-image: url(/images/menuImages/submit_btn_bg.gif);
+   background-repeat: repeat-x;   
+   color:white;
+   font-family:verdana;
+   font-size:11px;
+   font-weight:bold; 
+   cursor:pointer;
+}
+input.button_style
+{
+   border:0px;
+   border-style:solid;
+   height:22px;
+   background: url(/images/menuImages/submit_btn_bg.gif);
+   background-repeat: repeat-x;
+   font-family:verdana;
+   color:white;    
+   font-size:11px;
+   font-weight:bold;
+   cursor:pointer;
+ 
+}
+textarea
+{    
+    border:1px;   
+    border-style:solid;
+    width:400px;
+    height:200px;
+    border-color:#888888  !important;
+    font-family:verdana;
+    font-size:11px;
+}
+
+textarea.search_keyword
+{    
+    border:1px;   
+    border-style:solid;
+    width:400px;
+    height:100px;
+    border-color:#888888  !important;
+    font-family:verdana;
+    font-size:11px;
+}
+
+textarea.small_box
+{     
+    border:1px;   
+    border-style:solid;
+    width:280px !important;
+    height:100px;
+    border-color:#888888  !important;
+    font-family:verdana;
+    font-size:11px;
+}
+
+select
+{
+    border:1px;
+    border-style:solid;
+    
+     border-color:	#888888 !important; 
+     font-family:verdana;
+     font-size:11px;
+}
+table.faq{
+  text-align:center;
+  font-family:verdana;
+  font-size:11px;
+  margin:10px;
+}
+table.edit{
+  text-align:center;
+  font-family:verdana;
+  font-size:11px;
+}
+table.edit td{
+text-align:left;
+font-family:verdana;
+font-size:11px;
+}
+table{
+  text-align:center;
+  font-family:verdana;
+  font-size:11px;
+ 
+}
+
+
+table tr td ul{
+  
+  text-align:left;
+  font-size:11px;
+  font-family:verdana;
+  width:100%;
+  font-family:verdana;
+
+  padding:0 0 0 0;
+  margin: 0 0 0 0;
+  
+ 
+}
+table tr td{
+  
+  text-align:left;
+  
+  padding:0 0 0 0;
+  margin:5px 0 0 5px;
+  font-size:11px;
+ 
+}
+table tr td ul li{
+  text-align:left;
+  font-size:11px;
+  font-family:verdana;
+  width:100%;
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+
+  
+  
+ 
+}
+
+
+tr{
+font-size:11px;
+ margin:10px;
+ font-family:verdana;
+ margin:5px 0 0 5px;
+ 
+}
+td{
+font-size:11px;
+ padding:0 0 0 0px;
+ font-family:verdana;
+ 
+ 
+}
+div.contentForForm td{
+font-size:11px;
+ padding:0 0 0 10px!important;
+ font-family:verdana;
+ line-height:30px;
+ 
+}
+.form_label
+    {
+        vertical-align:top; 
+        text-align:left;  
+        font-size:11px;
+        font-family:Arial;    
+        width:100%;
+        
+    }
+.form_label tr
+    {
+        vertical-align:top; 
+        text-align:left;  
+        font-size:11px;
+        font-family:Arial;    
+    }
+.form_label tr td
+    {
+        vertical-align:top; 
+        text-align:left;  
+        font-size:11px;
+        font-family:Arial;    
+    }
+   
+ 
+.label
+    {
+        text-align:left;
+        font-size:11px  !important;
+        font-family:Arial;
+        font-weight:bold !important;
+    }
+    
+    .label_export
+    {
+        text-align:left;
+        font-size:11px;
+        font-weight:bold;
+        font-family:Arial;
+    }
+    
+ .description
+    {
+    font-size:11px;
+        font-weight:normal;
+        font-family:verdana;
+    }           
+ul
+    {
+        list-style: none !important;
+        font-family:verdana;
+        font-size:11px;
+    }      
+        
+.headingTopForm
+    {
+        font-size:18px;
+        font-family:Arial;
+        padding-top:5px;
+        font-weight:bold;
+        font-family:verdana;
+    }    
+div#taxonomy ul{
+    margin-left: 10px;
+    list-style : none;
+    font-family:verdana;
+    font-size:11px;
+    
+}     
+div#search_form {
+    text-align:center;
+  padding: 0px;
+     width:100%; 
+     font-family:verdana;
+     font-size:11px;
+    
+} 
+ div#search_list {
+    text-align:center;
+    padding: 0px;
+     width:100%; 
+     font-family:verdana;
+     font-size:11px;
+    
+ }
+ div#search_list table {
+    margin:0 0 0 0px;
+    text-align:center;        
+    padding: 0px;
+     width:100%; 
+     font-family:verdana;
+     font-size:11px;
+    
+    
+ }
+div#search_list table td {
+    border: 0px solid;  
+    margin: 0px; 
+    padding:0px;   
+    font-size:11px; 
+    font-family:verdana;
+ } 
+
+ table.list{
+
+  margin:0 0 0 0%; 
+  background:white;
+  border:0px;
+  text-align:center;
+  width:100%;
+  font-family:verdana;
+  font-size:11px;
+ }
+ .list table{
+   border:0px;
+   font-family:verdana;
+   font-size:11px;
+ }
+ .list td{
+   text-align:left;
+   border:0px;
+   font-family:verdana;
+   font-size:11px;
+   }
+ div#search_list  .list-line-even {
+  background:  #F1F6FC;
+  margin:0px;
+  font-family:verdana;
+  font-size:11px;
+}
+
+ div#search_list .list-line-odd {
+  background:#FFFFFF;
+  font-family:verdana;
+  font-size:11px;
+}
+div#search_list .heading {
+  background: #E4ECF7;
+  font-family:verdana;
+  font-size:11px;
+  font-weight:bold;
+}
+ 
+.list  .list-line-even {
+  background:  #F1F6FC;
+  font-family:verdana;
+  font-size:11px;
+  
+}
+
+.list .list-line-odd {
+  background:   #FFFFFF;
+  font-family:verdana;
+  font-size:11px;
+}
+.list .heading {
+  background:  #E4ECF7;
+  font-size:11px;
+  font-weight:bold;
+}
+.list .side_heading {
+  
+  font-size:14px;
+  font-weight:bold;
+}
+.for_left_td{
+  text-align:left;
+  font-size:11px;
+}
+
+
+input.submit_and_save_change
+{
+border:0px;
+   border-style:solid;
+   width:207px;
+   height:22px;
+   background-image:url(/images/btn_bg.jpg);
+   background-repeat: repeat-x;
+   
+   color:white;
+    font-family:verdana;
+font-size:11px;
+ 
+}
+input.extn{
+    border-color:#888888 !important;
+    border-style:solid;
+    border-width:1px;
+    font-family:verdana;
+    font-size:11px;
+    width:80px !important;
+}
+input.assign_tabs{
+    border-color:#888888 !important;
+    border-style:solid;
+    border-width:1px;
+    font-family:verdana;
+    font-size:11px;
+    width:210px !important; 
+}
+input.small_input{
+    border-color:#888888 !important;
+    border-style:solid;
+    border-width:1px;
+    font-family:verdana;
+    font-size:11px;
+    width:50px !important;
+}
+
+div.for_subcontent{ 
+max-height:500px;
+width:98%;
+overflow:scroll;
+background:#CDCDCD;
+}
+div.bottomBorderForForm{
+        width:90%;
+        height:2px;
+         background:url(/images/layoutImages/btm_border.jpg);
+	background-repeat: repeat-x;
+        background-position: top left;  
+        z-index:20;
+        
+        
+} 
+table tr td a{
+color:#316283;
+padding:0 0 0 0px;
+text-decoration:none;
+background:none;
+}
+table tr td a:hover{
+color:#316283;
+padding:0 0 0 0px;
+text-decoration:none;
+background:none;
+}
+table tr td a:visited{
+color:#316283;
+padding:0 0 0 0px;
+text-decoration:none;
+background:none;
+}
+table tr td a:link{
+color:#316283;
+padding:0 0 0 0px;
+text-decoration:none;
+background:none;
+}
+p.summary{
+}  
+p.summary a{
+color:#316283;
+background:none;
+
+text-decoration:none;
+}
+p.summary a:hover{
+color:#316283;
+background:none;
+
+text-decoration:none;
+}
+p.summary a:visited{
+color:#316283;
+background:none;
+text-decoration:none;
+}
+p.summary a:link{
+color:#316283;
+background:none;
+text-decoration:none;
+}         
+.red_text 
+{
+color:red;
+}
+.error_messages{
+color:red;
+}
+input.short_text_field
+{
+ width:30px !important;
+}
+div.campaign_contact{
+font-size:13px !important;
+}
+div.campaign_contact a{
+
+text-decoration:underline !important;
+background:none;
+}
+.activity_summery_title{
+font-family:verdana;
+font-size:14px;
+font-weight:bold;
+}
+.activity_summery_heading{
+font-family:verdana;
+font-size:12px;
+font-weight:bold;
+}
+#sub_btn_file_upload span .search_button_left{
+background:none!important;
+ }
+ 
+ div.report_deatil{
+ border:1px solid !important;
+color:black;
+font-size:14px;
+margin:10px;
+padding:10px;
+text-align:left;
+ }
+ 
+ 
+ 
+ div.campaign_report_half_row {
+border-color:#000000;
+border-style:solid;
+border-width:1px 0 0;
+height:1px;
+margin:0 0 0 4%;
+width:91%;
+}
+ 

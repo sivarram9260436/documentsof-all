@@ -1,0 +1,110 @@
+ if !@direct.commitment.blank?
+        curr_average_commitment_size_per_codiect = CurrencyExchange.get_other_currency_rates((@direct.commitment.blank? ? 0 : @direct.commitment.to_f), @direct.currency, ((@direct.try(:created_at).blank?) ? Date.today.beginning_of_month : @direct.created_at.to_date.beginning_of_month))
+        @direct.commitement_value_yen = curr_average_commitment_size_per_codiect[:yen]
+        @direct.commitement_value_us = curr_average_commitment_size_per_codiect[:us]
+        @direct.commitement_value_uk = curr_average_commitment_size_per_codiect[:uk]
+        @direct.commitement_value_euro = curr_average_commitment_size_per_codiect[:euro]
+        @direct.save
+      else
+        @direct.commitement_value_yen = nil
+        @direct.commitement_value_us = nil
+        @direct.commitement_value_uk = nil
+        @direct.commitement_value_euro = nil
+        @direct.save
+    end
+
+
+ActiveRecord::Migration.add_column :institution_pei_data, :commitement_value_yen, :float
+ActiveRecord::Migration.add_column :institution_pei_data, :commitement_value_us, :float
+ActiveRecord::Migration.add_column :institution_pei_data, :commitement_value_uk, :float
+ActiveRecord::Migration.add_column :institution_pei_data, :commitement_value_euro, :float
+
+institution_pei_data
+
+ if !@institu_pei_data.commitment.blank?
+        curr_average_commitment_size_per_codiect = CurrencyExchange.get_other_currency_rates((@institu_pei_data.commitment.blank? ? 0 : @institu_pei_data.commitment.to_f), @institu_pei_data.currency, ((@institu_pei_data.try(:created_at).blank?) ? Date.today.beginning_of_month : @direct.created_at.to_date.beginning_of_month))
+        @institu_pei_data.commitement_value_yen = curr_average_commitment_size_per_codiect[:yen]
+       @institu_pei_data.commitement_value_us = curr_average_commitment_size_per_codiect[:us]
+       @institu_pei_data.commitement_value_uk = curr_average_commitment_size_per_codiect[:uk]
+       @institu_pei_data.commitement_value_euro = curr_average_commitment_size_per_codiect[:euro]
+        @institu_pei_data.save
+      else
+        @institu_pei_data.commitement_value_yen = nil
+        @institu_pei_data.commitement_value_us = nil
+        @institu_pei_data.commitement_value_uk = nil
+        @institu_pei_data.commitement_value_euro = nil
+        @institu_pei_data.save
+    end
+
+
+
+===========================================================================
+
+
+if !@lp.fund_commited.blank?
+        curr_fund_commited = CurrencyExchange.get_other_currency_rates((@lp.fund_commited.blank? ? 0 : @lp.fund_commited.to_f), @lp.currency, ((@lp.try(:created_at).blank?) ? Date.today.beginning_of_month : @lp.created_at.to_date.beginning_of_month))
+        @lp.commitement_value_yen = curr_fund_commited[:yen]
+       @lp.commitement_value_us = curr_fund_commited[:us]
+       @lp.commitement_value_uk = curr_fund_commited[:uk]
+       @lp.commitement_value_euro = curr_fund_commited[:euro]
+        @lp.save
+      else
+        @lp.commitement_value_yen = nil
+        @lp.commitement_value_us = nil
+        @lp.commitement_value_uk = nil
+        @lp.commitement_value_euro = nil
+        @lp.save
+    end
+
+
+
+
+ <%if !@lp_equity_port.average_commitment_size_per_fund.blank? and !@lp_equity_port.blank? %>
+                        <% case (params[:lps] !=nil && params[:lps][:currency] !=nil && params[:lps][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) %>
+                         <% when "euro" %>
+                                <%= content_tag(:td,"#{@lp_equity_port.average_commitment_size_per_fund_euro}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@lp_equity_port << @lp_equity_port.average_commitment_size_per_fund_euro %>
+                         <% when "uk" %>
+                                <%= content_tag(:td,"#{@lp_equity_port.average_commitment_size_per_fund_yen}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@lp_equity_port << @lp_equity_port.average_commitment_size_per_fund_yen %>
+                         <% when "us" %>
+                                <%= content_tag(:td,"#{@lp_equity_port.average_commitment_size_per_fund_uk}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@lp_equity_port << @lp_equity_port.average_commitment_size_per_fund_uk %>
+                           <% when "yen" %>
+                                <%= content_tag(:td,"#{@lp_equity_port.average_commitment_size_per_fund_us}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                            <%@lp_equity_port << @lp_equity_port.average_commitment_size_per_fund_us %>
+
+
+                        <% else %>
+                            <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                            <%@codirect << "n/d"%>
+                          <% end %>
+                        <% end %>
+
+
+
+
+ <%if !@lp_equity_port.average_commitment_size_per_fund.blank? and !@lp_equity_port.blank? %>
+ <% case (params[:lps] !=nil && params[:lps][:currency] !=nil && params[:lps][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) %>
+                         <% a=@lp_equity_port %>
+                            <% case (params[:lps] !=nil && params[:lps][:currency] !=nil && params[:lps][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) %>
+                        <% when "euro" %>
+                                <%= content_tag(:td,"#{a.average_commitment_size_per_fund_euro}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@codirect << a.average_commitment_size_per_fund_euro %>
+                            <% when "uk" %>
+                                <%= content_tag(:td,"#{a.average_commitment_size_per_fund_uk}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@codirect << a.average_commitment_size_per_fund_uk %>
+                            <% when "us" %>
+                                <%= content_tag(:td,"#{a.average_commitment_size_per_fund_us}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@codirect << a.average_commitment_size_per_fund_us %>
+                            <% when "yen" %>
+                                <%= content_tag(:td,"#{a.average_commitment_size_per_fund_yen}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                <%@codirect << a.average_commitment_size_per_fund_yen %>
+                            <% else %>
+                                <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                                <%@codirect << "n/d"%>
+                            <% end %>
+                        <% end %>
+
+
+

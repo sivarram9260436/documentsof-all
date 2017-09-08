@@ -1,0 +1,201 @@
+EmployeeDetail.find_by_official_mailid("arunkumar@webnish.com")
+
+	uttamkumar@kreatio.com
+
+EmployeeDetail.find_by_official_mailid("uttamkumar@kreatio.com")
+@a.password
+
+ @a.password="pass"
+	@a.save
+098f6bcd4621d373cade4e832627b4f6--kk old
+
+77975e33d2088571de01e8f32d7b7a3a ----kreatio
+
+
+
+@a.password="1a1dc91c907325c69271ddf0c944bc72"--- pass
+
+
+EmployeeDetail.find_by_official_mailid("tamilarasanc@kreatio.com")-----it changed
+
+
+EmployeeDetail.find(:all,:conditions=>["upper(official_mailid)=upper(?)","mohith.kj@kreatio.com"])
+
+
+
+
+EmployeeDetail.find_by_official_mailid(" jeevanp@kreatio.com")
+
+
+EmployeeDetail.where { :role_id =>'1'}
+
+
+
+
+ EmployeeDetail.where("role_id=?",1).
+
+
+EmployeeDetail.find_by_official_mailid("mohith.kj@kreatio.com")
+
+===============================================================================================================================
+
+ to create and link the value 
+
+<tr><th align="left">Facebook:</th>
+
+    <% @link_facebook=["https://www.facebook.com/", p.personal_detail.facebook_url ].join %>
+
+    <td><%= link_to p.personal_detail.facebook_url, @link_facebook %></td></tr>
+	
+
+
+==========================================================================================================
+
+
+LeaveDetail.where("employee_detail_id = 221 AND year =2016",emp,Time.now.year-1)
+
+
+
+============================================================================================================================================
+
+debugger and logger not work chk in console
+
+ params = {"utf8"=>"✓", "authenticity_token"=>"2QITeP1Sw0jNGBvglJuDvGLk5OLqRTk+Rx2Dh5VB/+Q=", "leave_record"=>{"leave_type_id"=>"8", "from_date"=>"2016-10-12", "to_date"=>"2016-10-12", "no_of_days"=>"1", "reason"=>""}, "employee_detail"=>{"id"=>"245"}, "commit"=>"Save"}.with_indifferent_access
+=========================
+
+
+[["approved", Thu, 24 Mar 2016, Thu, 24 Mar 2016],
+ ["approved", Fri, 25 Mar 2016, Fri, 25 Mar 2016],
+ ["Pending", Thu, 17 Sep 2015, Thu, 17 Sep 2015], 
+ ["Pending", Thu, 22 Oct 2015, Thu, 22 Oct 2015],
+ ["approved", Fri, 08 Apr 2016, Fri, 08 Apr 2016], 
+["Pending", Wed, 11 Nov 2015, Wed, 11 Nov 2015],
+ ["approved", Mon, 05 Sep 2016, Mon, 05 Sep 2016], ["Pending", Tue, 11 Oct 2016, Tue, 11 Oct 2016]]
+
+
+
+
+[["approved", Thu, 24 Mar 2016, Thu, 24 Mar 2016],
+ ["approved", Fri, 25 Mar 2016, Fri, 25 Mar 2016],
+ ["approved", Fri, 08 Apr 2016, Fri, 08 Apr 2016], 
+["approved", Mon, 05 Sep 2016, Mon, 05 Sep 2016], 
+["Pending", Tue, 11 Oct 2016, Tue, 11 Oct 2016]] 
+
+
+
+
+
+
+
+
+============================================================================================================================================================
+
+EmployeeDetail.where("active =? and office_type_id =?","Active",1).count
+
+ a.last.leave_records.last
+
+
+
+
+
+a.last.leave_records.where("leave_type:8")
+
+ a.last.leave_records.where(leave_type:8)
+
+
+
+EmployeeDetail.where("active =? and office_type_id =?","Active","1").order("emp_name asc")
+
+
+
+ EmployeeDetail.find(245).leave_records.where("leave_type_id=?",8).collect(&:status)
+
+
+a.last.leave_records.where("leave_type_id=?",8).collect{|a|[a.status]}
+
+
+a.last.leave_records.where("leave_type_id=?",8).collect{|a|[a.status,a.from_date,a.to_date]}
+
+
+a.last.leave_records.where("leave_type_id=? and year =?",8,2016).collect{|a|[a.status,a.from_date,a.to_date]}
+
+
+
+
+============================================================================================================================================================
+
+
+
+
+EmployeeDetail.all.collect(&:id)
+EmployeeDetail.where("active = ?", "Active")
+
+
+
+EmployeeDetail.where("active = ?", "Active").class
+
+
+
+b = []
+EmployeeDetail.where("active = ?", "Active").each do |c|
+b << c.personal_detail
+end
+ EmployeeDetail.where("active = ?", "Active").collect(&:id)
+EmployeeDetail.where("active = ?", "Active").collect(&:id).count
+
+ PersonalDetail.where("employee_detail_id IN (?)",a).count
+
+
+b.last.employee_detail
+
+b.last.employee_detail.actual_dob = b.last.p_dob
+
+
+ EmployeeDetail.where("manager_mailid ='deepa@kreatio.com'").map(&:emp_name)
+
+
+
+
+ rails server -e development -b 0.0.0.0 -p 4000
+
+============================================================================================================================================================
+
+
+
+
+
+
+class AddActualDobToEmployeeDetails < ActiveRecord::Migration
+  def change
+    
+    add_column :employee_details, :actual_dob, :date
+
+  end
+
+end
+
+
+
+2016-Jun
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

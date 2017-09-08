@@ -1,0 +1,10 @@
+<%= content_tag(:tr, { :class => "managedaccounts #{cycle('odd', 'even')} " }) do %>
+    
+    <%= content_tag(:td, (@managed_account.manager if @@managed_account.manager))%>
+  <%= content_tag(:td, (@managed_account.size if @@managed_account.size))%>
+   
+    <%= content_tag(:td) do %>
+        <%= link_to( ( image_tag("trash.png") ), {}, { :href => "javascript:void(0)", "managed-account-id" => @managed_account.id, :class => "delete_managed_account" } ) %>
+    <% end %>
+<% end %> <!-- tr end -->
+

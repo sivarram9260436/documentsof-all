@@ -1,0 +1,39 @@
+task == basic bootstap to rails conversation syntax
+
+
+==========================================================================================================
+
+application.helper
+
+def testing
+    content_tag :p, nil,  class: "text-center" do
+      content_tag :a, href: "/admin/forgot_password" do
+        (content_tag :i, nil, class: "fa fa-lock")+"Forgot password?"
+      end
+    end
+  end
+
+
+view page 
+
+
+<%= testing %>
+
+
+==========================================================================================================
+bootstarp   raw html code
+
+
+<p class="text-center"><a href="forgot.html"><i class="fa fa-lock"></i> Forgot password?</a></p>
+
+
+==========================================================================================================
+
+or
+
+<!--<input class="form-control " type="text" placeholder="Email address">-->
+
+  <%= text_field :employee_detail,:official_mailid,:class=>'form-control',:placeholder=>'Email address' %>
+
+
+==========================================================================================================

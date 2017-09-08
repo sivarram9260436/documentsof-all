@@ -1,0 +1,64 @@
+
+
+
+ [[ from_date         to_date           name ]
+
+[[Fri, 19 May 2017, Fri, 19 May 2017, "Girish"], 
+
+[Fri, 19 May 2017, Fri, 19 May 2017, "Girish"],
+
+ [Fri, 19 May 2017, Fri, 19 May 2017, "Sumitha"],
+
+
+ [Thu, 18 May 2017, Thu, 18 May 2017, "Sujith"], 
+
+[Fri, 19 May 2017, Fri, 19 May 2017, "Anupama"],
+
+ [Thu, 18 May 2017, Thu, 18 May 2017, "Adarsh"],
+
+ [Mon, 22 May 2017, Mon, 22 May 2017, "Sreerag"],
+
+ [Fri, 19 May 2017, Fri, 19 May 2017, "Tapaswi"],
+
+ [Mon, 22 May 2017, Mon, 22 May 2017, "chiranjeevi b J"], 
+
+
+[Thu, 18 May 2017, Thu, 18 May 2017, "Nisarga"],
+
+ [Sat, 20 May 2017, Sat, 20 May 2017, "Mahesh"], 
+
+[Sat, 20 May 2017, Sat, 20 May 2017, "Amjith"],
+
+ [Sat, 20 May 2017, Sat, 20 May 2017, "Sanjay"],
+
+ [Fri, 19 May 2017, Fri, 19 May 2017, "Girish kulkarni"],
+
+ [Thu, 18 May 2017, Mon, 22 May 2017, "Milind"],
+
+ [Mon, 22 May 2017, Mon, 22 May 2017, "Michael"], 
+
+[Thu, 18 May 2017, Thu, 18 May 2017, "Tamilarasan"],
+
+ [Sat, 20 May 2017, Mon, 22 May 2017, "Rajeev"],
+
+ [Sat, 20 May 2017, Sat, 20 May 2017, "Rajeev"]]
+
+
+Started POST "/select/create" for 192.168.15.52 at 2017-05-08 11:42:06 +0530
+  Processing by SelectController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"pcoHoLVms9tG7HxLYpPmmd40qrXAfQMT6WBWXJuv2iA=", "leave_record"=>{"leave_type_id"=>"2", "from_date"=>"2017-05-18", "to_date"=>"2017-05-22", "no_of_days"=>"3", "reason"=>"Brother's Marriage"}, "employee_detail"=>{"id"=>"378"}, "commit"=>"Save"}
+Rendered leave_mailer/apply_email.html.erb (19.0ms)
+
+Sent mail to swapnil@kreatio.com (54ms)
+Redirected to http://edms.kreatio.com/select/list
+Completed 302 Found in 451ms
+
+
+
+ [Thu, 18 May 2017, Mon, 22 May 2017, "Milind"],
+
+[Thu, 18 May 2017, Thu, 18 May 2017, "Nisarga"],
+ [Thu, 18 May 2017, Thu, 18 May 2017, "Sujith"], 
+ [Thu, 18 May 2017, Thu, 18 May 2017, "Adarsh"],
+
+[Thu, 18 May 2017, Thu, 18 May 2017, "Tamilarasan"],

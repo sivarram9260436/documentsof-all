@@ -1,0 +1,83 @@
+<div class="right_section_head">
+    <div class="common_listing_button">
+        
+           <ul> 
+           	<li class="button">
+            <%if not params[:type]=="gallery"%>
+               
+                 <%= link_to "Upload New Images", {}, {:href => "javascript:void(0)", :class => "aaaaa", :id => "image_upload"} %>
+               
+            <%end%>
+         </li>
+         </ul>
+    </div>
+</div>
+<div id="image_advance_search" style="display: none">
+    <%= hidden_field_tag "image_detail_search[site_id]", @site.id %>
+    <%= hidden_field_tag "image_detail_search[licence_type]", "Universal rights granted to all users" %>
+     <%= hidden_field_tag "image_detail_search[created_by]"," " %>
+     <%= hidden_field_tag "image_detail_search[from]",Time.now - 10.years %>
+    <%= hidden_field_tag "image_detail_search[to]",Time.now + 100.years %>
+</div>
+
+<script type="text/javascript">
+
+$(function() {
+    $("#image_upload").click(function() {
+            $("#upload_multiple_image_overlay").dialog('destroy');
+        $("#upload_multiple_image_overlay").dialog({
+            modal : true,
+            width : "auto",
+            height : "auto",
+            title : 'Multiple Image Upload'
+        });
+    });
+});
+
+$(function() {
+    $("#advanced_image_search a").click(function() {
+        $("#image_advance_search").dialog('destroy');
+        $("#image_advance_search").dialog({
+            modal : true,
+            width : "auto",
+            height : "auto",
+            title : 'Advance Image Search'
+        });
+    });
+});
+
+$(function() {
+    $("#image_advance_search #image_search").click(function() {
+//        var licence_type = $("#image_detail_search_licence_type").val();
+        var to = $("#image_detail_search_to_id").val();
+        var site_id = $("#image_detail_search_site_id").val();
+        var created_by = $("#image_detail_search_created_by").val();
+        var name = $("#image_detail_search_name").val();
+        var from = $("#image_detail_search_from_id").val();
+        var params = "image_detail_search[to]=" + to + "&image_detail_search[site_id]=" + site_id + "&image_detail_search[created_by]=" + created_by + "&image_detail_search[name]=" + name + "&image_detail_search[from]=" + from;
+        var popup = $(".active_page #popup").val();
+        var type = $(".active_page #type").val();
+        var url = "/admin/image_details/imagset_search?" + params + "&popup=" + popup + "&type=" + type;
+        $.ajax({
+            type : 'GET',
+            url : url,
+            beforeSend : function(xhr) {
+               $("#loading").show();
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+            },
+            dataType : "html",
+            success : function(data) {
+                $("#image_advance_search").dialog('destroy');
+                var append_string = "<div class='image_pagination active_page' id='page_1'></div>"
+                $(".image_pagination").each(function(){
+                     $("#loading").hide();
+                    $(this).remove();
+                });
+                $('#image_list').append(append_string);
+                $("#image_list #page_1").html(data);
+                        jQuery("#image_advance_search").dialog('destroy');
+            }
+        });
+    });
+});
+</script>

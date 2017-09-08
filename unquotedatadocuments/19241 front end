@@ -1,0 +1,682 @@
+
+
+
+   Site side for 19241
+
+/////Started GET "/fund/74088" for 127.0.0.1 at 2017-03-06 11:35:58 +0530
+Processing by Wps::UqFundsController#show_fund as HTML
+  Parameters: {"fund_id"=>"74088"}
+=========ssssssaaaaaaa======{:text=>"", :page=>1, :per_page=>20, :filters=>{:fund_filter_id=>[["74088"], "ary"]}, :sort=>"Relevance", :gt_filters=>{}, :lt_filters=>{}, :not_by_filters=>{}, :not_by_gt_filters=>{}, :not_by_lt_filters=>{}, :dy_sort=>{}, :facets=>[], :fields=>[], :include_models=>[Fund(id: integer, name: string, investor_group_component_id: integer, currency_id: integer, city_id: integer, target_size: string, vintage: integer, basic_fund_type_id: integer, fund_status: string, status_id: integer, fund_overview: text, new_investor_percent: string, existing_investor_percent: string, created_by: integer, updated_by: integer, created_at: datetime, updated_at: datetime, fund_check: boolean, proprietary_capital: boolean, fund_target_amount: string, investor_id: integer, country_id: integer, fund_target_amount_usd: string, data_proxy_id: integer, investor_group_id: integer, note_description: string, fund_target_amount_uk: float, fund_target_amount_us: float, fund_target_amount_euro: float, fund_target_amount_yen: float, fund_target_size_uk: float, fund_target_size_us: float, fund_target_size_euro: float, fund_target_size_yen: float, last_date: datetime, geo_name: string)]}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd1xxxxxxxxxxxxxfalse
+WARNING: User#current is nil, are you including SentientController on your ApplicationController?
+WARNING: User#current is nil, are you including SentientController on your ApplicationController?
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_recently_viewed_funds.html.erb (74.6ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_profile_top_link.html.erb (3.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_currency_selection.html.erb (2.4ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_fund_data.html.erb (34.9ms)
+=======Geographic Preferences=============#<InvestmentPreference id: 72721, fund_id: 74088, investor_size_min: "", investor_size_max: "", average_investment_size: "", deal_size_min: "", deal_size_max: "", target_deals_count_min: "", target_deals_count_max: "", target_deals_in_fund_life_cycle_count_min: "", target_deals_in_fund_life_cycle_count_max: "", co_invest_with_other_funds: "disclosed", created_by: nil, updated_by: nil, created_at: "2017-02-03 12:17:51", updated_at: "2017-02-03 12:18:42">===========
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_investment_strategy.html.erb (29.2ms)
+====euro===vvvvv====uk===={params[:funds][:currency]}=====
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_terms_and_conditions.html.erb (22.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_feedback_comments.html.erb (1.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/common/_personal_notes.html.erb (1.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/fund_profile.html.erb within /layouts/post_login (192.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_seo_keys.html.erb (1.6ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_stylesheets.html.erb (3.3ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_head_scripts.html.erb (4.2ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/authentication/_header_logout.html.erb (1.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/listing_pages/partials/_post_login_menu.erb (30.4ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_header.html.erb (38.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/listing_pages/partials/_post_login_menu.erb (6.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_footer.html.erb (45.9ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/layouts/_javascript.html.erb (0.5ms)
+Completed 200 OK in 715ms (Views: 490.6ms | ActiveRecord: 171.0ms | Solr: 4.9ms)
+Started POST "/funds/search" for 127.0.0.1 at 2017-03-06 11:36:18 +0530
+
+
+
+
+ def show_fund
+    @main_menu = Menu.only_parent_menus.by_name("After Login").first
+    @selected_menu = Menu.by_name("Funds").first
+    #funds = Fund.text_search({ :text => "", :page => 1, :per_page => PER_PAGE, :filters => {:fund_filter_id => [[params[:fund_id]], "ary"], :show_on_site => [true]} }).raw_results
+    funds = Fund.text_search({ :text => "", :page => 1, :per_page => PER_PAGE, :filters => {:fund_filter_id => [[params[:fund_id]], "ary"]} }).raw_results
+    if funds.map(&:primary_key).include?(params[:fund_id])
+       @fund = @site.funds.by_fund_id(params[:fund_id]).first
+       @event_date = @fund.fund_events.collect(&:event_date).compact.sort.first.beginning_of_month if !@fund.fund_events.blank? && !@fund.fund_events.collect(&:event_date).compact.sort.first.blank?
+
+      session[:currency] = params[:funds][:currency] if params[:funds] !=nil && params[:funds][:currency] !=nil
+
+      SubscriberLog.create(:entity_type => "Fund", :entity_id => @fund.id, :subscriber_id => session[:user_id], :log_type => "profile")
+
+      recent_fund = RecentView.by_subscriber(session[:user_id]).by_entity_type("Fund").order("created_at desc").limit(20)
+      # recent_fund = RecentView.by_subscriber(session[:user_id]).by_entity_type("Fund").limit(20)
+      if !recent_fund.collect(&:entity_type_id).include?(@fund.id)
+        RecentView.create(:subscriber_id => session[:user_id],:entity_type => @fund.class.name, :entity_type_id => @fund.id)
+      else
+        f=recent_fund.where(entity_type_id: @fund.id)
+        f.first.delete
+        RecentView.create(:subscriber_id => session[:user_id],:entity_type => @fund.class.name, :entity_type_id => @fund.id)
+      end
+      @recent_viewed =  RecentView.by_subscriber(session[:user_id]).by_entity_type("Fund").order("created_at desc").limit(20)
+      #@recent_viewed = RecentView.by_subscriber(session[:user_id]).by_entity_type("Fund").limit(20)
+      @investment_preference = @fund.investment_preference
+      @country_ids= @investment_preference.countries.pluck(:id) if @investment_preference.present?
+      @continent_countries = ContinentCountry.where(country_id: @country_ids)
+      if @continent_countries.present?
+         @regions= Region.where(:id=> @continent_countries.pluck(:region_id))
+         @sub_regions= SubRegion.where(:id=> @continent_countries.pluck(:sub_region_id))
+      end
+      if params[:search_id]
+       @back_search = SavedSearch.find_by_id(params[:search_id])
+      end
+      @terms_conditions = @fund.terms_condition
+      @fund_structure = @fund.fund_structure
+      @fund_event = @fund.fund_events
+      @fund_portifolios = @fund.deal_investments
+      @fund_lps = @fund.lp_funds
+      work_group_id = Subscriber.find(session[:user_id]).work_group_id
+       @subscriber_note = SubscriberNote.by_work_group(work_group_id).by_entity_type(@fund.class.name).by_entity_id(@fund.id).first
+
+      render :template => "/funds/fund_profile", :layout => "/layouts/post_login"
+    else
+      render_404_after_login
+    end
+  end
+
+
+
+
+
+
+
+line 323
+	 @fund_lp_trades = @fund.lp_trades
+ 
+==================================================================================================================================
+ruby@merger-market-stage:~/Unquote_data/WPS$ vi /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/fund_profile.html.erb within /layouts/post_logi
+
+
+86
+
+
+ <!-- lps in fund start -->
+                    <% if @fund_lps.any?{|o| !o.institution_company_info.blank? && o.institution_company_info.active.eql?(true) } %>
+                        <%= render :partial => "/funds/partials/profile/lps_in_fund" %>
+                        <%= content_tag(:div, '', :class => "bottom_shadow") %>
+                        <%= content_tag(:div, '', :class => "clear") %>
+                    <% end %>
+                    <!-- lps in fund end -->
+
+partial what to copy
+
+ruby@merger-market-stage:~/Unquote_data/WPS$ vi /home/ruby/Unquote_data/Sites/unquote_data_site/views/funds/partials/profile/_lps_in_fund.html.erb
+
+
+
+
+
+==================================================================================================================================
+
+
+code in partial
+
+
+
+<%= content_tag (:fieldset) do %>
+    <%= content_tag(:legend, (content_tag(:span, "Primary LPS in  #{@fund.name}")), :style => "width:auto;") %>
+    <div style="_width:710px; height:auto; overflow-x:hidden;">
+      <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" id="table_style2" class="cls_table_style2 tbl_style">
+        <tbody>
+        <%= content_tag (:tr) do %>
+            <%= content_tag(:td, 'Name of Institution', :class => "head bdr_left bdr_btm bdr_tp", :width => "26%;") %>
+            <%= content_tag(:td, 'Type', :class => "head bdr_left bdr_btm bdr_tp", :width => "19%;") %>
+            <%= content_tag(:td, 'Country', :class => "head bdr_left bdr_btm bdr_tp", :width => "18%;") %>
+            <%= content_tag(:td, 'Commitment Size', :class => "head bdr_left bdr_btm bdr_tp", :width => "18%;") %>
+            <%= content_tag(:td, 'Currency', :class => "head bdr_left bdr_btm bdr_tp", :width => "19%;") %>
+        <% end %>
+
+        <% if @fund_lps !=nil %>
+<%@arr_fund_lps = []%>
+<%#= @fund_lps.select{|o| o.institution_company_info.active.eql?(true) && o.institution_company_info.show_on_site_with_all.eql?(true) }.sort_by { |lp| lp.fund_committed.to_i }%>
+<% @fund_lps.select{|o| o.institution_company_info.active.eql?(true) && o.institution_company_info.show_on_site_with_all.eql?(true) }.sort_by { |lp| lp.fund_committed.to_i }.each do |fund_lp| %>
+
+<%#= @fund_lps.select{|o| o.institution_company_info.active.eql?(true) && o.institution_company_info.show_on_site_with_all.eql?(true) }.sort_by { |lp| lp.institution_company_info.institution_name }.each do |fund_lp| %>
+
+<%@fund_lp = []%>
+                <!-- table start -->
+                <%= content_tag (:tr) do %>
+                    <% if !fund_lp.try(:institution_company_info).try(:institution_name).blank? %>
+                        <%= content_tag(:td, link_to_lp(fund_lp.try(:institution_company_info).try(:institution_name), "#{fund_lp.institution_company_info.id}"), :class => "bdr_btm white_bg")  %>
+                    <%@fund_lp << link_to_lp(fund_lp.try(:institution_company_info).try(:institution_name), "#{fund_lp.institution_company_info.id}")%>
+                    <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                        <%@fund_lp << "n/d"%>
+                    <% end %>
+
+                    <% if !fund_lp.try(:institution_company_info).try(:investor_type_name).blank? %>
+                        <%= content_tag(:td, fund_lp.try(:institution_company_info).try(:investor_type_name), :class => "bdr_left bdr_btm white_bg") %>
+                    <%@fund_lp << fund_lp.try(:institution_company_info).try(:investor_type_name) %>
+                    <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                    <%@fund_lp << "n/d"%>
+                    <% end %>
+
+                    <% if !fund_lp.try(:institution_company_info).try(:country_name).blank?  %>
+                        <%= content_tag(:td, fund_lp.try(:institution_company_info).try(:country_name), :class => "bdr_left bdr_btm white_bg") %>
+                    <%@fund_lp << fund_lp.try(:institution_company_info).try(:country_name)%>
+                    <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                    <%@fund_lp << "n/d"%>
+                    <% end %>
+                    <!-- Commitment Size -->
+                    <%# if !fund_lp.try(:fund_committed).blank? && @fund.investment_preference.co_invest_with_other_funds != "disclosed" %>
+                        <!--tamil<%#= content_tag(:td,fund_lp.fund_committed.present? ? fund_lp.fund_committed : "n/d" , :class => "bdr_left bdr_btm white_bg") %>
+                        <%#@fund_lp << fund_lp.fund_committed.present? ? fund_lp.fund_committed : "n/d"%> -->
+                        <% if !fund_lp.fund_committed.blank?%>
+                        <%= content_tag(:td,fund_lp.fund_committed , :class => "bdr_left bdr_btm white_bg") %>
+                        <%@fund_lp << fund_lp.fund_committed%>
+                        <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                        <%@fund_lp << "n/d"%>
+                        <% end %> 
+                    <%# else %>
+                        <%#= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                    <%# end %>
+                    <!-- Commitment Size -->
+                    <!-- Key Executive(s) -->
+                    <%# if !fund_lp.try(:institution_company_info).blank? %>
+                        <%#= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                    <%# else %>
+                        <%if fund_lp.currency.present?%>
+                        <%= content_tag(:td, fund_lp.currency.name, :class => "bdr_left bdr_btm white_bg") %>
+                        <% if fund_lp.currency.name == "Unspecified"%>
+                        <% @fund_lp << "n/d" %>
+                        <% else %>
+                        <%@fund_lp << fund_lp.currency.name%>
+                        <% end %>
+                        <%else%>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                        <%@fund_lp << "n/d"%>
+                        <%end%>
+                    <%# end %>
+                    <!-- Key Executive(s) -->
+                <% end %>
+                <!-- table end -->
+             <% @arr_fund_lps << @fund_lp%>
+            <% end %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+<%= javascript_include_tag "jquery.dataTables.min.js"%>
+<!--
+<script type="text/javascript">
+$(document).ready(function() {
+var dataSet= <%#= @arr_fund_lps.to_json.html_safe%>;
+console.log(dataSet);
+    $('.cls_table_style2').DataTable( {
+        data: dataSet,
+        columns: [
+            { title: "Name of Institution" },
+            { title: "Type" },
+            { title: "Country" },
+            { title: "Commitment Size" },
+            { title: "Currency" }],
+        "paging":   false,
+        "searching": false,
+        "info":     false
+    } );
+
+var table = $('#table_style2').DataTable();
+$('#table_style2 thead').on('click', 'th', function () {
+ var index = table.column(this).index();
+var sortedCol = $('#table_style2').dataTable().fnSettings().aaSorting[0][0];
+if ($(this).attr("aria-sort") == "descending"){
+$('#table_style2 thead th a').removeClass("decending ascending");
+$('#table_style2 thead th a').css("color","black");
+$(this).html("<a class='decending xyz'>" + $(this).text()  + "</a>");
+}
+else
+{
+$('#table_style2 thead th a').removeClass("decending ascending");
+$('#table_style2 thead th a').css("color","black");
+$(this).html("<a class='ascending xyz'>" + $(this).text() + "</a>");
+}
+});
+});
+</script>
+-->
+<script type="text/javascript">
+$(document).ready(function() {
+var dataSet= <%= @arr_fund_lps.to_json.html_safe%>;
+console.log(dataSet);
+    $('.cls_table_style2').DataTable( {
+        data: dataSet,
+	  "order": [[ 3, "asc" ]],
+        columns: [
+            { title: "Name of Institution" },
+            { title: "Type" },
+            { title: "Country" },
+            { title: "Commitment Size" },
+            { title: "Currency" }],
+        "paging":   false,
+        "searching": false,
+        "info":  false,
+        "scrollY": "425px",
+	 "scrollCollapse": true,
+  "aoColumns": [ {title:"Name of Institution"}, { title:"Type"}, {title:"Country"},{title:"Commitment Size"}, {title:"Currency"} ]
+    } );
+$.extend(jQuery.fn.dataTableExt.oSort, {
+    "stringMonthYear-pre": function (s) {
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var dateComponents = s.split(" ");
+        dateComponents[0] = dateComponents[0].replace(",", "");
+        dateComponents[1] = jQuery.trim(dateComponents[1]);
+        var year = dateComponents[1];
+        var month = 0;
+        for (var i = 0; i < months.length; i++) {
+            if (months[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                month = i;
+                break;
+            }
+        }
+      var allMonths = ['Jan','Feb','Mar', "Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        for (var i = 0; i < allMonths.length; i++) {
+            if (allMonths[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                month = i;
+                break;
+            }
+        }
+        return new Date(year, month, 1);
+    },
+    "stringMonthYear-asc": function (a, b) {
+        return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+    },
+    "stringMonthYear-desc": function (a, b) {
+        return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+    },
+  /*
+   "NumericOrBlank-asc": function(x,y) {
+                   var retVal;
+                    x = (x = parseFloat($.trim(x).replace(/,/g,''))) ? x : 0;
+                    y = (y = parseFloat($.trim(y).replace(/,/g,''))) ? y : 0;
+                    if (x==y) retVal= 0;
+                    else retVal = (x>y) ? 1 : -1;
+                    return retVal;
+                },
+                "NumericOrBlank-desc": function(y,x) {
+                    var retVal;
+                    x = (x = parseFloat($.trim(x).replace(/,/g,''))) ? x : 0;
+                    y = (y = parseFloat($.trim(y).replace(/,/g,''))) ? y : 0;
+                    if (x==y) retVal= 0;
+                    else retVal = (x>y) ? 1 : -1;
+                    return retVal;
+                } */
+    "NumericOrBlank-pre": function (s){
+                    var a = parseFloat($.trim(s).replace(/,/,''));
+                    if(a==0){return "0";}else if(a>0){return a;}else{return " "}
+                },
+                  "NumericOrBlank-asc": function(a,b) {
+                      return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+                },
+                "NumericOrBlank-desc": function(b,a) {
+                    return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+                } 
+
+});
+});
+</script>
+<style>
+
+
+
+
+
+
+
+
+==================================================================================================================================
+
+							 @fund_lp_trades = @fund.lp_trades
+code in partial we editing
+						    @fund_lps = @fund.lp_funds
+@fund_lp_trades
+
+<%= content_tag (:fieldset) do %>
+    <%= content_tag(:legend, (content_tag(:span, "LPs in #{@fund.name}")), :style => "width:auto;") %>
+    <div style="_width:710px; height:auto; overflow-x:hidden;">
+      <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" id="table_style2" class="cls_table_style2 tbl_style">
+        <tbody>
+        <%= content_tag (:tr) do %>
+            <%= content_tag(:td, 'Commitment', :class => "head bdr_left bdr_btm bdr_tp", :width => "26%;") %>
+            <%= content_tag(:td, 'Seller', :class => "head bdr_left bdr_btm bdr_tp", :width => "19%;") %>
+            <%= content_tag(:td, 'Sold (%)', :class => "head bdr_left bdr_btm bdr_tp", :width => "18%;") %>
+            <%= content_tag(:td, 'Acquirer', :class => "head bdr_left bdr_btm bdr_tp", :width => "18%;") %>
+         
+        <% end %>
+
+        <% if @fund_lp_trades!=nil %>
+<%@@fund_lp_trades = []%>
+
+<% @fund_lp_trades{|o| o.institution_company_info.active.eql?(true) && o.institution_company_info.show_on_site_with_all.eql?(true) }.sort_by { |lp| lp.fund_committed.to_i }.each do |fund_lp_trade| %>
+
+
+
+<%@fund_lp_trade = []%>
+                <!-- table start -->
+                <%= content_tag (:tr) do %>
+                    <% if !fund_lp_trade.try(:commitment).try(:commitment).blank? %>
+                        <%= content_tag(:td, link_to_lp(fund_lp_trade.try(:commitment).try(:commitment), "#{fund_lp_trade.commitment}"), :class => "bdr_btm white_bg")  %>
+                    <%@fund_lp << link_to_lp(fund_lp.try(:commitment).try(:commitment), "#{fund_lp.commitment}")%>
+                    <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                        <%@fund_lp_trade << "n/d"%>
+                    <% end %>
+
+                    <% if !fund_lp_trade.try(:seller).try(:seller).blank? %>
+                        <%= content_tag(:td, fund_lp_trade.try(:seller), :class => "bdr_left bdr_btm white_bg") %>
+       				 <%@fund_lp << fund_lp_trade.try(:sold)%>
+                                     <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                    <%@fund_lp_trade << "n/d"%>
+                    <% end %>
+
+                    <% if !fund_lp_trade.try(:sold).try(:sold).blank?  %>
+                        <%= content_tag(:td, fund_lp_trade.try(:sold), :class => "bdr_left bdr_btm white_bg") %>
+                    <%@fund_lp_trade << fund_lp_trade.try(:sold)%>
+                    <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                    <%@fund_lp_trade<< "n/d"%>
+                    <% end %>
+		
+		<% if !fund_lp_trade.try(:acquirer).try(:acquirer).blank?  %>
+                        <%= content_tag(:td, fund_lp_trade.try(:acquirer), :class => "bdr_left bdr_btm white_bg") %>
+                    <%@fund_lp_trade << fund_lp_trade.try(:acquirer)%>
+                    <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                    <%@fund_lp_trade<< "n/d"%>
+                    <% end %>
+
+                    <!-- Commitment Size -->
+                   
+                    <!-- Commitment Size -->
+                    <!-- Key Executive(s) -->
+                    <%# if !fund_lp.try(:institution_company_info).blank? %>
+                        <%#= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                    <%# else %>
+                        <%if fund_lp.currency.present?%>
+                        <%= content_tag(:td, fund_lp.currency.name, :class => "bdr_left bdr_btm white_bg") %>
+                        <% if fund_lp.currency.name == "Unspecified"%>
+                        <% @fund_lp << "n/d" %>
+                        <% else %>
+                        <%@fund_lp << fund_lp.currency.name%>
+                        <% end %>
+                        <%else%>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                        <%@fund_lp << "n/d"%>
+                        <%end%>
+                    <%# end %>
+                    <!-- Key Executive(s) -->
+                <% end %>
+                <!-- table end -->
+             <% @arr_fund_lps << @fund_lp%>
+            <% end %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+
+<%= javascript_include_tag "jquery.dataTables.min.js"%>
+<!--
+<script type="text/javascript">
+$(document).ready(function() {
+var dataSet= <%#= @arr_fund_lps.to_json.html_safe%>;
+console.log(dataSet);
+    $('.cls_table_style2').DataTable( {
+        data: dataSet,
+        columns: [
+            { title: "Name of Institution" },
+            { title: "Type" },
+            { title: "Country" },
+            { title: "Commitment Size" },
+            { title: "Currency" }],
+        "paging":   false,
+        "searching": false,
+        "info":     false
+    } );
+
+var table = $('#table_style2').DataTable();
+$('#table_style2 thead').on('click', 'th', function () {
+ var index = table.column(this).index();
+var sortedCol = $('#table_style2').dataTable().fnSettings().aaSorting[0][0];
+if ($(this).attr("aria-sort") == "descending"){
+$('#table_style2 thead th a').removeClass("decending ascending");
+$('#table_style2 thead th a').css("color","black");
+$(this).html("<a class='decending xyz'>" + $(this).text()  + "</a>");
+}
+else
+{
+$('#table_style2 thead th a').removeClass("decending ascending");
+$('#table_style2 thead th a').css("color","black");
+$(this).html("<a class='ascending xyz'>" + $(this).text() + "</a>");
+}
+});
+});
+</script>
+-->
+<script type="text/javascript">
+$(document).ready(function() {
+var dataSet= <%= @arr_fund_lps.to_json.html_safe%>;
+console.log(dataSet);
+    $('.cls_table_style2').DataTable( {
+        data: dataSet,
+	  "order": [[ 3, "asc" ]],
+        columns: [
+            { title: "Name of Institution" },
+            { title: "Type" },
+            { title: "Country" },
+            { title: "Commitment Size" },
+            { title: "Currency" }],
+        "paging":   false,
+        "searching": false,
+        "info":  false,
+        "scrollY": "425px",
+	 "scrollCollapse": true,
+  "aoColumns": [ {title:"Name of Institution"}, { title:"Type"}, {title:"Country"},{title:"Commitment Size"}, {title:"Currency"} ]
+    } );
+$.extend(jQuery.fn.dataTableExt.oSort, {
+    "stringMonthYear-pre": function (s) {
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var dateComponents = s.split(" ");
+        dateComponents[0] = dateComponents[0].replace(",", "");
+        dateComponents[1] = jQuery.trim(dateComponents[1]);
+        var year = dateComponents[1];
+        var month = 0;
+        for (var i = 0; i < months.length; i++) {
+            if (months[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                month = i;
+                break;
+            }
+        }
+      var allMonths = ['Jan','Feb','Mar', "Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        for (var i = 0; i < allMonths.length; i++) {
+            if (allMonths[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                month = i;
+                break;
+            }
+        }
+        return new Date(year, month, 1);
+    },
+    "stringMonthYear-asc": function (a, b) {
+        return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+    },
+    "stringMonthYear-desc": function (a, b) {
+        return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+    },
+  /*
+   "NumericOrBlank-asc": function(x,y) {
+                   var retVal;
+                    x = (x = parseFloat($.trim(x).replace(/,/g,''))) ? x : 0;
+                    y = (y = parseFloat($.trim(y).replace(/,/g,''))) ? y : 0;
+                    if (x==y) retVal= 0;
+                    else retVal = (x>y) ? 1 : -1;
+                    return retVal;
+                },
+                "NumericOrBlank-desc": function(y,x) {
+                    var retVal;
+                    x = (x = parseFloat($.trim(x).replace(/,/g,''))) ? x : 0;
+                    y = (y = parseFloat($.trim(y).replace(/,/g,''))) ? y : 0;
+                    if (x==y) retVal= 0;
+                    else retVal = (x>y) ? 1 : -1;
+                    return retVal;
+                } */
+    "NumericOrBlank-pre": function (s){
+                    var a = parseFloat($.trim(s).replace(/,/,''));
+                    if(a==0){return "0";}else if(a>0){return a;}else{return " "}
+                },
+                  "NumericOrBlank-asc": function(a,b) {
+                      return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+                },
+                "NumericOrBlank-desc": function(b,a) {
+                    return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+                } 
+
+});
+});
+</script>
+<style>
+
+
+
+.decending {
+    background: url(/images/ascending-arrow.gif) no-repeat right 5px;
+    color: #E3001B;
+    padding-right: 11px;
+}
+.ascending {
+    background: url(/images/desecending-arrow.gif) no-repeat right 5px;
+    color: #E3001B;
+    padding-right: 11px;
+}
+.tbl_style .bdr_tp {
+    border-top: solid #D9D9D9 1px;
+}
+.tbl_style .bdr_btm {
+    border-bottom: solid #D9D9D9 1px;
+}
+.tbl_style tr th {
+    background: #E5E6E8;
+    padding: 8px 5px 8px 5px;
+    font-weight: bold;
+    color: #000;
+    text-align: left; 
+}
+.tbl_style tr th:hover {
+    color: red;
+    cursor:pointer;
+}
+.tbl_style tr td {
+    vertical-align: middle;
+    margin-left: 0px;
+}
+.porfile_right_mid fieldset table td {
+    padding: 5px 5px;
+    vertical-align: top;
+}
+
+.tbl_style .white_bg {
+    background: #fff;
+}
+.tbl_style tr td {
+    border-bottom: solid #D9D9D9 1px;
+    border-right: solid #D9D9D9 1px;
+}
+.tbl_style tr td {
+    vertical-align: middle;
+}
+.tbl_style fieldset table td {
+    padding: 5px 5px;
+    vertical-align: top;
+}
+.tbl_style fieldset table td {
+    padding: 5px 5px;
+    vertical-align: top;
+}
+.tbl_style tr td {
+    font-size: 11px;
+}
+.tbl_style {
+    font-size: 11px;
+}
+
+
+</style>
+
+
+
+
+ <!-- Date -->
+                                        <%if !fund_event.blank? and !fund_event.event_date.blank?%>
+                                                <%= content_tag(:td,"#{fund_event.event_date.strftime("%b %Y")}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                        <%else%>
+                                                <%= content_tag(:td,"n/d",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                                        <%end%>
+
+
+
+
+
+</script>
+
+
+<style>
+.decending {
+    background: url(/images/ascending-arrow.gif) no-repeat right 5px;
+    color: #E3001B;
+    padding-right: 11px;
+}
+.ascending {
+    background: url(/images/desecending-arrow.gif) no-repeat right 5px;
+    color: #E3001B;
+    padding-right: 11px;
+}
+#lp_research_wrapper .sorting_asc[aria-sort="ascending"],#equity_wrapper .sorting_asc[aria-sort="ascending"]{
+
+
+
+    background-image:url(/images/desecending-arrow.gif);
+
+     background-repeat:no-repeat;
+
+    background-position:90% 19px;
+
+    color: #E3001B;
+
+    padding-right: 11px;
+
+}
+
+
+
+#lp_research_wrapper .sorting_desc[aria-sort="descending"],#equity_wrapper .sorting_desc[aria-sort="descending"]{
+
+    background-image:url(/images/ascending-arrow.gif);
+
+    background-repeat:no-repeat;
+
+    background-position: 90% 19px;
+
+    color: #E3001B;
+
+    padding-right: 11px;
+
+}
+
+#lp_research_wrapper .sorting_asc[aria-sort="ascending"]:first-child, #equity_wrapper .sorting_asc[aria-sort="ascending"]:first-child{background-image:none}
+
+</style>
+

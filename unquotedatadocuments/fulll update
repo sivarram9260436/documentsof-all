@@ -1,0 +1,5 @@
+z=[]
+Subscriber.all.each do |x|
+x.create_subscriber_property(:phone => "909990",:Job_title => "software ", :address1=> "df", :address2=> "fd", :address3=> "dfg", :city=> "bangalore",:country_id=> 1,:status=> true,:subscriber_id =>x.id) if x.subscriber_property.nil?
+z << x.id
+end

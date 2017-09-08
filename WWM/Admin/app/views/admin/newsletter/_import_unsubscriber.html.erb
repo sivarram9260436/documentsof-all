@@ -1,0 +1,53 @@
+<div class="section_block full_section">
+<div class="right_section_head">
+        <div class="common_listing_button">
+                <ul>
+                        <li class="button">
+                                 <a href="/admin/newsletter/subscribers_upload_sample">Download Sample File</a>
+                                 <!--a href= "/unsubscribers_upload_sample.xlsx">Download Sample File</a-->
+                                <!--input type="button" value="Download Sample File" class="blue-btn float-R" id="unsubscriber_excel_sample"-->
+                        </li>
+                </ul>
+        </div>
+</div>
+<%= form_tag({:controller=>'/admin/newsletter',:action => 'import_unsubscriber_newsletter'},:multipart => true) do %>
+<!--div class="section_block full_section"-->
+        <h2>Import Unsubscriber</h2>
+            <% if params[:notice]%>
+              <div class= "validate_msge"><%= params[:notice]%></div>
+           <%end%>
+
+        <div class="search_fields">
+
+                          <div class="customfile-container">
+                             <input type="file" id="bulk_upload_file" name="subscriber_excel_file" multiple />
+
+                                <div class="button unsubscribe_export">
+                                        <%=submit_tag "Submit"%>
+                                </div>
+
+                         </div>
+
+   </div>
+ <!--/div-->
+
+<%end%>
+
+</div>
+
+ <script type="text/javascript">
+        $(document).ready(function () {
+            $("#unsubscriber_excel_sample").click(function () {
+                window.location = '/unsubscribers_upload_sample.xlsx';
+            });
+        });
+
+ $(".unsubscribe_export").click(function(){
+  if ($("#bulk_upload_file").val()== "") {
+    alert("Please add xlsx file.");
+    return false;
+   }
+  });
+
+ </script>
+

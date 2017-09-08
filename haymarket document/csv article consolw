@@ -1,0 +1,16 @@
+@free = Article.all
+headers = "Id, Author Name, Created at"
+file = "#{Rails.root}/public/artilce_new.csv"
+CSV.open(file, 'w' ) do |csv|
+@free.each do |c|
+column=[]
+column[0] = c.id if c.id
+column[1] = c.authors.first.firstname if c.authors && c.authors.first && c.authors.first.firstname
+column[2] = c.created_at if c.created_at 
+csv << column
+end 
+end
+
+
+
+rsync -avz ruby@192.168.22.70:////home/ruby/CMS/Admin/public/artilce.csv  /home/sivaram/haymarket_csv

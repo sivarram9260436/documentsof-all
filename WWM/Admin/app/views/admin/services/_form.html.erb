@@ -1,0 +1,221 @@
+<div class="section_block full_section">
+	<h2><%= @page_properties[:menu_title] %></h2>
+	<div class="article_new_main">
+		<%= form_tag( @service.new_record? ? {:action=>"create", :controller=>"admin/services"} : {:action=>"update", :controller=>"admin/services",:id=>@service.id} ) do%>
+		<%= hidden_field_tag "service[directory_ids][]", "#{@site.directories.first.id unless @site.directories.blank? }"%>
+		<div class="validation_box">
+		<%= raw error_messages(@service)%>
+		</div>
+
+		<div class="form_data">
+			<label for="service_name">Name <span>*</span>:</label>
+			<%= text_field 'service', 'name',:class=>'input_text' %>
+		</div>
+
+		<div class="form_data">
+			<label for="service_alias_name">Page Slug :</label>
+			<%= text_field 'service', 'alias_name',:class=>'input_text' %>
+		</div>
+
+		<div class="form_data">
+			<label for="text_head">Category<span></span>:</label>
+			<%if not @service.new_record?%> <td class="text_left"> <% selected_cat = (@service and !@service.directory_listing_categories.blank?) ? @service.directory_listing_categories : [] %>
+			<%= raw autocompletion_field("service_directory_listing_categories",{:selected=>selected_cat,:default_selection=>"Enter the Directory Category"})%></td>
+			<%else%>
+			<%= raw autocompletion_field("service_directory_listing_categories",{:selected=>[],:default_selection=>"Enter the Directory Category"})%></td>
+			<%end%>
+		</div>
+		<div class="form_data">
+			<label for="text_head">Manufacturer:</label>
+			<%= text_field 'service', 'made_by',:class=>'input_text' %>
+		</div>
+		<div class="form_data">
+			<label for="text_head">Retailer:</label>
+			<%= text_field 'service', 'retailer',:class=>'input_text' %>
+		</div>
+		<div class="form_data">
+			<label for="text_head">More Info:</label>
+			<%= text_field 'service', 'more_info',:class=>'input_text' %>
+		</div>
+		<div class="form_data">
+			<label for="text_head">Price:</label>
+			<%= text_field 'service', 'price',:class=>'input_text' %>
+		</div>
+		
+		<div class="form_data">
+			<div class="productscolumnRight" id="parentTinymce">
+				<label for="text_head">Description:</label>
+				<script type="text/javascript">
+					tinyMCE.init({
+						mode : "specific_textareas",
+						editor_selector : "mceEditor",
+						theme : "advanced",
+						width : 320,
+						plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+
+						// Theme options
+						theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect",
+						theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,undo,redo",
+						theme_advanced_toolbar_location : "top",
+						theme_advanced_toolbar_align : "left",
+						theme_advanced_statusbar_location : "bottom",
+						theme_advanced_resizing : true,
+
+						// Skin options
+						skin : "o2k7",
+						skin_variant : "silver",
+
+						// Example content CSS (should be your site CSS)
+						content_css : "css/example.css",
+
+						// Drop lists for link/image/media/template dialogs
+						template_external_list_url : "js/template_list.js",
+						external_link_list_url : "js/link_list.js",
+						external_image_list_url : "js/image_list.js",
+						media_external_list_url : "js/media_list.js",
+
+						// Replace values for the template plugin
+						template_replace_values : {
+							username : "Some User",
+							staffid : "991234"
+						}
+
+					});
+				</script>
+				<textarea id="tinyid_1" name="service[description]" value="service[description]" rows ="10" cols ="1" class="mceEditor" style='width:100%;'><%= @service.description if not  @service.new_record?%></textarea>												
+        </td>
+
+      </tr>
+
+
+
+			</div>
+		</div>
+		
+		
+		
+		
+		
+		
+<div class="form_data">
+<label for="text_head">Service/Product Logo:</label>
+<div class="article_title_rgt">
+<div class="no_image">
+<div class="img_block">
+<div id="no_image">
+<a onclick="image_popup(this)" data-url="/admin/image_details/imageset_list?popup=true" href="javascript:void(0)" rel="1">
+<img width="100" height="80" alt="no_image_available" src="/images/no_image_available_large.gif"></a>
+</div>									
+<div style="vertical-align:center;width:296px" id="prev">
+
+</div>
+
+</div><!--img_block-->
+</div><!--no_image-->
+<div class="article_img_text">
+<input type="hidden" name="article[image_property][image_id]" id="image_property_image_id">
+ <div id="prev_image"></div>
+ <!-- article image not nil -->
+								<div id="change_link_add_image">
+									<a onclick="image_popup(this)" data-url="/admin/image_details/add_image_from_article?popup=true" href="javascript:void(0);">Browse My Computer</a>
+								</div>
+								<div id="change_link">
+									<p>
+										<a onclick="image_popup(this)" data-url="/admin/image_details/imageset_list?popup=true" href="javascript:void(0)" rel="1">Add from Repository</a>
+									</p>
+								</div>
+								<div style="display: none;" id="imageset_caption">
+									Title ImageSet Caption override :<input type="text" size="30" name="article[image_property][caption]" id="image_property_caption" class="input_text">
+								</div>
+								<div style="display: none;" id="change_link123">
+									<a class="remove_image">Remove</a>&nbsp;&nbsp; <a class="change" onclick="image_popup(this)" data-url="/admin/image_details/imageset_list?popup=true" href="javascript:void(0);">Change</a>
+									<!-- <a href="/admin/image_details/edit_imageset/?flag=popup&id="  rel="1" class="title_image_newwindow">Edit</a> -->
+								</div>
+								<div style="display: none;" id="set_preference">
+									<a href="javascript:void(0);">Set ImageSet display preferences</a>
+								</div>
+								<div style="display: none;" id="preference_setup">
+									<div class="image_checkbox">
+										<input type="hidden" value="0" name="dont_display"><input type="checkbox" value="hide_image" name="dont_display" id="dont_display"><label>Don't display on article page</label>
+									</div>
+									<div class="image_checkbox">
+										<input type="hidden" value="0" name="cust_img"><input type="checkbox" value="customise_image" name="cust_img" id="cust_img"><label>Customise on article page</label>
+									</div>
+								</div>
+								<div style="display:none;" id="image_customise">
+									<div style="margin-bottom:10px;margin-top:10px;">
+										<select name="article[image_property][customise_scenery]" id="image_property_customise_scenery" class="input_text"><option value="Landscape">Landscape</option>
+<option value="Portrait">Portrait</option>
+<option value="Square">Square</option></select>
+									</div>
+									<div style="margin-top:10px;">
+										<select name="article[image_property][customise_size]" id="image_property_customise_size" class="input_text"><option value="Large">Large</option>
+<option value="Medium">Medium</option>
+<option value="Small">Small</option></select>
+									</div>
+								</div>
+								 <!--<p><a href="/">Add ImageSet</a></p>-->
+							</div>
+						</div>
+					</div>	
+		
+		
+
+		<%if params[:action]=="new"%>
+		<div class="button">
+			<%= submit_tag("Save")%>
+		</div>
+		<%else%>
+		<div class="button">
+			<%= submit_tag("Update")%>
+		</div>
+		<%end%>
+		<div class="button">
+			<%= link_to('Cancel',{:controller=>'admin/services',:action => 'index'})  %>
+		</div>
+
+		<%end%>
+	</div>
+</div>
+
+<script type="text/javascript">
+	//PopUp Generation
+	var windowSizeArray = ["width=300,height=400", "width=960,height=600,scrollbars=yes"];
+
+	$(document).ready(function() {
+		$('.newWindow').click(function(event) {
+
+			var url = $(this).attr("href");
+			var windowName = "popUp";
+			//$(this).attr("name");
+			var windowSize = windowSizeArray[$(this).attr("rel")];
+
+			window.open(url, windowName, windowSize);
+
+			event.preventDefault();
+
+		});
+		$('.gallery_newwindow').click(function(event) {
+			var gallery_id = $("#gallery_property_image_sequence_id").attr("value");
+			var url = $(this).attr("href");
+			var append_url = url + gallery_id;
+			var windowName = "Gallery popUp";
+			//$(this).attr("name");
+			var windowSize = windowSizeArray[$(this).attr("rel")];
+			window.open(append_url, windowName, windowSize);
+			event.preventDefault();
+			//return false;
+		});
+		$('.title_image_newwindow').click(function(event) {
+			var image_id = $("#image_property_image_id").attr("value");
+			var url = $(this).attr("href");
+			var append_url = url + image_id;
+			var windowName = "Gallery popUp";
+			//$(this).attr("name");
+			var windowSize = windowSizeArray[$(this).attr("rel")];
+			window.open(append_url, windowName, windowSize);
+			event.preventDefault();
+			//return false;
+		});
+	}); 
+</script>

@@ -1,0 +1,16 @@
+  ruby@merger-market-stage:~/Unquote_data/WPS$ vi /home/ruby/Unquote_data/Sites/unquote_data_site/views/deals/partials/profile/_deal_summary.html.erb
+
+
+
+   <p>
+                <span style="font-weight:normal; font-size:11px;*padding-top: 10px;*display:block;">
+                 [Sourced From <%= arr.join(", ")%>]
+                </span>
+        </p>
+                 <%end%>
+
+
+
+comment this below 
+
+http://stage.unqdata.mergermarket.kreatio.info/deal/377044?search_id=119652&source=deal_search

@@ -1,0 +1,25 @@
+
+
+Started GET "/gallery" for 192.168.15.55 at 2017-03-09 16:07:13 +0530
+  Processing by Wps::GalleryController#show_gallery_page as HTML
+ ---- rem checking
+ -- rem -- nil -- "590" --- "d11b69837891c467f821169f84a3d26f"
+Rendered /home/ruby/CMS/Sites/printweek_india/views/listing_pages/partials/_common_article_title.html.erb (8.8ms)
+Rendered /home/ruby/CMS/Sites/printweek_india/views/listing_pages/partials/_common_author_date.html.erb (6.3ms)
+Rendered /home/ruby/CMS/Sites/printweek_india/views/listing_pages/partials/_common_article_desc.html.erb (7.4ms)
+Rendered /home/ruby/CMS/Sites/printweek_india/views/article_pages/partials/_article_social_list.html.erb (1.1ms)
+Rendered /home/ruby/CMS/Sites/printweek_india/views/listing_pages/partials/_home_time_stamp.html.erb (6.9ms)
+Rendered /home/ruby/CMS/Sites/printweek_india/views/listing_pages/partials/_common_article_title.html.erb (5.7ms)
+
+
+
+ruby@HaymarketStage:~/CMS/Kreatio_Core$ vi app/controllers/wps/gallery_controller.rb 
+
+
+
+  after_filter :sr_page_cache, :only => [:show_directory_listing_page,:display_category]
+
+
+
+
+http://cms.haymarket.kreatio.info/admin/sites/edit_site/4----site how to check cache 

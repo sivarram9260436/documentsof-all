@@ -1,0 +1,224 @@
+
+
+
+////Started GET "/deals/get_investor_component_for_deals?site_id=1&q=unknio" for 127.0.0.1 at 2017-07-10 10:57:47 +0530
+Processing by DealsController#get_investor_component_for_deals as JSON
+  Parameters: {"site_id"=>"1", "q"=>"unknio"}
+
+  def get_investor_component_for_deals
+    investor_components = InvestorGroupComponent.by_name(params[:q].strip).order("name asc").limit(AUTO_COMPLETION_LIMIT)
+    render :json => investor_components.collect{ |investor_component| { :id => investor_component.id, :name => investor_component.name } }
+  end
+
+
+Started GET "/deals/get_funds_for_investor?investor_component_id=125191" for 127.0.0.1 at 2017-07-10 10:58:00 +0530
+Processing by DealsController#get_funds_for_investor as HTML
+  Parameters: {"investor_component_id"=>"125191"}
+  Rendered deals/_get_funds_for_investor.html.erb (52.4ms)
+Completed 200 OK in 64ms (Views: 20.8ms | ActiveRecord: 37.5ms | Solr: 0.0ms)
+
+
+ def get_funds_for_investor
+    @investor_component = InvestorGroupComponent.find(params[:investor_component_id])
+    render :partial => "get_funds_for_investor"
+  end
+
+
+
+
+
+
+Processing by DealsController#fetch_all_investor_executives as HTML
+  Parameters: {"group_id"=>"125191", "replace_id"=>"deal_invest", "select_one"=>"false", "site_id"=>"1"}
+  Rendered deals/_fetch_all_investor_executives.html.erb (11.1ms)
+Completed 200 OK in 30ms (Views: 12.1ms | ActiveRecord: 4.9ms | Solr: 0.0ms)
+
+
+
+  def fetch_all_investor_executives
+    @investor_component = InvestorGroupComponent.find(params[:group_id])
+    @investor = InvestorGroupComponent.find(params[:group_id]).investor_group
+    @executives = @investor.investor_group_executives.order("full_name asc")
+    render :partial => "fetch_all_investor_executives"
+  end
+
+
+investor component- investor group- investor executive
+
+
+
+Processing by InvestorGroupsController#create_investor_executive as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"E6dtqF8qG0dGHZqml9EeTrsMPLkg/OALjZdhpMOVjaA=", "investor_comp_id"=>"125191", "tab"=>"", "investor_group_executive_id"=>"", "investor_group_executive"=>{"title"=>"Mrs.", "first_name"=>"siva", "last_name"=>"ram"}, "site_id"=>"1"}
+  Rendered unquote/_closing_window_and_reload_parent.html.erb (0.4ms)
+Completed 200 OK in 213ms (Views: 2.8ms | ActiveRecord: 142.3ms | Solr: 0.0m
+
+
+
+ def create_investor_executive
+    investor_group_component = InvestorGroupComponent.find(params[:investor_comp_id])
+    investor_group_component.transaction do
+      @investor_group_executive = investor_group_component.investor_group_executives.new(params[:investor_group_executive])
+      @investor_group_executive.data_proxy_id = @site.id
+      @investor_group_executive.save
+      investor_group_component.investor_group.update_attributes(last_date: Time.zone.now)
+    end
+    render :partial => "/unquote/closing_window_and_reload_parent"
+
+  end
+
+
+
+  SQL (1.8ms)  INSERT INTO "investor_group_executives" ("active", "address_1", "address_2", "biography", "board_member", "city_id", "contact_organisation", "country", "country_id", "created_at", "created_by", "data_proxy_id", "delete_status", "email", "fax", "first_name", "full_name", "investment_committee_id", "investor_contact_type_id", "investor_group_component_id", "job_title", "last_name", "management_member", "office_location", "responsibilities", "telephone", "title", "town", "town_new", "updated_at", "updated_by", "wsw_profile") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32) RETURNING "id"  [["active", nil], ["address_1", nil], ["address_2", nil], ["biography", nil], ["board_member", nil], ["city_id", nil], ["contact_organisation", nil], ["country", nil], ["country_id", nil], ["created_at", Mon, 10 Jul 2017 05:43:17 UTC +00:00], ["created_by", nil], ["data_proxy_id", 1], ["delete_status", nil], ["email", nil], ["fax", nil], ["first_name", "siva"], ["full_name", "siva ram"], ["investment_committee_id", nil], ["investor_contact_type_id", nil], ["investor_group_component_id", 125191], ["job_title", nil], ["last_name", "ram"], ["management_member", nil], ["office_location", nil], ["responsibilities", nil], ["telephone", nil], ["title", "Mrs."], ["town", nil], ["town_new", nil], ["updated_at", Mon, 10 Jul 2017 05:43:17 UTC +00:00], ["updated_by", nil], ["wsw_profile", nil]]
+  InvestorGroup Load (0.5ms)  SELECT "investor_groups".* FROM "investor_groups" WHERE "investor_groups"."id" = 66193 LIMIT 1
+   (0.7ms)  UPDATE "investor_groups" SET "last_date" = '2017-07-10 05:43:17.111357', "updated_at" = '2017-07-10 05:43:17.162068' WHERE "investor_groups"."id" = 66193
+
+
+InvestorGroupComponent -InvestorGroupExecutive 
+
+Started GET "/investor_groups/new_investor_executive?investor_comp_id=125191&popup=true&site_id=1" for 127.0.0.1 at 2017-07-10 10:58:47 +0530
+Processing by InvestorGroupsController#new_investor_executive as HTML
+  Parameters: {"investor_comp_id"=>"125191", "popup"=>"true", "site_id"=>"1"}
+  Rendered investor_groups/_form_investor_executive.html.erb (6.1ms)
+  Rendered investor_groups/new_investor_executive.html.erb within layouts/application (24.4ms)
+  Rendered unquote/_css_image.html.erb (1.5ms)
+Completed 200 OK in 92ms (Views: 36.8ms | ActiveRecord: 2.3ms | Solr: 0.0ms)
+
+   def new_investor_executive
+    @investor_group_component = InvestorGroupComponent.find(params[:investor_comp_id])
+    @investor_group = @investor_group_component.investor_group
+    @investor_group_executive=InvestorGroupExecutive.new
+    @form_action="create_investor_executive"
+  end
+
+
+
+
+
+Processing by DealsController#fetch_all_investor_executives as HTML
+  Parameters: {"group_id"=>"125191", "replace_id"=>"deal_invest", "select_one"=>"false", "site_id"=>"1"}
+  Rendered deals/_fetch_all_investor_executives.html.erb (56.5ms)
+Completed 200 OK in 70ms (Views: 56.9ms | ActiveRecord: 4.2ms | Solr: 0.0ms)
+
+  def fetch_all_investor_executives
+    @investor_component = InvestorGroupComponent.find(params[:group_id])
+    @investor = InvestorGroupComponent.find(params[:group_id]).investor_group
+    @executives = @investor.investor_group_executives.order("full_name asc")
+    render :partial => "fetch_all_investor_executives"
+  end
+
+
+Started POST "/deals/add_investor_to_deal" for 127.0.0.1 at 2017-07-10 10:59:07 +0530
+Processing by DealsController#add_investor_to_deal as HTML
+  Parameters: {"investor"=>{"investor_group_component_id"=>"125191", "investment_type_id"=>"55", "fund_id"=>"", "currency_id"=>"62", "amount"=>"12", "equity"=>"12", "deal_confidential"=>"false"}, "executives"=>"119261", "deal_id"=>"366839"}
+  Rendered deals/_add_investor_to_deal.html.erb (16.9ms)
+Completed 200 OK in 5035ms (Views: 18.9ms | ActiveRecord: 271.2ms | Solr: 784.0ms)
+
+
+ def add_investor_to_deal
+    @deal  = Deal.find(params[:deal_id])
+
+    @deal.transaction do
+      @deal_investment = @deal.deal_investments.create(params[:investor])
+      @deal_investment.deal.update_attributes(updated_by: @user.id,last_date: Time.zone.now)
+      params[:executives].split(",").each do |exec|
+        executive = InvestorGroupExecutive.find(exec)
+        @deal_investment.deal_investment_executives.create(investor_group_component_id: executive.investor_group_component.id, investor_group_executive_id: executive.id)
+      end
+      @deal.index_to_search_engine
+    end
+
+    render :partial => "add_investor_to_deal"	
+  end
+
+
+
+
+{:solr_1=>#<Proc:0x0000000609d048@/home/ruby/Unquote_data/unquote_data_engine/Kreatio_Core/vendor/plugins/search_engine/lib/search_engine.rb:208>} 
+
+deleting
+
+Started POST "/deals/remove_investor_from_deal" for 127.0.0.1 at 2017-07-10 11:36:27 +0530
+Processing by DealsController#remove_investor_from_deal as HTML
+  Parameters: {"deal_investment_id"=>"959363"}
+
+///  Rendered text template (0.0ms)
+Completed 200 OK in 80801ms (Views: 13.6ms | ActiveRecord: 6754.7ms | Solr: 11056.6ms)
+
+
+
+
+ def remove_investor_from_deal
+    @deal_investment = DealInvestment.find(params[:deal_investment_id])
+    deal = @deal_investment.deal
+    investor = @deal_investment.investor_group_component.investor_group
+    Deal.transaction do
+      @deal_investment.deal_investment_executives.delete_all
+      @deal_investment.delete
+      investor.index_to_search_engine
+      deal.update_attributes(updated_by: @user.id,last_date: Time.zone.now)
+      deal.index_to_search_engine
+    end
+    render :text => "deleted"
+  end
+
+	
+dealinvestment-deal-investorgroupcomponent-investorgroup
+
+
+investorgroupid---dealinvestment-index---lastdealupdated --index again
+
+twice indexing
+
+
+
+125191
+
+InvestorGroup.each do |x|
+x.investor_group_component.where("investor_group_component =?" "125191")
+end
+
+Deal.all.each do |x|
+c.where("investor_group_component_ids =?" "125191")
+c.find_by_investor_group_component_ids(125191)
+end
+
+
+
+a.each do|aa|
+cat=Category.find_by_name(aa)
+if cat
+cat.parent_id="41448fc2-abec-4a69-86c1-a27bb35ac0c3"
+cat.save
+end
+end
+
+
+
+Deal.each do|aa|
+inv=InvestorGroupComponent.find_by_name(aa)
+if inv
+inv.id="125191"
+inv.count
+end
+end
+
+
+
+z=[]
+Deal.all.each do |x|
+z << x.id if x.investor_component_ids.include?(125191)
+end
+
+
+q.each do |x|
+d=Deal.find_by_id(x)
+d.investor_component_ids.delete(125191)
+d.save
+end
+
+
+  SOLR Request (38219.5ms)  [ path=update parameters={} ]
+   (15.4ms)  COMMIT
+   (28.0ms)  SELECT COUNT(*) FROM "deals" INNER JOIN "deal_investments" ON "deals"."id" = "deal_investments"."deal_id" INNER JOIN "investor_group_components" ON "deal_investments"."investor_group_component_id" = "investor_group_components"."id" WHERE "investor_group_components"."investor_group_id" = 66193 AND (deals.status_id in (232,195))
+
+

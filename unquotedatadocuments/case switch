@@ -1,0 +1,161 @@
+<%= content_tag(:td) do %>
+                    <% if @deal_specific.deal_type_confidential.eql?(true) %>
+                        <% case (params[:deals] !=nil && params[:deals][:currency] !=nil && params[:deals][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) %>
+                        <% when "euro" %>
+                            n/d (<%= show_confidential_value_range(@deal_specific.deal_value_euro_f) %>)
+                        <% when "uk" %>
+                            n/d (<%= show_confidential_value_range(@deal_specific.deal_value_uk_f) %>)
+                        <% when "us" %>
+                            n/d (<%= show_confidential_value_range(@deal_specific.deal_value_us_f) %>)
+                        <% when "yen" %>
+                            n/d (<%= show_confidential_value_range(@deal_specific.deal_value_yen_f) %>)
+                        <% else %>
+                            nd
+                        <% end %>
+                    <% else %>
+                        <% case (params[:deals] !=nil && params[:deals][:currency] !=nil && params[:deals][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) %>
+                        <% when "euro" %>
+                            <%= number_with_precision(@deal_specific.deal_value_euro_f.blank? ? "n/d" : @deal_specific.deal_value_euro_f, :precision => 2, :delimiter => ',') %>
+                        <% when "uk" %>
+                            <%= number_with_precision(@deal_specific.deal_value_uk_f.blank? ? "n/d" : @deal_specific.deal_value_uk_f, :precision => 2, :delimiter => ',') %>
+                        <% when "us" %>
+                            <%= number_with_precision(@deal_specific.deal_value_us_f.blank? ? "n/d" : @deal_specific.deal_value_us_f, :precision => 2, :delimiter => ',') %>
+                        <% when "yen" %>
+                            <%= number_with_precision(@deal_specific.deal_value_yen_f.blank? ? "n/d" : @deal_specific.deal_value_yen_f, :precision => 2, :delimiter => ',') %>
+                        <% else %>
+                            nd
+                        <% end %>
+                    <% end %>
+                    <%= @deal_specific.deal_type_forecast.eql?(true) ? "est" : nil %>
+                <% end %>
+
+
+ActiveRecord::Migration.add_column :fund_performances, :commitement_value_yen, :float
+ActiveRecord::Migration.add_column :fund_performances, :commitement_value_us, :float
+
+ActiveRecord::Migration.add_column :fund_performances, :commitement_value_uk, :float
+
+ActiveRecord::Migration.add_column :fund_performances, :commitement_value_euro, :float
+
+
+
+if !@fund_performance.fund_committed.blank?
++        curr_fund_commited = CurrencyExchange.get_other_currency_rates((@lp.fund_committed.blank? ? 0 : @lp.fund_committed.to_f), @lp.currency, ((@lp.tr
++        @fund_performance.commitement_value_yen = curr_fund_commited[:yen]
++       @fund_performance.commitement_value_us = curr_fund_commited[:us]
++       @fund_performance.commitement_value_uk = curr_fund_commited[:uk]
++       @fund_performance.commitement_value_euro = curr_fund_commited[:euro]
++        @fund_performance.save
++      else
++        @fund_performance.commitement_value_yen = nil
++        @fund_performance.commitement_value_us = nil
++        @fund_performance.commitement_value_uk = nil
++        @fund_performance.commitement_value_euro = nil
++        @fund_performance.save
++    end
+
+
+
+if !@lp.fund_committed.blank?
+        curr_fund_commited = CurrencyExchange.get_other_currency_rates((@lp.fund_committed.blank? ? 0 : @lp.fund_committed.to_f), @lp.currency, ((@lp.try(:created_at).blank?) ? Date.today.beginning_of_month : @fund_performance.created_at.to_date.beginning_of_month))
+        @lp.commitement_value_yen = curr_fund_commited[:yen]
+       @lp.commitement_value_us = curr_fund_commited[:us]
+       @lp.commitement_value_uk = curr_fund_commited[:uk]
+       @lp.commitement_value_euro = curr_fund_commited[:euro]
+        @lp.save
+      else
+        @lp.commitement_value_yen = nil
+        @lp.commitement_value_us = nil
+        @lp.commitement_value_uk = nil
+        @lp.commitement_value_euro = nil
+        @lp.save
+    end
+=====================================================
+<% if !@deal_specific.blank? and !@deal_specific.deal_value.blank? and !@deal_specific.deal_value.to_f.zero? %>
+            <%= content_tag(:tr) do %><!-- tr -->
+                <%= content_tag (:td), :width => "45%;" do %><!-- td -->
+                    Announced Deal Value <%= CURRENCY_DISPLAY[params[:deals] !=nil && params[:deals][:currency] !=nil && params[:deals][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]] %>:
+                <% end %>
+                <td width="3%" class="border_left">&nbsp;</td>
+                <!-- currency based -->
+                <%= content_tag(:td) do %>
+                    <% if @deal_specific.deal_type_confidential.eql?(true) %>
+                        <% case (params[:deals] !=nil && params[:deals][:currency] !=nil && params[:deals][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) %>
+                        <% when "euro" %>
+                            n/d (<%= show_confidential_value_range(@deal_specific.deal_value_euro_f) %>)
+                        <% when "uk" %>
+                            n/d (<%= show_confidential_value_range(@deal_specific.deal_value_uk_f) %>)
+                        <% when "us" %>
+                            n/d (<%= show_confidential_value_range(@deal_specific.deal_value_us_f) %>)
+                        <% when "yen" %>
+                            n/d (<%= show_confidential_value_range(@deal_specific.deal_value_yen_f) %>)
+                        <% else %>
+                            nd
+                        <% end %>
+                    <% else %>
+ <% case (params[:deals] !=nil && params[:deals][:currency] !=nil && params[:deals][:currency] || session[:currency] || CURRENCY_SEND[@user.currency.name]) %>
+                        <% when "euro" %>
+                            <%= number_with_precision(@deal_specific.deal_value_euro_f.blank? ? "n/d" : @deal_specific.deal_value_euro_f, :precision => 2, :delimiter => ',') %>
+                        <% when "uk" %>
+                            <%= number_with_precision(@deal_specific.deal_value_uk_f.blank? ? "n/d" : @deal_specific.deal_value_uk_f, :precision => 2, :delimiter => ',') %>
+                        <% when "us" %>
+                            <%= number_with_precision(@deal_specific.deal_value_us_f.blank? ? "n/d" : @deal_specific.deal_value_us_f, :precision => 2, :delimiter => ',') %>
+                        <% when "yen" %>
+                            <%= number_with_precision(@deal_specific.deal_value_yen_f.blank? ? "n/d" : @deal_specific.deal_value_yen_f, :precision => 2, :delimiter => ',') %>
+                        <% else %>
+                            nd
+                        <% end %>
+                    <% end %>
+                    <%= @deal_specific.deal_type_forecast.eql?(true) ? "est" : nil %>
+                <% end %>
+                <!-- currency based -->
+                <% end %><!-- td -->
+            <% end %><!-- tr -->
+        <!-- Announced Deal Value -->
+        <!-- Equity value -->
+
+                        <%if !codirect.commitment.blank? and !codirect.blank? %>
+
+                            <%= content_tag(:td,"#{codirect.commitment}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                            <%@codirect << codirect.commitment %>
+
+
+                        <% else %>
+                            <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                            <%@codirect << "n/d"%>
+                        <% end %>
+
+
+<% if !equity.try(:amount).blank? && equity.try(:amount).to_f != 0  %>
+                      <%= content_tag (:td), :class => "bdr_left bdr_btm white_bg", :style => "vertical-align:middle", :align => "right" do %>
+                          <% if !equity.confidential.blank? && equity.confidential.eql?("true") %>
+                              n/d
+                          <% else %>
+                              <% cram = CurrencyExchange.get_other_currency_rates(equity.amount.to_f, equity.currency, @deal.deal_specific.deal_announced.blank? ? Date.today : @deal.deal_specific.deal_announced.beginning_of_month) %>
+                              <%= number_with_precision(cram[(session[:currency] || CURRENCY_SEND[@user.currency.name]).to_sym], :precision => 2, :delimiter => ',') %>
+                          <% end %>
+                      <% end %>
+                  <% else %>
+                      <%= content_tag(:td, "n/d", :align => "right", :class => "bdr_left bdr_btm white_bg", :style => "vertical-align:middle") %>
+                  <% end %>
+
+
+
+
+                        <%if !codirect.commitment.blank? and !codirect.blank? %>
+
+                            <%= content_tag(:td,"#{codirect.commitment}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                            <%@codirect << codirect.commitment %>
+
+
+                        <% else %>
+                            <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                            <%@codirect << "n/d"%>
+                        <% end %>
+
+
+
+ActiveRecord::Migration.add_column :codirect, :commitement_value_yen, :float
+
+ActiveRecord::Migration.add_column :fund_performances, :currency_id, :integer
+

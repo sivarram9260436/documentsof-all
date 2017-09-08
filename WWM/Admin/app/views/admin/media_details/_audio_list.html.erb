@@ -1,0 +1,86 @@
+<div class="box_image_search">
+	<div class="image_video_manager" >
+		<%if audio_list !=[] %>
+            <%audio_list.collect do |audio| %>      
+            <div class="align_audio">      
+            <div class="media_below_image_for_loop" id="image_details_list_<%=audio.id%>">
+            </div>  
+                 <%if @flag%>
+                            <%=link_to image_tag("/images/music.png",:width=>'60',:height=>'60') ,"javascript:void(0);",:id=>audio.id,:class =>"insert_audio","data-audioid" => audio.id,"data-audioname" => audio.name%>
+       	                    <%=link_to (audio.name.length > 12 ? audio.name[0..12] : audio.name),"javascript:void(0);",:id=>audio.id,:class =>"insert_audio","data-audioid" => audio.id,"data-audioname" => audio.name%>
+	                   	    <%=link_to ("Insert"),"javascript:void(0);",:id=>audio.id,:class =>"insert_audio","data-audioid" => audio.id,"data-audioname" => audio.name%>														
+                    <%else%>	                    
+		                	<%=link_to image_tag("/images/music.png",:width=>'60',:height=>'60') ,:action=>"audio_download",:controller=>"media_details",:id=>audio.id,:path=>audio.audio_path,:name=>audio.name%>
+	                		<%=link_to (audio.name.length > 12 ? audio.name[0..12]+"..." : audio.name) ,{:action=>"audio_download",:controller=>"media_details",:id=>audio.id,:path=>audio.audio_path,:name=>audio.name}, audio.name.length > 12 ? {:title=>audio.name} : {} %> 	                   
+                    <%end%>
+                    <% if params[:action]=="audio"%>
+                      <%if params[:flag]!="popup"%>
+                        <p class="edit_download_buttons">
+                      
+                        	
+                       <a href="javascript:void(0);" onclick="javascript:audio_details(<%=audio.id%>);">Edit</a></p>
+                       <%end%>
+                   <%end%>
+			  </div>	
+
+            <%end %>
+          
+	    <%else %>
+	        No Audio Found
+	    <%end %>
+	 </div>
+</div>
+
+<!--<div class="columnLeft" id="audio_detail">
+</div>-->
+<script type="text/javascript">
+function audio_details(audio_id){
+pars = "audio_id=" +audio_id;
+jQuery.ajax({
+type: 'POST',
+data: pars,
+url:'/admin/media_details/edit_audio_detail',
+success: function(data){
+jQuery("#upload").html(data);
+ }
+});
+}
+</script>
+<script type="text/javascript">
+jQuery('.insert_audio').live("click",function(){
+	confirmed = window.confirm("Do you want to upload this audio");
+if (confirmed) 
+{
+var id=$(this).attr("id");
+var audio_id=$("#"+id).data('audioid');
+var audio_name=$("#"+id).data('audioname');
+var img_pre='<img width=100 height=80 src=/images/music.png  alt=no_image_available /><div>'+audio_name+'</div>';
+window.opener.$('#prev_audio').show();
+window.opener.$('#prev_audio').html(img_pre);
+window.opener.$('#add_audio').hide();
+window.opener.$('#no_audio').hide();
+window.opener.$('#no_audio1').hide();
+window.opener.$('#no_audio_div').hide();
+window.opener.$('#no_aid').show();
+//window.opener.$('#add_audio').show();
+window.opener.$('#article_audio_id').val(audio_id);
+parent.close();
+}else{
+	return false;
+}
+});
+</script>
+
+
+<style type="text/css">
+.tab_manager {   float: left;    margin: 10px;    width: 960px;}
+.box_image_search {float: left;    padding: 20px 10px;    width: 960px;}
+.image_video_manager {float:left;width:100%;}
+.image_video_manager .align_audio {border: 1px solid #CCCCCC;    float: left;    height: 125px;    margin-bottom: 10px;    margin-right: 20px;    text-align: center;    width: 135px; padding: 10px 0;}
+.edit_download_buttons {padding-top:10px;  }
+.media_below_image_for_loop {font-size:1.2em;color:#000;padding-bottom:5px;}
+.edit_download_buttons a {padding-right:30px;text-align:left;}
+.edit_download_buttons a:last-child {text-align:right;padding-right:0px;}
+</style>
+
+

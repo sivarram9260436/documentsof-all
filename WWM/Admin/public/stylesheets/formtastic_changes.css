@@ -1,0 +1,59 @@
+/* -------------------------------------------------------------------------------------------------
+
+Load this stylesheet after formtastic.css in your layouts to override the CSS to suit your needs.
+This will allow you to update formtastic.css with new releases without clobbering your own changes.
+
+For example, to make the inline hint paragraphs a little darker in color than the standard #666:
+
+form.formtastic fieldset > ol > li p.inline-hints { color:#333; }
+
+HINT:
+The following style may be *conditionally* included for improved support on older versions of IE(<8)
+form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
+
+--------------------------------------------------------------------------------------------------*/
+.content_block legend {float:left;width:18%;}
+.content_block ol {float:right;width:296px;}
+.content_block label {width:22%;float:left;}
+.content_block input {width:296px;}
+.content_block .hasDatepicker {width: 200px !important;}
+.content_block {list-style-type:none;padding-bottom:5px !important;}
+.content_block li{list-style-type:none;padding-bottom:5px !important;}
+.tag_cancel {width:100px;}
+.tag_submit {width:100px;}
+#cancel_rolw {width:100px;
+              background: url("/images/new_button/button_right_bg.jpg") no-repeat scroll right center transparent;
+    border: medium none;
+    color: #FFFFFF;
+    font-size: 1em;
+    font-weight: bold;
+    margin-left: 3px;
+    padding: 7px 10px 7px 4px;}
+#new_role {  background: url("/images/new_button/button_right_bg.jpg") no-repeat scroll right center transparent;
+    border: medium none;
+    color: black;
+    font-size: 1em;
+    font-weight: bold;
+    margin-left: 3px;
+    padding: 7px 10px 7px 4px;}
+.create {background: url("/images/new_button/button_right_bg.jpg") no-repeat scroll right center transparent;
+    border: medium none;
+    color: #FFFFFF;
+    font-size: 1em;
+    font-weight: bold;
+    margin-left: 3px;
+    padding: 7px 10px 7px 4px;}
+.update {background: url("/images/new_button/button_right_bg.jpg") no-repeat scroll right center transparent;
+    border: medium none;
+    color: #FFFFFF;
+    font-size: 1em;
+    font-weight: bold;
+    margin-left: 3px;
+    padding: 7px 10px 7px 4px;}
+.submit {background: url("/images/new_button/button_right_bg.jpg") no-repeat scroll right center transparent;
+    border: medium none;
+    color: #FFFFFF;
+    font-size: 1em;
+    font-weight: bold;
+    margin-left: 3px;
+    padding: 7px 10px 7px 4px;}

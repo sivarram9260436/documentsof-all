@@ -1,0 +1,181 @@
+/home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/_chart.html.erb
+
+
+ def get_equity_value
+    @total_avg_investor_value = InvestorGroup.total_avg_value_for_standard_investor_search(params)
+render :partial => "/equity_debt/partials/equity_debt_custom_total"
+  end
+
+
+////////////Started POST "/equitydebt/generate_chart" for 127.0.0.1 at 2017-07-31 12:24:46 +0530
+Processing by Wps::UqEquityDebtController#generate_chart as HTML
+  Parameters: {"path"=>"deal", "2D Column"=>nil, "Xaxis"=>"Country", "Yaxis"=>"Volume", "MultyYaxis"=>"undefined", "ChartTitle"=>"", "utf8"=>"✓", "authenticity_token"=>"xgtaQHhxvCg1OL6aMzfSwhlkPhySCO3Jt8QRqkJ7ybk=", "equitydebt"=>{"unverified"=>"Pending QC", "investor_group"=>"", "fund_type"=>"", "deal_type"=>"", "country"=>"", "start_month"=>"", "start_year"=>"", "end_month"=>"", "end_year"=>"", "value_from"=>"12", "value_to"=>"233", "sector_type"=>"", "keyword"=>"", "investor_group_value"=>"", "fund_type_value"=>"", "deal_type_value"=>"", "country_name"=>"", "sector_type_value"=>"", "deal_value_from_search"=>"Deal Value From = 12", "deal_value_to_search"=>"Value To = 233", "currency"=>"euro"}, "investor_profile_id"=>"", "source"=>"investor_search", "sort"=>"group_name_sort", "order"=>"asc", "search_type"=>"standard_search", "search_id"=>"119943", "adv_val"=>"1,568,111.90", "adv_avg_val"=>"53.71", "search_query_display"=>"Deal Value From = 12 AND Value To = 233", " "=>"1"}
+========search_sort====="trim(lower(investor_name))"==========
+========search_order====="ASC"==========
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/_chart_json_volume.js.erb (74.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/_result_params.html.erb (3.8ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/_chart_table.html.erb (30.1ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/_chart_result_right.html.erb (1.6ms)
+  Rendered /home/ruby/Unquote_data/Sites/unquote_data_site/views/equity_debt/partials/_chart_result.html.erb (524.9ms)
+Completed 200 OK in 4376ms (Views: 468.3ms | ActiveRecord: 437.7ms | Solr: 3435.9ms)
+
+
+
+ def generate_chart
+    search_params = params.dup
+    inv_deal_standard_chart
+
+    SubscriberLog.create(:search_params => search_params, :entity_type => "InvestorGroup", :subscriber_id => session[:user_id], :search_type => "standard_search", :log_type => "chart")
+
+    render :partial => "/equity_debt/partials/chart_result"
+  end
+
+
+
+                                                <option value="IG_cntry" data-fill="IG_cntry" >Investor group country of origin</option>
+deals/partials/chart_result
+
+
+    render :partial => "deals/partials/chart_result"
+
+
+
+
+        :Target_country => "target_country",
+
+
+:turnover_euro_conf => ab.turnover_euro_conf_export
+:target_country => ab.target_country_export
+
+ActiveRecord::Migration.add_column :deal_export_data, :target_country, :string
+
+
+ExportDataMigration.deal_export
+
+
+def get_country_json
+        @continents = Continent.where(:name => "Europe")
+        @regions = Region.all
+        @sub_regions = SubRegion.all
+        @countries = Country.all
+        render :partial => "deals/partials/target_country_json"
+  end
+
+
+
+
+<%= content_tag (:fieldset) do %>
+            <%= content_tag(:legend, "Country", :style => "width:75px;") %>
+            <%= text_field_tag 'deals[country_name]', '', :id => "Country_Type", :class => 'uploadlist tooltip', :title => "Click on Edit to select value", :readonly => "readonly" %>
+            <input id="countryTrigger" title="Country" class="input_btn thickbox editAjaxone" value="Edit" type="button" data-jsonUrl="/deals/get_country_json" data-dropdown="#continentList" data-updateJson="#country_json" data-model="#country">
+            <%= hidden_field_tag 'deals[country]', '', :id => 'Country_Type1', :readonly => "readonly", :class => "" %>
+        <% end %>
+
+
+
+
+<input id="countryTrigger" title="Country" class="input_btn thickbox editAjaxone" value="Edit" data-jsonurl="/deals/get_country_json" data-dropdown="#continentList" data-updatejson="#country_json" data-model="#country" type="button">
+
+
+<input id="countryTrigger" title="Country" class="input_btn thickbox editAjaxone" value="Edit" data-jsonurl="/deals/get_target_country_json" data-dropdown="#continentList" data-updatejson="#country_json" data-model="#country" type="button">
+
+
+
+ if node[:field] == :IG_cntry
+        if node[:operator] == :in || node[:operator] == :"not in"
+          node = {
+              :sql_fragment => "con.name #{node[:operator]} (?)",
+              :params => [node[:value]]
+          }
+        else
+          node = {
+              :sql_fragment => "con.name #{node[:operator]} ?",
+              :params => [node[:value]]
+          }
+        end
+      end
+
+../Sites/unquote_data_site/views/funds/partials/_country.html.erb
+   :IG_cntry => :inv_country_name,
+
+../Sites/unquote_data_site/views/deals/partials/_target_country.html.erb
+
+<%= render :partial => "/deals/partials/target_country" %>
+
+<%= render :partial => "/common/country" %>
+
+/Sites/unquote_data_site/views/deals/partials/_target_country.html.erb
+
+    :EBIT => :ebit,
+
+
+
+
+
+
+
+
+
+
+
+
+
+var fillSubRegion_Country_onRegionClick = function(){
+        $('#subregionList,#countryList').empty();
+        $('#regionList option:selected').each(function(){
+                if (checkExistance(regionWithSubRegion,$(this).attr('value')) == "true"){
+                        fillSubRegion(Region_SubRegion[$(this).attr('value')]);
+                }
+        });
+        $('#regionList option:selected').each(function(){
+                fillCountry(Region_country[$(this).attr('value')]);
+        });
+        showOptionsSelected("subregionList");
+        showOptionsSelected("countryList");
+}
+
+var showOptionsSelected = function(select_dropdown){
+        $('#'+select_dropdown+' option').attr('selected','selected')
+}
+
+var fillSubRegion_Country = function(){
+        $('#countryList').empty()
+        $('#subregionList option:selected').each(function(){
+                fillCountry(SubRegion_Country[$(this).attr('value')]);
+        });
+        showOptionsSelected("countryList");
+}
+
+
+
+
+
+
+var fillSubRegion_Country_onRegionClick = function(){
+        $('#subregionList,#countryList').empty();
+        $('#regionList option:selected').each(function(){
+                if (checkExistance(regionWithSubRegion,$(this).attr('value')) == "true"){
+                        fillSubRegion(Region_SubRegion[$(this).attr('value')]);
+                }
+        });
+        $('#regionList option:selected').each(function(){
+                fillCountry(Region_country[$(this).attr('value')]);
+        });
+        showOptionsSelected("subregionList");
+        showOptionsSelected("countryList");
+}
+
+var showOptionsSelected = function(select_dropdown){
+        $('#'+select_dropdown+' option').attr('selected','selected')
+}
+
+var fillSubRegion_Country = function(){
+        $('#countryList').empty()
+        $('#subregionList option:selected').each(function(){
+                fillCountry(SubRegion_Country[$(this).attr('value')]);
+        });
+        showOptionsSelected("countryList");
+}
+
+
+

@@ -1,0 +1,86 @@
+<div class="section_block">
+	       <div class="validation_box">
+				<%= raw error_messages(contact_detail)%>
+			</div>
+	
+	<div class="section_content">
+		<% new_or_existing = contact_detail.new_record? ? 'new' : 'existing' %>
+		<% prefix = "directory_listing[#{new_or_existing}_contact_details][]" %>
+
+		<div class="right_label">
+			<a onclick="javascript:$(this).parents('.section_block').remove();" href="javascript:void(0);" style="float:right;"> <%= image_tag("/images/cancel_f2.png",:height=>"15",:alt=>"Remove" )%> </a>
+		</div>
+		<%= fields_for prefix, contact_detail do |qf| %>
+
+		<div class="form_data new_contact_form">
+			<label for="directory_listing_new_contact_details__name">Contact Name:</label>
+			<%= qf.text_field 'name',:class=>'input_text',:size=>30 %>
+		</div>
+		<div class="form_data">
+			<label for="directory_listing_new_contact_details__primary">Primary:</label>
+			<%= qf.check_box :primary,{},1,0 %>
+		</div>
+		<div class="form_data">
+			<label for="directory_listing_new_contact_details__email">Email<span>*</span>:</label>
+			<%= qf.text_field 'email',:class=>'input_text',:size=>30 %>
+		</div>
+		<div class="form_data">
+			<label for="directory_listing_new_contact_details__phone_number">Phone Number<span>*</span>:</label>
+			<%= qf.text_field 'phone_number',:class=>'input_text',:size=>30 %>
+		</div>
+		<div class="form_data">
+			<label for="directory_listing_new_contact_details__pr_contact">Pr Contact:</label>
+			<%= qf.text_field 'pr_contact',:class=>'input_text',:size=>30 %>
+		</div>
+		<div class="form_data">
+			<label for="directory_listing_new_contact_details__pr_email">Pr Email:</label>
+			<%= qf.text_field 'pr_email',:class=>'input_text',:size=>30 %>
+		</div>
+		<div class="form_data">
+			<label for="directory_listing_new_contact_details__pr_number">Pr Number:</label>
+			<%= qf.text_field 'pr_number',:class=>'input_text',:size=>30 %>
+		</div>
+		<div class="form_data">
+			<label for="directory_listing_new_contact_details__fax_number">Fax Number:</label>
+			<%= qf.text_field 'fax_number',:class=>'input_text',:size=>30 %>
+		</div>
+		<div class="form_data">
+			<label for="directory_listing_new_contact_details__website_name">Web Address:</label>
+			<%= qf.text_field 'website_name',:class=>'input_text',:size=>30 %>
+		</div>
+		<div class="form_data">
+			<%= qf.label 'address1', 'Address Line 1 / Building' %>
+			<%= qf.text_field 'address1', :class=>'input_text' %>
+		</div>
+		<div class="form_data">
+			<%= qf.label 'address2', 'Address Line 2 / Street' %>
+			<%= qf.text_field 'address2', :class=>'input_text' %>
+		</div>
+		<div class="form_data">
+			<%= qf.label 'address3', 'Address Line 3 / City' %>
+			<%= qf.text_field 'address3', :class=>'input_text' %>
+		</div>
+		<div class="form_data">
+			<%= qf.label 'address4', 'Address Line 4 / Country' %>
+			<%= qf.text_field 'address4', :class=>'input_text' %>
+		</div>
+		<div class="form_data">
+			<%= qf.label 'address5', 'Address Line 5' %>
+			<%= qf.text_field 'address5', :class=>'input_text' %>
+		</div>
+		<div class="form_data">
+			<%= qf.label 'country', 'Country' %>
+			<%= qf.text_field 'country', :class=>'input_text' %>
+		</div>
+		<div class="form_data">
+			<%= qf.label 'post_code','Post Code' %>
+			<%= qf.text_field 'post_code', :class=>'input_text' %>
+		</div>
+		<!--/div-->
+
+		<% end %>
+	</div>
+</div>
+</div>
+
+

@@ -1,0 +1,248 @@
+
+
+
+Unquote data
+
+
+
+Started POST "/institutions/download_as_csv" for 127.0.0.1 at 2016-11-29 17:24:11 +0530
+Processing by InstitutionsController#download_as_csv as JSON
+  Parameters: {"status"=>"all", "order"=>"", "sort"=>"", "okcancel"=>"true"}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd10xxxxxxxxxxxxxfalse
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd2265xxxxxxxxxxxxxfalse
+Completed 200 OK in 898ms (Views: 0.4ms | ActiveRecord: 92.3ms | Solr: 395.4ms)
+
+
+////////////Started POST "/institutions/download_as_csv" for 127.0.0.1 at 2016-11-29 13:11:47 +0530
+Processing by InstitutionsController#download_as_csv as JSON
+  Parameters: {"status"=>"all", "order"=>"", "sort"=>"", "okcancel"=>"true"}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd10xxxxxxxxxxxxxfalse
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd2265xxxxxxxxxxxxxfalse
+Completed 200 OK in 1126ms (Views: 0.5ms | ActiveRecord: 486.9ms | Solr: 245.6ms)
+Started POST "/get_export_status" for 127.0.0.1 at 2016-11-29 13:11:54 +0530
+Processing by UqLoginController#get_export_status as */*
+  Parameters: {"id"=>"58315f8a79e6c0aa2ea18d4e"}
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 2.2ms | Solr: 0.0ms)
+Started POST "/get_export_status" for 127.0.0.1 at 2016-11-29 13:11:59 +0530
+Processing by UqLoginController#get_export_status as */*
+  Parameters: {"id"=>"58315f8a79e6c0aa2ea18d4e"}
+Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 3.4ms | Solr: 0.0ms)
+Started POST "/get_export_status" for 127.0.0.1 at 2016-11-29 13:12:04 +0530
+Processing by UqLoginController#get_export_status as */*
+  Parameters: {"id"=>"58315f8a79e6c0aa2ea18d4e"}
+Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 3.8ms | Solr: 0.0ms)
+Started POST "/get_export_status" for 127.0.0.1 at 2016-11-29 13:12:09 +0530
+Processing by UqLoginController#get_export_status as */*
+  Parameters: {"id"=>"58315f8a79e6c0aa2ea18d4e"}
+Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 3.9ms | Solr: 0.0ms)
+Started POST "/get_export_status" for 127.0.0.1 at 2016-11-29 13:12:14 +0530
+Processing by UqLoginController#get_export_status as */*
+  Parameters: {"id"=>"58315f8a79e6c0aa2ea18d4e"}
+Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 3.2ms | Solr: 0.0ms)
+Started POST "/get_export_status" for 127.0.0.1 at 2016-11-29 13:12:20 +0530
+Processing by UqLoginController#get_export_status as */*
+  Parameters: {"id"=>"58315f8a79e6c0aa2ea18d4e"}
+Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 2.9ms | Solr: 0.0ms)
+Started POST "/get_export_status" for 127.0.0.1 at 2016-11-29 13:12:25 +0530
+Processing by UqLoginController#get_export_status as */*
+  Parameters: {"id"=>"58315f8a79e6c0aa2ea18d4e"}
+Completed 200 OK in 6ms (Views: 0.3ms | ActiveRecord: 2.6ms | Solr: 0.0ms)
+Started POST "/get_export_status" for 127.0.0.1 at 2016-11-29 13:12:30 +0530
+Processing by UqLoginController#get_export_status as */*
+  Parameters: {"id"=>"58315f8a79e6c0aa2ea18d4e"}
+Completed 200 OK in 8ms (Views: 0.4ms | ActiveRecord: 3.4ms | Solr: 0.0ms)
+Started POST "/get_export_status" for 127.0.0.1 at 2016-11-29 13:12:35 +0530
+Processing by UqLoginController#get_export_status as */*
+  Parameters: {"id"=>"58315f8a79e6c0aa2ea18d4e"}
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 2.0ms | Solr: 0.0ms)
+Started POST "/get_export_status" for 127.0.0.1 at 2016-11-29 13:12:41 +0530
+Processing by UqLoginController#get_export_status as */*
+  Parameters: {"id"=>"58315f8a79e6c0aa2ea18d4e"}
+Completed 200 OK in 8ms (Views: 0.4ms | ActiveRecord: 3.7ms | Solr: 0.0ms)
+Started POST "/get_export_status" for 127.0.0.1 at 2016-11-29 13:12:46 +0530
+Processing by UqLoginController#get_export_status as */*
+  Parameters: {"id"=>"58315f8a79e6c0aa2ea18d4e"}
+Completed 200 OK in 9ms (Views: 0.4ms | ActiveRecord: 4.1ms | Solr: 0.0ms)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===========================================================================================
+
+  def download_as_csv
+    case params[:status]
+      when "all"
+        total_count = InstitutionCompanyInfo.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }}).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+      when "new-records"
+        total_count = InstitutionCompanyInfo.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :gt_filters => {:created_at => Time.zone.now.beginning_of_day - 3.months} }).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :not_by_filters => { :status_name => [["Delete"], "ary"] }, :gt_filters => {:created_at => Time.zone.now.beginning_of_day - 3.months}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+      when "pending-qc"
+        total_count = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Pending QC"],"ary"]}}).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Pending QC"],"ary"]}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+      when "failed"
+        total_count = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Failed"],"ary"]}}).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Failed"],"ary"]}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+      when "verify-qc"
+        total_count = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Save & Verified"],"ary"]}}).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Save & Verified"],"ary"]}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+      when "helpdesk"
+ total_count = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Helpdesk"],"ary"]}}).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Helpdesk"],"ary"]}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+     when "archive"
+         total_count = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Archive"],"ary"]}}).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Archive"],"ary"]}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+      when "unverified"
+         total_count = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Unverified"],"ary"]}}).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Unverified"],"ary"]}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+       when "deleted"
+        total_count = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Delete"],"ary"]}}).total
+        @institutions = InstitutionCompanyInfo.text_search({ :text => "", :filters => {:status_name=> [["Delete"],"ary"]}, :dy_sort => params[:sort].blank? ? {:updated_at => :desc} : {params[:sort].strip.to_sym => params[:order].strip.to_sym}, :page => 1, :per_page => (total_count == 0 ? 1 : total_count) }).raw_results
+    end
+      work_book_path = "excel_exports/Report#{Time.zone.now.strftime("%Y%m%d%H%M%S%6N")}.xlsx"
+      delay_job = InstitutionCompanyInfo.delay.search_institution_export_wdxlsx(@institutions.map(&:primary_key), work_book_path, params[:okcancel],session[:user_id])
+      render :json => { :status => "pending", :id => "#{delay_job}, #{work_book_path}" }
+  end
+
+
+
+===========================================================================================
+
+
+
+
+
+//////////////////Started GET "/institutions/list_institutions" for 127.0.0.1 at 2016-11-29 17:47:12 +0530
+Processing by InstitutionsController#list_institutions as HTML
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd10xxxxxxxxxxxxxfalse
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd0xxxxxxxxxxxxxfalse
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd10xxxxxxxxxxxxxfalse
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd10xxxxxxxxxxxxxfalse
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd10xxxxxxxxxxxxxfalse
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd0xxxxxxxxxxxxxfalse
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd10xxxxxxxxxxxxxfalse
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd0xxxxxxxxxxxxxfalse
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd10xxxxxxxxxxxxxfalse
+  Rendered institutions/list_institutions.html.erb within layouts/application (105.8ms)
+  Rendered unquote/_css_image.html.erb (1.7ms)
+  Rendered unquote/_investor_source_menu.html.erb (2.2ms)
+Completed 200 OK in 127ms (Views: 71.5ms | ActiveRecord: 9.4ms | Solr: 41.1ms)
+
+
+===========================================================================================
+
+
+
+Started POST "/get_export_status" for 127.0.0.1 at 2016-11-30 11:48:31 +0530
+Processing by UqLoginController#get_export_status as */*
+  Parameters: {"id"=>"358411fa3842820a45d90090"}
+Completed 200 OK in 8ms (Views: 0.3ms | ActiveRecord: 3.9ms | Solr: 0.0ms)
+
+================================================================================================
+
+
+
+Started GET "/institutions/institution_search?status=all" for 127.0.0.1 at 2016-11-30 11:52:43 +0530
+Processing by InstitutionsController#institution_search as HTML
+  Parameters: {"status"=>"all"}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd20xxxxxxxxxxxxxfalse
+  Rendered institutions/institution_search.html.erb within layouts/application (1470.3ms)
+  Rendered unquote/_css_image.html.erb (1.9ms)
+  Rendered unquote/_secondary_menu_investor.html.erb (3.8ms)
+  Rendered unquote/_investor_source_menu.html.erb (6.2ms)
+Completed 200 OK in 1512ms (Views: 850.9ms | ActiveRecord: 641.6ms | Solr: 7.4ms)
+Started POST "/institutions/download_as_csv" for 127.0.0.1 at 2016-11-30 11:52:59 +0530
+Processing by InstitutionsController#download_as_csv as JSON
+  Parameters: {"status"=>"all", "order"=>"", "sort"=>"", "okcancel"=>"false"}
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd10xxxxxxxxxxxxxfalse
+DDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd2265xxxxxxxxxxxxxfalse
+Completed 200 OK in 1759ms (Views: 0.5ms | ActiveRecord: 102.2ms | Solr: 288.4ms)
+Started POST "/get_export_status" for 127.0.0.1 at 2016-11-30 11:53:04 +0530
+Processing by UqLoginController#get_export_status as */*
+  Parameters: {"id"=>"b09361865bca4e51c59a1889"}
+Completed 200 OK in 8ms (Views: 0.4ms | ActiveRecord: 3.9ms | Solr: 0.0ms)
+Started POST "/get_export_status" for 127.0.0.1 at 2016-11-30 11:53:09 +0530
+Processing by UqLoginController#get_export_status as */*
+  Parameters: {"id"=>"b09361865bca4e51c59a1889"}
+Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 3.5ms | Solr: 0.0ms)
+Started POST "/get_export_status" for 127.0.0.1 at 2016-11-30 11:53:14 +0530
+Processing by UqLoginController#get_export_status as */*
+  Parameters: {"id"=>"b09361865bca4e51c59a1889"}
+Completed 200 OK in 9ms (Views: 0.5ms | ActiveRecord: 4.0ms | Solr: 0.0ms)
+Started POST "/get_export_status" for 127.0.0.1 at 2016-11-30 11:53:19 +0530
+Processing by UqLoginController#get_export_status as */*
+  Parameters: {"id"=>"b09361865bca4e51c59a1889"}
+Completed 200 OK in 8ms (Views: 0.3ms | ActiveRecord: 3.8ms | Solr: 0.0ms)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+================================================================================================
+
+
+
+Started GET "/institutions/institution_search" for 127.0.0.1 at 2016-11-30 16:59:06 +0530
+Processing by InstitutionsController#institution_search as HTML
+  Rendered institutions/institution_search.html.erb within layouts/application (607.6ms)
+Completed 500 Internal Server Error in 1236ms
+  Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/exception_notification-4.1.1/lib/exception_notifier/views/exception_notifier/_request.text.erb (1.2ms)
+  Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/exception_notification-4.1.1/lib/exception_notifier/views/exception_notifier/_title.text.erb (0.4ms)
+  Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/exception_notification-4.1.1/lib/exception_notifier/views/exception_notifier/_session.text.erb (1.1ms)
+  Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/exception_notification-4.1.1/lib/exception_notifier/views/exception_notifier/_title.text.erb (0.1ms)
+  Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/exception_notification-4.1.1/lib/exception_notifier/views/exception_notifier/_environment.text.erb (2.1ms)
+  Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/exception_notification-4.1.1/lib/exception_notifier/views/exception_notifier/_title.text.erb (0.1ms)
+  Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/exception_notification-4.1.1/lib/exception_notifier/views/exception_notifier/_backtrace.text.erb (0.4ms)
+  Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/exception_notification-4.1.1/lib/exception_notifier/views/exception_notifier/_title.text.erb (0.1ms)
+  Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p125@unquote/gems/exception_notification-4.1.1/lib/exception_notifier/views/exception_notifier/exception_notification.text.erb (18.5ms)
+
+Sent mail to kannan@kreatio.com, abhishek@kreatio.com (398ms)
+
+ActionView::Template::Error (undefined method `results' for nil:NilClass):
+    154:     <% end %><!--categories-->
+    155:   <% end %> <!--refine-search-->
+    156: <% end %> <!--search-result-->
+    157: <%= will_paginate @institutions.results, { :previous_label => "" ,:next_label => "" ,:inner_window => "2"} %>
+  app/views/institutions/institution_search.html.erb:157:in `_app_views_institutions_institution_search_html_erb___1508168052700824211_126465340'
+
+
+
+
+
+
+

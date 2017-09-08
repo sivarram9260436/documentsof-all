@@ -1,0 +1,395 @@
+<script type="text/javascript">
+	jQuery("#format_static").click(function() {
+		var radio_text = jQuery("input:radio:checked").val();
+		var url = location.href
+		var article_id = parseInt(url.split('/')[url.split('/').length - 1]);
+		jQuery.ajax({
+			type : 'GET',
+			data : "radio_text=" + radio_text + ";" + "article_id=" + article_id,
+			dataType : 'html',
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+			},
+			url : '/admin/static_page/select_fragment',
+			success : function(update_data) {
+				jQuery("#static_update").html(update_data);
+				execute_tinymce();
+			}
+		});
+	});
+
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var radio_text = jQuery("input:radio:checked").val();
+		var url = location.href
+		var article_id = parseInt(url.split('/')[url.split('/').length - 1]);
+		jQuery.ajax({
+			type : 'GET',
+			data : "radio_text=" + radio_text + ";" + "article_id=" + article_id,
+			dataType : 'html',
+			beforeSend : function(xhr) {
+				xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+			},
+			url : '/admin/static_page/select_fragment',
+			success : function(update_data) {
+				jQuery("#static_update").html(update_data);
+				execute_tinymce();
+			}
+		});
+	});
+
+</script>
+<div id="container" style="padding-top: 20px;">
+	<div class="section_block full_section">
+		<h2><%= @page_properties[:menu_title] %></h2>
+		
+			<% if @article_content and @article.created_at %>
+        <div class="article_author_box edit_article">
+          <p class="author_description">
+            <span class="fontbold">Created:</span>
+            <%= @article.created_at.strftime("%d.%m.%y") %> at <%= @article.created_at.strftime("%H:%M") %>
+            <span class="settextcolor">
+        <% if @article.created_by %>
+          by <%= "#{User.find(@article.created_by).firstname} #{User.find(@article.created_by).lastname}" %>.
+        <% else %>
+            <% article_author=@article.authors.first %>
+                  <% if article_author!=nil %>
+                  by  <%= "#{article_author.firstname} #{article_author.lastname}" %>.
+             <% end %>
+        <% end %>
+        </span>
+
+            <span class="fontbold">Last modified:</span>
+            <%= @article.updated_at.strftime("%d.%m.%y") if @article.updated_at %>
+            at <%= @article.updated_at.strftime("%H:%M") if @article.updated_at %> <span class="settextcolor">
+        <% if @article.updated_by %>
+           by <%= "#{User.find(@article.updated_by).firstname} #{User.find(@article.updated_by).lastname}" %>.
+        <% else %>
+           <% article_author=@article.authors.first %>
+                <% if article_author!=nil %>
+                 by   <%= "#{article_author.firstname} #{article_author.lastname}" %>.
+             <% end %>
+        <% end %>
+        </span>
+          </p>
+        </div>
+    <% end %>
+		
+		
+		
+		<div class="article_new_main">
+			<%= semantic_form_for  ([:admin,@article]),:method => "post",:html =>{:name =>"static_article"} do |f| %>
+			<%= hidden_field "article","site_ids",:value=>@site.id %>
+			<%= hidden_field :article_static,:path, :value=>params[:article_path]%>
+			<%= hidden_field :article,:section_id, :value=>Section.find_by_name('static-fragment').id%>
+			<%= hidden_field_tag :section_type,'static-fragment'%>
+			<%if(!@article.new_record? or params[:id])%>
+			<%= hidden_field "article","id",:value=>(@article.id||params[:id]) %>
+			<%end%>
+			<div class="article_top_links">
+				<%= render :partial => '/admin/static_page/create_edit_buttons'%>
+			</div>
+			<div class="validation_box">
+				<%= raw error_messages_sorted(@article)%>
+			</div>
+			
+					<div class="article_main_section">
+						<div class="article_left_section">
+							<!--<div class="article_form_section">-->
+							<div class="form_data">
+								<label for="article_title">Fragment Name <span>*</span>:</label>
+								<%= text_field 'article', 'title',:class=>'input_text',:size=>30,:flash=>true %>
+							</div>
+							<%=hidden_field_tag "entity_type","static-fragment"%>
+							<div class="form_data">
+								<label for="article_sub_title">Heading:</label>
+								<%= text_field 'article', 'sub_title',:class=>'input_text',:size=>30 %>
+							</div>
+							<div class="form_data">
+								<label for="article_fragment_title_text">Title Text:</label>
+								<%= text_field 'article', 'fragment_title_text',:class=>'input_text',:size=>30,:flash=>true %>
+							</div>
+							<div class="form_data">
+								<label for="article_title_url">Title Url:</label>
+								<%= text_field 'article', 'title_url',:class=>'input_text',:size=>30,:flash=>true %>
+							</div>
+							<div class="form_data">
+								<label for="token-input-article_tag_id">Tags:</label>
+								<% selected = ( @article_content and @article_content.tags ).blank? ? Tag.find( ( params[:article] and params[:article][:tag_ids] ).to_a ) : @article_content.tags %>
+								<%= raw autocompletion_field("article_tag",{:selected=> selected, :default_selection=>"Enter the Tag Name"})%>
+							</div>
+							<div class="form_data">
+								<label for="article_description">Text:</label>
+								<%= text_area 'article', 'description', {:rows => 2, :cols => 40,:class=>"textarea_text"} %>
+							</div>
+							<div id="format_static" class="form_data" style="display:none;">
+								<label for="text_head"> Format:</label>
+								  <p class="inner_radio_list">
+									<%if @article.new_record?%>
+									   <%= radio_button_tag 'article[format]',:html,true,:id=>"article_format_html",:class=>"radio_button"%>
+									   <label for="article_format_html">HTML</label> 
+									   <%= radio_button_tag 'article[format]',:plain_text,false,:id=>"article_format_plain_text",:class=>"radio_button"%>
+									   <label for="article_format_plain_text" class="Plain_text_label">Plain Text</label> 
+									<%else%>
+									 	<%= radio_button_tag 'article[format]',:html,(@format_value[0]=="html") ? true : false,:id=>"article_format_html",:class=>"radio_button"  %>
+									 	<label for="article_format_html">HTML</label>
+									 	<%= radio_button_tag 'article[format]',:plain_text,(@format_value[0]=="plain_text") ? true : false,:id=>"article_format_plain_text",:class=>"radio_button" %>
+									 	<label for="article_format_plain_text"class="Plain_text_label">Plain Text</label>
+									<%end%>
+								</p>
+							</div>
+							<div id="inline_static" class="form_data" style="display:none;">
+								<label for="text_head"> Inline Include:</label>
+								
+									<%if @article.new_record?%>
+										<%= check_box_tag 'format[javascript]' ,'javascript',:class=>"radio_button"%>
+										<label for="format_javascript"class="static_javaScript">JavaScript</label>
+										<%= check_box_tag 'format[ruby]' ,'ruby',:class=>"radio_button"%>
+										<label for="format_ruby">Ruby</label>
+									<%else%>
+										<%= check_box 'format[javascript]','javascript',{:class=>"radio_button"},(@format_value[1]=="{\"javascript\"=>\"1\"}") ? {:checked => true} : {:checked => false}  %>
+										<label for="format_javascript"class="static_javaScript">JavaScript</label>
+										<%= check_box 'format[ruby]','ruby',{:class=>"radio_button"},(@format_value[2]=="{\"ruby\"=>\"1\"}")? {:checked => true} : {:checked => false} %>
+										<label for="format_ruby">Ruby</label>
+									<%end%>
+								
+							</div>
+							<div class="form_data">
+								<label for="text_head">Title Image:</label>
+								<div class="article_title_rgt new_upload_img_page">
+									<div class="no_image">
+										<div class="img_block">
+											<% if @article && @article.image %>
+											<div id="no_image">
+												<% @image = @article.image if @article%>
+												<% img=Image.find(:first,:conditions=>["id=?",@article.image.image_id])%>
+												<%= image_tag(img.get_image(80, 80, 'square').image_path, :alt => @image.alt_tag)%>
+											</div>
+											<% end %>
+											<% if !@article %>
+											<div id="no_image">
+												<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+												<img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+											</div>
+											<% end %>
+											<% if @article && !@article.image %>
+											<div id="no_image">
+												<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)" />
+												<img width="100" height="80" src="/images/no_image_available_large.gif" alt="no_image_available"></a>
+											</div>
+											<% end %>
+								 <div id="prev" style="vertical-align:center;width:296px" ></div>
+										</div><!--img_block-->
+										
+									</div><!--no_image-->
+									<div class="article_img_text">
+										<% @image = @article.image if @article%>
+										<%if @image == nil%>
+										<% style = "block"%>
+										<%= hidden_field 'image_property','image_id',:name=>'article[image_property][image_id]' %>
+										<%else%>
+										<% style = "none"%>
+										<%= hidden_field 'image_property','image_id',:value=>@article.image.image_id,:name=>'article[image_property][image_id]' %>
+										<%end%> <div id="prev_image"></div>
+										<% if @article %>
+										<%if @article.image!=nil%>
+										<%if @article.image!=nil and @article.image.image_id!=nil%> <span id="gen_image"> <% img=Image.find(:first,:conditions=>["id=?",@article.image.image_id])%>
+											<%if img and img.thumbnail%>
+											<table>
+												<tr>
+													<td> <%#= image_tag(img.get_image(80, 80, 'square').image_path, :alt => @image.alt_tag)%> </td>
+													<td> caption: </td>
+													<td> <%= img.caption%> </td>
+												</tr>
+											</table> <%end%> </span>
+										<div id="change_link_add_image" style="display:none;">
+											<a href="javascript:void(0);" data-url="/admin/image_details/add_image_from_article?popup=true" onclick="image_popup(this)">Browse my Computer</a>
+										</div>
+										<div id="change_link" style="display:none;">
+											<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Add from Repository</a>
+										</div>
+										<div id="imageset_caption" style="display: block;">
+											Title ImageSet Caption override:
+											<%= text_field "image_property",:class=>"input_text",:value=>@article.image.caption,:name=>'article[image_property][caption]'%>
+										</div>
+										<div id="change_link123" style="display: block;">
+											<a href="javascript:void(0);" class="remove_image" >Remove</a>&nbsp;&nbsp; <a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Change</a>
+											<!-- <a href="/admin/image_details/edit_imageset/?flag=popup&id="  rel="1" class="title_image_newwindow">Edit</a> -->
+										</div>
+										<div id="set_preference" style="display: block;">
+											<a href="javascript:void(0);" onclick="set_preference()">Set ImageSet display preferences</a>
+										</div>
+										<% @image_property = @article.image%>
+										<div id="preference_setup" style="display:none">
+											<div class="image_checkbox">
+												<%= check_box(:image_property,:display_preference,{:id=>"dont_display",:name=>"dont_display"},"hide_image") %><label>Don't display on article page</label>
+											</div>
+											<div class="image_checkbox">
+												<%= check_box(:image_property,:display_preference,{:id=>"cust_img",:name=>"cust_img"},"customise_image") %><label>Customise on article page</label>
+											</div>
+										</div>
+										<div id="image_customise" style="<% if @image_property.display_preference != "customise_image"%>display:none;<%end%>">
+											<div style="margin-bottom:10px;margin-top:10px;">
+												<%= select( 'image_property', 'customise_scenery', ["Landscape","Portrait","Square"],{},:class=>"input_text",:name=>"article[image_property][customise_scenery]") %>
+											</div>
+											<div style="margin-top:10px;">
+												<%= select( 'image_property', 'customise_size', ["Large","Medium","Small"],{},:class=>"input_text",:name=>"article[image_property][customise_size]") %>
+											</div>
+										</div>
+										<%end%>
+										<%else%> <!-- article image not nil -->
+										<div id="change_link_add_image" >
+											<a href="javascript:void(0);" data-url="/admin/image_details/add_image_from_article?popup=true" onclick="image_popup(this)">Browse my Computer</a>
+										</div>
+										<div id="change_link" >
+											<p>
+												<a rel=1 href="javascript:void(0)" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Add from Repository</a>
+											</p>
+										</div>
+										<div id="imageset_caption"  style="display: none;">
+											Title ImageSet Caption override:<%= text_field "image_property","caption",:class=>"input_text",:name=>'article[image_property][caption]'%>
+										</div>
+										<div id="change_link123"  style="display: none;">
+											<a class="remove_image" >Remove</a>&nbsp;&nbsp; <a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Change</a>
+											<!-- <a href="/admin/image_details/edit_imageset/?flag=popup&id="  rel="1" class="title_image_newwindow">Edit</a> -->
+										</div>
+										<div id="set_preference" style="display: none;">
+											<a href="javascript:void(0);" >Set ImageSet display preferences</a>
+										</div>
+										<div id="preference_setup" style="display: none;">
+											<div class="image_checkbox">
+												<%= check_box(:image_property,:display_preference,{:id=>"dont_display",:name=>"dont_display"},"hide_image") %><label>Don't display on article page</label>
+											</div>
+											<div class="image_checkbox">
+												<%= check_box(:image_property,:display_preference,{:id=>"cust_img",:name=>"cust_img"},"customise_image") %><label>Customise on article page</label>
+											</div>
+										</div>
+										<div id="image_customise" style="display:none;">
+											<div style="margin-bottom:10px;margin-top:10px;">
+												<%= select( 'image_property', 'customise_scenery', ["Landscape","Portrait","Square"],{},:class=>"input_text",:name=>"article[image_property][customise_scenery]") %>
+											</div>
+											<div style="margin-top:10px;">
+												<%= select( 'image_property', 'customise_size', ["Large","Medium","Small"],{},:class=>"input_text",:name=>"article[image_property][customise_size]") %>
+											</div>
+										</div>
+										<%end%> <!--<p><a href="/">Add ImageSet</a></p>-->
+										<% else %>
+										<div id="change_link_add_image" >
+											<a href="javascript:void(0);" data-url="/admin/image_details/add_image_from_article?popup=true" onclick="image_popup(this)">Browse my Computer</a>
+										</div>
+										<div id="change_link" >
+											<a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Add from Repository</a>
+										</div>
+										<div id="imageset_caption" style="display:none;">
+											Override the image caption:<%= text_field "image_property","caption",:class=>"textBoxWidth",:name=>'article[image_property][caption]'%>
+										</div>
+										<div id="change_link123" style="display:none;">
+											<a href="javascript:void(0);" onclick="remove_image()">Remove</a>&nbsp;&nbsp; <a href="javascript:void(0);" data-url="/admin/image_details/imageset_list?popup=true" onclick="image_popup(this)">Change</a>
+										</div>
+										<div id="set_preference" style="display:none;">
+											<a href="javascript:void(0);" onclick="set_preference()">Set ImageSet display preferences</a>
+										</div>
+										<div id="preference_setup" style="display:none;" >
+											<div class="image_checkbox">
+												<%= check_box(:image_property,:display_preference,{:id=>"dont_display",:name=>"dont_display"},"hide_image") %><label>Don't display on article page</label>
+											</div>
+											<div class="image_checkbox">
+												<%= check_box(:image_property,:display_preference,{:id=>"cust_img",:name=>"cust_img"},"customise_image") %><label>Customise on article page</label>
+											</div>
+										</div>
+										<div id="image_customise" style="display:none;">
+											<div style="margin-bottom:10px;margin-top:10px;">
+												<%= select( 'image_property', 'customise_scenery', ["Landscape","Portrait","Square"],{},:class=>"textBoxWidth",:name=>"article[image_property][customise_scenery]") %>
+											</div>
+											<div style="margin-top:10px;">
+												<%= select( 'image_property', 'customise_size', ["Large","Medium","Small"],{},:class=>"textBoxWidth",:name=>"article[image_property][customise_size]") %>
+											</div>
+										</div>
+										<% end %>
+									</div>
+								</div>
+							</div>
+							<!-- </div>-->
+						</div>
+						<div class="article_right_section">
+							<div id="static_update"></div>
+						</div>
+					</div>
+					
+					
+					<div class="section_block full_section footer_full_section_block">
+					<div class="footer_editing_notes footer_editing_middle">
+						<ul>
+							<li>
+								<label for="article_editing_notes">Notes:</label>
+							</li>
+							<%= text_area 'article', 'editing_notes', {:rows => 7, :cols => 40,:class=>"input_text"} %>
+						</ul>
+					</div><!--footer_editing_middle-->
+				</div>
+					
+					
+					
+					
+				</div>
+				
+			</div>
+		</div>
+		<%end%>
+	</div>
+	<script type="text/javascript">
+		jQuery("#format_static").click(function() {
+			var radio_text = jQuery("input:radio:checked").val();
+			var url = location.href
+			var article_id = parseInt(url.split('/')[url.split('/').length - 1]);
+			jQuery.ajax({
+				type : 'GET',
+				data : "radio_text=" + radio_text + ";" + "article_id=" + article_id,
+				dataType : 'html',
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+				},
+				url : '/admin/static_page/select_fragment',
+				success : function(update_data) {
+					jQuery("#static_update").html(update_data);
+					execute_tinymce();
+				}
+			});
+		});
+
+	</script>
+	<script type="text/javascript">
+/*		$(document).ready(function() {
+var radio_text = jQuery("input:radio:checked").val();
+var url = location.href
+var article_id = parseInt(url.split('/')[url.split('/').length - 1]);
+jQuery.ajax({
+type : 'GET',
+data : "radio_text=" + radio_text + ";" + "article_id=" + article_id,
+dataType : 'html',
+beforeSend : function(xhr) {
+xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+},
+url : '/admin/static_page/select_fragment',
+success : function(update_data) {
+jQuery("#static_update").html(update_data);
+execute_tinymce();
+}
+});
+});*/
+	</script>
+
+<script>
+ $(window).scroll(function(){
+ if($(this).scrollTop()>175)
+ {
+ $(".article_top_links").css({"left":$(".article_new_main").offset().left})
+  $(".article_top_links").addClass('fixed_button');
+ }
+ else
+ {
+  $(".article_top_links").removeClass('fixed_button');
+ }
+});
+</script>

@@ -1,0 +1,56 @@
+
+http://www.themachinist.in/latest_issue/worldwidemedia/2017-Jun/June-2017
+
+
+
+http://www.themachinist.in/latest_issue/worldwidemedia/2017-Jun/2017-jun-awards-special
+
+
+
+ "Super Shopfloor 2017"
+ mi47.short_name
+ => "Super Shopfloor 2017"
+ Giri: p157.url
+ => "/latest_issue/worldwidemedia/2017-jun-awards-special"
+
+[3:48:36 PM] Giri: Page url => "/latest_issue/worldwidemedia/YYYY-MMM/MagazineIssue.short_name"
+Make sure that short_name of that particular MagazineIssue is in proper format, hyphen separated(no spaces or special characters)
+
+Example of Page url   : "/latest_issue/worldwidemedia/2017-Jun/2017-jun-awards-special"
+Example of Magazine Issue short_name : "2017-jun-awards-special"
+
+
+Page url => "/latest_issue/worldwidemedia/YYYY-MMM/MagazineIssue.short_name"
+
+
+
+http://www.themachinist.in/
+[8:16:27 PM] Giri: Listing page Id : 140
+  url old : /latest_issue/worldwidemedia/2016-Jun/June 2016
+  url new : /latest_issue/worldwidemedia/2016-Jun/June-2016
+  
+  
+  MagazineIssue id : 33
+  short_name old : June 2016
+  short_name new : June-2016
+  
+  Poll.connection.execute("update magazine_issues set short_name = 'June-2016' where id = 33")
+
+
+
+@site=Site.last
+@site.magazine_issues
+MagazineIssue.find 48
+MagazineIssue.find 47
+
+short_name check pannnnaum
+
+den change the page url 
+
+find the page of that
+
+page url in the format 
+
+
+Example of Page url   : "/latest_issue/worldwidemedia/2017-Jun/2017-jun-awards-special"
+Example of Magazine Issue short_name : "2017-jun-awards-special"

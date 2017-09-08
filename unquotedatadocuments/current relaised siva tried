@@ -1,0 +1,46 @@
+
+
+      <%@exit_investor_val = []%>
+       <%# logger.info "============current_profile=======#{current_profile.id}=====aaaa==========#{current_profile.exit_date}"%>
+              <tr class="<%= cycle('row_even', 'row_odd') -%> result_table_hover_style">
+                <td style="border-bottom: 1px solid rgb(235, 235, 235);" width="4%">
+                  <%= check_box_tag 'deals[compare]', value="#{current_profile.id}", checked=false, :id => "crntPortfolio", :class => "tooltip compare_check", :onclick => "javascript:void(0);", :title => "maximum 4 records can be compared at a time. Once selected please press the Compare button" %>
+                <%@exit_investor_val << (check_box_tag 'deals[compare]', value="#{current_profile.id}", checked=false, :id => "crntPortfolio", :class => "tooltip compare_check", :onclick => "javascript:void(0);", :title => "maximum 4 records can be compared at a time. Once selected please press the Compare button")%>
+                </td>
+
+
+<%#= content_tag(:td, content_tag(:a, content_tag(:u, link_to_deal(current_profile.company_name, "#{current_profile.id}"))), :style => "vertical-align: middle; border-bottom: 1px solid rgb(235, 235, 235);") if current_profile.company_name %>
+                <%#@exit_investor_val << content_tag(:a, content_tag(:u, link_to_deal(current_profile.company_name, "#{current_profile.id}"))) if current_profile.company_name%>
+
+
+
+<% if !current_profile.blank? %>
+                <%= content_tag(:td, content_tag(:a, content_tag(:u, link_to_deal(current_profile.company_name, "#{current_profile.id}"))), :style => "vertical-align: middle; border-bottom: 1px solid rgb(235, 235, 235);")  %>
+                <%@exit_investor_val << content_tag(:a, content_tag(:u, link_to_deal(current_profile.company_name, "#{current_profile.id}")))%>
+
+<% end %>
+
+
+
+               <%# if !current_profile.try(:exit_date).blank? and current_profile.exit_date != [nil]  and !current_profile.exit_date.last.blank?%>
+
+<% if !current_profile.try(:exit_unced_date).blank?   %>
+
+
+  <%#correct exit_date = Date.parse(current_profile.exit_date.last)%>
+
+                                  <%# exit_date = Date.parse(current_profile.exit_date.order(id:desc)%>
+                    <%#= content_tag(:td, exit_date.to_date.strftime("%b %Y"), :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "center") %>
+                   <%#@exit_investor_val << exit_date.to_date.strftime("%b %Y")%>
+                <%# else %>
+                    <%#= content_tag(:td, "n/d", :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "center") %>
+                    <%#@exit_investor_val << "n/d"%>
+ <%= content_tag(:td, current_profile.exit_announced_date.strftime("%b %Y"), :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "center") %>
+                <%@current_profile << current_profile.exit_announced_date.strftime("%b %Y")%>
+            <% else %>
+                <%= content_tag(:td, "n/d", :style => "border-bottom: 1px solid rgb(235, 235, 235);", :align => "center") %>
+                <%@current_profile << "n/d"%>
+
+
+                <% end %>
+

@@ -1,0 +1,66 @@
+  def issues_by_year(args={})
+    source=self.sources.first
+    latest_magazine_year = self.magazine_issues.sort_by{|aa| aa.date_of_publication}.last.date_of_publication.strftime("%Y") if self.magazine_issues
+    year = args["year"].blank? ? (latest_magazine_year) : args["year"]
+    magazines = source.magazine_issues.by_year(year.to_i,source.id)
+    magazine_array=[]
+    magazines.each do |mag|
+    magazine_array << mag if !mag.articles.blank?
+    end
+    return magazine_array
+  end
+
+  def issues_by_prev_year(args={})
+    source=self.sources.first
+    prev_year  = args["next_year"].blank? ? (args["prev_year"].blank? ? Time.now.year - 1 : args["prev_year"].to_i - 1) : args["next_year"].to_i - 1
+    magazines = source.magazine_issues.by_year(prev_year.to_i,source.id)
+    return magazines
+  end
+   ab live
+
+
+
+
+
+
+
+  def issues_by_year(args={})
+    source=self.sources.first
+    latest_magazine_year = self.magazine_issues.sort_by{|aa| aa.date_of_publication}.last.date_of_publication.strftime("%Y") if self.magazine_issues
+    year = args["year"].blank? ? (latest_magazine_year) : args["year"]
+    magazines = source.magazine_issues.by_year(year.to_i,source.id)
+    return magazines
+  end
+
+  def issues_by_prev_year(args={})
+    source=self.sources.first
+    prev_year  = args["next_year"].blank? ? (args["prev_year"].blank? ? Time.now.year - 1 : args["prev_year"].to_i - 1) : args["next_year"].to_i - 1
+    magazines = source.magazine_issues.by_year(prev_year.to_i,source.id)
+    return magazines
+  end
+
+
+
+same 
+
+
+
+
+
+
+
+
+
+if (!params[:page].blank? and params[:page].to_i != 1)
+@site.issues_by_year(params).paginate(:page=>params[:page],:per_page => 10)
+else
+@site.issues_by_year(params).paginate(:page=>params[:page],:per_page => 10)
+end
+
+stage
+
+
+
+
+
+

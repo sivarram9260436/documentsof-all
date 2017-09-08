@@ -1,0 +1,58 @@
+sivaram@sivaram:~$ ssh -L 3200:localhost:8983 ruby@192.168.22.84
+			canchange	db.yml		ip
+
+
+
+http://localhost:3200/solr/#/
+
+
+
+
+
+
+
+Fund.find_in_batches(batch_size: 2000) do |group|
+group.each { |fund| fund.index_to_search_engine }           --- in console v run to index
+end												
+
+
+
+
+
+Fund.rb in we are including value in solr				--- here they mentioned which is in sunspot
+
+
+
+
+nspot::Search:{:fq=>["type:Fund", "fund_event_type_sm:(2 OR 5 OR 1 OR 3 OR 4)", "(status_name_s:publish OR status_name_s:pending\\ qc)", "all_fund_event_first_close_id_s:2", "all_fund_event_final_close_id_s:5", "all_fund_event_announced_id_s:1", "all_fund_event_interim_id_s:3", "all_fund_event_unspecified_id_s:4", "all_fund_event_first_close_dates_dm:[2001\\-12\\-31T18\\:30\\:00Z TO *]", "all_fund_event_final_close_dates_dm:[2001\\-12\\-31T18\\:30\\:00Z TO *]", "all_fund_event_announced_dates_dm:[2001\\-12\\-31T18\\:30\\:00Z TO *]", "all_fund_event_interim_dates_dm:[2001\\-12\\-31T18\\:30\\:00Z TO *]", "all_fund_event_unspecified_dates_dm:[2001\\-12\\-31T18\\:30\\:00Z TO *]", "all_fund_event_first_close_dates_dm:[* TO 2006\\-04\\-29T18\\:30\\:00Z]", "all_fund_event_final_close_dates_dm:[* TO 2006\\-04\\-29T18\\:30\\:00Z]", "all_fund_event_announced_dates_dm:[* TO 2006\\-04\\-29T18\\:30\\:00Z]", "all_fund_event_interim_dates_dm:[* TO 2006\\-04\\-29T18\\:30\\:00Z]", "all_fund_event_unspecified_dates_dm:[* TO 2006\\-04\\-29T18\\:30\\:00Z]"], :sort=>"name_sort_s asc", 🌟
+
+
+error log to check 
+
+
+
+
+
+fund.rb
+
+array_filter => [:fund_event_type, :fund_geo_pref, :fund_stage_pref, :fund_sector_pref, :fund_advisor_name, :deal_industry, :deal_super_sector_name, 
+:fund_geo_pref_id, :fund_geo_pref_arr, :fund_percentage_deployed_value] }
+
+
+ for last they write a self method   ((fund_percentage_deployed_value))
+
+
+ def fund_percentage_deployed_value
+    self.dry_powders.collect {|percentage| percentage.percentage_deployed}.compact if !self.dry_powders.blank?
+  end
+
+
+
+
+solr search 
+
+app/models/deal.rb:106:  # Solr search implemented with Sunspot plugin
+app/models/exit.rb:55:  # Solr search implemented with Sunspot plugin
+app/models/fund.rb:56:  # Solr search implemented with Sunspot plugin
+
+

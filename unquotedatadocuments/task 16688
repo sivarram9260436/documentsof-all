@@ -1,0 +1,54 @@
+
+ruby@merger-market-stage:~/Unquote_data/Sites/unquote_data_site/views/listing_pages$ vi intelligence.html.erb
+
+ <div class="archive_box2">
+          <div class="ui-widget-header">
+            2014
+          </div>
+          <div style="display: none;" class="portlet-content">
+            <ul>
+              <li>
+                <a href="/PDF/Q4_2012_Barometer.pdf" target="_blank">
+                  <img src="images/Q2_2012_Arle_Barometer.gif" width="39" height="52" alt="unquote” Private Equity Barometer Q4 2012" align="left">unquote”
+                  Private Equity Barometer Q4 2012</a>
+              </li>
+              <li>
+                <a href="/PDF/Q3_2012_Arle_Barometer.pdf" target="_blank">
+                  <img src="images/Q3_2012_Arle_Barometer.gif" width="39" height="52" alt="unquote” Private Equity Barometer Q3 2012" align="left">unquote”
+                  Private Equity Barometer Q3 2012</a></li>
+              <li>
+                <a href="/PDF/Q2_2012_Arle_Barometer.pdf" target="_blank">
+                  <img src="images/Q2_2012_Arle_Barometer.gif" width="39" height="52" alt="unquote” Private Equity Barometer Q2 2012" align="left">unquote”
+                  Private Equity Barometer Q2 2012</a></li>
+
+              <li>
+                <a href="/PDF/CK_watch_Q2_2012_lo.pdf" target="_blank">
+                  <img src="images/CK_watch_Q2_2012.gif" width="39" height="52" alt="unquote” Analysis UK Watch Q2 2012" align="left">unquote”
+                  Analysis UK Watch Q2 2012</a></li>
+              <li>
+                <a href="/PDF/KPMG_PE_Index_2012.pdf" target="_blank">
+                  <img src="images/KPMG_PE_Index_2012.gif" width="39" height="52" alt="Sweden PE Index Q3 2012" align="left">Sweden
+                  PE Index Q3 2012</a>
+              </li>
+
+              <li>
+                <a href="/PDF/Delfino_Italy_survey_2012_v3.pdf" target="_blank">
+                  <img src="images/Delfino_Italy_survey_2012_v3.gif" width="39" height="52" alt="unquote” Italy Survey 2012" align="left">unquote”
+                  Italy Survey 2012</a>
+              </li>
+
+              <li>
+                <a href="/PDF/Germany_2012_lo.pdf" target="_blank">
+                  <img src="images/Germany_2012_lo.gif" width="39" height="52" alt="Germany Report 2012" align="left">Germany
+                  Report 2012</a>
+              </li>
+
+              <li>
+                <a href="/PDF/Nordic_Report_2012_lo.pdf" target="_blank">
+                  <img src="images/Nordic_Report_2012_lo.gif" width="39" height="52" alt="unquote” Nordic Report 2012" align="left">unquote”
+                  Nordic Report 2012</a></li>
+
+
+              </ul>
+          </div>
+        </div>

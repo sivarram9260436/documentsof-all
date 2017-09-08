@@ -1,0 +1,110 @@
+<div class="section_block full_section">
+	<h2><%= @page_properties[:menu_title] %></h2>
+	<div class="article_new_main">
+		<div class="form_data asset_form">
+			<label for="text_head" class="product_align">Type:</label>
+			<p>
+				Article Product Criteria
+			</p>
+		</div>
+
+		<div class="form_data asset_form">
+			<label for="asset_group_name" class="product_align">Name <span>*</span>:</label>
+			<%= hidden_field(:asset_group, :entity_type, :value => 'Article') %>
+			<%= text_field :asset_group,:name,:class=>'input_text',:size=>30,:flash=>true %>
+		</div>
+
+		<div class="form_data asset_form">
+			<label for="asset_group_description" class="product_align">Description:</label>
+			<%= text_area :asset_group,:description, {:rows =>5, :cols => 40,:class=>"textarea_text"} %>
+		</div>
+
+		<div class="form_data asset_form">
+			<label for="token-input-asset_condition_category_category_id" class="product_align">Category:</label>
+			<%#= autocompletion_field("asset_condition_category", "category_ids", @site.categories, { :default_selection => "Enter the Category", :empty_message => "Category not found", :sort => true}) %>
+			<% selected_asset_condition_categories = AssetConditionCategory.where("asset_group_id = ?", params[:id]).blank? ? [] : AssetConditionCategory.where("asset_group_id = ?", params[:id]).first.categories %>
+			<%= raw autocompletion_field("asset_condition_category", {:selected => selected_asset_condition_categories, :default_selection => "Enter the Category Name"})%>
+		</div>
+
+		<div class="form_data asset_form">
+			<label for="token-input-asset_condition_tag_tag_id" class="product_align">Tag:</label>
+			<%#= autocompletion_field("asset_condition_tag", "tag_ids", @site.tags, { :default_selection => "Enter the Tag", :empty_message => "Tag not found", :sort => true}) %>
+			<% selected_asset_condition_tags = AssetConditionTag.where("asset_group_id = ?", params[:id]).blank? ? [] : AssetConditionTag.where("asset_group_id = ?", params[:id]).first.tags %>
+			<%= raw autocompletion_field("asset_condition_tag", {:selected => selected_asset_condition_tags, :default_selection => "Enter the Tag Name"})%>
+		</div>
+
+		<div class="form_data asset_form">
+			<label for="token-input-asset_condition_section_section_id" class="product_align">Content Type:</label>
+			<%#= autocompletion_field("asset_condition_section", "section_ids", @site.sections.order_by_name, { :default_selection => "Enter the Section", :empty_message => "Section not found", :sort => true}) %>
+			<% selected_asset_condition_sections = AssetConditionSection.where("asset_group_id = ?", params[:id]).blank? ? [] : AssetConditionSection.where("asset_group_id = ?", params[:id]).first.sections %>
+			<%= raw autocompletion_field("asset_condition_section", {:selected => selected_asset_condition_sections, :default_selection => "Enter the Section Name"})%>
+		</div>
+		<div class="form_data asset_form">
+			<%#= autocompletion_field("asset_condition_site", "site_ids", Site.all, { :default_selection => "Enter the Site", :empty_message => "Site not found", :sort => "true"}) %>
+			<% site_ids = @asset_condition_site.site_ids if @asset_condition_site%>
+			<% if site_ids %>
+			<%= hidden_field_tag :asset_condition_site_site_ids, :site_ids, :value => site_ids.join(',') %>
+			<% site_ids.each do |aa| %>
+			<%= hidden_field_tag "asset_condition_site[site_ids][]", aa %>
+			<% end %>
+			<% end %>
+		</div>
+
+		<div class="form_data">
+			<label for="asset_condition_premium" class="product_align"> <%if params[:type]=='Article' or params[:type]=='article'%>Article Restriction<%else%><%= params[:type]%><%end%>:</label>
+			<%= select(:asset_condition,:premium,[['All','Null'],['Premium only',true],['Default and Premium',false]], (@asset_condition_premium.blank? ? {} : {:selected => @asset_condition_premium.premium}), {:id=>"asset_condition_premium",:class=>"select_box" }) %>
+		</div>
+
+		<div class="form_data asset_form">
+			<label for="asset_condition_source_id" class="product_align">Sources:</label>
+			<%= select(:asset_condition, :source_id, @site.sources.collect{|source| [ source.name, source.id ] }, {:include_blank => 'Select'}.merge(@asset_condition_source.blank? ? {} : {:selected=>@asset_condition_source.source_id}), :class=>"select_box")%>
+		</div>
+
+		<div class="form_data asset_form">
+			<label for="asset_condition_magazine_issue" class="product_align">Print Issue :</label>
+			<%= select(:asset_condition,:magazine_issue,[['All',''],['Print Only',true],['Other than print',false]],{:selected => (@asset_condition_magazine_issue.blank? ? "NULL" : @asset_condition_magazine_issue.magazine_issue)},{:id=>"asset_condition_magazine_issue",:class=>"select_box" }) %>
+		</div>
+
+		<div class="form_data asset_form">
+			<label for="asset_condition_type" class="product_align">Select Date Condition:</label>
+			<% if @asset_condition_type_validate == "Older Than" or @asset_condition_type == "Older Than" %>
+			<%= select(:asset_condition,:type,[['Older Than','Older Than'], ['Newer Than','Newer Than']], {:include_blank => "Choose Condition", :selected => "Older Than"}, {:id => "asset_condition_type", :class => "select_box" }) %>
+			<% elsif @asset_condition_type_validate == "Newer Than" or @asset_condition_type == "Newer Than" %>
+			<%= select(:asset_condition,:type,[['Older Than','Older Than'], ['Newer Than','Newer Than']], {:include_blank => "Choose Condition", :selected => "Newer Than"}, {:id=>"asset_condition_type", :class => "select_box" }) %>
+			<% else %>
+			<%= select(:asset_condition,:type,[['Older Than','Older Than'], ['Newer Than','Newer Than']], {:include_blank => "Choose Condition"}, {:id => "asset_condition_type",:class => "select_box" }) %>
+			<% end %>
+		</div>
+		<div id="asset_date_type">
+			<% if @asset_condition_type_validate == "Older Than" %>
+
+			<div class="form_data older_date_range">
+				<label for="text_head">Older Than:</label>
+				<%= text_field :asset_condition_older_than,:older_than,:class=>'input_text_asset',:onkeypress => 'return blockNonNumbers(this, event, true, true);', :maxlength => 9,:flash=>true %></td>
+				<%= select(:asset_condition_older_than,:date_type,[['Days','Days'],['Month','Month'],['Year','Year']],{},{:id=>"asset_condition_type",:class=>"select_box_small" }) %>
+			</div>
+			<% elsif @asset_condition_type_validate == "Newer Than" %>
+			<div class="form_data older_date_range">
+				<label for="text_head">Newer Than:</label>
+				<%= text_field :asset_condition_newer_than,:newer_than,:class=>'input_text_asset',:onkeypress => 'return blockNonNumbers(this, event, true, true);', :maxlength => 9,:flash=>true %></td>
+				<%= select(:asset_condition_newer_than,:date_type,[['Days','Days'],['Month','Month'],['Year','Year']],{},{:id=>"asset_condition_type",:class=>"select_box_small" }) %>
+			</div>
+			<% end %>
+
+			<% if @asset_condition_type == "Older Than" and @asset_condition_older_than.older_than %>
+			<div class="form_data older_date_range">
+				<label for="text_head">Older Than:</label>
+				<% @asset_condition_older_than.older_than %><%= text_field :asset_condition_older_than,:older_than,:value=>@asset_condition_older_than.older_than,:class=>'input_text_asset',:onkeypress => 'return blockNonNumbers(this, event, true, true);', :maxlength => 9,:flash=>true %>
+				<%= select(:asset_condition_older_than,:date_type,[['Days','Days'],['Month','Month'],['Year','Year']],{},{:id=>"asset_condition_type",:class=>"select_box_small" }) %>
+			</div>
+			<% end %>
+
+			<% if @asset_condition_type == "Newer Than" and @asset_condition_newer_than.newer_than !=nil %>
+			<div class="form_data older_date_range">
+				<label for="text_head">Newer Than:</label>
+				<%= text_field :asset_condition_newer_than,:newer_than,:value=>@asset_condition_newer_than.newer_than,:class=>'input_text_asset',:onkeypress => 'return blockNonNumbers(this, event, true, true);', :maxlength => 9,:flash=>true %>
+				<%= select(:asset_condition_newer_than,:date_type,[['Days','Days'],['Month','Month'],['Year','Year']],{},{:id=>"asset_condition_type",:class=>"select_box_small" }) %>
+			</div>
+			<% end %>
+		</div>
+

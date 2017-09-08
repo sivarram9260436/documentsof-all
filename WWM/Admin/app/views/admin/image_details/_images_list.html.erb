@@ -1,0 +1,5 @@
+<%if @partial%>
+<%= sr_render_widget(SrComponent.find_component_by_name("imageset_search_list") )%>
+<%else%>
+<%= sr_render_widget(SrComponent.find_component_by_name("imageset_list_merge") )%>
+<%end%>

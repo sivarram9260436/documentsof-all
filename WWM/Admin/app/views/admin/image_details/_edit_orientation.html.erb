@@ -1,0 +1,221 @@
+<%
+    width_height=ImageManipulation.image_width_and_height("#{Rails.root}"+"/public"+@path)
+    _src_original_height = width_height[0].to_f
+    _src_original_width = width_height[1].to_f
+    new_height=""
+    new_width=""
+    if _src_original_width >= 600
+        new_height = (( _src_original_width/_src_original_height) * 600).round;
+        new_width = 600;
+    else
+        new_height = _src_original_height;
+        new_width = _src_original_width;
+    end
+    if @image_detail.logical_name=="square"
+        @aspect_ratio=1
+    elsif @image_detail.logical_name=="landscape"
+        @aspect_ratio=4.0/2.5
+    else
+        @aspect_ratio=2.5/4.0
+    end
+%>
+
+<%= form_tag({:action => 'cropped_imageset_value', :id => @image_detail.id, :white_background => params[:white_background]}, {:name => 'image', :id => 'croped_image'}) do %>
+    <%= hidden_field_tag "id", @image_detail.id %>
+    <%= hidden_field_tag "image_id", @image_detail.image_id %>
+    <%= hidden_field_tag "white_background", params[:white_background] %>
+    <input type="hidden" size="4" id="x1" name="x1" />
+    <input type="hidden" size="4" id="y1" name="y1" />
+    <input type="hidden" size="4" id="x2" name="x2" />
+    
+    <input type="hidden" size="4" id="y2" name="y2" />
+    <input type="hidden" size="4" id="w" name="w" />
+    <input type="hidden" size="4" id="h" name="h" />
+    <%if params[:flag] and params[:flag]=="popup"%>
+        <%= hidden_field_tag 'flag','popup'%>
+    <%end%>
+    <div style="font-size:1.5em !important;letter-spacing:2px;margin:11px 0 4px">
+    	Edit Orientation: <%= @image_detail.logical_name.camelize %>
+    </div>
+    <div>
+    	<div align="center" class="article_notice">
+    		<%= flash[:notice] if flash[:notice] %>
+    	</div>
+    	<div style="float:left">
+    		<table>
+    			<tr>
+    				<td> Original : </td>
+    				<td><img src="<%= @path%> " id="cropbox" class = "image_border" /></td>
+    			</tr>
+    			<tr>
+    				<td></td>
+    				<td></td>
+    			</tr>
+    			<tr>
+    				<td></td>
+    				<td id="select_image_option">
+        				<%if params[:white_background]=="false"%>
+            				Select the version to crop image:
+            				Original Image
+            				<input type="radio" name="edit_option" checked="checked" value="this_appt" data-id='<%= @image_detail.id%>' data-type='false' class="image_option"/>
+            				Original Image with white background
+            				<input type="radio" name="edit_option" value="this_appt" data-id='<%= @image_detail.id%>' data-type='true' class="image_option"/>
+        				<%else%>
+            				Select the version to crop image:        Original Image
+            				<input type="radio" name="edit_option" value="this_appt" onclick ="javascript:change_cropping_image('<%= @image_detail.id%>','false');">
+            				Original Image with white background
+            				<input type="radio" name="edit_option" value="this_appt"  checked="checked" onclick ="javascript:change_cropping_image('<%#= @image_detail.id%>','true');" />
+        				<%end%>
+    				</td>
+    			</tr>
+    		</table>
+    	</div>
+    	<div>
+    		<table width="315">
+    			<tr>
+    				<%if @image_detail.logical_name=="landscape"%>
+    				    <td style="padding-left:29px">
+    				<%else%>
+    				    <td style="padding-left:78px">
+    				<%end%>
+    				Current Image : </td>
+    				<td  align="center"> <%= image_tag(@image_detail.image_path, :alt => @image.alt_tag, :class => "image_border") %> </td>
+    			</tr>
+    			<tr>
+    				<td></td>
+    				<td></td>
+    			</tr>
+    			<tr>
+    				<td></td>
+    				<td align="center" width="138">
+    				<div class="adminLinkButton">
+                                    <span class="edit">Keep Current Crop
+    					<%#= link_to "Keep Current Crop" ,:action=>"edit_imageset",:id=>@image.id %>
+                                    </span>
+    				</div></td>
+    			</tr>
+    			<tr>
+    				<td></td>
+    				<td></td>
+    			</tr>
+    			<tr>
+    				<td></td>
+    				<td></td>
+    			</tr>
+    			<tr>
+    				<td></td>
+    				<td></td>
+    			</tr>
+    			<tr>
+    				<%if @image_detail.logical_name=="landscape"%>
+    				    <td style="padding-left:48px">
+    				<%else%>
+    				    <td style="padding-left:98px">
+    				<%end%>
+    				New Image: </td>
+    				<td align="center">
+    				<div style="width:<%= @width%>px;height:<%= @height%>px;overflow:hidden;border: 1px solid black;">
+    					<img src="<%= @path%>" id="preview" />
+    				</div></td>
+    
+    			</tr>
+    			<tr>
+    				<td></td>
+    				<td></td>
+    			</tr>
+    			<tr>
+    				<td ></td>
+    				<td align="center">
+    				<div class="button">
+    					<%= submit_tag "Save New Crop", {:id => "image_crop_form_submit"} %>
+    				</div></td>
+    			</tr>
+    		</table>
+    	</div>
+    </div>
+
+<%end%>
+
+<script type="text/javascript">
+	    jQuery(document).ready(function(){
+	$('#cropbox').Jcrop({
+	onChange: showPreview,
+	//  onChange: showCoords,
+	onSelect: showCoords,
+	aspectRatio: <%= @aspect_ratio%>
+        ,
+        boxWidth: 
+ <%= new_width %>
+        ,
+        boxHeight: 
+ <%= new_height %>
+	        });
+	});
+	function showCoords(c)
+	{
+	$('#x1').val(c.x);
+	$('#y1').val(c.y);
+	$('#x2').val(c.x2);
+	$('#y2').val(c.y2);
+	$('#w').val(c.w);
+	$('#h').val(c.h);
+	};
+
+	function showPreview(coords){
+	if (parseInt(coords.w) > 0) {
+	var rx = <%= @width%>
+        /
+        coords.w
+        var ry =  
+ <%= @height%>
+        /
+        coords.h
+        var img_height = $("#cropbox").height();
+        var img_width = $("#cropbox").width();
+        $('#preview').css({
+            width : Math.round(rx * img_width) + 'px',
+            height : Math.round(ry * img_height) + 'px',
+            marginLeft : '-' + Math.round(rx * coords.x) + 'px',
+            marginTop : '-' + Math.round(ry * coords.y) + 'px'
+        });
+        }
+        }
+</script>
+<script type="text/javascript">
+     $(function() {
+        jQuery("#select_image_option .image_option").click(function() {
+            var id = $(this).attr("data_id");
+            var image_id = jQuery(this).data("id");
+            var type = jQuery(this).data("type");
+            var set_image_action = "/admin/image_details/edit_orientation?id=" + image_id + "&white_background=" + type;
+            $.ajax({
+                type : "GET",
+                url : set_image_action,
+                dataType : "html",
+                success : function(data) {
+                    $("#overlay_div").html(data)
+                    $("#overlay_div").dialog({
+                        modal : true,
+                        title : "Image Crop"
+                    });
+                }
+            })
+        });
+    });
+    $(".edit").live("click", function() {
+        var img_id_arr = $("#image_id").attr("value");
+        var image_id = img_id_arr[img_id_arr.length - 1];
+        //var params = "?from=image_redesign";
+        $.ajax({
+            type : 'GET',
+            url : "/admin/image_details/edit_imageset/" + img_id_arr ,
+            dataType : "html",
+            success : function(data) {
+                $("#overlay_div").html(data).dialog({
+                    modal : true,
+                    title : 'Edit Image Details'
+                });
+            }
+        });
+    });
+</script>

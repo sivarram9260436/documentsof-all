@@ -1,0 +1,42 @@
+<div id="container" style="padding-top: 20px;">
+	<div class="section_block full_section">
+		<h2><%= @page_properties[:menu_title] %></h2>
+		<div class="section_content">
+			<div class="article_new_main author_left">
+				<div class="validation_box">
+					<%= raw error_messages(@all_redirect)%>
+				</div>
+				<%= form_for @all_redirect,:url=>{:action=>@all_redirect.new_record? ? 'create' : 'update'}, :html => { :multipart => true }  do |issue| %>
+				<input type="hidden" id="all_redirect_host" name="all_redirect[host]" value="<%= @site.name %>" />
+				<%=hidden_field_tag "id",params[:id] unless params[:id].blank? %>
+				<div class="form_data">
+					<label for="all_redirect_org_uri">Original Uri<span>*</span>:</label>
+					<%= text_field 'all_redirect','orig_uri', :class=>'input_text',:size=>24%>
+				</div><!--form_data-->
+				<div class="form_data">
+					<label for="all_redirect_destination">Destination<span>*</span>:</label>
+					<%= text_field 'all_redirect','destination', :class=>'input_text',:size=>24%>
+				</div><!--form_data-->
+				<div class="form_data">
+					<label for="all_redirect_redirect_type">Redirect Type<span>*</span>:</label>
+					<%= text_field 'all_redirect','redirect_type', :class=>'input_text',:size=>24%>
+				</div><!--form_data-->
+				<div class="form_data">
+					<label for="all_redirect_record_type">Record Type<span>*</span>:</label>
+					<%= text_field 'all_redirect','record_type', :class=>'input_text',:size=>24%>
+				</div><!--form_data-->
+				<div class="common_listing_button">
+					<ul>
+						<li class="button">
+							<%= submit_tag "#{@all_redirect.new_record? ? 'Create' : 'Update'}" %>
+						</li>
+						<li class ="button">
+							<%= link_to "Cancel" ,:action=>'index' %>
+						</li>
+					</ul>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,96 @@
+class Exit < ActiveRecord::Base
+def turnover_currency
+deal_exits = self.deal_exits
+deal_exit_loop = self.deal_exits.collect{|a| a.turnover.to_f}
+if !self.deal_exits.blank?
+event_date = self.deal_exits.collect{|a| a.created_at}.sort.first.beginning_of_month
+else
+event_date = nil
+end
+currency = CurrencyExchange.get_other_currency_rates(deal_exit_loop,self.currency,!event_date.blank? ? event_date : (self.created_at.blank? ? Date.
+return currency
+end
+
+def turnover_euro_value_export
+currency_data = turnover_currency
+if !currency_data.blank?
+if currency_data[:euro].blank? || currency_data[:euro].to_f == 0
+'n/d'
+else
+return "%.2f"% currency_data[:euro]
+end
+else
+return_empty_value
+end
+end
+
+def turnover_us_value_export
+currency_data = turnover_currency
+if !currency_data.blank?
+if currency_data[:us].blank? || currency_data[:us].to_f == 0
+'n/d'
+else
+return "%.2f"% currency_data[:us]
+end
+else
+return_empty_value
+end
+end
+def turnover_yen_value_export
+currency_data = turnover_currency
+if !currency_data.blank?
+if currency_data[:yen].blank? || currency_data[:yen].to_f == 0
+'n/d'
+else
+return "%.2f"% currency_data[:yen]
+end
+else
+return_empty_value
+end
+end
+
+def turnover_uk_value_export
+currency_data = turnover_currency
+if !currency_data.blank?
+if currency_data[:uk].blank? || currency_data[:uk].to_f == 0
+'n/d'
+else
+eturn "%.2f"% currency_data[:uk]
+end
+else
+return_empty_value
+end
+end
+
+vi app/models/exit.rb
+
+=========================================================================================================================================================================
+
+:turnover_us_value, :turnover_uk_value, :turnover_euro_value, :turnover_yen_value
+
+vi app/models/exit_export_data.rb
+
+==========================================================================================================================================================================
+
+ <%= content_tag(:td) do %>
+                        <%#= link_to "#{Deal.find_by_id(institution_office.deal_name_id).company_name if Deal.find_by_id(institution_office.deal_name_id) && Deal.find_by_id(institution_office.deal_name_id).company_name}",edit_deal_deals_path(:deal_id => institution_office.deal_name_id,:institution_company_id => params[:institution_company_id], :tab => "company_information") %>
+
+ <%= link_to "#{Deal.find_by_id(institution_office.deal_name_id).company_name if Deal.find_by_id(institution_office.deal_name_id) && Deal.find_by_id(institution_office.deal_name_id).company_name}",edit_direct_codirect_institutions_path(:codirect_id => institution_office.id,:institution_company_id => params[:institution_company_id],:tab => params[:tab],:popup => "true"),{:class =>"popup_window"} %>
+<% end %>
+
+                    <%#= content_tag(:td) do %>
+                        <%#= link_to "#{institution_office.commitment if institution_office.commitment}",edit_direct_codirect_institutions_path(:codirect_id => institution_office.id,:institution_company_id => params[:institution_company_id],:tab => params[:tab],:popup => "true"),{:class =>"popup_window"} %>
+                                <%= content_tag(:td, (institution_office.commitment if institution_office.commitment rescue nil))%>
+                    <%# end %>
+
+vi app/views/institutions/_directs_in_pei_data.html.erb
+==========================================================================================================================================================================
+
+
+:turnover_us_value => ee.turnover_us_value_export, :turnover_uk_value => ee.turnover_uk_value_export,:turnover_euro_value => ee.turnover_euro_value_export, :turnover_yen_value => ee.turnover_yen_value_export)
+
+
+line 61
+
+vi  lib/export_data_migration.rb
+==========================================================================================================================================================================

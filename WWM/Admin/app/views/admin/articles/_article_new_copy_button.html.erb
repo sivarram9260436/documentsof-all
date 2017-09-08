@@ -1,0 +1,20 @@
+<div class="right_section_head">
+<div class="common_listing_button">
+    <ul>
+    <li class="button">
+        <%= link_to("New Article",{:controller=>'admin/articles',:action => 'new',:article_path=>@article_path})  %>
+    </li>
+   <!-- <li class="button">
+                <%#= link_to("Copy Article", '#', :id => "copy") %>
+        
+    </li>-->
+</ul>
+</div>
+<div id = 'copy_article' align="center" style="margin: auto; padding: 7px 0pt 5px; width: 60%; display: <%= flash[:copy_article_error].blank? ? 'none' : 'block'  %>;" >
+        <%= render :partial => 'admin/articles/copy_article' %>
+</div>
+</div>
+<script type="text/javascript">jQuery("#copy").click( function() {
+                jQuery('#copy_article').show()
+        });</script>
+

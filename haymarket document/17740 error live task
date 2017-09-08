@@ -1,0 +1,83 @@
+Started GET "/directory/search?utf8=%E2%9C%93&facet=true&second=true&directory_listing_search%5Bmain_category%5D=Manufacturers%2C+Suppliers&directory_listing_search%5Bsub_category%5D=Finishing&directory_listing_search%5Bsub_child_category%5D=Finance&directory_listing_search%5Bcountry_id%5D=&directory_listing_search%5Bcounty_id%5D=&directory_listing_search%5Bcity_ids%5D%5B%5D=" for 103.38.240.1 at 2017-03-02 18:15:37 +0530
+  Processing by Wps::DirectoryController#directory_search as HTML
+  Parameters: {"utf8"=>"✓", "facet"=>"true", "second"=>"true", "directory_listing_search"=>{"main_category"=>"Manufacturers, Suppliers", "sub_category"=>"Finishing", "sub_child_category"=>"Finance", "country_id"=>"", "county_id"=>"", "city_ids"=>[""]}}
+ ---- rem checking
+ -- rem -- nil -- nil --- nil
+============params=============={"utf8"=>"✓", "facet"=>"true", "second"=>"true", "directory_listing_search"=>{"main_category"=>"Manufacturers, Suppliers", "sub_category"=>"Finishing", "sub_child_category"=>"Finance", "country_id"=>"", "county_id"=>"", "city_ids"=>[""]}, "controller"=>"wps/directory", "action"=>"directory_search"}====================
+Completed 500 Internal Server Error in 100ms
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/_request.text.erb (1.0ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/_title.text.erb (0.5ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/_session.text.erb (1.0ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/_title.text.erb (0.1ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/_environment.text.erb (64.7ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/_title.text.erb (0.2ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/_backtrace.text.erb (0.8ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/_title.text.erb (0.1ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/exception_notification.text.erb (571.7ms)
+
+Sent mail to v9exception@mx3.kreatio.com, tamilarasanc@kreatio.com (4099ms)
+
+NoMethodError (undefined method `full_alias_name' for nil:NilClass):
+  app/controllers/wps/directory_controller.rb:32:in `directory_search'
+  lib/kreatio/discard_stale_requests2.rb:37:in `call'
+  lib/max_request_per_worker.rb:10:in `call'
+
+
+
+http://printweek_india.haymarket.kreatio.info/directory/search?utf8=%E2%9C%93&facet=true&second=true&directory_listing_search%5Bmain_category%5D=Manufacturers%2C+Suppliers&directory_listing_search%5Bsub_category%5D=Pre-Press&directory_listing_search%5Bsub_child_category%5D=Laser+Engraving&directory_listing_search%5Bcountry_id%5D=&directory_listing_search%5Bcounty_id%5D=&directory_listing_search%5Bcity_ids%5D%5B%5D=
+
+
+@site.directory_listing_categories.where("full_name = ?",params[:directory_listing_search][:main_category]+" >> "+params[:directory_listing_search][:sub_category]).last.full_alias_name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===================================================================
+
+
+arted GET "/directory/search?utf8=%E2%9C%93&facet=true&second=true&directory_listing_search%5Bmain_category%5D=Printers&directory_listing_search%5Bsub_category%5D=Finishing&directory_listing_search%5Bsub_child_category%5D=Drills&directory_listing_search%5Bcountry_id%5D=&directory_listing_search%5Bcounty_id%5D=&directory_listing_search%5Bcity_ids%5D%5B%5D=" for 192.168.15.55 at 2017-03-02 12:04:47 +0530
+  Processing by Wps::DirectoryController#directory_search as HTML
+  Parameters: {"utf8"=>"✓", "facet"=>"true", "second"=>"true", "directory_listing_search"=>{"main_category"=>"Printers", "sub_category"=>"Finishing", "sub_child_category"=>"Drills", "country_id"=>"", "county_id"=>"", "city_ids"=>[""]}}
+ ---- rem checking
+ -- rem -- nil -- "590" --- "4dca8b1862762ee23fb1f43313063119"
+============params=============={"utf8"=>"✓", "facet"=>"true", "second"=>"true", "directory_listing_search"=>{"main_category"=>"Printers", "sub_category"=>"Finishing", "sub_child_category"=>"Drills", "country_id"=>"", "county_id"=>"", "city_ids"=>[""]}, "controller"=>"wps/directory", "action"=>"directory_search"}====================
+Completed 500 Internal Server Error in 330ms
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/_request.text.erb (1.4ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/_title.text.erb (0.5ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/_session.text.erb (1.2ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/_title.text.erb (0.1ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/_environment.text.erb (24.8ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/_title.text.erb (0.3ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/_backtrace.text.erb (1.4ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/_title.text.erb (0.2ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194/gems/exception_notification-3.0.1/lib/exception_notifier/views/exception_notifier/exception_notification.text.erb (48.6ms)
+
+Sent mail to v9exception@mx3.kreatio.com (4576ms)
+
+NoMethodError (undefined method `full_alias_name' for nil:NilClass):
+  app/controllers/wps/directory_controller.rb:32:in `directory_search'
+  lib/max_request_per_worker.rb:10:in `call'
+
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194/gems/actionpack-3.1.3/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.7ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194/gems/actionpack-3.1.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.7ms)
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194/gems/actionpack-3.1.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (6.2ms)
+

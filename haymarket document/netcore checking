@@ -1,0 +1,51 @@
+      NetcoreNewsletterApi.schedule_campaign(@newsletter.id,message,list_ids,@newsletter.netcore_list_job_id,params[:schedule],params[:article][:publish_date])
+
+"January 24, 2017 05:00 pm"
+
+#<Newsletter id: 10, name: "newsletter-wednesday", data_proxy_id: 5, created_at: "2016-05-24 07:31:01", updated_at: "2017-01-24 07:27:22", netcore_list_job_id: "50338"> 
+HOST_URL="https://api.exacttouch.com/API/mailing/?"
+ NEWSLETTER_MAPPING_NEW={
+"printweek_india"=>{"from" => "e-mail@printweek.in" ,"name" => "PrintWeek India", "API_KEY" =>"1922339bf0d92902064caf8def52aa50"},"autocar_pro"=>{"from"=>"email@autocarpro.in","name" => "Autocar Professional", "API_KEY" => "548ab3d4ec6c546ab7653ca4400eb3ce" }
+}
+@site=Site.find 5
+@newsletter=@site.newsletters.first
+Ambient.init
+Ambient.current_site=@site
+ status,content = @newsletter.html_body(@site,'main')
+@subject="test from kreatio"
+subject="test from kreatio"
+content = content.uri_encode!
+url1 =  "type=message&activity=Add&data=<DATASET><CONSTANT><ApiKey>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["API_KEY"]}</ApiKey></CONSTANT><INPUT><Subject>#{subject}</Subject><FromName>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["name"]}</FromName><FromEmail>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["from"]}</FromEmail><ReplyTo></ReplyTo><MessageHTML><![CDATA["
+content1 = "#{content}"
+url2= "If you do not want to receive any newsletters, [UNSUBSCRIBE]]]></MessageHTML><MessageMobile><![CDATA[]]></MessageMobile><Attcount>1</Attcount></INPUT></DATASET>"
+uri1 =  URI::escape(url1)
+uri2 =  URI::escape(url2)
+main_url = (uri1+content1+uri2)
+response = `curl -k -X POST -d "#{main_url}" "#{HOST_URL}"`
+parser = Nori.new
+result = parser.parse(response)
+
+{"DATASET"=>{"TYPE"=>"success", "OUTPUT"=>{"MID"=>"1884"}}} 
+status_new,message =return true,result["DATASET"]["OUTPUT"]["MID"]
+message="1886"
+list_id="131,130"
+
+     NetcoreNewsletterApi.schedule_campaign(@newsletter.id,message,list_ids,@newsletter.netcore_list_job_id,"schedule_later","January 24, 2017 06:00 pm")
+        schedule_value="schedule_later"
+         schedule_time="January 24, 2017 07:50 pm"
+newsletter =@newsletter
+message_id=message
+
+sched_time = schedule_time.to_time
+    year = sched_time.strftime("%Y")
+    month = sched_time.strftime("%m")
+    day = sched_time.strftime("%d")
+    hour = sched_time.strftime("%H")
+    minute = sched_time.strftime("%M")
+  url =  HOST_URL + "type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["API_KEY"]}</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>#{message_id}</MID><DeliveryYear>#{year}</DeliveryYear><DeliveryMonth>#{month}</DeliveryMonth><DeliveryDate>#{day}</DeliveryDate><DeliveryHour>#{hour}</DeliveryHour><DeliveryMinute>#{minute}</DeliveryMinute><LID>#{list_id}</LID></INPUT></DATASET>"
+ uri = URI::escape(url)
+response = `curl  -k -X POST "#{uri}"`
+
+
+
+url= "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>1922339bf0d92902064caf8def52aa50</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>1885</MID><DeliveryYear>2017</DeliveryYear><DeliveryMonth>01</DeliveryMonth><DeliveryDate>24</DeliveryDate><DeliveryHour>18</DeliveryHour><DeliveryMinute>15</DeliveryMinute><LID>\[131\]</LID></INPUT></DATASET>"

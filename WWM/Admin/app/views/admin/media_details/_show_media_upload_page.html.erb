@@ -1,0 +1,45 @@
+<%= form_tag({:controller => '/admin/media_details', :action => 'media_upload_save'}, {:name => 'media_multi', :id => 'media_submit', :multipart => true}) do %>
+    <div class="content_table">
+      <div class="form_data">
+        <label for="text_head">Name:</label>
+        <%= text_field :media_detail, :name, :class => 'input_text' %>
+      </div>
+      <div class="form_data">
+        <label for="text_head">Description :</label>
+        <%= text_area :media_detail, :description, :class => 'input_text' %>
+      </div>
+
+
+      <div class="form_data">
+        <label for="text_head">Upload Video :</label>
+        <%= file_field :media_detail, :video_path, :class => 'input_text' %>
+        <%= hidden_field 'set', 'flag', :value => @flag if @flag=="popup" %>
+      </div>
+
+
+      <% if not params[:set_flag]== "popup" %>
+          <div class="button">
+            <%= link_to('Cancel', {:controller => 'admin/media_details', :action => 'media'}) %>
+          </div>
+      <% else %>
+          <div class="button">
+            <%= link_to('Cancel', "javascript:void(0)", :class => "close_upload") %>
+          </div>
+      <% end %>
+
+      <div class="button" id="media_upload">
+        <%= link_to('Upload', 'javascript:void(0)', :onclick => "javascript: submit_media();") %>
+      </div>
+
+    </div>
+<% end %>
+
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery(".close_upload").click(function () {
+            window.close()
+
+        });
+    });
+</script>
+

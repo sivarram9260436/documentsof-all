@@ -1,0 +1,56 @@
+ EmployeeDetail Load (1.8ms)  SELECT "employee_details".* FROM "employee_details" WHERE "employee_details"."office_type_id" = 1 LIMIT 1
+ => #<EmployeeDetail id: 71, title: "Mr", emp_name: "Girish", last_name: "Krishna", middle_name: "", pan_number: "cfxpk7952p", pf_number: "", gender: "Male", martial_status: "Married", dob: "1984-11-10", date_of_join: "2012-01-01", role_id: 3, contact_no: "+919686450946", official_mailid: "girishk@kreatio.com", password: "10d8cb123e79540345d54961d95a2980", manager_mailid: "jeevanp@kreatio.com", empl_id: "12015", tl_mailid: "deepak@kreatio.com", created_at: "2012-09-21 09:18:33", updated_at: "2016-07-27 05:21:56", reset_password_code: "06767cd4", active_resetcode: "false", active: "Active", office_type_id: 1, office_contact_no: "", pf_uan_no: "100153656790"> 
+1.9.3p194 :029 > 
+
+
+
+
+
+1.9.3p194 :029 > EmployeeDetail.find_by_active("Active")
+  EmployeeDetail Load (1.7ms)  SELECT "employee_details".* FROM "employee_details" WHERE "employee_details"."active" = 'Active' LIMIT 1
+ => #<EmployeeDetail id: 71, title: "Mr", emp_name: "Girish", last_name: "Krishna", middle_name: "", pan_number: "cfxpk7952p", pf_number: "", gender: "Male", martial_status: "Married", dob: "1984-11-10", date_of_join: "2012-01-01", role_id: 3, contact_no: "+919686450946", official_mailid: "girishk@kreatio.com", password: "10d8cb123e79540345d54961d95a2980", manager_mailid: "jeevanp@kreatio.com", empl_id: "12015", tl_mailid: "deepak@kreatio.com", created_at: "2012-09-21 09:18:33", updated_at: "2016-07-27 05:21:56", reset_password_code: "06767cd4", active_resetcode: "false", active: "Active", office_type_id: 1, office_contact_no: "", pf_uan_no: "100153656790"> 
+
+
+
+
+
+
+ EmployeeDetail.find_by_role_id(1)
+  EmployeeDetail Load (1.0ms)  SELECT "employee_details".* FROM "employee_details" WHERE "employee_details"."role_id" = 1 LIMIT 1
+ => #<EmployeeDetail id: 70, title: "Mrs", emp_name: "Deepa", last_name: "Adiga", middle_name: "Sukeerthi", pan_number: "BMIPS0745P", pf_number: "PY/BOM/60812/012", gender: "Female", martial_status: "Married", dob: "1984-10-25", date_of_join: "2007-05-14", role_id: 1, contact_no: "9986356028", official_mailid: "deepa@kreatio.com", password: "ee292216d5e79c9f29e538f89f5ff897", manager_mailid: "kkkg@kreatio.com", empl_id: "12012", tl_mailid: "", created_at: "2012-09-21 09:17:42", updated_at: "2016-08-04 13:42:51", reset_password_code: "55890887", active_resetcode: "false", active: "Active", office_type_id: 1, office_contact_no: "", pf_uan_no: ""> 
+
+
+
+ EmployeeDetail.all.collect { |a|[a.role_id
+
+   
+employee_ids = Employees.where(company_id: company_id, race: 'African',  foreign: 1).pluck(:id_number)
+
+
+
+  EmployeeDetail.where(role_id:1,active:'Active',office_type_id:1)
+
+
+
+
+
+ [#<EmployeeDetail id: 70, title: "Mrs", emp_name: "Deepa", last_name: "Adiga", middle_name: "Sukeerthi", pan_number: "BMIPS0745P", pf_number: "PY/BOM/60812/012", gender: "Female", martial_status: "Married", dob: "1984-10-25", date_of_join: "2007-05-14", role_id: 1, contact_no: "9986356028", official_mailid: "deepa@kreatio.com", password: "ee292216d5e79c9f29e538f89f5ff897", manager_mailid: "kkkg@kreatio.com", empl_id: "12012", tl_mailid: "", created_at: "2012-09-21 09:17:42", updated_at: "2016-08-04 13:42:51", reset_password_code: "55890887", active_resetcode: "false", active: "Active", office_type_id: 1, office_contact_no: "", pf_uan_no: "">, 
+#<EmployeeDetail id: 51, title: "Mrs", emp_name: "Sumitha", last_name: "", middle_name: "k", pan_number: "BAOPK1938A", pf_number: "", gender: "Female", martial_status: "Married", dob: "1986-02-18", date_of_join: "2007-08-06", role_id: 1, contact_no: "9480580571", official_mailid: "sumitha@kreatio.com", password: "304d4e202cc28498cf3492d9eb98baed", manager_mailid: "souvik@kreatio.com", empl_id: "12042", tl_mailid: "souvik@kreatio.com", created_at: "2012-09-18 10:30:24", updated_at: "2014-10-09 07:17:16", reset_password_code: nil, active_resetcode: "false", active: "Active", office_type_id: 1, office_contact_no: "", pf_uan_no: nil>, #
+
+<EmployeeDetail id: 49, title: "Mr", emp_name: "Souvik", last_name: "Mukherjee", middle_name: "", pan_number: "", pf_number: "", gender: "Male", martial_status: "Married", dob: "1982-06-09", date_of_join: "2012-03-01", role_id: 1, contact_no: "9980755144", official_mailid: "souvik@kreatio.com", password: "7be38d2855d25fdeea58e00db0d84922", manager_mailid: "deepak@kreatio.com", empl_id: "12040", tl_mailid: "", created_at: "2012-09-18 10:29:03", updated_at: "2015-08-31 09:21:24", reset_password_code: nil, active_resetcode: "false", active: "Active", office_type_id: 1, office_contact_no: "", pf_uan_no: nil>, #
+
+
+<EmployeeDetail id: 52, title: "Ms", emp_name: "Swapnil", last_name: "Shilpa", middle_name: "", pan_number: "", pf_number: "", gender: "Female", martial_status: "Married", dob: "1986-10-03", date_of_join: "2009-07-01", role_id: 1, contact_no: "9916389639", official_mailid: "swapnil@kreatio.com", password: "e4300d79073cd38590a3dff045347a69", manager_mailid: "souvik@kreatio.com", empl_id: "12043", tl_mailid: "", created_at: "2012-09-18 10:31:11", updated_at: "2016-05-18 12:56:14", reset_password_code: "4e715fe6", active_resetcode: "false", active: "Active", office_type_id: 1, office_contact_no: "", pf_uan_no: "">, 
+
+
+#<EmployeeDetail id: 150, title: "Mrs", emp_name: nil, last_name: nil, middle_name: nil, pan_number: nil, pf_number: nil, gender: nil, martial_status: nil, dob: nil, date_of_join: nil, role_id: 1, contact_no: nil, official_mailid: "dipti@kreatio.com", password: "ba0a7b33dd9e577aaafc57e9110b7c4e", manager_mailid: nil, empl_id: nil, tl_mailid: nil, created_at: "2013-11-06 05:20:04", updated_at: "2016-09-05 08:08:52", reset_password_code: nil, active_resetcode: "false", active: "Active", office_type_id: 1, office_contact_no: nil, pf_uan_no: nil>, 
+
+#<EmployeeDetail id: 313, title: "Mr", emp_name: nil, last_name: nil, middle_name: nil, pan_number: nil, pf_number: nil, gender: nil, martial_status: nil, dob: nil, date_of_join: nil, role_id: 1, contact_no: nil, official_mailid: "kkkg@kreatio.com", password: "0b781be73cc1036352bafddce4a696c6", manager_mailid: nil, empl_id: nil, tl_mailid: nil, created_at: "2016-06-03 07:53:00", updated_at: "2016-06-03 07:53:00", reset_password_code: nil, active_resetcode: "false", active: "Active", office_type_id: 1, office_contact_no: nil, pf_uan_no: nil>,
+
+
+ #<EmployeeDetail id: 324, title: "Mr", emp_name: "Prithivirajan", last_name: "S", middle_name: "", pan_number: "AUVPP2603F", pf_number: "PYBOM00613130000000077", gender: "Male", martial_status: "Married", dob: "1978-06-24", date_of_join: "2016-08-05", role_id: 1, contact_no: "9008211100", official_mailid: "prithivirajan@kreatio.com", password: "fac6c403ff1e3563160577d8a30948fb", manager_mailid: "souvik@kreatio.com", empl_id: "12274", tl_mailid: nil, created_at: "2016-08-08 10:27:25", updated_at: "2016-10-06 04:52:47", reset_password_code: nil, active_resetcode: "false", active: "Active", office_type_id: 1, office_contact_no: "9620204514", pf_uan_no: "100528340438">] 
+
+
+
+deepa,sumitha,souvik,swapnil,Prithivirajan,dipti, and kkkg
+

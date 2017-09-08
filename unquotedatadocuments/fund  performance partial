@@ -1,0 +1,337 @@
+<% if @fund_performance.present? %>
+<%logger.info"=====@fund_performance====#{@fund_performance}==="%>
+<%= hidden_field_tag "fund_id", @fund.id%>
+<%= content_tag (:fieldset) do %>
+    <%= content_tag(:legend, (content_tag(:span, "Fund Performance")), :style => "width:auto;") %>
+    <div style="_width:710px; height:auto; overflow-x:hidden;">
+      <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center" id="table_style3" class="cls_table_style188 tbl_style">
+        <tbody>
+        <%= content_tag (:tr) do %>
+            <%= content_tag(:td, 'Fund Performance Date', :class => "head bdr_left bdr_btm bdr_tp", :width => "22%;") %>
+            <%= content_tag(:td, 'Source', :class => "head bdr_left bdr_btm bdr_tp", :width => "19%;") %>
+            <%= content_tag(:td, 'Commitment', :class => "head bdr_left bdr_btm bdr_tp", :width => "18%;") %>
+            <%= content_tag(:td, 'Gross IRR', :class => "head bdr_left bdr_btm bdr_tp", :width => "18%;") %>
+            <%= content_tag(:td, 'Net IRR', :class => "head bdr_left bdr_btm bdr_tp", :width => "19%;") %>
+	    <%= content_tag(:td, 'TVPI', :class => "head bdr_left bdr_btm bdr_tp", :width => "19%;") %>
+            <%= content_tag(:td, 'Currency', :class => "head bdr_left bdr_btm bdr_tp", :width => "19%;") %>
+        <% end %>
+
+        <% if @fund_performance !=nil %>
+            <%@arr_fund_performances = []%>
+            <%@fund_performance.sort_by{|evn| evn.fund_performance_date || Date.today }.each do |fund_performance|%>
+
+                <%@fund_performance = []%>
+                <!-- table start -->
+                <%= content_tag (:tr) do %>
+
+ <%if !fund_performance.blank? and !fund_performance.fund_performance_date.blank? %>
+                        <%= content_tag(:td,"#{fund_performance.fund_performance_date.strftime("%b %Y")}" ,:class=>"bdr_btm white_bg",:align=>"left")%>
+                        <%@fund_performance << fund_performance.fund_performance_date.strftime("%b %Y").to_s%>
+                    <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                        <%@fund_performance << "n/d"%>
+                    <% end %>
+
+                    <%if !fund_performance.blank? and !fund_performance.source.blank?%>
+                        <%= content_tag(:td,"#{fund_performance.source}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                        <%@fund_performance << fund_performance.source %>
+                    <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                        <%@fund_performance << "n/d"%>
+                    <% end %>
+
+			<%if !fund_performance.blank? and !fund_performance.commitment.blank?%>
+                        <%= content_tag(:td,"#{fund_performance.commitment}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                        <%@fund_performance << fund_performance.commitment %>
+                    <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                        <%@fund_performance << "n/d"%>
+                    <% end %>
+
+                    <%if !fund_performance.blank? and !fund_performance.gross_irr.blank?%>
+                        <%a= content_tag(:td, "#{fund_performance.gross_irr}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                        <%c=number_to_percentage(a) %>
+                        <%@fund_performance << c%>
+                    <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                        <%@fund_performance << "n/d"%>
+                    <% end %>
+
+                    <%if !fund_performance.blank? and !fund_performance.net_irr.blank?%>
+                        <%b= content_tag(:td,"#{fund_performance.net_irr}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+<%e=number_to_percentage(b) %>
+                        <%@fund_performance << e%>
+                    <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                        <%@fund_performance << "n/d"%>
+                    <% end %>
+			
+                    <%if !fund_performance.blank? and !fund_performance.tvpi.blank?%>
+                        <%= content_tag(:td,"#{fund_performance.tvpi}",:class=>"bdr_left bdr_btm white_bg",:align=>"left" )%>
+                        <%@fund_performance << fund_performance.tvpi + "(x)"%>
+                    <% else %>
+                        <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+                        <%@fund_performance << "n/d"%>
+                    <% end %>
+
+<%if !fund_performance.blank? and !fund_performance.currency.blank?%>
+    <%= content_tag(:td, fund_performance.currency.name, :class => "bdr_left bdr_btm white_bg") %>
+    <% if fund_performance.currency.name == "Unspecified"%>
+    <% @fund_performance << "n/d" %>
+     <% else %>
+      <%@fund_performance << fund_performance.currency.name %>
+       <% end %>
+      <%else%>
+   <%= content_tag(:td, "n/d", :class => "bdr_left bdr_btm white_bg") %>
+      <%@fund_performance << "n/d"%>
+      <%end%>
+
+
+
+
+                <% end %>
+                <!-- table end -->
+                <% @arr_fund_performances << @fund_performance%>
+            <% end %>
+        <% end %>
+        </tbody>
+
+      </table>
+
+ <div style ="float:left; width:82%;font-family:verdana; font-size: 11px; color:black;padding-top:5px;">
+
+<p><i> 
+This table only displays the most recent results. To view all results, please use the "Export" function</i> </p>
+</div>
+
+ <div style="float:right; padding: 1px 4px; margin: 11px 16px 0px 0px;">
+<%#=link_to "Export Data", fund_report_path(fund_id:@fund.id,format: "csv")%>
+
+ <%#= link_to "Export", {},:name=>"Export to Excel", :href=>"javascript:void(0)",:id=>"exportTrigger",:class=>"excel tooltip thickbox",:title=>"Download search results into excel" %>
+	     <!--<input type="button" class="submit_btn_prof" value="Export" name="Export" dataurl="/funds/fund_performance_exports?fund_id=<%#= params[:fund_id]%>"   data-downloadurl="/funds/fund_performance_exports?fund_id=<%#= params[:fund_id]%>"> !-- >
+ <!-- <input style="float:right;" class="new_btn" id="funddownloadExcel" value="Download to excel" type="button" data-downloadurl="/funds/fund_exports" data-exportcustomurl="/funds/custom_search_export">  --!>
+
+<!--
+<input style="float:right;" class="new_btn" id="funddownloadExcel"     name="fund_export_data[fund_performance_data]"  value="Download to excel" type="button" dataurl="/funds/fund_exports" >  
+--!>
+ <input style="float:right;" class="submit_btn" id="fundperformancedownloadExcel" value="Export" type="button" data-downloadurl="/funds/fund_performance_exports?fund_id=<%= params[:fund_id] %>" data-exportcustomurl="/funds/fund_performance_exports?fund_id=<%= params[:fund_id] %>">
+
+
+
+
+<%# logger.info"==#{params[:fund_id]}====" %>
+<!--<span class="ajax-popup" data-method="GET" data-url="/funds/fund_performance_exports?fund_id=<%#= params[:fund_id] %>">  -->
+      </div>
+
+    </div>
+<% end %>
+
+<%= javascript_include_tag "jquery.dataTables.min.js"%>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var dataSet= <%= @arr_fund_performances.to_json.html_safe%>;
+        console.log(dataSet);
+        $('.cls_table_style188').DataTable( {
+            data: dataSet,
+            columns: [	
+                { title: "Fund Performance Date" },
+                { title: "Source" },
+                { title: "Commitment" },
+                { title: "Gross IRR" },
+		{ title: "Net IRR" },
+                { title: "TVPI" },
+                { title: "Currency" },],
+	/*	"order" : [ 0, 'desc' ], */ 
+            "paging":   false,
+            "searching": false,
+            "info":  false,
+            "scrollY": "425px",
+            "scrollCollapse": true,
+            "aoColumns": [ {title:"Fund Performance Date","sType": "stringMonthYear"}, { title:"Source"}, { title:"Commitment"}, {title:"Gross IRR()"},{title:"Net IRR()"}, {title:"TVPI()"}, {title:"Currency"} ],
+        } );
+        $.extend(jQuery.fn.dataTableExt.oSort, {
+            "stringMonthYear-pre": function (s) {
+                var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                var dateComponents = s.split(" ");
+                dateComponents[0] = dateComponents[0].replace(",", "");
+                dateComponents[1] = jQuery.trim(dateComponents[1]);
+                var year = dateComponents[1];
+                var month = 0;
+               for (var i = 0; i < months.length; i++) {
+                    if (months[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                        month = i;
+                        break;
+                    }
+                } 
+                var allMonths = ['Jan','Feb','Mar', "Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+                for (var i = 0; i < allMonths.length; i++) {
+                    if (allMonths[i].toLowerCase() == dateComponents[0].toLowerCase().substring(0,3)) {
+                        month = i;
+                        break;
+                    }
+                }
+                return new Date(year, month, 1);
+            },
+  
+            "stringMonthYear-asc": function (a, b) {
+                return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+            },
+            "stringMonthYear-desc": function (a, b) {
+                return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+            },
+
+            "NumericOrBlank-pre": function (s){
+                var a = parseFloat($.trim(s).replace(/,/,''));
+                if(a==0){return "0";}else if(a>0){return a;}else{return " "}
+            },
+            "NumericOrBlank-asc": function(a,b) {
+                return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+            },
+            "NumericOrBlank-desc": function(b,a) {
+                return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+            }
+
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).on("click",".submit_btn_prof",function(e){
+      e.preventDefault();
+      var r = confirm("Are you sure want to get fund performance report by email");
+      if (r == true)
+       {
+       var get_val1 = true
+        }
+      else
+       {
+         var get_val1 = false
+         }
+        $.ajax({
+          type: "GET",
+          url: $(this).attr('dataurl'),
+          data: {"ok_cancel": get_val1 },
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+          },
+          success: function (data) {
+            alert(data);
+
+          }
+        });
+    });
+
+
+
+
+$(this).click(
+                function()
+                                {
+                                        if(document.getElementById("page").value==0 && t=='#exportTrigger1')
+                                        {
+                                                alert("Please search data to export!");
+                                        return;
+                                        }
+                                        else
+                                                for(var i in {jqmShow:1,jqmHide:1})for(var s in this[i])if(H[this[i][s]])H[this[i][s]].w[i](this);return F;
+                                }
+                        );}this[c].push(s);});});};
+})(jQuery);
+
+</script>
+
+
+
+
+
+<style>
+  .decending {
+    background: url(/images/ascending-arrow.gif) no-repeat right 5px;
+    color: #E3001B;
+    padding-right: 11px;
+  }
+  .ascending {
+    background: url(/images/desecending-arrow.gif) no-repeat right 5px;
+    color: #E3001B;
+    padding-right: 11px;
+  }
+  .tbl_style .bdr_tp {
+    border-top: solid #D9D9D9 1px;
+  }
+  .tbl_style .bdr_btm {
+    border-bottom: solid #D9D9D9 1px;
+  }
+  .tbl_style tr th {
+    background: #E5E6E8;
+    padding: 8px 5px 8px 5px;
+    font-weight: bold;
+    color: #000;
+    text-align: left;
+  }
+  .tbl_style tr th:hover {
+    color: red;
+    cursor:pointer;
+  }
+  .tbl_style tr td {
+    vertical-align: middle;
+    margin-left: 0px;
+  }
+  .porfile_right_mid fieldset table td {
+    padding: 5px 5px;
+    vertical-align: top;
+  }
+ .tbl_style tr th {
+    width: 18%;
+  }
+  .test
+  { background-color:black;
+}
+  .tbl_style .white_bg {
+    background: #fff;
+  }
+  .tbl_style tr td {
+    border-bottom: solid #D9D9D9 1px;
+    border-right: solid #D9D9D9 1px;
+  }
+  .tbl_style tr td {
+    vertical-align: middle;
+  }
+  .tbl_style fieldset table td {
+    padding: 5px 5px;
+    vertical-align: top;
+  }
+  .tbl_style fieldset table td {
+    padding: 5px 5px;
+    vertical-align: top;
+  }
+  .tbl_style tr td {
+    font-size: 11px;
+  }
+  .tbl_style {
+    font-size: 11px;
+  }
+
+/*% for fund performance*/
+
+/*.porfile_right_mid fieldset table#table_style3 td:nth-child(4):after {content:"%";padding-left: 3px;}
+.porfile_right_mid fieldset table#table_style3 td:nth-child(5):after {content:"%";padding-left: 3px;} 
+.porfile_right_mid fieldset table#table_style3 td:nth-child(6):after {content:"(x)";padding-left: 3px;}
+.porfile_right_mid fieldset td.bdr_left.bdr_btm.white_bg:after{content: " " !important;}*/
+#table_style3_wrapper th.sorting_asc ,#table_style3_wrapper th{
+
+background-image: url(/images/ascending-arrow.gif);
+background-repeat: no-repeat;
+background-position: 98% center;
+}
+
+
+#table_style3_wrapper th.sorting_desc {
+
+background-image: url(/images/desecending-arrow.gif)!important;
+background-repeat: no-repeat;
+background-position: 98% center;
+
+}
+</style>
+<%end %>
+

@@ -1,0 +1,396 @@
+
+
+
+
+cd Cms/admin/lib/netcore_newsletter_api.rb
+
+
+
+
+
+
+http://pr2.saymails.com/printweek/admin/index.php/campaign/campaign_dashboard
+
+
+
+
+
+
+
+
+
+
+
+api 
+
+  def self.create_message(subject,content)
+#   content = "test" #NetcoreNewsletterApi.newsletter_html_body
+    content = content.uri_encode!
+    ##url1 = HOST_URL + "type=message&activity=Add&data=<DATASET><CONSTANT><ApiKey>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["API_KEY"]}</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><Subject>#{subject}</Subject><FromName>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["name"]}</FromName><FromEmail>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["from"]}</FromEmail><ReplyTo></ReplyTo><MessageHTML><![CDATA["
+    url1 =  "type=message&activity=Add&data=<DATASET><CONSTANT><ApiKey>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["API_KEY"]}</ApiKey></CONSTANT><INPUT><Subject>#{subject}</Subject><FromName>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["name"]}</FromName><FromEmail>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["from"]}</FromEmail><ReplyTo></ReplyTo><MessageHTML><![CDATA["
+
+    content1 = "#{content}"
+    url2= "If you do not want to receive any newsletters, [UNSUBSCRIBE]]]></MessageHTML><MessageMobile><![CDATA[]]></MessageMobile><Attcount>1</Attcount></INPUT></DATASET>"
+    uri1 =  URI::escape(url1)
+#    uri1 =  URI::escape(uri1,"[]")
+    uri2 =  URI::escape(url2)
+#    uri2 =  URI::escape(uri2,"[]")
+    main_url = (uri1+content1+uri2)
+    response = `curl -k -X POST -d "#{main_url}" "#{HOST_URL}"`
+    parser = Nori.new
+    result = parser.parse(response)
+    Rails.logger.info "==response==#{main_url}====#{result}=="
+    puts "==response==#{main_url}====#{result}=="
+    if (!result["DATASET"].blank? and !result["DATASET"]["TYPE"].blank? and result["DATASET"]["TYPE"] == "success")
+     return true,result["DATASET"]["OUTPUT"]["MID"]
+    else
+     return false,"error"
+    end
+  end
+
+
+newsletter controller
+
+def create_newsletter
+       Newsletter.transaction  do
+       @page_properties={:selected_menu=>'newsletter_creation',:menu_title=>'New Profile'}
+       @newsletter = @site.newsletters.find(params[:newsletter][:newsletter_id])
+       @subject = @newsletter.subject(@site)
+       status,content = @newsletter.html_body(@site,'main')
+       if status
+        status_new,message = NetcoreNewsletterApi.create_message(@subject,content)
+       logger.info "=======create_message====#{status_new}===#{message}"
+         if not status_new
+           (render :json => {:text=>"Test Newsletter Was Not Delivered Successfully Please try Again" ,:status=>false})
+         else
+           logger.info "=======create_message====#{status_new}===#{message}"
+           list_ids = NEWSLETTER_TYPE_LIST_MAPPING[@site.short_name][@newsletter.id][params[:newsletter_list]] if !NEWSLETTER_TYPE_LIST_MAPPING.blank? and !NEWSLETTER_TYPE_LIST_MAPPING[@site.short_name].blank? and !NEWSLETTER_TYPE_LIST_MAPPING[@site.short_name][@newsletter.id].blank?
+#           list_ids=[19]
+            if params[:schedule] == "schedule_later" and !params[:article][:publish_date].blank?
+           ##list_ids.each do |list_id|
+             NetcoreNewsletterApi.schedule_campaign(@newsletter.id,message,list_ids,@newsletter.netcore_list_job_id,params[:schedule],params[:article][:publish_date])
+           ##end
+           else
+            ## list_ids.each do |list_id|
+             NetcoreNewsletterApi.schedule_campaign(@newsletter.id,message,list_ids,@newsletter.netcore_list_job_id,params[:schedule])
+           ##end
+          end
+           render :json => {:text=>"Main Newsletter Was Delivered Successfully" ,:status=>true}
+         end
+        else
+         render :json => {:text=>"Please provide valid request" ,:status=>true}
+        end
+       end
+   end
+
+
+
+
+
+ def self.schedule_campaign(newsletter_id,message_id,list_id,job_id,schedule_value,schedule_time="")
+   newsletter = Newsletter.find(newsletter_id)
+   #url =  HOST_URL + "type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["API_KEY"]}</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>#{message_id}</MID><LID>#{list_id}</LID><LASTJOB>#{newsletter.netcore_list_job_id}</LASTJOB></INPUT></DATASET>"
+    
+   if !schedule_time.blank?
+    puts "==schedule===#{schedule_value}==#{schedule_time}====="
+    sched_time = schedule_time.to_time
+    year = sched_time.strftime("%Y")
+    month = sched_time.strftime("%m")
+    day = sched_time.strftime("%d")
+    hour = sched_time.strftime("%H")
+    minute = sched_time.strftime("%M")
+   url =  HOST_URL + "type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["API_KEY"]}</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>#{message_id}</MID><DeliveryYear>#{year}</DeliveryYear><DeliveryMonth>#{month}</DeliveryMonth><DeliveryDate>#{day}</DeliveryDate><DeliveryHour>#{hour}</DeliveryHour><DeliveryMinute>#{minute}</DeliveryMinute><LID>#{list_id}</LID></INPUT></DATASET>"
+  else
+   url =  HOST_URL + "type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["API_KEY"]}</ApiKey></CONSTANT><INPUT><MID>#{message_id}</MID><LID>#{list_id}</LID></INPUT></DATASET>"
+    end
+   uri = URI::escape(url)
+   response = `curl  -k -X POST "#{uri}"`
+   parser = Nori.new
+   result = parser.parse(response)
+   (!result["DATASET"].blank? and !result["DATASET"]["TYPE"].blank? and result["DATASET"]["TYPE"] == "success") ? true : false
+   Rails.logger.info "==response==#{response}==#{uri}====#{result}=="
+   puts "==response==#{response}==#{uri}====#{result}=="
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+1.9.3-p194 :001 > HOST_URL="https://api.exacttouch.com/API/mailing/?"
+ => "https://api.exacttouch.com/API/mailing/?" 
+1.9.3-p194 :002 >  NEWSLETTER_MAPPING_NEW={
+1.9.3-p194 :003 >     "printweek_india"=>{"from" => "e-mail@printweek.in" ,"name" => "PrintWeek India", "API_KEY" =>"1922339bf0d92902064caf8def52aa50"},"autocar_pro"=>{"from"=>"email@autocarpro.in","name" => "Autocar Professional", "API_KEY" => "548ab3d4ec6c546ab7653ca4400eb3ce" }
+1.9.3-p194 :004?>   }
+ => {"printweek_india"=>{"from"=>"e-mail@printweek.in", "name"=>"PrintWeek India", "API_KEY"=>"1922339bf0d92902064caf8def52aa50"}, "autocar_pro"=>{"from"=>"email@autocarpro.in", "name"=>"Autocar Professional", "API_KEY"=>"548ab3d4ec6c546ab7653ca4400eb3ce"}} 
+1.9.3-p194 :005 > @site=Site.find 5
+   (0.2ms)  SHOW search_path
+  Site Load (74.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" = $1 LIMIT 1  [["id", 5]]
+ => #<Site id: 5, name: "www.printweek.in", short_name: "printweek_india", layout_path: "/layouts/printweek_india", url: nil, action: nil, content_sharing_portal_id: nil, created_by: 1, updated_by: 1, created_at: "2016-03-18 06:28:50", updated_at: "2016-06-23 12:41:21", wpl_id: nil, presentation_proxy_id: 5, data_proxy_id: 5, url_display_name: "printweek_india", robot: nil, active: true, status: "Online", domain: "www.printweek.in", prefix: nil, site_type: nil, external_url: nil, start_date: nil, end_date: nil> 
+1.9.3-p194 :006 > Ambient.init
+ => {} 
+^[[A1.9.3-p194 :007 > Ambient.current_site=@site
+ => #<Site id: 5, name: "www.printweek.in", short_name: "printweek_india", layout_path: "/layouts/printweek_india", url: nil, action: nil, content_sharing_portal_id: nil, created_by: 1, updated_by: 1, created_at: "2016-03-18 06:28:50", updated_at: "2016-06-23 12:41:21", wpl_id: nil, presentation_proxy_id: 5, data_proxy_id: 5, url_display_name: "printweek_india", robot: nil, active: true, status: "Online", domain: "www.printweek.in", prefix: nil, site_type: nil, external_url: nil, start_date: nil, end_date: nil> 
+1.9.3-p194 :008 > @newsletter=@site.newsletters.first
+  DataProxy Load (1.1ms)  SELECT "data_proxies".* FROM "data_proxies" WHERE "data_proxies"."id" = 5 LIMIT 1
+  Newsletter Load (0.6ms)  SELECT "newsletters".* FROM "newsletters" WHERE "newsletters"."data_proxy_id" = 5 LIMIT 1
+ => #<Newsletter id: 10, name: "newsletter-wednesday", data_proxy_id: 5, created_at: "2016-05-24 07:31:01", updated_at: "2017-01-24 12:00:06", netcore_list_job_id: "50386"> 
+1.9.3-p194 :009 > status,content = @newsletter.html_body(@site,'main')
+   (0.3ms)  BEGIN
+  SQL (2.2ms)  INSERT INTO "newsletter_parses" ("created_at", "date", "folder_name", "newsletter_id", "path", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Tue, 24 Jan 2017 12:33:36 UTC +00:00], ["date", nil], ["folder_name", nil], ["newsletter_id", 10], ["path", nil], ["updated_at", Tue, 24 Jan 2017 12:33:36 UTC +00:00]]
+   (53.2ms)  COMMIT
+   (0.2ms)  BEGIN
+   (0.9ms)  UPDATE "newsletter_parses" SET "path" = '/NEWSLETTER/24012017/1481/newsletter.html', "date" = '2017-01-24', "folder_name" = '24012017', "updated_at" = '2017-01-24 12:33:36.148244' WHERE "newsletter_parses"."id" = 1481
+   (0.7ms)  COMMIT
+
+    in html format it will come 
+
+1.9.3-p194 :010 > @subject="test from kreatio"
+ => "test from kreatio" 
+1.9.3-p194 :011 > subject="test from kreatio"
+ => "test from kreatio" 
+1.9.3-p194 :012 > content = content.uri_encode!
+ =>   large code will code
+
+
+1.9.3-p194 :013 > url1 =  "type=message&activity=Add&data=<DATASET><CONSTANT><ApiKey>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["API_KEY"]}</ApiKey></CONSTANT><INPUT><Subject>#{subject}</Subject><FromName>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["name"]}</FromName><FromEmail>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["from"]}</FromEmail><ReplyTo></ReplyTo><MessageHTML><![CDATA["
+ => "type=message&activity=Add&data=<DATASET><CONSTANT><ApiKey>1922339bf0d92902064caf8def52aa50</ApiKey></CONSTANT><INPUT><Subject>test from kreatio</Subject><FromName>PrintWeek India</FromName><FromEmail>e-mail@printweek.in</FromEmail><ReplyTo></ReplyTo><MessageHTML><![CDATA[" 
+1.9.3-p194 :014 > content1 = "#{content}"
+ =>   large code will code
+
+1.9.3-p194 :015 > url2= "If you do not want to receive any newsletters, [UNSUBSCRIBE]]]></MessageHTML><MessageMobile><![CDATA[]]></MessageMobile><Attcount>1</Attcount></INPUT></DATASET>"
+ => "If you do not want to receive any newsletters, [UNSUBSCRIBE]]]></MessageHTML><MessageMobile><![CDATA[]]></MessageMobile><Attcount>1</Attcount></INPUT></DATASET>" 
+1.9.3-p194 :016 > uri1 =  URI::escape(url1)
+ => "type=message&activity=Add&data=%3CDATASET%3E%3CCONSTANT%3E%3CApiKey%3E1922339bf0d92902064caf8def52aa50%3C/ApiKey%3E%3C/CONSTANT%3E%3CINPUT%3E%3CSubject%3Etest%20from%20kreatio%3C/Subject%3E%3CFromName%3EPrintWeek%20India%3C/FromName%3E%3CFromEmail%3Ee-mail@printweek.in%3C/FromEmail%3E%3CReplyTo%3E%3C/ReplyTo%3E%3CMessageHTML%3E%3C![CDATA[" 
+1.9.3-p194 :017 > uri2 =  URI::escape(url2)
+ => "If%20you%20do%20not%20want%20to%20receive%20any%20newsletters,%20[UNSUBSCRIBE]]]%3E%3C/MessageHTML%3E%3CMessageMobile%3E%3C![CDATA[]]%3E%3C/MessageMobile%3E%3CAttcount%3E1%3C/Attcount%3E%3C/INPUT%3E%3C/DATASET%3E" 
+1.9.3-p194 :018 > main_url = (uri1+content1+uri2)
+ =>  large code will code
+
+
+
+1.9.3-p194 :019 > response = `curl -k -X POST -d "#{main_url}" "#{HOST_URL}"`
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 90370  100    71  100 90299     55  70437  0:00:01  0:00:01 --:--:-- 77443
+ => "<DATASET><TYPE>success</TYPE><OUTPUT><MID>1885</MID></OUTPUT></DATASET>" 
+
+1.9.3-p194 :020 > parser = Nori.new
+ => #<Nori:0x00000009c02ac0 @options={:strip_namespaces=>false, :delete_namespace_attributes=>false, :convert_tags_to=>nil, :convert_attributes_to=>nil, :advanced_typecasting=>true, :convert_dashes_to_underscores=>true, :parser=>:nokogiri}> 
+1.9.3-p194 :021 > result = parser.parse(response)
+ => {"DATASET"=>{"TYPE"=>"success", "OUTPUT"=>{"MID"=>"1885"}}} 
+
+
+1.9.3-p194 :022 > message="1885"
+ => "1885" 
+
+1.9.3-p194 :023 > list_ids=[131]=========== form netcore url we get (check for kreatio test) 
+ => [131] 
+
+1.9.3-p194 :024 >  schedule_value="schedule_later"
+ => "schedule_later" 
+1.9.3-p194 :025 >          schedule_time="January 24, 2017 06:00 pm"
+ => "January 24, 2017 06:00 pm" 
+1.9.3-p194 :026 > newsletter =@newsletter
+ => #<Newsletter id: 10, name: "newsletter-wednesday", data_proxy_id: 5, created_at: "2016-05-24 07:31:01", updated_at: "2017-01-24 12:00:06", netcore_list_job_id: "50386"> 
+1.9.3-p194 :027 > message_id=message
+ => "1885" 
+1.9.3-p194 :028 > sched_time = schedule_time.to_time
+ => 2017-01-24 18:00:00 UTC 
+1.9.3-p194 :029 >     year = sched_time.strftime("%Y")
+ => "2017" 
+1.9.3-p194 :030 >     month = sched_time.strftime("%m")
+ => "01" 
+1.9.3-p194 :031 >     day = sched_time.strftime("%d")
+ => "24" 
+1.9.3-p194 :032 >     hour = sched_time.strftime("%H")
+ => "18" 
+1.9.3-p194 :033 >     minute = sched_time.strftime("%M")
+ => "00" 
+1.9.3-p194 :034 > schedule_time="January 24, 2017 06:15 pm"
+ => "January 24, 2017 06:15 pm" 
+1.9.3-p194 :035 > sched_time = schedule_time.to_time
+ => 2017-01-24 18:15:00 UTC 
+1.9.3-p194 :036 >     year = sched_time.strftime("%Y")
+ => "2017" 
+1.9.3-p194 :037 >     month = sched_time.strftime("%m")
+ => "01" 
+1.9.3-p194 :038 >     day = sched_time.strftime("%d")
+ => "24" 
+1.9.3-p194 :039 >     hour = sched_time.strftime("%H")
+ => "18" 
+1.9.3-p194 :040 >     minute = sched_time.strftime("%M")
+ => "15" 
+1.9.3-p194 :041 > url =  HOST_URL + "type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["API_KEY"]}</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>#{message_id}</MID><DeliveryYear>#{year}</DeliveryYear><DeliveryMonth>#{month}</DeliveryMonth><DeliveryDate>#{day}</DeliveryDate><DeliveryHour>#{hour}</DeliveryHour><DeliveryMinute>#{minute}</DeliveryMinute><LID>#{list_id}</LID></INPUT></DATASET>"
+NameError: undefined local variable or method `list_id' for main:Object
+	from (irb):41
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands/console.rb:45:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands/console.rb:8:in `start'
+	from /home/ruby/.rvm/gems/ruby-1.9.3-p194@haylive/gems/railties-3.1.3/lib/rails/commands.rb:40:in `<top (required)>'
+	from script/rails:6:in `require'
+	from script/rails:6:in `<main>'
+1.9.3-p194 :042 > list_id=[131]
+ => [131] 
+
+
+1.9.3-p194 :043 >  url =  HOST_URL + "type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["API_KEY"]}</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>#{message_id}</MID><DeliveryYear>#{year}</DeliveryYear><DeliveryMonth>#{month}</DeliveryMonth><DeliveryDate>#{day}</DeliveryDate><DeliveryHour>#{hour}</DeliveryHour><DeliveryMinute>#{minute}</DeliveryMinute><LID>#{list_id}</LID></INPUT></DATASET>"
+ => "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>1922339bf0d92902064caf8def52aa50</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>1885</MID><DeliveryYear>2017</DeliveryYear><DeliveryMonth>01</DeliveryMonth><DeliveryDate>24</DeliveryDate><DeliveryHour>18</DeliveryHour><DeliveryMinute>15</DeliveryMinute><LID>[131]</LID></INPUT></DATASET>" 
+
+
+1.9.3-p194 :044 > uri = URI::escape(url)
+ => "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=%3CDATASET%3E%3CCONSTANT%3E%3CApiKey%3E1922339bf0d92902064caf8def52aa50%3C/ApiKey%3E%3CRefIp%3E%3C/RefIp%3E%3CRefWeb%3E%3C/RefWeb%3E%3C/CONSTANT%3E%3CINPUT%3E%3CMID%3E1885%3C/MID%3E%3CDeliveryYear%3E2017%3C/DeliveryYear%3E%3CDeliveryMonth%3E01%3C/DeliveryMonth%3E%3CDeliveryDate%3E24%3C/DeliveryDate%3E%3CDeliveryHour%3E18%3C/DeliveryHour%3E%3CDeliveryMinute%3E15%3C/DeliveryMinute%3E%3CLID%3E[131]%3C/LID%3E%3C/INPUT%3E%3C/DATASET%3E" 
+
+1.9.3-p194 :045 > response = `curl  -k -X POST "#{uri}"`
+curl: (3) [globbing] error: bad range specification after pos 471
+ => "" 
+1.9.3-p194 :046 > `curl  -k -X POST uri`
+curl: (6) Couldn't resolve host 'uri'
+ => "" 
+1.9.3-p194 :047 > response = `curl  -k -X POST "#{uri}"`
+curl: (3) [globbing] error: bad range specification after pos 471
+ => "" 
+1.9.3-p194 :048 > url="https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>1922339bf0d92902064caf8def52aa50</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>1885</MID><DeliveryYear>2017</DeliveryYear><DeliveryMonth>01</DeliveryMonth><DeliveryDate>24</DeliveryDate><DeliveryHour>18</DeliveryHour><DeliveryMinute>15</DeliveryMinute><LID>131</LID></INPUT></DATASET>"
+ => "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>1922339bf0d92902064caf8def52aa50</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>1885</MID><DeliveryYear>2017</DeliveryYear><DeliveryMonth>01</DeliveryMonth><DeliveryDate>24</DeliveryDate><DeliveryHour>18</DeliveryHour><DeliveryMinute>15</DeliveryMinute><LID>131</LID></INPUT></DATASET>" 
+
+
+here uri is mentioned
+
+
+1.9.3-p194 :049 > uri = URI::escape(url)
+ => "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=%3CDATASET%3E%3CCONSTANT%3E%3CApiKey%3E1922339bf0d92902064caf8def52aa50%3C/ApiKey%3E%3CRefIp%3E%3C/RefIp%3E%3CRefWeb%3E%3C/RefWeb%3E%3C/CONSTANT%3E%3CINPUT%3E%3CMID%3E1885%3C/MID%3E%3CDeliveryYear%3E2017%3C/DeliveryYear%3E%3CDeliveryMonth%3E01%3C/DeliveryMonth%3E%3CDeliveryDate%3E24%3C/DeliveryDate%3E%3CDeliveryHour%3E18%3C/DeliveryHour%3E%3CDeliveryMinute%3E15%3C/DeliveryMinute%3E%3CLID%3E131%3C/LID%3E%3C/INPUT%3E%3C/DATASET%3E" 
+1.9.3-p194 :050 > response = `curl  -k -X POST "#{uri}"`
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    94  100    94    0     0     64      0  0:00:01  0:00:01 --:--:--    88
+ => "<DATASET><TYPE>success</TYPE><OUTPUT><MID>1885 submitted successfully</MID></OUTPUT></DATASET>" 
+
+
+above worked correctly
+
+
+1.9.3-p194 :051 > url= "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>1922339bf0d92902064caf8def52aa50</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>1885</MID><DeliveryYear>2017</DeliveryYear><DeliveryMonth>01</DeliveryMonth><DeliveryDate>24</DeliveryDate><DeliveryHour>18</DeliveryHour><DeliveryMinute>15</DeliveryMinute><LID>[130,131]</LID></INPUT></DATASET>"
+ => "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>1922339bf0d92902064caf8def52aa50</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>1885</MID><DeliveryYear>2017</DeliveryYear><DeliveryMonth>01</DeliveryMonth><DeliveryDate>24</DeliveryDate><DeliveryHour>18</DeliveryHour><DeliveryMinute>15</DeliveryMinute><LID>[130,131]</LID></INPUT></DATASET>" 
+
+1.9.3-p194 :052 >  uri = URI::escape(url)
+ => "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=%3CDATASET%3E%3CCONSTANT%3E%3CApiKey%3E1922339bf0d92902064caf8def52aa50%3C/ApiKey%3E%3CRefIp%3E%3C/RefIp%3E%3CRefWeb%3E%3C/RefWeb%3E%3C/CONSTANT%3E%3CINPUT%3E%3CMID%3E1885%3C/MID%3E%3CDeliveryYear%3E2017%3C/DeliveryYear%3E%3CDeliveryMonth%3E01%3C/DeliveryMonth%3E%3CDeliveryDate%3E24%3C/DeliveryDate%3E%3CDeliveryHour%3E18%3C/DeliveryHour%3E%3CDeliveryMinute%3E15%3C/DeliveryMinute%3E%3CLID%3E[130,131]%3C/LID%3E%3C/INPUT%3E%3C/DATASET%3E" 
+
+1.9.3-p194 :053 > response = `curl  -k -X POST "#{uri}"`
+curl: (3) [globbing] error: bad range specification after pos 471
+ => "" 
+
+1.9.3-p194 :054 > url= "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>1922339bf0d92902064caf8def52aa50</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>1885</MID><DeliveryYear>2017</DeliveryYear><DeliveryMonth>01</DeliveryMonth><DeliveryDate>24</DeliveryDate><DeliveryHour>18</DeliveryHour><DeliveryMinute>15</DeliveryMinute><LID>\[131\]</LID></INPUT></DATASET>"
+ => "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>1922339bf0d92902064caf8def52aa50</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>1885</MID><DeliveryYear>2017</DeliveryYear><DeliveryMonth>01</DeliveryMonth><DeliveryDate>24</DeliveryDate><DeliveryHour>18</DeliveryHour><DeliveryMinute>15</DeliveryMinute><LID>[131]</LID></INPUT></DATASET>" 
+
+1.9.3-p194 :055 >  uri = URI::escape(url)
+ => "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=%3CDATASET%3E%3CCONSTANT%3E%3CApiKey%3E1922339bf0d92902064caf8def52aa50%3C/ApiKey%3E%3CRefIp%3E%3C/RefIp%3E%3CRefWeb%3E%3C/RefWeb%3E%3C/CONSTANT%3E%3CINPUT%3E%3CMID%3E1885%3C/MID%3E%3CDeliveryYear%3E2017%3C/DeliveryYear%3E%3CDeliveryMonth%3E01%3C/DeliveryMonth%3E%3CDeliveryDate%3E24%3C/DeliveryDate%3E%3CDeliveryHour%3E18%3C/DeliveryHour%3E%3CDeliveryMinute%3E15%3C/DeliveryMinute%3E%3CLID%3E[131]%3C/LID%3E%3C/INPUT%3E%3C/DATASET%3E" 
+1.9.3-p194 :056 > response = `curl --g  -k -X POST "#{uri}"`
+curl: option --g: is ambiguous
+curl: try 'curl --help' or 'curl --manual' for more information
+ => "" 
+1.9.3-p194 :057 > response = `curl -k -X POST --g "#{uri}"`
+curl: option --g: is ambiguous
+curl: try 'curl --help' or 'curl --manual' for more information
+ => "" 
+
+
+
+in string its works where in array it not changed  the list_id
+
+1.9.3-p194 :058 > response = `curl -k -X POST --globoff "#{uri}"`
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    90  100    90    0     0     93      0 --:--:-- --:--:-- --:--:--   104
+ => "<DATASET><TYPE>ERROR: 143 Schedule Campaign: Invalid list ID's specified.</TYPE></DATASET>" 
+1.9.3-p194 :059 > url= "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>1922339bf0d92902064caf8def52aa50</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>1885</MID><DeliveryYear>2017</DeliveryYear><DeliveryMonth>01</DeliveryMonth><DeliveryDate>24</DeliveryDate><DeliveryHour>18</DeliveryHour><DeliveryMinute>15</DeliveryMinute><LID>\\[131\\]</LID></INPUT></DATASET>"
+ => "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>1922339bf0d92902064caf8def52aa50</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>1885</MID><DeliveryYear>2017</DeliveryYear><DeliveryMonth>01</DeliveryMonth><DeliveryDate>24</DeliveryDate><DeliveryHour>18</DeliveryHour><DeliveryMinute>15</DeliveryMinute><LID>\\[131\\]</LID></INPUT></DATASET>" 
+1.9.3-p194 :060 > uri = URI::escape(url)
+ => "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=%3CDATASET%3E%3CCONSTANT%3E%3CApiKey%3E1922339bf0d92902064caf8def52aa50%3C/ApiKey%3E%3CRefIp%3E%3C/RefIp%3E%3CRefWeb%3E%3C/RefWeb%3E%3C/CONSTANT%3E%3CINPUT%3E%3CMID%3E1885%3C/MID%3E%3CDeliveryYear%3E2017%3C/DeliveryYear%3E%3CDeliveryMonth%3E01%3C/DeliveryMonth%3E%3CDeliveryDate%3E24%3C/DeliveryDate%3E%3CDeliveryHour%3E18%3C/DeliveryHour%3E%3CDeliveryMinute%3E15%3C/DeliveryMinute%3E%3CLID%3E%5C[131%5C]%3C/LID%3E%3C/INPUT%3E%3C/DATASET%3E" 
+1.9.3-p194 :061 > response = `curl --g  -k -X POST "#{uri}"`
+curl: option --g: is ambiguous
+curl: try 'curl --help' or 'curl --manual' for more information
+ => "" 
+1.9.3-p194 :062 >  response = `curl  -k -X POST "#{uri}"`
+curl: (3) [globbing] error: bad range specification after pos 474
+ => "" 
+1.9.3-p194 :063 > message="1885"
+ => "1885" 
+1.9.3-p194 :064 > list_id="[131]"
+ => "[131]" 
+1.9.3-p194 :065 >  schedule_value="schedule_later"
+ => "schedule_later" 
+1.9.3-p194 :066 >          schedule_time="January 24, 2017 06:30 pm"
+ => "January 24, 2017 06:30 pm" 
+1.9.3-p194 :067 > newsletter =@newsletter
+ => #<Newsletter id: 10, name: "newsletter-wednesday", data_proxy_id: 5, created_at: "2016-05-24 07:31:01", updated_at: "2017-01-24 12:00:06", netcore_list_job_id: "50386"> 
+1.9.3-p194 :068 > message_id=message
+ => "1885" 
+1.9.3-p194 :069 > 
+1.9.3-p194 :070 >   sched_time = schedule_time.to_time
+ => 2017-01-24 18:30:00 UTC 
+1.9.3-p194 :071 >     year = sched_time.strftime("%Y")
+ => "2017" 
+1.9.3-p194 :072 >     month = sched_time.strftime("%m")
+ => "01" 
+1.9.3-p194 :073 >     day = sched_time.strftime("%d")
+ => "24" 
+1.9.3-p194 :074 >     hour = sched_time.strftime("%H")
+ => "18" 
+1.9.3-p194 :075 >     minute = sched_time.strftime("%M")
+ => "30" 
+1.9.3-p194 :076 > url =  HOST_URL + "type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["API_KEY"]}</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>#{message_id}</MID><DeliveryYear>#{year}</DeliveryYear><DeliveryMonth>#{month}</DeliveryMonth><DeliveryDate>#{day}</DeliveryDate><DeliveryHour>#{hour}</DeliveryHour><DeliveryMinute>#{minute}</DeliveryMinute><LID>#{list_id}</LID></INPUT></DATASET>"
+ => "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>1922339bf0d92902064caf8def52aa50</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>1885</MID><DeliveryYear>2017</DeliveryYear><DeliveryMonth>01</DeliveryMonth><DeliveryDate>24</DeliveryDate><DeliveryHour>18</DeliveryHour><DeliveryMinute>30</DeliveryMinute><LID>[131]</LID></INPUT></DATASET>" 
+1.9.3-p194 :077 >  uri = URI::escape(url)
+ => "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=%3CDATASET%3E%3CCONSTANT%3E%3CApiKey%3E1922339bf0d92902064caf8def52aa50%3C/ApiKey%3E%3CRefIp%3E%3C/RefIp%3E%3CRefWeb%3E%3C/RefWeb%3E%3C/CONSTANT%3E%3CINPUT%3E%3CMID%3E1885%3C/MID%3E%3CDeliveryYear%3E2017%3C/DeliveryYear%3E%3CDeliveryMonth%3E01%3C/DeliveryMonth%3E%3CDeliveryDate%3E24%3C/DeliveryDate%3E%3CDeliveryHour%3E18%3C/DeliveryHour%3E%3CDeliveryMinute%3E30%3C/DeliveryMinute%3E%3CLID%3E[131]%3C/LID%3E%3C/INPUT%3E%3C/DATASET%3E" 
+1.9.3-p194 :078 > uri = URI::escape(url)
+ => "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=%3CDATASET%3E%3CCONSTANT%3E%3CApiKey%3E1922339bf0d92902064caf8def52aa50%3C/ApiKey%3E%3CRefIp%3E%3C/RefIp%3E%3CRefWeb%3E%3C/RefWeb%3E%3C/CONSTANT%3E%3CINPUT%3E%3CMID%3E1885%3C/MID%3E%3CDeliveryYear%3E2017%3C/DeliveryYear%3E%3CDeliveryMonth%3E01%3C/DeliveryMonth%3E%3CDeliveryDate%3E24%3C/DeliveryDate%3E%3CDeliveryHour%3E18%3C/DeliveryHour%3E%3CDeliveryMinute%3E30%3C/DeliveryMinute%3E%3CLID%3E[131]%3C/LID%3E%3C/INPUT%3E%3C/DATASET%3E" 
+1.9.3-p194 :079 > response = `curl  -k -X POST "#{uri}"`
+curl: (3) [globbing] error: bad range specification after pos 471
+ => "" 
+1.9.3-p194 :080 > list_id="131,130"
+ => "131,130" 
+1.9.3-p194 :081 > url =  HOST_URL + "type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>#{NEWSLETTER_MAPPING_NEW[Ambient.current_site.short_name]["API_KEY"]}</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>#{message_id}</MID><DeliveryYear>#{year}</DeliveryYear><DeliveryMonth>#{month}</DeliveryMonth><DeliveryDate>#{day}</DeliveryDate><DeliveryHour>#{hour}</DeliveryHour><DeliveryMinute>#{minute}</DeliveryMinute><LID>#{list_id}</LID></INPUT></DATASET>"
+ => "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=<DATASET><CONSTANT><ApiKey>1922339bf0d92902064caf8def52aa50</ApiKey><RefIp></RefIp><RefWeb></RefWeb></CONSTANT><INPUT><MID>1885</MID><DeliveryYear>2017</DeliveryYear><DeliveryMonth>01</DeliveryMonth><DeliveryDate>24</DeliveryDate><DeliveryHour>18</DeliveryHour><DeliveryMinute>30</DeliveryMinute><LID>131,130</LID></INPUT></DATASET>" 
+1.9.3-p194 :082 >  uri = URI::escape(url)
+ => "https://api.exacttouch.com/API/mailing/?type=message&activity=Schedule&data=%3CDATASET%3E%3CCONSTANT%3E%3CApiKey%3E1922339bf0d92902064caf8def52aa50%3C/ApiKey%3E%3CRefIp%3E%3C/RefIp%3E%3CRefWeb%3E%3C/RefWeb%3E%3C/CONSTANT%3E%3CINPUT%3E%3CMID%3E1885%3C/MID%3E%3CDeliveryYear%3E2017%3C/DeliveryYear%3E%3CDeliveryMonth%3E01%3C/DeliveryMonth%3E%3CDeliveryDate%3E24%3C/DeliveryDate%3E%3CDeliveryHour%3E18%3C/DeliveryHour%3E%3CDeliveryMinute%3E30%3C/DeliveryMinute%3E%3CLID%3E131,130%3C/LID%3E%3C/INPUT%3E%3C/DATASET%3E" 
+1.9.3-p194 :083 > response = `curl  -k -X POST "#{uri}"`
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    94  100    94    0     0     64      0  0:00:01  0:00:01 --:--:--    69
+ => "<DATASET><TYPE>success</TYPE><OUTPUT><MID>1885 submitted successfully</MID></OUTPUT></DATASET>" 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+list_id="131,130"  or list_id=[131]  both only work 
+
+
+
+
+
+
+
+
+
+check in the url who are having the mail id ,bcoz they oly get d mail 
+
+

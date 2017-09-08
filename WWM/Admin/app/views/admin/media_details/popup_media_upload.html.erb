@@ -1,0 +1,32 @@
+<%= stylesheet_link_tag 'article_new', 'article.css' %>
+<%= javascript_include_tag :defaults, 'lowpro', 'jquery.min', 'jquery-ui', 'jquery.colorbox', 'jquery.popupWindow', 'jquery_ujs', 'jquery.tokeninput', 'ddsmoothmenu', 'new_admin', 'admin_new', 'admin', 'tabs', 'jquery.fcbkcomplete', 'jstree', 'jquery.Jcrop', 'jquery-ui-timepicker', 'tiny_mce', 'jquery.jcarousel.min', 'authentication', 'scriptaculous' %>
+<div class="section_block full_section">
+  <h2>Upload Media</h2>
+
+  <div class="section_content">
+    <%= form_tag({:controller => '/admin/media_details', :action => 'media_upload_save'}, {:name => 'media_multi', :id => 'media_submit', :multipart => true}) do %>
+
+        <div class="content_table">
+          <div class="form_data">
+            <label for="text_head">Name:</label>
+            <%= text_field :media_detail, :name, :class => 'input_text' %>
+          </div>
+          <div class="form_data">
+            <label for="text_head">Description :</label>
+            <%= text_area :media_detail, :description, :class => 'input_text' %>
+          </div>
+          <div class="form_data">
+            <%= file_field :media_detail, :video_path, :class => 'input_text' %>
+            <%#= hidden_field 'set','flag',:value=>@flag if @flag=="popup"%>
+            <%= hidden_field_tag "flag", "popup" %>
+          </div>
+          <div>
+
+            <div class="button" id="media_upload">
+              <%= link_to('Upload', 'javascript:void(0)', :onclick => "javascript: submit_media();") %>
+            </div>
+    <% end %>
+
+    </div>
+    </div>
+

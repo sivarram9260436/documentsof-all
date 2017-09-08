@@ -1,0 +1,8 @@
+<tr>
+	<td> <%=link_to(all_redirects.host,:controller=>"all_redirects",:action=>"edit",:id=>all_redirects.id) %> </td>
+	<td><%= all_redirects.orig_uri %></td>
+	<td><%= all_redirects.destination%> </td>
+	<td><%= all_redirects.redirect_type%> </td>
+	<td><%= all_redirects.record_type%> </td>
+	<td><%=link_to("Destroy",:controller=>"all_redirects",:action=>"delete_redirect",:id=>all_redirects.id)%></td>
+</tr>

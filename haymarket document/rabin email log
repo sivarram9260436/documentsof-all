@@ -1,0 +1,192 @@
+
+
+
+
+/////
+
+Started POST "/admin/articles/update?commit=save" for 192.168.15.55 at 2017-06-06 13:17:16 +0530
+  Processing by Admin::ArticlesController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"XA8WPR5JAraOeLucwp0sOnXtwbhq+s3NIFF3NCZ6Pt8=", "article"=>{"id"=>"9490", "site_ids"=>"3", "primary_medium"=>"text", "title"=>"test", "sub_title"=>"test", "description"=>"", "author_ids"=>["7"], "author_alias"=>"rabindra", "source_id"=>"4", "section_id"=>"12", "tag_ids"=>["11"], "category_ids"=>["245"], "meta_keywords"=>"", "meta_description"=>"", "magazine_issue_id"=>"", "exclusive"=>"0", "image_property"=>{"image_id"=>"", "caption"=>"", "customise_scenery"=>"Landscape", "customise_size"=>"Large"}, "digital_asset_property"=>{"digital_asset_id"=>""}, "gallery_property"=>{"image_sequence_id"=>""}, "audio_id"=>"", "media_detail_id"=>"", "pages_content"=>[{"title"=>"first_page", "content"=>"<p>test</p>"}], "additional_data_required"=>"", "premium"=>"false", "publish_date"=>"", "display_date"=>"", "expiry_date"=>"", "events_start_date"=>"", "events_end_date"=>"", "editing_notes"=>""}, "commit"=>"save"}
+  Site Load (1.6ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" = $1 LIMIT 1  [["id", "3"]]
+  ConfigurationGroup Load (0.7ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'time_zone' LIMIT 1
+  ConfigurationValue Load (0.6ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 49 AND "configuration_values"."key" = 'time' LIMIT 1
+  User Load (0.5ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 31]]
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" = $1 LIMIT 1
+  Role Load (0.8ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  SubPermission Load (0.7ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  SubPermission Load (0.7ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  SubPermission Load (1.1ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Article Load (0.9ms)  SELECT "articles".* FROM "articles" WHERE "articles"."id" = $1 LIMIT 1  [["id", "9490"]]
+   (0.1ms)  BEGIN
+WARNING: Can't mass-assign protected attributes: id
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" = $1 LIMIT 1
+  DataProxy Load (1.2ms)  SELECT "data_proxies".* FROM "data_proxies" WHERE "data_proxies"."id" = 3 LIMIT 1
+  ImageProperty Load (0.9ms)  SELECT "image_properties".* FROM "image_properties" WHERE "image_properties"."entity_id" = 9490 AND "image_properties"."entity_type" = 'Article' AND (entity_attribute ='TitleImage' and image_id is not null) LIMIT 1
+  DigitalAssetProperty Load (0.7ms)  SELECT "digital_asset_properties".* FROM "digital_asset_properties" WHERE "digital_asset_properties"."entity_id" = 9490 AND "digital_asset_properties"."entity_type" = 'Article' LIMIT 1
+  GalleryProperty Load (0.7ms)  SELECT "gallery_properties".* FROM "gallery_properties" WHERE "gallery_properties"."entity_id" = 9490 AND "gallery_properties"."entity_type" = 'Article' AND (entity_attribute ='ImageGallery') LIMIT 1
+  ConfigurationGroup Load (0.8ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'article' LIMIT 1
+  ConfigurationValue Load (0.4ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 48 AND "configuration_values"."key" = 'page_break' LIMIT 1
+  ExtendedAttributesSchema Load (0.5ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."attr_name" = 'additional_data_required' AND "extended_attributes_schemas"."model_type" = 'Article' LIMIT 1
+  ExtendedAttribute Load (0.8ms)  SELECT "extended_attributes".* FROM "extended_attributes" WHERE "extended_attributes"."model_id" = 9490 AND "extended_attributes"."model_type" = 'Article' AND "extended_attributes"."extended_attributes_schema_id" = 1 LIMIT 1
+  ExtendedAttributeValue Load (0.8ms)  SELECT "extended_attribute_values".* FROM "extended_attribute_values" WHERE "extended_attribute_values"."extended_attribute_id" = 1494
+  SQL (0.6ms)  DELETE FROM "extended_attribute_values" WHERE "extended_attribute_values"."id" = $1  [["id", 3365]]
+  ExtendedAttributesSchema Load (0.4ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."id" = 1 LIMIT 1
+  Option Load (0.4ms)  SELECT "options".* FROM "options" WHERE "options"."id" IS NULL LIMIT 1
+   (0.4ms)  UPDATE "extended_attributes" SET "updated_at" = '2017-06-06 07:47:17.457780' WHERE "extended_attributes"."id" = 1494
+  SQL (0.5ms)  INSERT INTO "extended_attribute_values" ("binary_value", "boolean_value", "date_value", "datetime_value", "decimal_value", "extended_attribute_id", "float_value", "integer_value", "string_value", "symbol_id", "symbol_type", "text_value", "time_value", "timestamp_value", "value") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING "id"  [["binary_value", nil], ["boolean_value", nil], ["date_value", nil], ["datetime_value", nil], ["decimal_value", nil], ["extended_attribute_id", 1494], ["float_value", nil], ["integer_value", nil], ["string_value", nil], ["symbol_id", nil], ["symbol_type", nil], ["text_value", nil], ["time_value", nil], ["timestamp_value", nil], ["value", nil]]
+  User Load (0.5ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 31]]
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  Section Load (0.8ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 12 LIMIT 1
+  ExtendedAttribute Load (0.5ms)  SELECT "extended_attributes".* FROM "extended_attributes" join extended_attributes_schemas on extended_attributes.extended_attributes_schema_id = extended_attributes_schemas.id WHERE "extended_attributes"."model_id" = 9490 AND "extended_attributes"."model_type" = 'Article' AND (extended_attributes_schemas.attr_name = 'additional_data_required') LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."id" = 1 LIMIT 1
+  ExtendedAttributeValue Load (0.4ms)  SELECT "extended_attribute_values".* FROM "extended_attribute_values" WHERE "extended_attribute_values"."extended_attribute_id" = 1494 LIMIT 1
+  ExtendedAttribute Load (0.4ms)  SELECT "extended_attributes".* FROM "extended_attributes" join extended_attributes_schemas on extended_attributes.extended_attributes_schema_id = extended_attributes_schemas.id WHERE "extended_attributes"."model_id" = 9490 AND "extended_attributes"."model_type" = 'Article' AND (extended_attributes_schemas.attr_name = 'link_to_title_of_feed') LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."attr_name" = 'address1' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."attr_name" = 'address2' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."attr_name" = 'address3' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."attr_name" = 'post_code' LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attributes".* FROM "extended_attributes" join extended_attributes_schemas on extended_attributes.extended_attributes_schema_id = extended_attributes_schemas.id WHERE "extended_attributes"."model_id" = 9490 AND "extended_attributes"."model_type" = 'Article' AND (extended_attributes_schemas.attr_name = 'additional_data_required') LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."id" = 1 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attribute_values".* FROM "extended_attribute_values" WHERE "extended_attribute_values"."extended_attribute_id" = 1494 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attributes".* FROM "extended_attributes" join extended_attributes_schemas on extended_attributes.extended_attributes_schema_id = extended_attributes_schemas.id WHERE "extended_attributes"."model_id" = 9490 AND "extended_attributes"."model_type" = 'Article' AND (extended_attributes_schemas.attr_name = 'additional_data_required') LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."id" = 1 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attribute_values".* FROM "extended_attribute_values" WHERE "extended_attribute_values"."extended_attribute_id" = 1494 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attributes".* FROM "extended_attributes" join extended_attributes_schemas on extended_attributes.extended_attributes_schema_id = extended_attributes_schemas.id WHERE "extended_attributes"."model_id" = 9490 AND "extended_attributes"."model_type" = 'Article' AND (extended_attributes_schemas.attr_name = 'additional_data_required') LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."id" = 1 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attribute_values".* FROM "extended_attribute_values" WHERE "extended_attribute_values"."extended_attribute_id" = 1494 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attributes".* FROM "extended_attributes" join extended_attributes_schemas on extended_attributes.extended_attributes_schema_id = extended_attributes_schemas.id WHERE "extended_attributes"."model_id" = 9490 AND "extended_attributes"."model_type" = 'Article' AND (extended_attributes_schemas.attr_name = 'additional_data_required') LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."id" = 1 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attribute_values".* FROM "extended_attribute_values" WHERE "extended_attribute_values"."extended_attribute_id" = 1494 LIMIT 1
+  ExtendedAttribute Load (0.5ms)  SELECT "extended_attributes".* FROM "extended_attributes" WHERE "extended_attributes"."model_id" = 9490 AND "extended_attributes"."model_type" = 'Article'
+  CACHE (0.0ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."id" = 1 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attribute_values".* FROM "extended_attribute_values" WHERE "extended_attribute_values"."extended_attribute_id" = 1494 LIMIT 1
+   (0.8ms)  UPDATE "articles" SET "updated_by" = 31, "updated_at" = '2017-06-06 07:47:17.705130' WHERE "articles"."id" = 9490
+  Article Load (1.7ms)  SELECT "articles".* FROM "articles" WHERE "articles"."id" = 9490 LIMIT 1
+  Category Load (1.0ms)  SELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT 1  [["id", 245]]
+  Author Load (0.9ms)  SELECT "authors".* FROM "authors" WHERE "authors"."id" = $1 LIMIT 1  [["id", 7]]
+  CACHE (0.0ms)  SELECT "authors".* FROM "authors" WHERE "authors"."id" = $1 LIMIT 1
+  Tag Load (0.7ms)  SELECT "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 11]]
+  CACHE (0.0ms)  SELECT "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1
+  Source Load (0.3ms)  SELECT "sources".* FROM "sources" WHERE "sources"."id" = 4 LIMIT 1
+  ImageProperty Load (0.4ms)  SELECT "image_properties".* FROM "image_properties" WHERE "image_properties"."entity_id" = 9490 AND "image_properties"."entity_type" = 'Article' AND (entity_attribute ='TitleImage' and image_id is not null) LIMIT 1
+  SQL (1.3ms)  INSERT INTO "article_contents" ("approved_email_sent_date", "article_id", "asset_source", "asset_source_alias", "author_alias", "blog_id", "city_id", "contact_number", "content", "content_word_count", "country", "created_at", "created_by", "css_class", "description", "display_date", "editing_notes", "events_end_date", "events_start_date", "exclusive", "expiry_date", "extended_body", "external_url_text", "external_video_url", "flash_news", "fragment_title_text", "full_header_and_footer", "image_url", "img_location", "language_id", "latitude", "link_to_title_of_feed", "link_type", "location", "longitude", "magazine_issue_id", "media_detail_id", "meta_description", "meta_keywords", "mobile_content", "mobile_content_word_count", "mwave_keyword", "original_source", "premium", "price", "primary_category_id", "primary_medium", "product_website", "publish_date", "pullquote", "purchase_url", "reference_url", "region", "right_hand_column", "section_id", "seo_title", "sequence", "shopping_keywords", "sku", "source_id", "specifications", "sponsored", "state", "sub_title", "submitter", "submitters_email", "summary", "supplier", "supplier_website", "text_after_price", "text_before_price", "text_for_highlighting", "ticket_price", "title", "title_image_url", "title_of_feed", "title_url", "updated_at", "updated_by", "url_part", "verdict", "video_stream_id", "volume_and_issue") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $50, $51, $52, $53, $54, $55, $56, $57, $58, $59, $60, $61, $62, $63, $64, $65, $66, $67, $68, $69, $70, $71, $72, $73, $74, $75, $76, $77, $78, $79, $80, $81, $82, $83) RETURNING "id"  [["approved_email_sent_date", nil], ["article_id", 9490], ["asset_source", nil], ["asset_source_alias", nil], ["author_alias", "rabindra"], ["blog_id", nil], ["city_id", nil], ["contact_number", nil], ["content", "<p>test</p>"], ["content_word_count", nil], ["country", nil], ["created_at", Tue, 06 Jun 2017 13:17:17 IST +05:30], ["created_by", 31], ["css_class", nil], ["description", ""], ["display_date", nil], ["editing_notes", ""], ["events_end_date", nil], ["events_start_date", nil], ["exclusive", false], ["expiry_date", nil], ["extended_body", nil], ["external_url_text", nil], ["external_video_url", nil], ["flash_news", nil], ["fragment_title_text", nil], ["full_header_and_footer", nil], ["image_url", nil], ["img_location", nil], ["language_id", nil], ["latitude", nil], ["link_to_title_of_feed", nil], ["link_type", nil], ["location", nil], ["longitude", nil], ["magazine_issue_id", nil], ["media_detail_id", nil], ["meta_description", "test "], ["meta_keywords", ""], ["mobile_content", nil], ["mobile_content_word_count", nil], ["mwave_keyword", nil], ["original_source", nil], ["premium", false], ["price", nil], ["primary_category_id", nil], ["primary_medium", "text"], ["product_website", nil], ["publish_date", nil], ["pullquote", nil], ["purchase_url", nil], ["reference_url", nil], ["region", nil], ["right_hand_column", nil], ["section_id", 12], ["seo_title", nil], ["sequence", nil], ["shopping_keywords", nil], ["sku", nil], ["source_id", 4], ["specifications", nil], ["sponsored", nil], ["state", nil], ["sub_title", "test"], ["submitter", nil], ["submitters_email", nil], ["summary", nil], ["supplier", nil], ["supplier_website", nil], ["text_after_price", nil], ["text_before_price", nil], ["text_for_highlighting", "test ... test ... Rabindra Maharana ... News"], ["ticket_price", nil], ["title", "test"], ["title_image_url", nil], ["title_of_feed", nil], ["title_url", nil], ["updated_at", Tue, 06 Jun 2017 13:17:17 IST +05:30], ["updated_by", nil], ["url_part", "test"], ["verdict", nil], ["video_stream_id", nil], ["volume_and_issue", nil]]
+  SQL (0.3ms)  INSERT INTO "article_contents_categories" ("article_content_id", "autonomy_flag", "category_id", "relevance", "sequence_number", "system") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["article_content_id", 11728], ["autonomy_flag", false], ["category_id", 245], ["relevance", nil], ["sequence_number", 0], ["system", false]]
+  User Load (0.4ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 31]]
+   (0.2ms)  INSERT INTO "article_contents_sites" ("article_content_id", "data_proxy_id") VALUES (11728, 3)
+  SQL (0.3ms)  INSERT INTO "article_contents_tags" ("article_content_id", "sequence_number", "tag_id") VALUES ($1, $2, $3) RETURNING "id"  [["article_content_id", 11728], ["sequence_number", 0], ["tag_id", 11]]
+  User Load (0.4ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 31]]
+  SQL (0.3ms)  INSERT INTO "article_content_authors" ("article_content_id", "author_id", "sequence_number") VALUES ($1, $2, $3) RETURNING "id"  [["article_content_id", 11728], ["author_id", 7], ["sequence_number", 0]]
+  User Load (0.3ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 31]]
+  ArticleContent Load (0.7ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."id" = $1 LIMIT 1  [["id", 11728]]
+  Article Load (0.7ms)  SELECT "articles".* FROM "articles" WHERE "articles"."id" = 9490 LIMIT 1
+  SQL (0.3ms)  UPDATE "articles" SET latest_version_id=11728 WHERE (id=9490)
+  Article Load (0.7ms)  SELECT "articles".* FROM "articles" WHERE "articles"."id" = $1 LIMIT 1  [["id", 9490]]
+  ImageProperty Load (0.4ms)  SELECT "image_properties".* FROM "image_properties" WHERE "image_properties"."entity_id" = 9490 AND "image_properties"."entity_type" = 'Article' AND (entity_attribute ='InlineImage') ORDER BY id asc
+  CACHE (0.0ms)  SELECT "articles".* FROM "articles" WHERE "articles"."id" = $1 LIMIT 1
+  ArticleContent Load (0.6ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 9490
+  Tag Load (0.5ms)  SELECT "tags".id FROM "tags" INNER JOIN "article_contents_tags" ON "tags"."id" = "article_contents_tags"."tag_id" WHERE "article_contents_tags"."article_content_id" = 11728 ORDER BY article_contents_tags.sequence_number, article_contents_tags.id
+  ArticlesTag Load (0.3ms)  SELECT "articles_tags".* FROM "articles_tags" WHERE "articles_tags"."article_id" = 9490 ORDER BY sequence_number
+  SQL (0.4ms)  DELETE FROM "articles_tags" WHERE "articles_tags"."id" = $1  [["id", 449]]
+  SQL (0.3ms)  INSERT INTO "articles_tags" ("article_id", "sequence_number", "tag_id") VALUES ($1, $2, $3) RETURNING "id"  [["article_id", 9490], ["sequence_number", 0], ["tag_id", 11]]
+  User Load (0.3ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 31]]
+  Category Load (0.5ms)  SELECT "categories".* FROM "categories" INNER JOIN "article_contents_categories" ON "categories"."id" = "article_contents_categories"."category_id" WHERE "article_contents_categories"."article_content_id" = 11728 ORDER BY article_contents_categories.sequence_number,article_contents_categories.id
+  ArticlesCategory Load (0.3ms)  SELECT "articles_categories".* FROM "articles_categories" WHERE "articles_categories"."article_id" = 9490 ORDER BY sequence_number
+  SQL (0.3ms)  DELETE FROM "articles_categories" WHERE "articles_categories"."id" = $1  [["id", 82817]]
+  SQL (0.3ms)  INSERT INTO "articles_categories" ("article_id", "autonomy_flag", "category_id", "relevance", "sequence_number", "system") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["article_id", 9490], ["autonomy_flag", false], ["category_id", 245], ["relevance", nil], ["sequence_number", 0], ["system", false]]
+  User Load (0.3ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 31]]
+  DataProxy Load (0.3ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 11728 ORDER BY id asc
+  Site Load (0.4ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  DataProxy Load (0.2ms)  SELECT "data_proxies".* FROM "data_proxies" WHERE "data_proxies"."id" = 3 LIMIT 1
+  CACHE (0.0ms)  SELECT "data_proxies".* FROM "data_proxies" WHERE "data_proxies"."id" = 3 LIMIT 1
+  DataProxy Load (0.4ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "articles_sites" ON "data_proxies"."id" = "articles_sites"."data_proxy_id" WHERE "articles_sites"."article_id" = 9490
+  Author Load (0.4ms)  SELECT "authors".id FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11728 ORDER BY sequence_number
+  ArticleAuthor Load (0.3ms)  SELECT "article_authors".* FROM "article_authors" WHERE "article_authors"."article_id" = 9490 ORDER BY sequence_number
+  SQL (0.4ms)  DELETE FROM "article_authors" WHERE "article_authors"."id" = $1  [["id", 63099]]
+  SQL (0.3ms)  INSERT INTO "article_authors" ("article_id", "author_id", "sequence_number") VALUES ($1, $2, $3) RETURNING "id"  [["article_id", 9490], ["author_id", 7], ["sequence_number", 0]]
+  User Load (0.3ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 31]]
+  SQL (0.4ms)  UPDATE "articles" SET "publish_date" = NULL, "display_date" = NULL, "fragment_title_text" = NULL, "title" = 'test', "source_id" = 4, "primary_medium" = 'text', "media_detail_id" = NULL, "section_id" = 12, "magazine_issue_id" = NULL, "language_id" = NULL, "content_word_count" = NULL, "blog_id" = NULL, "flash_news" = NULL, "expiry_date" = NULL, "events_start_date" = NULL, "events_end_date" = NULL, "summary" = NULL, "exclusive" = 'f', "latitude" = NULL, "longitude" = NULL, "premium" = 'f' WHERE "articles"."id" = 9490
+  Article Load (0.7ms)  SELECT "articles".* FROM "articles" WHERE "articles"."id" = $1 LIMIT 1  [["id", 9490]]
+  CACHE (0.0ms)  SELECT "articles".* FROM "articles" WHERE "articles"."id" = $1 LIMIT 1
+  Section Load (0.3ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 12 LIMIT 1
+  Source Load (0.3ms)  SELECT "sources".* FROM "sources" WHERE "sources"."id" = 4 LIMIT 1
+  DataProxy Load (0.3ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "sites_sources" ON "data_proxies"."id" = "sites_sources"."data_proxy_id" WHERE "sites_sources"."source_id" = 4
+  Site Load (0.4ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  DataProxy Load (0.2ms)  SELECT "data_proxies".* FROM "data_proxies" WHERE "data_proxies"."id" = 3 LIMIT 1
+  Section Load (0.9ms)  SELECT "sections".* FROM "sections" INNER JOIN "sections_sites" ON "sections"."id" = "sections_sites"."section_id" WHERE "sections_sites"."data_proxy_id" = 3 AND (entity_type ='Article') ORDER BY name
+  Site Load (0.4ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" = $1 LIMIT 1  [["id", 3]]
+  CACHE (0.0ms)  SELECT "data_proxies".* FROM "data_proxies" WHERE "data_proxies"."id" = 3 LIMIT 1
+  Source Load (0.4ms)  SELECT "sources".* FROM "sources" INNER JOIN "sites_sources" ON "sources"."id" = "sites_sources"."source_id" WHERE "sites_sources"."data_proxy_id" = 3
+  Section Load (0.5ms)  SELECT "sections".* FROM "sections" WHERE "sections"."entity_type" = 'Article'
+  CACHE (0.0ms)  SELECT "data_proxies".* FROM "data_proxies" WHERE "data_proxies"."id" = 3 LIMIT 1
+   (0.4ms)  SELECT COUNT(*) FROM "sections" INNER JOIN "sections_sites" ON "sections"."id" = "sections_sites"."section_id" WHERE "sections_sites"."data_proxy_id" = 3 AND (entity_type ='Article') AND (alias_name in ('12'))
+   (0.5ms)  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "articles" WHERE (articles.source_id in (3,4)) AND (articles.section_id in ( 1,5,8,6,7,14,13,10,12,18,19,20,21,22,23,24,25,27,28,29,30,31,32,33,34,36,17,15,35,26,11,37,39,38)) AND (active = 't' and in_embargo = 'f' and expired = 'f' and is_draft = 'f' and (waiting_for_approval is null or waiting_for_approval = 'f')) AND (articles.section_id =12) LIMIT 1) subquery_for_count 
+Inside expire page for article == 9490
+   (0.2ms)  SELECT COUNT(*) FROM "article_products" WHERE "article_products"."article_id" = 9490
+Inside expire page for article before SrCache.expire_page  == 9490
+  PageCache Load (1.0ms)  SELECT "page_caches".* FROM "page_caches" WHERE (request_path like '/opinion-blogs/test-9490%')
+Inside expire page url == /opinion-blogs/test-9490
+after curl comment expire page url == autocarpro.haymarket.kreatio.info
+  PageCache Load (0.8ms)  SELECT "page_caches".* FROM "page_caches" WHERE (page_type='home_page' and site_id=3) LIMIT 1
+=============================================== befor if 
+  ConfigurationGroup Load (0.4ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'article' LIMIT 1
+  ConfigurationValue Load (0.5ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 48 AND "configuration_values"."key" = 'email' LIMIT 1
+  CACHE (0.0ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'article' LIMIT 1
+  CACHE (0.0ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 48 AND "configuration_values"."key" = 'email' LIMIT 1
+================================================= mail for approval
+  CACHE (0.0ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'article' LIMIT 1
+  ConfigurationValue Load (0.4ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 48 AND "configuration_values"."key" = 'approval_email' LIMIT 1
+  CACHE (0.0ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'article' LIMIT 1
+  CACHE (0.0ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 48 AND "configuration_values"."key" = 'approval_email' LIMIT 1
+  Source Load (0.5ms)  SELECT "sources".* FROM "sources" WHERE "sources"."id" = $1 LIMIT 1  [["id", 4]]
+  ArticleContent Load (1.1ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 9490 ORDER BY "article_contents"."id" DESC LIMIT 1
+  Author Load (0.8ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11728 ORDER BY sequence_number
+Rendered web_mailer/article_approval_mail.html.erb (9.0ms)
+
+Sent mail to gprabhu@kreatio.com (3630ms)
+Date: Tue, 06 Jun 2017 13:17:18 +0530
+From: no-reply@kreatio.com
+To: gprabhu@kreatio.com
+Message-ID: <59365e067954_58f193ffe432888@HaymarketStage.kreatio.com.mail>
+Subject: Article in HayMarket CMS requiring approval
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p>
+        Dear Editor,
+</p>
+
+<p>
+        The following article requires your approval;
+</p>
+
+<p>
+        Article ID: 9490
+</p>
+<p>
+        Article Headline: test
+</p>
+<p>
+        Source: autocar_pro_responsive
+</p>
+<p>
+        Author: Rabindra Maharana
+</p>
+<p>
+        Please login to <a href="http://haymarketadmin.kreatio.com">"http://haymarketadmin.kreatio.com"</a> to approve this article.
+</p>
+
+<p>
+        With regards,
+</p>
+
+<p>
+        KREATIO Team
+</p>
+
+   (26.3ms)  COMMIT
+Redirected to http://cms.haymarket.kreatio.info/admin/articles
+Completed 302 Found in 5423ms
+
+

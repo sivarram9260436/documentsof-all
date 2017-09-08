@@ -1,0 +1,20 @@
+<tr>
+	<%= content_tag(:td, ((product.name) ? link_to("#{product.name}", :action => 'edit_product', :id => product.id) : "-"), :class => 'list_table')%>
+	<%= content_tag(:td, ((product.description) ? (product.description) :"-"), :class => 'list_table')%>
+
+	<%= content_tag(:td) do %>
+
+	<%if product.dirty %>
+	<div id = "product_status">
+	<span id="success_<%= product.id%>"> <%= link_to("Rebuild Product","javascript:void(0)",:class=>"ajax_call_update",:id=>product.id,:product_id=>params[:id],"data-param"=>"id=#{product.id}","data-update"=>"product_status","data-url"=>"/admin/products/assign_article_to_product/#{product.id}")%>
+		<%else %>
+		success
+		<%end %><% end %> <td> <%if product.asset_groups.blank? %>
+		<%= link_to("Assign Product Criteria",:controller=>"product_criteria", :action => 'list_asset')%>
+		<%else%>
+		<% product.asset_groups.each do |assetgroup| %>
+		<%= link_to("#{assetgroup.name}",:controller=>"product_criteria", :action => 'edit', :id => assetgroup.id, :type=>assetgroup.entity_type) %>
+		<%end%>
+		<%end%> </td>
+		</div>
+</tr>

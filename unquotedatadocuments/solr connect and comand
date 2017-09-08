@@ -1,0 +1,12 @@
+ssh -A -L 8983:127.0.0.1:8983 sivaram@kgw.kreatio.net
+
+
+
+deal_name_sm:("Intelligent Repair Solutions Holding")
+
+
+fund_percentage_deployed_value_sm:(10 OR 11 OR 30)
+
+
+
+http://127.0.0.1:8983/solr/#/unquote-data/query

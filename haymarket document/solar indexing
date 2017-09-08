@@ -1,0 +1,25 @@
+
+
+
+
+
+
+
+
+
+ index_to_search_engine
+
+
+
+
+
+Ambient.init
+Ambient.current_site=@site
+
+@site.directory_listings. each do |X|
+
+x.index_to_search_engine
+
+end
+
+

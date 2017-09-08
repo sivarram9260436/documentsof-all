@@ -1,0 +1,78 @@
+	 <div class="validation_box">
+	<%=raw error_messages(@image)%>
+   </div>
+   <% if flash[:notice] %><div class="article_notice"><%= flash[:notice] %></div><% end %>
+
+<table width="100%"  %>
+	<tr>
+	  <td width=50 valign="top"%>
+	  <div style="font-size:1.5em !important;letter-spacing:2px;margin:11px 0 4px"> Metadata </div><br/>
+	  <%=  form_for @image, :url => { :action => "edit_standalone_image",:id=>@image.id },:html => { :onSubmit=>"return upload_imagesetmetadata_step1();",:method => :put, :class => "edit_post", :id => "upload_form_meta",:name=>"upload_form_meta",:multipart => true }  do |f| %>
+	  	<table >
+	   		<tr>
+	   			<td>Filename*:</td>
+	   			<td><%= @image.image_name_with_extension%></td>	   		
+	   		</tr>
+	   		<tr>
+				<td>Tags:</td>
+				<td><%=f.text_area 'tag',{:rows => 7, :cols => 40,:class=>"input_text"}%></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="right">eg:face,funny,glasses</td>
+			</tr>
+			<tr>
+				<td>Alt/Title*:</td>
+				<td><%=f.text_field 'alt_tag',:class=>'input_text'%></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="right">eg:picture of guy with funny face</td>
+			</tr>
+			
+			<tr>
+				<td>License type*:</td>
+				<td><%= f.select("licence_type", { "Universal rights granted to all users" => "Universal rights granted to all users", "Non-Commercial rights granted to all users" => "Non-Commercial rights granted to all users","Copyright Worldwide Media Pvt Ltd - all right reserved"=>"Copyright Worldwide Media Pvt Ltd - all right reserved","Copyright Worldwide Media Pvt Ltd- non-commercial rights granted"=>"Copyright Worldwide Media Pvt Ltd- non-commercial rights granted","Copyright held by third party - all right reserved"=>"Copyright held by third party - all right reserved","Copyright held by third party - non -commercial rights granted" => "Copyright held by third party - non -commercial rights granted", "Creative Commons commercial - attribution required" => "Creative Commons commercial - attribution required" },{:prompt=>'---PICK A LICENCE TYPE---'},:class=>"input_text") %></td>
+			</tr>
+			<tr>
+				<%site=Site.find(:all)%>
+				<td>Site*:</td>
+				<%if @image%>
+				<td> <%= select_tag "image[site_id]", options_for_select(site.map {|u| [u.short_name,u.id]}, @image.site_id),:class=>"input_text" %>  </td>
+				<%else%>
+				<td> <%= select_tag "image[site_id]", options_for_select(site.map {|u| [u.short_name,u.id]}, "3"),:class=>"input_text" %>  </td>
+				<%end%>
+			</tr>
+			<tr>
+				<%user=User.find(session[:user_id])%>
+				<td>Uploader:</td><td><%="#{user.firstname} #{user.lastname}"%></td>
+			</tr>
+			<tr>
+				<td>Upload date:</td><td><%=Date.today%></td>
+			</tr>
+			<tr>
+				<td>                   
+					<div class="adminButton"><%=submit_tag 'Save Changes'%></div>
+				</td>
+				
+			</tr>
+
+	   </table>
+	  <%end%>
+	</td>
+	<td style="padding-left:50px;" valign="top">
+		<div style="font-size:1.5em !important;letter-spacing:2px;margin:11px 0 4px"> Image </div><br/>
+		<table>
+			<tr>
+				<td>Width: <%= @width %>px</td>
+				<td style="padding-left:20px">File size:<%= @image_size %></td>
+			</tr>
+			<tr>
+				<td>Height: <%= @height %>px</td>
+				<td style="padding-left:20px">Format: <%= @image.extension %></td>
+			</tr>
+			<tr>
+				<td colspan="2"><br/><br/><%=image_tag(@image.get_orginal_image.image_path, :alt => @image.alt_tag, :class => "image_border")%> </td>
+			</tr>
+		</table>
+	</td>
+</tr>
+</table>	

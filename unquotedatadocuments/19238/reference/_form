@@ -1,0 +1,82 @@
+
+ruby@merger-market-stage:~/Unquote_data/Admin$ cat app/views/funds/_form_fund_performance.html.erb 
+
+
+<%= javascript_include_tag "jquery-1.9.1.min.js", "jquery.tokeninput.js","jquery.colorbox.js"  %>
+<%= stylesheet_link_tag "unquote-data", "token-input-mac", "unq-global", "colorbox", :media => "all" %>
+<%= render :partial => "/unquote/css_image" %>
+
+<%= form_tag({ :controller => "funds", :action => @form_action2 }, { :id => "form_fund_performances" }) do %>
+   <%= content_tag(:table, {:class => "form-left"}) do %>
+	  	
+	 <%= hidden_field_tag "fund_id" ,@fund.id %>
+	 <%= hidden_field_tag "fund_performance_id" ,@fund_performance.new_record? ? nil : params[:fund_performance_id]%>
+	  	
+    <%= content_tag(:tr) do %>
+          <%= content_tag(:td, label_tag("Commitment:"), {:class => "lab-field"}) %>
+	  <%= content_tag(:td, text_field(:fund_performance, :commitment, :value => (@fund_performance.commitment ? @fund_performance.commitment : nil)), { :class =>"b-size"}) %>
+    <% end %><!-- tr -->
+    
+     <%= content_tag(:tr) do %>
+          <%= content_tag(:td, label_tag(" Gross IRR:"), {:class => "lab-field"}) %>
+	  <%= content_tag(:td, text_field(:fund_performance, :gross_irr, :value => (@fund_performance.gross_irr ? @fund_performance.gross_irr : nil)), { :class =>"b-size"}) %>
+    <% end %><!-- tr -->
+    
+    <%= content_tag(:tr) do %>
+          <%= content_tag(:td, label_tag("Net IRR:"), {:class => "lab-field"}) %>
+	  <%= content_tag(:td, text_field(:fund_performance, :net_irr, :value => (@fund_performance.net_irr ? @fund_performance.net_irr : nil)), { :class =>"b-size"}) %>
+    <% end %><!-- tr -->
+
+<!--
+<#%= content_tag(:tr) do %>
+          <#%= content_tag(:td, label_tag("Acquirer:"), {:class => "lab-field"}) %>
+          <#%= content_tag(:td, text_field(:fund_performance, :acquirer, :value => (@fund_performance.acquirer ? @fund_performance.acquirer : nil)), { :class =>"b-size"}) %>
+    <#% end %>
+--!>
+    
+
+  <%= content_tag(:tr) do %>
+          <%= content_tag(:td, label_tag("Source:"), {:class => "lab-field"}) %>
+          <%= content_tag(:td,select("fund_performance", "source", ["GP","LP"],{ :include_blank => "Others" }, { :class => "select_box"})) %>
+    <% end %><!-- tr -->
+  <%#= content_tag(:tr) do %>
+          <%#= content_tag(:td, label_tag("Source:"), {:class => "lab-field"}) %>
+          <%#= content_tag(:td,collection_select(:fund_performance,  FundPerformance.all ,:id,:name, {},{:class => "select_box_auto"})) %> 
+    <%# end %><!-- tr -->
+   
+
+   <!-- tr -->
+    <%= content_tag(:tr) do %>
+            <%= content_tag(:td,  label_tag("Fund Performance Date:"), { :class => "lab-field" }) %>
+    		<%= content_tag(:td, date_select(:fund_performance, :fund_performance_date, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } })) %>
+    	<% end %>	
+    <%= content_tag(:tr) do %>
+            <%= content_tag(:td) do%>
+                <%= content_tag(:div, link_to(@fund_performance.new_record? ? "Save" : "Update", {}, { :id => @fund_performance.new_record? ? "save_fund_performance_event" : "update_fund_performance_event", :href => "javascript:void(0)" }), { :class => "f-button" }) %>
+                <%= content_tag(:div, link_to( "Close", {}, { :class => "close_color_box", :href => "javascript:void(0)" }), { :class => "f-button" }) %>
+            <% end %> <!-- td end -->
+        <% end %> <!-- tr end -->
+
+    <% end %><!-- table -->
+<% end %> <!--form end -->
+<%= content_tag(:script, { :type => "text/javascript" }) do %>
+$(function() {
+    $(document).on("click", '#save_fund_performance_event', function() {
+         var params =$("#form_fund_performances").serialize();
+        parent.add_fund_performance(params);
+    });
+    
+$(document).on("click", '#update_fund_performance_event', function() {
+        var params =$("#form_fund_performances").serialize();
+        var event_id =$("#fund_performance_id").val();
+        parent.update_fund_performance(params,event_id);
+    });
+    
+    $(document).on("click", '.close_color_box', function() {
+    	parent.close_color_box();
+    	
+    });
+
+});
+<% end %>
+

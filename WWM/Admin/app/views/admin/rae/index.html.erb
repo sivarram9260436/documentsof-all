@@ -1,0 +1,60 @@
+<!-- <div id='loading' style='display:none'>
+ <img src='/images/loading_process2.gif'>
+</div> -->
+<%=render :partial=>'search_field'%>
+<div class='update_pagination_block' id='search_result'>
+</div>
+<script type="text/javascript">
+	jQuery("#rae_search_submit").click(function() {
+		$.ajax({
+			url : '/admin/rae/search',
+			type : 'POST',
+			data : jQuery("#rae_search").serialize(),
+			beforeSend : function(xhr) {
+				$("#loading").show();
+				xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+			},
+			success : function(msg) {
+ 			    $("#search_result").html(msg);
+			},
+			complete : function() {
+				$('.export_to_csv').show();
+		        $("#loading").hide();
+			}
+		});
+	});
+</script>
+<script type="text/javascript">
+jQuery('.deactivate_subscriber').live('click', function() {
+		$.ajax({
+			url : jQuery(this).attr("data-url"),
+			type : 'POST',
+			beforeSend : function(xhr) {
+				$("#loading").show();
+				xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+			},
+			success : function(msg) {
+ 			    alert('Subscriber Data Updated')
+			},
+			complete : function() {
+		        $("#loading").hide();
+			}
+		});
+	});
+</script>
+<script type="text/javascript">
+jQuery('.needAjaxRae div.pagination a').live('click', function() {  
+           var data = jQuery("#rae_search").serialize()
+           var url = jQuery(this).attr("href")+'&'+data;
+           var update_div = jQuery(this).parents('.update_pagination_block').attr("id")  ;
+           jQuery("#"+update_div).load(url);
+           return false;  
+    }); 	</script>
+<style type="text/css">
+
+.form_data input[type="radio"] {
+width: auto;
+height: auto;
+margin-right: 5px;
+}
+</style>

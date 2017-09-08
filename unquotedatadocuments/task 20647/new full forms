@@ -1,0 +1,82 @@
+ <%= content_tag(:div) do %>
+   <%= content_tag(:table, {:class => "investor-contacts", :width => "94%" }) do %>
+	    <%= content_tag(:tr) do %>
+	    	<%= content_tag( :th, content_tag(:strong, "Current Contacts:") )%>
+	    <% end %><!-- heading -->
+	<% end %><!-- table -->
+   <%= content_tag(:table ,{:class =>"basic_listing move-contact-up", :width => "94%" }) do %>
+	  <%= content_tag(:tr) do %>
+	     <%= content_tag(:th, check_box_tag("current_select_all")) %>
+         <%= content_tag(:th, "Name") %>
+         <%= content_tag(:th, "Job Title") %>
+         <%= content_tag(:th, "Office Location") %>
+         <%= content_tag(:th, "Telephone",:width => "100") %>
+         <%= content_tag(:th,"Email") %>
+     
+       <% end %><!--tr-->
+        
+       <% if @institution_company.institution_contacts.by_contact_type(ContactType.by_name("Current")) %> 
+	       <% @institution_company.institution_contacts.by_contact_type(ContactType.by_name("Current").first.id).order("first_name").each do |contact| %>
+	         <%= content_tag(:tr) do %>
+	         <%= content_tag(:td,check_box_tag("current_contact",contact.id,false,{:class =>"current_contact_source"}),{:align => "center"} )%>
+		            <%= content_tag(:td) do %>
+			            <% if contact.first_name %>
+			              <%= link_to "#{contact.title.capitalize if contact.title } #{contact.first_name } #{contact.last_name if  contact.last_name } ",edit_institution_contact_institutions_path(:institution_contact_id => contact.id,:institution_company_id => params[:institution_company_id],:tab => params[:tab],:popup => "true"),{:class =>"popup_window"} %>
+		                <% end %>
+	                <% end %>
+	                <%= content_tag(:td,(contact.job_title if contact.job_title) )%>
+		            <%= content_tag(:td) do%>
+		              <%= "#{contact.city if contact.city}"%><% if !contact.city.blank? %>,&nbsp;<% end %><%= (contact.country.name  if contact.country)%>
+		            <% end %>
+		           <%= content_tag(:td,(contact.direct_phone if contact.direct_phone) )%>
+	               <%= content_tag(:td,(contact.email if contact.email) )%>
+	       <% end %><!--tr-->
+	     <% end %><!--each-->
+     <% end %>
+   <%end%><!--table-->
+      <%= content_tag(:table, {:class => "form-left form-left-new"}) do %>
+	    <%= content_tag(:tr) do %>
+	      <%#= content_tag(:td,content_tag(:div,(link_to "Search",search_institution_contact_institutions_path(:institution_company_id => @institution_company.id,:popup=>"true"),{:class=> "popup_window" }),{:class => "f-button"})) %>
+	      <%= content_tag(:td,content_tag(:div,(link_to "Add new",new_institution_contact_institutions_path(:institution_company_id => @institution_company.id,:popup => "true"),{:class =>"popup_window"}),{:class => "f-button"})) %>
+	      <%= content_tag(:td,content_tag(:div, link_to("Move this record to former contacts", {}, { :href => "javascript:void(0)", :class => "move_to_former_contact" }),{:class => "f-button"})) %>
+	      <%= content_tag(:td, content_tag(:div, link_to("Remove", {}, { :href => "javascript:void(0)", :class => "remove_current_contact" }),{:class => "f-button"})) %>
+       <% end %><!-- tr -->
+	<% end %><!-- table -->
+   
+     
+     <!------------------ former contact-------------------->
+	<%= content_tag(:table, {:class => "investor-contacts", :width => "94%" }) do %>
+	    <%= content_tag(:tr) do %>
+	    	<%= content_tag( :th, content_tag(:strong, "Former Contacts:") )%>
+	    <% end %><!-- heading -->
+	<% end %><!-- table -->
+   <%= content_tag(:table ,{:class =>"basic_listing move-contact-up", :width => "94%" }) do %>
+	  <%= content_tag(:tr) do %>
+	     <%= content_tag(:th, check_box_tag("former_select_all")) %>
+         <%= content_tag(:th, "Name") %>
+         <%= content_tag(:th, "Job Title") %>
+         <%= content_tag(:th, "Telephone",:width => "100") %>
+         <%= content_tag(:th,"Email") %>
+       <% end %><!--tr-->
+       
+        <% if @institution_company.institution_contacts.by_contact_type(ContactType.by_name("Former")) %> 
+	       <% @institution_company.institution_contacts.by_contact_type(ContactType.by_name("Former").first.id).order("first_name").each do |contact| %>
+	         <%= content_tag(:tr) do %>
+	                <%= content_tag(:td,check_box_tag("former_contact",contact.id,false,{:class =>"former_contact_source"}),{:align =>"center"} )%>
+		            <%= content_tag(:td) do %>
+			            <% if contact.first_name %>
+			              <%= link_to "#{contact.title.capitalize if contact.title} #{contact.first_name } #{contact.last_name if  contact.last_name }",edit_institution_contact_institutions_path(:institution_contact_id => contact.id,:institution_company_id => params[:institution_company_id],:tab => params[:tab],:popup => "true"),{:class =>"popup_window"} %>
+		                <% end %>
+	                <% end %>
+	                <%= content_tag(:td,(contact.job_title if contact.job_title) )%>
+		           <%= content_tag(:td,(contact.direct_phone if contact.direct_phone) )%>
+	               <%= content_tag(:td,(contact.email if contact.email) )%>
+	        <% end %><!--tr-->
+	      <% end %><!--each-->
+      <% end %><!--if -->
+   <%end%><!--table-->
+
+      <%= content_tag(:div, link_to("Move this record to current record", {}, { :href => "javascript:void(0)", :class => "move_to_current_contact" }),{:class => "f-button"}) %>
+      <%= content_tag(:div, link_to("Remove", {}, { :href => "javascript:void(0)", :class => "remove_former_contact" }),{:class => "f-button"}) %>
+  <%end%><!-- first div end -->
+

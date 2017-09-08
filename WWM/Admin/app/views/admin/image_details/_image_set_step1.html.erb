@@ -1,0 +1,83 @@
+
+<%#=raw error_messages_for_text_changes 'image','image_detail'%>
+<%=raw error_messages(@image) if @image%>
+<table width=100%>
+	<tr>
+	  <td width=50%>
+		<%= form_tag({:action => 'save_imageset'},{:onSubmit=>"return upload_imagesetmetadata_step1();",:id=>"upload_form_meta",:name=>"upload_form_meta" ,:multipart => true}) do %>
+			   <%if @image%>
+					<%=hidden_field_tag 'id',@image.id%>
+			   <%end%>
+			   <table>
+			   		<tr>
+			   			<td>Imageset Name*:</td>
+				   		<td>
+					   		<%=text_field 'image','image_name',:class=>'input_text' %>
+					   	</td>	   		
+			   		</tr>
+			   		<tr>
+						<td>Tags:</td>
+						<td><%=text_field 'image','tag',:class=>'input_text'%></td>
+					</tr>
+					<tr>
+						<td>Alt/Title*:</td>
+						<td><%=text_field 'image','alt_tag',:class=>'input_text'%></td>
+					</tr>
+					<tr>
+						<td>Caption:</td>
+						<td><%=text_area 'image','caption',{:rows => 7, :cols => 40,:class=>"input_text"}%></td>
+					</tr>
+					<tr>
+						<td>License type*:</td>
+						<td>
+							<%= select( "image", "licence_type", { "Choose type"=>"Choose type", "Universal rights granted to all users" => "Universal rights granted to all users", "Non-Commercial rights granted to all users" => "Non-Commercial rights granted to all users","Copyright Worldwide Media Pvt Ltd - all right reserved"=>"Copyright Worldwide Media Pvt Ltd - all right reserved","Copyright Worldwide Media Pvt Ltd- non-commercial rights granted"=>"Copyright Worldwide Media Pvt Ltd- non-commercial rights granted","Copyright held by third party - all right reserved"=>"Copyright held by third party - all right reserved","Copyright held by third party - non -commercial rights granted" => "Copyright held by third party - non -commercial rights granted","Creative Commons commercial - attribution required" => "Creative Commons commercial - attribution required" }, { :selected=>'Choose type'} ,:class=>"input_text") %>
+						</td>
+					</tr>
+
+					<tr>
+						<td>Site*:</td>
+						<td> <%= select_tag "image[site_id]", options_for_select(Site.find(:all).map {|u| [u.short_name,u.id]}, @image ? @image.site_id : session[:site_id].to_i),:class=>"input_text" %>  </td>
+					</tr>
+					<tr>
+						<td>Uploader:</td>
+						<td><%=User.find(session[:user_id]).full_name%></td>
+					</tr>
+					<tr>
+						<td>Upload date:</td>
+						<td><%=Date.today%></td>
+					</tr>
+					<tr>
+						<td>                   
+							<div class="adminButton"><%=submit_tag 'Go To Step2'%></div>
+						</td>
+					</tr>
+			   </table>
+		<%end%>
+	  </td>
+	  <td>
+	  <%= form_tag({:action => 'save_imageset'},{:id=>"upload_form",:name=>"upload_form" ,:multipart => true}) do %>
+		  <table>
+		   		<tr>
+		   			<td style="font-size:1.2em !important;letter-spacing:2px;margin:11px 0 4px">Select Image</td>
+		   		</tr>
+		   		<tr>
+		   			<td><%=file_field :image_detail,:image_path%></td>
+		   		</tr>
+		   		<tr>
+			   		<td>              
+						<div class="adminLinkButton"><a href="javascript:void(0);" onclick="upload_imageset();">Upload Image</a></div>
+					</td>
+				</tr>
+				<%if @image and @image.get_orginal_image%>	
+				<tr>
+					<td>
+						<%width,height=ImageManipulation.image_width_and_height("#{Rails.root}/public"+@image.get_orginal_image.image_path)%>
+						<%=image_tag(@image.get_orginal_image.image_path, :alt => @image.alt_tag, :class => "image_border",:width=> ("300" if width > 300) )%>
+					</td>	
+				</tr>
+				<%end%>	
+		   </table>	   
+	   <%end%>
+	  </td>
+	</tr>
+</table>	

@@ -1,0 +1,1214 @@
+
+
+
+
+
+
+
+
+
+
+///////
+
+Started POST "/admin/articles/update?commit=save" for 192.168.15.55 at 2017-05-17 15:29:31 +0530
+  Processing by Admin::ArticlesController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Jw7HhZasQeEllhJo+FpBk/guCJQPh1kV0q6JeMZ3ePE=", "article"=>{"id"=>"4951", "site_ids"=>"3", "primary_medium"=>"video", "title"=>"hide image testing", "sub_title"=>"", "description"=>"hide image testing", "author_ids"=>["7"], "author_alias"=>"", "source_id"=>"3", "section_id"=>"36", "category_ids"=>["235"], "meta_keywords"=>"", "meta_description"=>"", "magazine_issue_id"=>"19", "exclusive"=>"0", "image_property"=>{"image_id"=>"", "caption"=>"", "customise_scenery"=>"Landscape", "customise_size"=>"Large"}, "digital_asset_property"=>{"digital_asset_id"=>""}, "gallery_property"=>{"image_sequence_id"=>""}, "audio_id"=>"", "media_detail_id"=>"", "pages_content"=>[{"title"=>"first_page", "content"=>"<p>hide image testing</p>\r\n<p><iframe src=\"https://www.youtube.com/embed/a5_wk4ADFxY\" width=\"560\" height=\"315\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\"></iframe></p>"}], "additional_data_required"=>"", "premium"=>"false", "publish_date"=>"February 01 2014  4:26 PM", "display_date"=>"February 01 2014  4:26 PM", "expiry_date"=>"", "events_start_date"=>"March 29 2016 12:00 AM", "events_end_date"=>"March 28 2016 12:00 AM", "editing_notes"=>""}, "commit"=>"save"}
+  Site Load (2.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" = $1 LIMIT 1  [["id", 3]]
+  ConfigurationGroup Load (0.8ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'time_zone' LIMIT 1
+  ConfigurationValue Load (0.7ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 49 AND "configuration_values"."key" = 'time' LIMIT 1
+  User Load (1.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 31]]
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" = $1 LIMIT 1
+  Role Load (0.8ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  SubPermission Load (0.8ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  SubPermission Load (0.7ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  SubPermission Load (1.1ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Article Load (1.1ms)  SELECT "articles".* FROM "articles" WHERE "articles"."id" = $1 LIMIT 1  [["id", "4951"]]
+   (0.2ms)  BEGIN
+WARNING: Can't mass-assign protected attributes: id
+  Site Load (0.9ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" = $1 LIMIT 1  [["id", "3"]]
+  DataProxy Load (0.4ms)  SELECT "data_proxies".* FROM "data_proxies" WHERE "data_proxies"."id" = 3 LIMIT 1
+  ImageProperty Load (0.9ms)  SELECT "image_properties".* FROM "image_properties" WHERE "image_properties"."entity_id" = 4951 AND "image_properties"."entity_type" = 'Article' AND (entity_attribute ='TitleImage' and image_id is not null) LIMIT 1
+  DigitalAssetProperty Load (0.4ms)  SELECT "digital_asset_properties".* FROM "digital_asset_properties" WHERE "digital_asset_properties"."entity_id" = 4951 AND "digital_asset_properties"."entity_type" = 'Article' LIMIT 1
+  GalleryProperty Load (0.4ms)  SELECT "gallery_properties".* FROM "gallery_properties" WHERE "gallery_properties"."entity_id" = 4951 AND "gallery_properties"."entity_type" = 'Article' AND (entity_attribute ='ImageGallery') LIMIT 1
+  ConfigurationGroup Load (0.4ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'article' LIMIT 1
+  ConfigurationValue Load (0.4ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 48 AND "configuration_values"."key" = 'page_break' LIMIT 1
+  ExtendedAttributesSchema Load (0.5ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."attr_name" = 'additional_data_required' AND "extended_attributes_schemas"."model_type" = 'Article' LIMIT 1
+  ExtendedAttribute Load (0.5ms)  SELECT "extended_attributes".* FROM "extended_attributes" WHERE "extended_attributes"."model_id" = 4951 AND "extended_attributes"."model_type" = 'Article' AND "extended_attributes"."extended_attributes_schema_id" = 1 LIMIT 1
+  ExtendedAttributeValue Load (0.5ms)  SELECT "extended_attribute_values".* FROM "extended_attribute_values" WHERE "extended_attribute_values"."extended_attribute_id" = 1312
+  SQL (0.7ms)  DELETE FROM "extended_attribute_values" WHERE "extended_attribute_values"."id" = $1  [["id", 3356]]
+  ExtendedAttributesSchema Load (0.4ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."id" = 1 LIMIT 1
+  Option Load (0.7ms)  SELECT "options".* FROM "options" WHERE "options"."id" IS NULL LIMIT 1
+   (0.4ms)  UPDATE "extended_attributes" SET "updated_at" = '2017-05-17 09:59:32.102595' WHERE "extended_attributes"."id" = 1312
+  SQL (1.3ms)  INSERT INTO "extended_attribute_values" ("binary_value", "boolean_value", "date_value", "datetime_value", "decimal_value", "extended_attribute_id", "float_value", "integer_value", "string_value", "symbol_id", "symbol_type", "text_value", "time_value", "timestamp_value", "value") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING "id"  [["binary_value", nil], ["boolean_value", nil], ["date_value", nil], ["datetime_value", nil], ["decimal_value", nil], ["extended_attribute_id", 1312], ["float_value", nil], ["integer_value", nil], ["string_value", nil], ["symbol_id", nil], ["symbol_type", nil], ["text_value", nil], ["time_value", nil], ["timestamp_value", nil], ["value", nil]]
+  User Load (0.6ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 31]]
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  Section Load (0.6ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 36 LIMIT 1
+  ExtendedAttribute Load (0.5ms)  SELECT "extended_attributes".* FROM "extended_attributes" join extended_attributes_schemas on extended_attributes.extended_attributes_schema_id = extended_attributes_schemas.id WHERE "extended_attributes"."model_id" = 4951 AND "extended_attributes"."model_type" = 'Article' AND (extended_attributes_schemas.attr_name = 'additional_data_required') LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."id" = 1 LIMIT 1
+  ExtendedAttributeValue Load (0.4ms)  SELECT "extended_attribute_values".* FROM "extended_attribute_values" WHERE "extended_attribute_values"."extended_attribute_id" = 1312 LIMIT 1
+  ExtendedAttribute Load (0.4ms)  SELECT "extended_attributes".* FROM "extended_attributes" join extended_attributes_schemas on extended_attributes.extended_attributes_schema_id = extended_attributes_schemas.id WHERE "extended_attributes"."model_id" = 4951 AND "extended_attributes"."model_type" = 'Article' AND (extended_attributes_schemas.attr_name = 'link_to_title_of_feed') LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."attr_name" = 'address1' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."attr_name" = 'address2' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."attr_name" = 'address3' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."attr_name" = 'post_code' LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attributes".* FROM "extended_attributes" join extended_attributes_schemas on extended_attributes.extended_attributes_schema_id = extended_attributes_schemas.id WHERE "extended_attributes"."model_id" = 4951 AND "extended_attributes"."model_type" = 'Article' AND (extended_attributes_schemas.attr_name = 'additional_data_required') LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."id" = 1 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attribute_values".* FROM "extended_attribute_values" WHERE "extended_attribute_values"."extended_attribute_id" = 1312 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attributes".* FROM "extended_attributes" join extended_attributes_schemas on extended_attributes.extended_attributes_schema_id = extended_attributes_schemas.id WHERE "extended_attributes"."model_id" = 4951 AND "extended_attributes"."model_type" = 'Article' AND (extended_attributes_schemas.attr_name = 'additional_data_required') LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."id" = 1 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attribute_values".* FROM "extended_attribute_values" WHERE "extended_attribute_values"."extended_attribute_id" = 1312 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attributes".* FROM "extended_attributes" join extended_attributes_schemas on extended_attributes.extended_attributes_schema_id = extended_attributes_schemas.id WHERE "extended_attributes"."model_id" = 4951 AND "extended_attributes"."model_type" = 'Article' AND (extended_attributes_schemas.attr_name = 'additional_data_required') LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."id" = 1 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attribute_values".* FROM "extended_attribute_values" WHERE "extended_attribute_values"."extended_attribute_id" = 1312 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attributes".* FROM "extended_attributes" join extended_attributes_schemas on extended_attributes.extended_attributes_schema_id = extended_attributes_schemas.id WHERE "extended_attributes"."model_id" = 4951 AND "extended_attributes"."model_type" = 'Article' AND (extended_attributes_schemas.attr_name = 'additional_data_required') LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."id" = 1 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attribute_values".* FROM "extended_attribute_values" WHERE "extended_attribute_values"."extended_attribute_id" = 1312 LIMIT 1
+  ExtendedAttribute Load (1.2ms)  SELECT "extended_attributes".* FROM "extended_attributes" WHERE "extended_attributes"."model_id" = 4951 AND "extended_attributes"."model_type" = 'Article'
+  CACHE (0.0ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."id" = 1 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attribute_values".* FROM "extended_attribute_values" WHERE "extended_attribute_values"."extended_attribute_id" = 1312 LIMIT 1
+  CACHE (0.0ms)  SELECT "extended_attribute_values".* FROM "extended_attribute_values" WHERE "extended_attribute_values"."extended_attribute_id" = 1312 LIMIT 1
+  Article Load (0.9ms)  SELECT "articles".* FROM "articles" WHERE "articles"."id" = 4951 LIMIT 1
+  Category Load (0.7ms)  SELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT 1  [["id", 235]]
+  Author Load (0.4ms)  SELECT "authors".* FROM "authors" WHERE "authors"."id" = $1 LIMIT 1  [["id", 7]]
+  CACHE (0.0ms)  SELECT "authors".* FROM "authors" WHERE "authors"."id" = $1 LIMIT 1
+  Source Load (0.3ms)  SELECT "sources".* FROM "sources" WHERE "sources"."id" = 3 LIMIT 1
+  ImageProperty Load (0.4ms)  SELECT "image_properties".* FROM "image_properties" WHERE "image_properties"."entity_id" = 4951 AND "image_properties"."entity_type" = 'Article' AND (entity_attribute ='TitleImage' and image_id is not null) LIMIT 1
+  SQL (2.6ms)  INSERT INTO "article_contents" ("approved_email_sent_date", "article_id", "asset_source", "asset_source_alias", "author_alias", "blog_id", "city_id", "contact_number", "content", "content_word_count", "country", "created_at", "created_by", "css_class", "description", "display_date", "editing_notes", "events_end_date", "events_start_date", "exclusive", "expiry_date", "extended_body", "external_url_text", "external_video_url", "flash_news", "fragment_title_text", "full_header_and_footer", "image_url", "img_location", "language_id", "latitude", "link_to_title_of_feed", "link_type", "location", "longitude", "magazine_issue_id", "media_detail_id", "meta_description", "meta_keywords", "mobile_content", "mobile_content_word_count", "mwave_keyword", "original_source", "premium", "price", "primary_category_id", "primary_medium", "product_website", "publish_date", "pullquote", "purchase_url", "reference_url", "region", "right_hand_column", "section_id", "seo_title", "sequence", "shopping_keywords", "sku", "source_id", "specifications", "sponsored", "state", "sub_title", "submitter", "submitters_email", "summary", "supplier", "supplier_website", "text_after_price", "text_before_price", "text_for_highlighting", "ticket_price", "title", "title_image_url", "title_of_feed", "title_url", "updated_at", "updated_by", "url_part", "verdict", "video_stream_id", "volume_and_issue") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $50, $51, $52, $53, $54, $55, $56, $57, $58, $59, $60, $61, $62, $63, $64, $65, $66, $67, $68, $69, $70, $71, $72, $73, $74, $75, $76, $77, $78, $79, $80, $81, $82, $83) RETURNING "id"  [["approved_email_sent_date", nil], ["article_id", 4951], ["asset_source", nil], ["asset_source_alias", nil], ["author_alias", ""], ["blog_id", nil], ["city_id", nil], ["contact_number", nil], ["content", "<p>hide image testing</p>\r\n<p><iframe src=\"https://www.youtube.com/embed/a5_wk4ADFxY\" width=\"560\" height=\"315\" frameborder=\"0\" allowfullscreen=\"allowfullscreen\"></iframe></p>"], ["content_word_count", nil], ["country", nil], ["created_at", Wed, 17 May 2017 15:29:32 IST +05:30], ["created_by", 31], ["css_class", nil], ["description", "hide image testing"], ["display_date", Sat, 01 Feb 2014 16:26:00 IST +05:30], ["editing_notes", ""], ["events_end_date", Mon, 28 Mar 2016 00:00:00 IST +05:30], ["events_start_date", Tue, 29 Mar 2016 00:00:00 IST +05:30], ["exclusive", false], ["expiry_date", nil], ["extended_body", nil], ["external_url_text", nil], ["external_video_url", nil], ["flash_news", nil], ["fragment_title_text", nil], ["full_header_and_footer", nil], ["image_url", nil], ["img_location", nil], ["language_id", nil], ["latitude", nil], ["link_to_title_of_feed", nil], ["link_type", nil], ["location", nil], ["longitude", nil], ["magazine_issue_id", 19], ["media_detail_id", nil], ["meta_description", " hide image testing"], ["meta_keywords", ""], ["mobile_content", nil], ["mobile_content_word_count", nil], ["mwave_keyword", nil], ["original_source", nil], ["premium", false], ["price", nil], ["primary_category_id", nil], ["primary_medium", "video"], ["product_website", nil], ["publish_date", Sat, 01 Feb 2014 16:26:00 IST +05:30], ["pullquote", nil], ["purchase_url", nil], ["reference_url", nil], ["region", nil], ["right_hand_column", nil], ["section_id", 36], ["seo_title", nil], ["sequence", nil], ["shopping_keywords", nil], ["sku", nil], ["source_id", 3], ["specifications", nil], ["sponsored", nil], ["state", nil], ["sub_title", ""], ["submitter", nil], ["submitters_email", nil], ["summary", nil], ["supplier", nil], ["supplier_website", nil], ["text_after_price", nil], ["text_before_price", nil], ["text_for_highlighting", "hide image testing ... hide image testing ... Rabindra Maharana ... "], ["ticket_price", nil], ["title", "hide image testing"], ["title_image_url", nil], ["title_of_feed", nil], ["title_url", nil], ["updated_at", Wed, 17 May 2017 15:29:32 IST +05:30], ["updated_by", nil], ["url_part", nil], ["verdict", nil], ["video_stream_id", nil], ["volume_and_issue", nil]]
+  SQL (0.6ms)  INSERT INTO "article_contents_categories" ("article_content_id", "autonomy_flag", "category_id", "relevance", "sequence_number", "system") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["article_content_id", 11722], ["autonomy_flag", false], ["category_id", 235], ["relevance", nil], ["sequence_number", 0], ["system", false]]
+  User Load (0.5ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 31]]
+   (0.3ms)  INSERT INTO "article_contents_sites" ("article_content_id", "data_proxy_id") VALUES (11722, 3)
+  SQL (0.6ms)  INSERT INTO "article_content_authors" ("article_content_id", "author_id", "sequence_number") VALUES ($1, $2, $3) RETURNING "id"  [["article_content_id", 11722], ["author_id", 7], ["sequence_number", 0]]
+  User Load (0.4ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 31]]
+  ArticleContent Load (1.0ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."id" = $1 LIMIT 1  [["id", 11722]]
+  Article Load (0.8ms)  SELECT "articles".* FROM "articles" WHERE "articles"."id" = 4951 LIMIT 1
+  SQL (0.4ms)  UPDATE "articles" SET latest_version_id=11722 WHERE (id=4951)
+  Article Load (0.8ms)  SELECT "articles".* FROM "articles" WHERE "articles"."id" = $1 LIMIT 1  [["id", 4951]]
+  ImageProperty Load (0.4ms)  SELECT "image_properties".* FROM "image_properties" WHERE "image_properties"."entity_id" = 4951 AND "image_properties"."entity_type" = 'Article' AND (entity_attribute ='InlineImage') ORDER BY id asc
+  CACHE (0.0ms)  SELECT "articles".* FROM "articles" WHERE "articles"."id" = $1 LIMIT 1
+  ArticleContent Load (1.5ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4951
+  CACHE (0.0ms)  SELECT "articles".* FROM "articles" WHERE "articles"."id" = $1 LIMIT 1
+  Section Load (0.3ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 36 LIMIT 1
+  Source Load (0.3ms)  SELECT "sources".* FROM "sources" WHERE "sources"."id" = 3 LIMIT 1
+  DataProxy Load (0.3ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "sites_sources" ON "data_proxies"."id" = "sites_sources"."data_proxy_id" WHERE "sites_sources"."source_id" = 3
+  Site Load (0.4ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  DataProxy Load (0.2ms)  SELECT "data_proxies".* FROM "data_proxies" WHERE "data_proxies"."id" = 3 LIMIT 1
+  Section Load (0.9ms)  SELECT "sections".* FROM "sections" INNER JOIN "sections_sites" ON "sections"."id" = "sections_sites"."section_id" WHERE "sections_sites"."data_proxy_id" = 3 AND (entity_type ='Article') ORDER BY name
+  ArticleProduct Load (0.5ms)  SELECT "article_products".* FROM "article_products" WHERE (article_id=4951)
+  DataProxy Load (0.3ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 11722 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "data_proxies".* FROM "data_proxies" WHERE "data_proxies"."id" = 3 LIMIT 1
+  Product Load (0.8ms)  SELECT "products".* FROM "products" WHERE "products"."data_proxy_id" = 3
+  AssetGroup Load (1.1ms)  SELECT "asset_groups".* FROM "asset_groups" INNER JOIN "asset_groups_products" ON "asset_groups"."id" = "asset_groups_products"."asset_group_id" WHERE "asset_groups_products"."product_id" = 3 AND "asset_groups"."entity_type" = 'Article'
+  AssetCondition Load (1.2ms)  SELECT "asset_conditions".* FROM "asset_conditions" WHERE "asset_conditions"."asset_group_id" = 88
+  Section Load (1.0ms)  SELECT "sections".* FROM "sections" INNER JOIN "asset_conditions_sections" ON "sections"."id" = "asset_conditions_sections"."section_id" WHERE "asset_conditions_sections"."asset_condition_id" = 267
+  CACHE (0.0ms)  SELECT "data_proxies".* FROM "data_proxies" WHERE "data_proxies"."id" = 3 LIMIT 1
+  Section Load (1.0ms)  SELECT "sections".* FROM "sections" INNER JOIN "sections_sites" ON "sections"."id" = "sections_sites"."section_id" WHERE "sections_sites"."data_proxy_id" = 3 AND (entity_type ='Article') AND (alias_name in ('20','22','1','23','10','24','25','26','27','28','29','30','31','32','33','34')) ORDER BY name
+  DataProxy Load (0.4ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "asset_conditions_sites" ON "data_proxies"."id" = "asset_conditions_sites"."data_proxy_id" WHERE "asset_conditions_sites"."asset_condition_id" = 268
+  Site Load (0.2ms)  SELECT "sites".id FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Site Load (0.4ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" IN (3, 4)
+  CACHE (0.0ms)  SELECT "data_proxies".* FROM "data_proxies" WHERE "data_proxies"."id" = 3 LIMIT 1
+  Source Load (0.4ms)  SELECT "sources".* FROM "sources" INNER JOIN "sites_sources" ON "sources"."id" = "sites_sources"."source_id" WHERE "sites_sources"."data_proxy_id" = 3
+  CACHE (0.0ms)  SELECT "data_proxies".* FROM "data_proxies" WHERE "data_proxies"."id" = 3 LIMIT 1
+  CACHE (0.0ms)  SELECT "sources".* FROM "sources" INNER JOIN "sites_sources" ON "sources"."id" = "sites_sources"."source_id" WHERE "sites_sources"."data_proxy_id" = 3
+   (2.8ms)  SELECT COUNT(*) FROM "articles" WHERE "articles"."premium" = 't' AND (active = 't' and in_embargo = 'f' and expired = 'f' and is_draft = 'f' and (waiting_for_approval is null or waiting_for_approval = 'f')) AND (articles.section_id in (20,22,1,23,10,24,25,26,27,28,29,30,31,32,33,34)) AND (articles.source_id in (3,4,3,4)) AND (articles.source_id in(3))
+   (0.4ms)  SELECT 1 FROM "articles" WHERE "articles"."premium" = 't' AND "articles"."id" = 4951 AND (active = 't' and in_embargo = 'f' and expired = 'f' and is_draft = 'f' and (waiting_for_approval is null or waiting_for_approval = 'f')) AND (articles.section_id in (20,22,1,23,10,24,25,26,27,28,29,30,31,32,33,34)) AND (articles.source_id in (3,4,3,4)) AND (articles.source_id in(3)) LIMIT 1
+Inside expire page for article == 4951
+   (0.2ms)  SELECT COUNT(*) FROM "article_products" WHERE "article_products"."article_id" = 4951
+Inside expire page for article before SrCache.expire_page  == 4951
+  PageCache Load (1.1ms)  SELECT "page_caches".* FROM "page_caches" WHERE (request_path like '/video/hide-image-testing-4951%')
+Inside expire page url == /video/hide-image-testing-4951
+after curl comment expire page url == autocarpro.haymarket.kreatio.info
+  PageCache Load (0.9ms)  SELECT "page_caches".* FROM "page_caches" WHERE (page_type='home_page' and site_id=3) LIMIT 1
+=============================================== befor if 
+  ConfigurationGroup Load (0.5ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'article' LIMIT 1
+  ConfigurationValue Load (0.4ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 48 AND "configuration_values"."key" = 'email' LIMIT 1
+  CACHE (0.0ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'article' LIMIT 1
+  CACHE (0.0ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 48 AND "configuration_values"."key" = 'email' LIMIT 1
+================================================= mail for approval
+  CACHE (0.0ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'article' LIMIT 1
+  ConfigurationValue Load (0.5ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 48 AND "configuration_values"."key" = 'approval_email' LIMIT 1
+  CACHE (0.0ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'article' LIMIT 1
+  CACHE (0.0ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 48 AND "configuration_values"."key" = 'approval_email' LIMIT 1
+  Source Load (1.2ms)  SELECT "sources".* FROM "sources" WHERE "sources"."id" = $1 LIMIT 1  [["id", 3]]
+  ArticleContent Load (1.3ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4951 ORDER BY "article_contents"."id" DESC LIMIT 1
+  Author Load (0.9ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11722 ORDER BY sequence_number
+Rendered web_mailer/article_approval_mail.html.erb (173.1ms)
+
+Sent mail to gprabhu@kreatio.com (5400ms)
+Date: Wed, 17 May 2017 15:29:35 +0530
+From: no-reply@kreatio.com
+To: gprabhu@kreatio.com
+Message-ID: <591c1f07d474_26e96097e45329d@HaymarketStage.kreatio.com.mail>
+Subject: Article in HayMarket CMS requiring approval
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p>
+        Dear Editor,
+</p>
+
+<p>
+        The following article requires your approval;
+</p>
+
+<p>
+        Article ID: 4951
+</p>
+<p>
+        Article Headline: hide image testing
+</p>
+<p>
+        Source: Autocar Professional
+</p>
+<p>
+        Author: Rabindra Maharana
+</p>
+<p>
+        Please login to <a href="http://haymarketadmin.kreatio.com">"http://haymarketadmin.kreatio.com"</a> to approve this article.
+</p>
+
+<p>
+        With regards,
+</p>
+
+<p>
+        KREATIO Team
+</p>
+
+   (22.0ms)  COMMIT
+Redirected to http://cms.haymarket.kreatio.info/admin/articles
+Completed 302 Found in 8782ms
+
+
+Started GET "/admin/articles" for 192.168.15.55 at 2017-05-17 15:29:41 +0530
+  Processing by Admin::ArticlesController#index as HTML
+  Site Load (1.4ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" = $1 LIMIT 1  [["id", 3]]
+  ConfigurationGroup Load (0.8ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'time_zone' LIMIT 1
+  ConfigurationValue Load (0.7ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 49 AND "configuration_values"."key" = 'time' LIMIT 1
+  User Load (1.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 31]]
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" = $1 LIMIT 1
+  Role Load (0.8ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  SubPermission Load (0.7ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  SubPermission Load (0.7ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  SubPermission Load (1.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" = $1 LIMIT 1
+  DataProxy Load (1.3ms)  SELECT "data_proxies".* FROM "data_proxies" WHERE "data_proxies"."id" = 3 LIMIT 1
+  Section Load (1.1ms)  SELECT "sections".* FROM "sections" INNER JOIN "sections_sites" ON "sections"."id" = "sections_sites"."section_id" WHERE "sections_sites"."data_proxy_id" = 3 AND (entity_type ='Article') ORDER BY name
+  Source Load (0.4ms)  SELECT "sources".* FROM "sources" INNER JOIN "sites_sources" ON "sources"."id" = "sites_sources"."source_id" WHERE "sites_sources"."data_proxy_id" = 3
+  ConfigurationGroup Load (0.3ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'cache' LIMIT 1
+  ConfigurationValue Load (0.3ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 37 AND "configuration_values"."key" = 'cache' LIMIT 1
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "data_proxies".* FROM "data_proxies" WHERE "data_proxies"."id" = 3 LIMIT 1
+  CACHE (0.0ms)  SELECT "sources".* FROM "sources" INNER JOIN "sites_sources" ON "sources"."id" = "sites_sources"."source_id" WHERE "sites_sources"."data_proxy_id" = 3
+  Section Load (0.6ms)  SELECT "sections".* FROM "sections" WHERE "sections"."entity_type" = 'Article'
+  Article Load (5.7ms)  SELECT "articles".* FROM "articles" WHERE (articles.source_id in (3,4)) AND (articles.section_id in ( 1,5,8,6,7,14,13,10,12,18,19,20,21,22,23,24,25,27,28,29,30,31,32,33,34,36,17,15,35,26,11,37,39,38)) ORDER BY updated_at desc LIMIT 30 OFFSET 0
+   (7.0ms)  SELECT COUNT(*) FROM "articles" WHERE (articles.source_id in (3,4)) AND (articles.section_id in ( 1,5,8,6,7,14,13,10,12,18,19,20,21,22,23,24,25,27,28,29,30,31,32,33,34,36,17,15,35,26,11,37,39,38))
+  ArticleContent Load (0.8ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4951 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (0.7ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4951 AND "article_contents"."id" = $1 LIMIT 1  [["id", 11722]]
+  DataProxy Load (0.4ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 11722 ORDER BY id asc
+  Site Load (0.4ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Section Load (0.3ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 36 LIMIT 1
+  Author Load (0.6ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11722 ORDER BY sequence_number
+  ArticleContent Load (0.9ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4969 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (0.8ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4969 AND "article_contents"."id" = $1 LIMIT 1  [["id", 11717]]
+  DataProxy Load (1.0ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 11717 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Section Load (0.4ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 35 LIMIT 1
+  Author Load (0.6ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11717 ORDER BY sequence_number
+  ArticleContent Load (1.0ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4136 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (0.9ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4136 AND "article_contents"."id" = $1 LIMIT 1  [["id", 11713]]
+  DataProxy Load (0.4ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 11713 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Section Load (0.3ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 10 LIMIT 1
+  Author Load (0.5ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11713 ORDER BY sequence_number
+  ArticleContent Load (1.1ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 9489 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.0ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 9489 AND "article_contents"."id" = $1 LIMIT 1  [["id", 11710]]
+  DataProxy Load (1.1ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 11710 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Section Load (0.3ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 18 LIMIT 1
+  Author Load (0.6ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11710 ORDER BY sequence_number
+  ArticleContent Load (1.3ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 9488 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.1ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 9488 AND "article_contents"."id" = $1 LIMIT 1  [["id", 11707]]
+  DataProxy Load (0.3ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 11707 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Section Load (0.3ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 19 LIMIT 1
+  Author Load (0.5ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11707 ORDER BY sequence_number
+  ArticleContent Load (0.7ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 9446 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (0.6ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 9446 AND "article_contents"."id" = $1 LIMIT 1  [["id", 11682]]
+  DataProxy Load (1.1ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 11682 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Section Load (0.3ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 25 LIMIT 1
+  Author Load (0.6ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11682 ORDER BY sequence_number
+  ArticleContent Load (1.4ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4129 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.1ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4129 AND "article_contents"."id" = $1 LIMIT 1  [["id", 11677]]
+  DataProxy Load (0.8ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 11677 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 36 LIMIT 1
+  Author Load (1.4ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11677 ORDER BY sequence_number
+  ArticleContent Load (1.6ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 9469 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.6ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 9469 AND "article_contents"."id" = $1 LIMIT 1  [["id", 11600]]
+  DataProxy Load (1.3ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 11600 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Section Load (0.8ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 21 LIMIT 1
+  Author Load (1.3ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11600 ORDER BY sequence_number
+  ArticleContent Load (2.2ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4117 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (2.0ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4117 AND "article_contents"."id" = $1 LIMIT 1  [["id", 11598]]
+  DataProxy Load (1.0ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 11598 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 10 LIMIT 1
+  Author Load (1.4ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11598 ORDER BY sequence_number
+  ArticleContent Load (2.1ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4952 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (2.1ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4952 AND "article_contents"."id" = $1 LIMIT 1  [["id", 11597]]
+  DataProxy Load (2.0ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 11597 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Section Load (0.9ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 1 LIMIT 1
+  Author Load (1.4ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11597 ORDER BY sequence_number
+  ArticleContent Load (2.0ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4130 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.9ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4130 AND "article_contents"."id" = $1 LIMIT 1  [["id", 11472]]
+  DataProxy Load (1.1ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 11472 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Section Load (0.8ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 22 LIMIT 1
+  Author Load (1.3ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11472 ORDER BY sequence_number
+  ArticleContent Load (1.8ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4114 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.7ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4114 AND "article_contents"."id" = $1 LIMIT 1  [["id", 11422]]
+  DataProxy Load (1.0ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 11422 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Section Load (0.8ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 13 LIMIT 1
+  Author Load (1.3ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11422 ORDER BY sequence_number
+  ArticleContent Load (3.3ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4808 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (2.8ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4808 AND "article_contents"."id" = $1 LIMIT 1  [["id", 11313]]
+  DataProxy Load (0.9ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 11313 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Section Load (0.7ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 14 LIMIT 1
+  Author Load (1.3ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11313 ORDER BY sequence_number
+  ArticleContent Load (2.3ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 9445 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (2.1ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 9445 AND "article_contents"."id" = $1 LIMIT 1  [["id", 11303]]
+  DataProxy Load (1.0ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 11303 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Section Load (0.7ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 17 LIMIT 1
+  Author Load (1.3ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 11303 ORDER BY sequence_number
+  ArticleContent Load (2.5ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4150 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.9ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4150 AND "article_contents"."id" = $1 LIMIT 1  [["id", 8996]]
+  DataProxy Load (1.0ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 8996 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 35 LIMIT 1
+  Author Load (1.4ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 8996 ORDER BY sequence_number
+  ArticleContent Load (2.6ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4412 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (2.7ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4412 AND "article_contents"."id" = $1 LIMIT 1  [["id", 8995]]
+  DataProxy Load (1.1ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 8995 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 14 LIMIT 1
+  Author Load (1.4ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 8995 ORDER BY sequence_number
+  ArticleContent Load (2.9ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4558 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.9ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4558 AND "article_contents"."id" = $1 LIMIT 1  [["id", 8750]]
+  DataProxy Load (0.9ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 8750 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 1 LIMIT 1
+  Author Load (1.3ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 8750 ORDER BY sequence_number
+  ArticleContent Load (1.8ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4115 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.7ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4115 AND "article_contents"."id" = $1 LIMIT 1  [["id", 7041]]
+  DataProxy Load (1.0ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 7041 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 13 LIMIT 1
+  Author Load (1.3ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 7041 ORDER BY sequence_number
+  ArticleContent Load (2.7ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4487 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (2.1ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4487 AND "article_contents"."id" = $1 LIMIT 1  [["id", 6866]]
+  DataProxy Load (0.6ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 6866 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 13 LIMIT 1
+  Author Load (0.7ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 6866 ORDER BY sequence_number
+  ArticleContent Load (1.0ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4116 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.5ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4116 AND "article_contents"."id" = $1 LIMIT 1  [["id", 6825]]
+  DataProxy Load (0.6ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 6825 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 13 LIMIT 1
+  Author Load (0.7ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 6825 ORDER BY sequence_number
+  ArticleContent Load (164.8ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4978 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.3ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4978 AND "article_contents"."id" = $1 LIMIT 1  [["id", 6778]]
+  DataProxy Load (0.6ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 6778 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 25 LIMIT 1
+  Author Load (0.7ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 6778 ORDER BY sequence_number
+  ArticleContent Load (1.1ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4976 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.0ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4976 AND "article_contents"."id" = $1 LIMIT 1  [["id", 6775]]
+  DataProxy Load (0.5ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 6775 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 25 LIMIT 1
+  Author Load (0.7ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 6775 ORDER BY sequence_number
+  ArticleContent Load (1.2ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 3895 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.5ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 3895 AND "article_contents"."id" = $1 LIMIT 1  [["id", 6773]]
+  DataProxy Load (0.6ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 6773 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Section Load (0.4ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 15 LIMIT 1
+  Author Load (0.7ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 6773 ORDER BY sequence_number
+  ArticleContent Load (1.2ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4131 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.1ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4131 AND "article_contents"."id" = $1 LIMIT 1  [["id", 6772]]
+  DataProxy Load (0.5ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 6772 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Section Load (0.4ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 20 LIMIT 1
+  Author Load (0.7ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 6772 ORDER BY sequence_number
+  ArticleContent Load (1.2ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 5289 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.6ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 5289 AND "article_contents"."id" = $1 LIMIT 1  [["id", 6771]]
+  DataProxy Load (0.6ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 6771 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Section Load (0.5ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 12 LIMIT 1
+  Author Load (0.8ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 6771 ORDER BY sequence_number
+  ArticleContent Load (1.0ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 5291 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (0.9ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 5291 AND "article_contents"."id" = $1 LIMIT 1  [["id", 6770]]
+  DataProxy Load (0.6ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 6770 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  Section Load (0.5ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 27 LIMIT 1
+  Author Load (0.7ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 6770 ORDER BY sequence_number
+  ArticleContent Load (1.5ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4973 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.5ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 4973 AND "article_contents"."id" = $1 LIMIT 1  [["id", 6769]]
+  DataProxy Load (0.4ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 6769 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 25 LIMIT 1
+  Author Load (0.7ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 6769 ORDER BY sequence_number
+  ArticleContent Load (1.2ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 1431 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.1ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 1431 AND "article_contents"."id" = $1 LIMIT 1  [["id", 6768]]
+  DataProxy Load (0.6ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 6768 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 18 LIMIT 1
+  Author Load (0.7ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 6768 ORDER BY sequence_number
+  ArticleContent Load (2.0ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 5292 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (2.3ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 5292 AND "article_contents"."id" = $1 LIMIT 1  [["id", 6763]]
+  DataProxy Load (0.6ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 6763 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 25 LIMIT 1
+  Author Load (0.7ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 6763 ORDER BY sequence_number
+  ArticleContent Load (1.5ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 5290 ORDER BY "article_contents"."id" DESC LIMIT 1
+  ArticleContent Load (1.8ms)  SELECT "article_contents".* FROM "article_contents" WHERE "article_contents"."article_id" = 5290 AND "article_contents"."id" = $1 LIMIT 1  [["id", 6754]]
+  DataProxy Load (0.6ms)  SELECT "data_proxies".* FROM "data_proxies" INNER JOIN "article_contents_sites" ON "data_proxies"."id" = "article_contents_sites"."data_proxy_id" WHERE "article_contents_sites"."article_content_id" = 6754 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."data_proxy_id" = 3 ORDER BY id asc
+  CACHE (0.0ms)  SELECT "sections".* FROM "sections" WHERE "sections"."id" = 19 LIMIT 1
+  Author Load (0.8ms)  SELECT "authors".* FROM "authors" INNER JOIN "article_content_authors" ON "authors"."id" = "article_content_authors"."author_id" WHERE "article_content_authors"."article_content_id" = 6754 ORDER BY sequence_number
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/articles/_article.html.erb (3551.1ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/articles/_copy_article.html.erb (1.2ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/articles/_article_new_copy_button.html.erb (2.0ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/decoration/_decoration_article_list.erb (5.0ms)
+  CACHE (0.0ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'cache' LIMIT 1
+  ConfigurationValue Load (0.7ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 37 AND "configuration_values"."key" = 'performance_data_level' LIMIT 1
+  CACHE (0.0ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'cache' LIMIT 1
+  ConfigurationValue Load (0.6ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 37 AND "configuration_values"."key" = 'performance_debug_level' LIMIT 1
+  CACHE (0.0ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 3 AND "configuration_groups"."group_name" = 'cache' LIMIT 1
+  ConfigurationValue Load (0.5ms)  SELECT "configuration_values".* FROM "configuration_values" WHERE "configuration_values"."configuration_group_id" = 37 AND "configuration_values"."key" = 'performance_data_to_log' LIMIT 1
+  SiteProperty Load (0.5ms)  SELECT "site_properties".* FROM "site_properties" WHERE "site_properties"."site_id" = 3 AND "site_properties"."name" = 'performance_data_to_html' LIMIT 1
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/articles/index.html.erb within layouts/application (3639.5ms)
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  Site Load (1.9ms)  SELECT "sites".* FROM "sites" INNER JOIN "site_user_roles" ON "sites"."id" = "site_user_roles"."site_id" WHERE "site_user_roles"."user_id" = 31 AND (role_id in(select id from roles where user_type='Author')) ORDER BY short_name
+  User Load (0.6ms)  SELECT "users".* FROM "users" WHERE (id=31) LIMIT 1
+  Menu Load (1.1ms)  SELECT "menus".* FROM "menus" WHERE (menu_access = 'admin') AND (parent_id = 0) ORDER BY sequence_number asc
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 1 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 2 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 56 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 3 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 124 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 125 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 4 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.6ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 5 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 123 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.6ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 8 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 22 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 26 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 23 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 24 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 25 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.6ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 7 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 150 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 39 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 40 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 42 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 18 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 19 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 20 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 60 ORDER BY sequence_number
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 61 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.6ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 21 ORDER BY sequence_number
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 62 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 38 ORDER BY sequence_number
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 27 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 52 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 28 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 54 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 55 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 151 ORDER BY sequence_number
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 59 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 50 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 29 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 51 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 57 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 58 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (1.1ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 17 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 35 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 36 ORDER BY sequence_number
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 37 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 9 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 110 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 6 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 11 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 30 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 31 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 32 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 10 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 12 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 14 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 33 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 34 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.9ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 15 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 3 ORDER BY sequence_number, sequence_number asc
+  CACHE (0.0ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 124 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 125 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+===================================== 2 ===================
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 31 AND (site_id =3) AND (user_type='Author')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 3
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 4
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 8
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/_mainmenu.html.erb (724.0ms)
+Completed 200 OK in 4842ms (Views: 4225.1ms | ActiveRecord: 375.5ms | Solr: 0.0ms)
+
+
+Started GET "/javascripts/jquery/addedit_admin.js" for 192.168.15.55 at 2017-05-17 15:29:47 +0530
+
+ActionController::RoutingError (No route matches [GET] "/javascripts/jquery/addedit_admin.js"):
+  lib/max_request_per_worker.rb:10:in `call'
+
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/actionpack-3.1.3/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.7ms)
+
+
+Started GET "/images/submenu_pipe.2.jpg" for 192.168.15.55 at 2017-05-17 15:29:47 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/submenu_pipe.2.jpg"):
+  lib/max_request_per_worker.rb:10:in `call'
+
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/actionpack-3.1.3/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.6ms)
+
+
+Started GET "/admin_login" for 192.168.15.29 at 2017-05-17 15:30:07 +0530
+  Processing by Admin::LoginController#admin_login as HTML
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/login/admin_login.html.erb within layouts/login (3.5ms)
+Completed 200 OK in 19ms (Views: 16.9ms | ActiveRecord: 0.0ms | Solr: 0.0ms)
+
+
+Started POST "/admin/login/verify_admin_login" for 192.168.15.29 at 2017-05-17 15:30:09 +0530
+  Processing by Admin::LoginController#verify_admin_login as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"3v7apLv3ebzcVW2nV3hvlyiNVTFwBGUkJvnTXSdUVZk=", "login"=>{"email"=>"navin@kreatio.com", "password"=>"[FILTERED]"}, "remember_me"=>"1", "commit"=>"Sign in"}
+  User Load (1.5ms)  SELECT "users".* FROM "users" WHERE (UPPER(email) = UPPER('NAVIN@KREATIO.COM')) LIMIT 1
+   (0.2ms)  BEGIN
+   (0.5ms)  UPDATE "users" SET "remember_me_key" = '9368c9574020c36e193df22b4ff1cdaa', "expiry_time" = '2017-05-18 10:00:09.417977' WHERE "users"."id" = 32
+   (24.5ms)  COMMIT
+  Site Load (0.6ms)  SELECT "sites".id FROM "sites" INNER JOIN "site_user_roles" ON "sites"."id" = "site_user_roles"."site_id" WHERE "site_user_roles"."user_id" = 32
+  CACHE (0.0ms)  SELECT "sites".id FROM "sites" INNER JOIN "site_user_roles" ON "sites"."id" = "site_user_roles"."site_id" WHERE "site_user_roles"."user_id" = 32
+  Site Load (0.6ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" = $1 LIMIT 1  [["id", 4]]
+  User Load (1.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 32]]
+  Site Load (1.5ms)  SELECT "sites".* FROM "sites" INNER JOIN "site_user_roles" ON "sites"."id" = "site_user_roles"."site_id" WHERE "site_user_roles"."user_id" = 32 AND (role_id in(select id from roles where user_type='Admin')) ORDER BY short_name
+  User Load (0.6ms)  SELECT "users".* FROM "users" WHERE (id=32) LIMIT 1
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/login/loading_page.html.erb (21.7ms)
+Completed 200 OK in 64ms (Views: 19.6ms | ActiveRecord: 31.0ms | Solr: 0.0ms)
+
+
+Started GET "/admin/login/redirect_to_dash_poard" for 192.168.15.29 at 2017-05-17 15:30:11 +0530
+  Processing by Admin::LoginController#redirect_to_dash_poard as HTML
+Redirected to http://cms.haymarket.kreatio.info/admin/login/admin_dashboard
+Completed 302 Found in 1ms
+
+
+Started GET "/admin/login/admin_dashboard" for 192.168.15.29 at 2017-05-17 15:30:11 +0530
+  Processing by Admin::LoginController#admin_dashboard as HTML
+  Site Load (0.9ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" = $1 LIMIT 1  [["id", 4]]
+  ConfigurationGroup Load (0.4ms)  SELECT "configuration_groups".* FROM "configuration_groups" WHERE "configuration_groups"."site_id" = 4 AND "configuration_groups"."group_name" = 'time_zone' LIMIT 1
+  User Load (0.6ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 32]]
+  CACHE (0.0ms)  SELECT "sites".* FROM "sites" WHERE "sites"."id" = $1 LIMIT 1
+  Role Load (0.7ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  SubPermission Load (0.9ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  SupportMessage Load (0.8ms)  SELECT "support_messages".* FROM "support_messages" WHERE (status='t') ORDER BY created_at desc LIMIT 3
+  BookmarkDetail Load (0.6ms)  SELECT "bookmark_details".* FROM "bookmark_details" WHERE "bookmark_details"."user_id" = 32 ORDER BY created_at desc LIMIT 5
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/home/_announcement.html.erb (1.0ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/home/_most_recent_content.html.erb (0.8ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/home/_bookmarks.html.erb (0.9ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/home/dashboard.html.erb within layouts/application (7.4ms)
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  Site Load (1.1ms)  SELECT "sites".* FROM "sites" INNER JOIN "site_user_roles" ON "sites"."id" = "site_user_roles"."site_id" WHERE "site_user_roles"."user_id" = 32 AND (role_id in(select id from roles where user_type='Admin')) ORDER BY short_name
+  User Load (0.6ms)  SELECT "users".* FROM "users" WHERE (id=32) LIMIT 1
+  Menu Load (1.1ms)  SELECT "menus".* FROM "menus" WHERE (menu_access = 'admin') AND (parent_id = 0) ORDER BY sequence_number asc
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 1 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 2 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 56 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.6ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 3 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 124 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 125 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.6ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 4 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.6ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 5 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 123 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.7ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 8 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 22 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 26 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 23 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 24 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 25 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 7 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.6ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 150 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 39 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 40 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 42 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 18 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 19 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.6ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 20 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 60 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 61 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.8ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 21 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 62 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 38 ORDER BY sequence_number
+  Menu Load (0.6ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 27 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 52 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 28 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 54 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 55 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 151 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 59 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 50 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 29 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 51 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 57 ORDER BY sequence_number
+  Menu Load (0.5ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 58 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (1.0ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 17 ORDER BY sequence_number
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 35 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 36 ORDER BY sequence_number
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 37 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 9 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 110 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 6 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 11 ORDER BY sequence_number
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 30 ORDER BY sequence_number
+  Menu Load (0.3ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 31 ORDER BY sequence_number
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 32 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 10 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 12 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 14 ORDER BY sequence_number
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 33 ORDER BY sequence_number
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 34 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+  Menu Load (0.4ms)  SELECT "menus".* FROM "menus" WHERE "menus"."parent_id" = 15 ORDER BY sequence_number
+  CACHE (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1
+  CACHE (0.0ms)  SELECT "roles".* FROM "roles" INNER JOIN "site_user_roles" ON "roles"."id" = "site_user_roles"."role_id" WHERE "site_user_roles"."user_id" = 32 AND (site_id =4) AND (user_type='Admin')
+  CACHE (0.0ms)  SELECT "sub_permissions".* FROM "sub_permissions" INNER JOIN "roles_sub_permissions" ON "sub_permissions"."id" = "roles_sub_permissions"."sub_permission_id" WHERE "roles_sub_permissions"."role_id" = 1
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/_mainmenu.html.erb (410.1ms)
+Completed 200 OK in 461ms (Views: 407.4ms | ActiveRecord: 38.8ms | Solr: 0.0ms)
+
+
+Started GET "/javascripts/tab_slider.js" for 192.168.15.29 at 2017-05-17 15:30:12 +0530
+
+ActionController::RoutingError (No route matches [GET] "/javascripts/tab_slider.js"):
+  lib/max_request_per_worker.rb:10:in `call'
+
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/actionpack-3.1.3/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.8ms)
+
+
+Started GET "/javascripts/jquery/addedit_admin.js" for 192.168.15.29 at 2017-05-17 15:30:12 +0530
+
+ActionController::RoutingError (No route matches [GET] "/javascripts/jquery/addedit_admin.js"):
+  lib/max_request_per_worker.rb:10:in `call'
+
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/actionpack-3.1.3/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (1.0ms)
+   (0.6ms)  SHOW search_path
+  Site Load (1.3ms)  SELECT "sites".* FROM "sites" 
+Creating scope :limit. Overwriting existing method Article.limit.
+  ExtendedAttributesSchema Load (2.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'additional_data_required' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'opt_out' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'sponsor' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'term_and_conditions' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'thank_you_text' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'title_of_feed' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'link_to_title_of_feed' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'display_on_article' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'date_line' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'hide_echo_comment_box' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'rating' LIMIT 1
+  ExtendedAttributesSchema Load (0.5ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article'
+  ExtendedAttributesSchema Load (0.6ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'additional_data_required' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'opt_out' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'sponsor' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'term_and_conditions' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'thank_you_text' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'title_of_feed' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'link_to_title_of_feed' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'display_on_article' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'hide_echo_comment_box' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'competition_report_generator' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article' AND "extended_attributes_schemas"."attr_name" = 'report_generated_time' LIMIT 1
+  ExtendedAttributesSchema Load (0.5ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'Article'
+Creating scope :by_extended_attr. Overwriting existing method Article.by_extended_attr.
+Creating scope :by_extended_attr_start_at. Overwriting existing method Article.by_extended_attr_start_at.
+Creating scope :by_extended_attr_end_at. Overwriting existing method Article.by_extended_attr_end_at.
+Creating scope :by_extended_attr_substring. Overwriting existing method Article.by_extended_attr_substring.
+Creating scope :substring_match. Overwriting existing method Article.substring_match.
+Creating scope :order_by_extended_attr. Overwriting existing method Article.order_by_extended_attr.
+Creating scope :by_ext_future_date. Overwriting existing method Article.by_ext_future_date.
+Creating scope :by_ext_past_date. Overwriting existing method Article.by_ext_past_date.
+Creating scope :ext_date_time_between. Overwriting existing method Article.ext_date_time_between.
+----------------------------------------------category_ids
+----------------------------------------------sites
+----------------------------------------------author_ids
+----------------------------------------------media_detail
+----------------------------------------------tag_ids
+----------------------------------------------site_ids
+----------------------------------------------related_company_ids
+----------------------------------------------related_company_alias_ids
+----------------------------------------------title
+----------------------------------------------source_id
+----------------------------------------------media_detail_id
+----------------------------------------------section_id
+----------------------------------------------blog_id
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'ArticleContent' AND "extended_attributes_schemas"."attr_name" = 'by_pass_event_sponsor_page' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'ArticleContent' AND "extended_attributes_schemas"."attr_name" = 'page_password' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'ArticleContent' AND "extended_attributes_schemas"."attr_name" = 'imported' LIMIT 1
+  ExtendedAttributesSchema Load (0.3ms)  SELECT "extended_attributes_schemas".* FROM "extended_attributes_schemas" WHERE "extended_attributes_schemas"."model_type" = 'ArticleContent'
+Creating scope :protected. Overwriting existing method DigitalAsset.protected.
+Creating scope :all. Overwriting existing method DigitalAsset.all.
+Creating scope :by_event_types. Overwriting existing method Event.by_event_types.
+Creating scope :by_event_business_areas. Overwriting existing method Event.by_event_business_areas.
+Creating scope :by_date. Overwriting existing method Event.by_date.
+Creating scope :list_event. Overwriting existing method Event.list_event.
+Creating scope :limit. Overwriting existing method Service.limit.
+Creating scope :limit. Overwriting existing method Tag.limit.
+Creating scope :order_by_updated_at. Overwriting existing method Comment.order_by_updated_at.
+Creating scope :by_site. Overwriting existing method Comment.by_site.
+Creating scope :by_blog. Overwriting existing method Comment.by_blog.
+Creating scope :by_site_and_type_poll. Overwriting existing method Comment.by_site_and_type_poll.
+Creating scope :by_site_and_type_service. Overwriting existing method Comment.by_site_and_type_service.
+Creating scope :by_site_and_type_author. Overwriting existing method Comment.by_site_and_type_author.
+Creating scope :by_category_with_children. Overwriting existing method Comment.by_category_with_children.
+Creating scope :by_section. Overwriting existing method Comment.by_section.
+Creating scope :latest. Overwriting existing method Comment.latest.
+Creating scope :by_reported. Overwriting existing method Comment.by_reported.
+Creating scope :by_reported_and_submitted. Overwriting existing method Comment.by_reported_and_submitted.
+Creating scope :by_comment_status. Overwriting existing method Comment.by_comment_status.
+Creating scope :published. Overwriting existing method Comment.published.
+Creating scope :live. Overwriting existing method Comment.live.
+Creating scope :distinct_status. Overwriting existing method Comment.distinct_status.
+Creating scope :order_by. Overwriting existing method Comment.order_by.
+Creating scope :by_article_ids. Overwriting existing method Comment.by_article_ids.
+Creating scope :by_article_title. Overwriting existing method Comment.by_article_title.
+Creating scope :by_poll_title. Overwriting existing method Comment.by_poll_title.
+Creating scope :by_entity_type. Overwriting existing method Comment.by_entity_type.
+Creating scope :by_entity_id. Overwriting existing method Comment.by_entity_id.
+Creating scope :type_service. Overwriting existing method Comment.type_service.
+Creating scope :limit. Overwriting existing method ComponentContainer.limit.
+Creating scope :all. Overwriting existing method EventBrand.all.
+Creating scope :public. Overwriting existing method MyFavourite.public.
+Creating scope :private. Overwriting existing method MyFavourite.private.
+Creating scope :limit. Overwriting existing method PageTemplate.limit.
+Creating scope :limit. Overwriting existing method PageTemplateContainer.limit.
+Creating scope :limit. Overwriting existing method ActivitySummary.limit.
+  Filter Load (0.4ms)  SELECT "filters".* FROM "filters" 
+Creating scope :all. Overwriting existing method Campaign.all.
+Creating scope :limit. Overwriting existing method Campaign.limit.
+Creating scope :all. Overwriting existing method Company.all.
+Creating scope :limit. Overwriting existing method Company.limit.
+Creating scope :limit. Overwriting existing method Document.limit.
+Creating scope :all. Overwriting existing method Document.all.
+Creating scope :all. Overwriting existing method FeaturedSponsership.all.
+Creating scope :limit. Overwriting existing method FeaturedSponsership.limit.
+Creating scope :limit. Overwriting existing method Research.limit.
+Creating scope :all. Overwriting existing method WplSkin.all.
+Creating scope :all. Overwriting existing method WplTaxonomy.all.
+Creating scope :limit. Overwriting existing method WplTaxonomy.limit.
+
+
+Started GET "/javascripts/slides-min-jquery.js" for 192.168.15.29 at 2017-05-17 15:30:12 +0530
+
+ActionController::RoutingError (No route matches [GET] "/javascripts/slides-min-jquery.js"):
+  lib/max_request_per_worker.rb:10:in `call'
+
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/actionpack-3.1.3/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (165.9ms)
+
+
+Started GET "/javascripts/kreatio.js" for 192.168.15.29 at 2017-05-17 15:30:13 +0530
+
+ActionController::RoutingError (No route matches [GET] "/javascripts/kreatio.js"):
+  lib/max_request_per_worker.rb:10:in `call'
+
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/actionpack-3.1.3/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.6ms)
+
+
+Started GET "/images/submenu_pipe.2.jpg" for 192.168.15.29 at 2017-05-17 15:30:13 +0530
+
+ActionController::RoutingError (No route matches [GET] "/images/submenu_pipe.2.jpg"):
+  lib/max_request_per_worker.rb:10:in `call'
+
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/actionpack-3.1.3/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.5ms)
+
+

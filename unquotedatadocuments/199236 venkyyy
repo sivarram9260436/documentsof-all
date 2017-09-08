@@ -1,0 +1,56 @@
+def fund_search
+@dry_powders = DryPowder.order("percentage_deployed asc")
+end
+
+
+
+MODEL:
+
+def dry_powder_percentage_deployed
+self.dry_powders.collect {|even| even.percentage_deployed}.compact
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+search_params[:funds][:event_dates].split(",").each do |fund_type|
+if fund_type.to_i == 1
+filters.merge!(:all_fund_event_announced_id => fund_type)
+gt_filters.merge!(:all_fund_event_announced_dates => search_params[:funds][:start_date])
+lt_filters.merge!(:all_fund_event_announced_dates => search_params[:funds][:end_date])
+elsif fund_type.to_i == 2
+filters.merge!(:all_fund_event_first_close_id => fund_type)
+gt_filters.merge!(:all_fund_event_first_close_dates => search_params[:funds][:start_date])
+lt_filters.merge!(:all_fund_event_first_close_dates => search_params[:funds][:end_date])
+elsif fund_type.to_i == 3
+filters.merge!(:all_fund_event_interim_id => fund_type)
+gt_filters.merge!(:all_fund_event_interim_dates => search_params[:funds][:start_date])
+lt_filters.merge!(:all_fund_event_interim_dates => search_params[:funds][:end_date])
+elsif fund_type.to_i == 4
+filters.merge!(:all_fund_event_unspecified_id => fund_type)
+gt_filters.merge!(:all_fund_event_unspecified_dates => search_params[:funds][:start_date])
+lt_filters.merge!(:all_fund_event_unspecified_dates => search_params[:funds][:end_date])
+elsif fund_type.to_i == 5
+filters.merge!(:all_fund_event_final_close_id => fund_type)
+gt_filters.merge!(:all_fund_event_final_close_dates => search_params[:funds][:start_date])
+lt_filters.merge!(:all_fund_event_final_close_dates => search_params[:funds][:end_date])
+end
+end
+========================

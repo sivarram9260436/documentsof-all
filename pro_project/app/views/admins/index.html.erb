@@ -1,0 +1,27 @@
+<h3>user details </h3>
+<% if flash[:notice] %>
+    <div class="notice"> <b><%= flash[:notice] %></b></div>
+<% end %>
+<table>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Role</th>
+<th>colspan="1"</th>
+</tr>
+
+
+<% @users.each do |x| %>
+<tr>
+<td><%= x.name %></td>
+<td><%= x.email %></td>
+<td><%= x.role %></td>
+<td><%= link_to 'edit',edit_admin_path(x) %></td>
+</tr>
+<% end %>
+
+
+</tabel>
+
+
+  <%= link_to 'create new user',new_admin_path %>

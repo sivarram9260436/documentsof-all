@@ -1,0 +1,55 @@
+<div class="section_content">
+<%#= javascript_include_tag 'admin','new_admin','admin_new' %>
+<% unless menu_edit.blank? %>
+<% @menu           = menu_edit[:menu] %>
+<% @section        = menu_edit[:section] %>
+<% @source         = menu_edit[:source] %>
+<% @category       = menu_edit[:category] %>
+<% @section_extra  = menu_edit[:section_extra] %>
+<% @category_extra = menu_edit[:category_extra] %>
+<% @category_tag   = menu_edit[:category_tag] %>
+<% @template_name  = menu_edit[:template_name] %>
+<% @blog           = menu_edit[:blog] %>
+<% @author         = menu_edit[:author]%>
+<%= hidden_field("menu" , "id", :value => @menu.id,:id=>"menu_id") %>
+<% end %>
+		<%if @menu.blank? %>
+		<%= error_messages_for_text_changes 'menu' %>
+		<div class="form_data">
+			<label for="text_head">Site Name : </label>
+	 			<%= text_field 'menuer', 'site_id' ,:readonly=>true,:value=>@site.short_name,:style=>"background-color:yellow;",:class=>'input_text' %>
+		</div>
+		<%end %>
+		<div class="form_data">
+			<%= content_tag(:span, label_tag('menu_parent_id', 'Parent Name:'))%>
+			<% menus = @site.menus.find(:all,:order=>"parent_id")%>
+			<%= content_tag(:span, collection_select('menu', 'parent_id', (@menu.blank? ? menus : menus.delete_if{|current_menu| current_menu.eql?(@menu)}), :id, :name, { :include_blank => true }, :class => 'select_box'))%>
+		</div>
+		<div class="form_data">
+			<%= content_tag(:span, label_tag('menu_name', 'Name:'))%>  <%= text_field 'menu', 'name',:class=>'input_text' %>
+		</div>
+		<div class="form_data">
+			<label for="menuer_site_id">Rank:</label> <%= select(:menu, :priority,1..30,{:include_blank => "------please select-----"},:class => "select_box")%>
+		</div>
+		<div class="form_data" id="action_select">
+			<%= content_tag(:span, label_tag('menu_entity_type', 'Type:'))%>
+
+			<%= collection_select_for_constant("menu[entity_type]",MENU_ACTION_TYPE,@menu.entity_type,{:prompt => 'Select Menu Type',:id=>"menu_entity_type",:class => "select_box"})%>
+			</div>
+			 <div class="form_data">
+   <div id="action_type"></div>
+   </div>
+</div>		
+
+
+		<script type="text/javascript">
+			jQuery("#submit").click(function() {
+				var t = jQuery("#menu_name").attr("value");
+				if(t == '' || t == null) {
+					alert("name should not be blank");
+					return false
+				} else {
+					return true
+				}
+			});
+		</script>

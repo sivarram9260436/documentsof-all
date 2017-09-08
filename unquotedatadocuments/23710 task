@@ -1,0 +1,17 @@
+@media print{
+        #table_style3_wrapper table.tbl_style tr th,#table_style99_wrapper table.tbl_style tr th,#table_style2_wrapper table.tbl_style tr th{border:solid #D9D9D9 1px;border-right:0px;}
+
+        #table_style td{border-bottom: solid #D9D9D9 2px!important;height:25px}
+        fieldset table>thead> tr:first-child th, fieldset table#table_style>tbody>tr:first-child td, fieldset table>tbody tr th {
+                background-color:#E5E6E8 !important;
+        }
+        .searh_box,.header_mid,.header_btm,.breadcrumb-wrapper,.porfile_right_tp,.profile_left,#footer,.porfile_right_tp{display: none !important;}
+        .profile_right,.porfile_right_mid{width:98% !important;float: left;}
+        .cls_table_style_fund_performance,.dataTables_scrollHeadInner,.dataTables_scrollHeadInner table{width:100% !important;}
+        .dataTables_scrollHeadInner table{width:100% !important;}
+        .porfile_right_mid>table { display: none;}
+        .tbl_style tr td,.tbl_style tr th ,#table_style tr td{ font-size: 15px !important;}
+
+
+}
+

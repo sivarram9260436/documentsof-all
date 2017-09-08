@@ -1,0 +1,207 @@
+:time_weighted_return_one,
+
+:time_weighted_return_inception,
+
+:net_irr_inception_date, 
+
+:net_irr_year_date,
+
+ :time_weighted_return_inception_string,
+
+# :time_weighted_return_one_string,
+
+#:tvpi_date,
+
+:time_weighted_return_cva,
+
+:source_tvpi_date
+
+
+
+
+ActiveRecord::Migration.add_column :institution_pei_data, :time_weighted_return_one, :date
+
+ActiveRecord::Migration.add_column :institution_pei_data, :time_weighted_return_inception :date
+ActiveRecord::Migration.add_column :institution_pei_data, :net_irr_inception_date, :date
+ActiveRecord::Migration.add_column :institution_pei_data, :net_irr_year_date, :date
+ActiveRecord::Migration.add_column :institution_pei_data, :time_weighted_return_inception_string :string
+ActiveRecord::Migration.add_column :institution_pei_data, :time_weighted_return_cva, :string
+ActiveRecord::Migration.add_column :institution_pei_data, :source_tvpi_date, :date
+
+
+
+app/models/institution_pei_data.rb
+
+attr_accessible :hot_lead,:hot_lead_date,:next_anticipated_quarter,:seed_funds,:co_investments,:pei_data_investment_status_id,:amount_invested_rs_fund_investments,:amount_invested_rs_funds,:next_anticipated_month,:next_anticipated_year,:active_mandate,:active_mandate_date,:typical_commitment_size_id,:preferred_liquidity_requirements , :investment_history,:current_investment_plans,:latest_strategic_update,:summary,:currency_id,:institution_company_info_id,:consider_debut, :amount_invested_per_fund_min, :amount_invested_per_fund_max, :average_commitment_size_per_fund, :geo_pref_text, :average_commitment_size_per_year, :private_equity_investment_history, :amount_invested_per_fund_min_uk,:amount_invested_per_fund_max_uk, :average_commitment_size_per_fund_uk, :announced_date, :amount_invested_per_fund_min_yen,:amount_invested_per_fund_max_yen, :average_commitment_size_per_fund_yen, :amount_invested_per_fund_min_us,:amount_invested_per_fund_max_us, :average_commitment_size_per_fund_us, :amount_invested_per_fund_min_euro,:amount_invested_per_fund_max_euro, :average_commitment_size_per_fund_euro,:name,:geo_name,:primary_funds,:secondary_funds,:co_investment_managed_accounts,:direct_investments,:funds_of_funds,:debut_funds,:commitments_per_year_us,:commitments_per_year_euro,:commitments_per_year_uk,:commitments_per_year_yen,:commitments_per_year,:fund_size_preference_from,:fund_size_preference_to,:market_value_of_investments,:funded_commitments,:unfunded_commitments,:net_irr_inception,:net_irr_year,:tvpi,:date_of_market,:date_of_funded,:date_of_unfunded,:commitement_value_yen, :commitement_value_us, :commitement_value_uk, :commitement_value_euro,:time_weighted_return_one,:time_weighted_return_inception,:net_irr_inception_date, :net_irr_year_date, :time_weighted_return_inception_string, :time_weighted_return_one_string,:tvpi_date,:time_weighted_return_cva,:source_tvpi_date
+
+
+
+ app/views/institutions/_fund_portfolio_funds_in_pei_data.html.erb
+
+<%= content_tag(:table, {:class => "spacing_table"}) do %>
+    <%= content_tag(:tr) do %>
+        <%= content_tag (:td) do %>
+        <% end %>
+    <% end %>
+<% end %>
+<%= form_tag({ :controller => "institutions", :action => @form_action }, { :id => "pei_form" }) do %>
+    <%= content_tag(:table, {:class => "form-left form-left-new"}) do %>
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Market value of investments(#{@pei_data.currency.name if @pei_data.currency}) :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :market_value_of_investments,:value => (@pei_data.market_value_of_investments.to_f > 0 ? @pei_data.market_value_of_investments : nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+        <%#= content_tag(:tr) do%>
+
+        <%#= content_tag(:td, content_tag(:label,"Market value of investments date:"), { :class => "lab-field" }) %>
+        <%#= content_tag(:td,{ :class => " b-size n-size"}) do%>
+        <%#= text_field(:pei_data, :date_of_market,:value => @pei_data.date_of_market.blank? ? nil : @pei_data.date_of_market.strftime("%d/%m/%Y"),:readonly => true,:class =>"datepicker") %>
+        <%#= link_to( "clear", {}, { :href => "javascript:void(0)",:class => "clear_text_value" } ) %>
+        <%# end %>
+        <%# end %><!--tr -->
+
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Market value of investments Date: "), { :class => "lab-field" }) %>
+            <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+                <%#= content_tag(:label, "Market value of investments date:",{:class => "lab-field"}) %>
+                <%= date_select(:pei_data, :date_of_market, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+            <% end %>
+        <%end%>
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Funded commitments (#{@pei_data.currency.name if @pei_data.currency}) :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :funded_commitments,:value => (@pei_data.funded_commitments.to_f > 0 ? @pei_data.funded_commitments : nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+
+
+
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Funded commitments Date: "), { :class => "lab-field" }) %>
+            <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+
+                <%= date_select(:pei_data, :date_of_funded, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+            <% end %>
+
+        <%end%>
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Unfunded commitments(#{@pei_data.currency.name if @pei_data.currency}) :"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :unfunded_commitments,:value => (@pei_data.unfunded_commitments.to_f > 0 ? @pei_data.unfunded_commitments : nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"UnFunded commitments Date: "), { :class => "lab-field" }) %>
+            <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+
+                <%= date_select(:pei_data, :date_of_unfunded, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+            <% end %>
+
+
+        <%end%>
+
+
+        <%#= content_tag(:tr) do%>
+
+        <%#= content_tag(:td, content_tag(:label,"Unfunded commitments date:"), { :class => "lab-field" }) %>
+        <%#= content_tag(:td,{ :class => " b-size n-size"}) do%>
+        <%#= text_field(:pei_data, :date_of_unfunded,:value => @pei_data.date_of_unfunded.blank? ? nil : @pei_data.date_of_unfunded.strftime("%d/%m/%Y"),:readonly => true,:class =>"datepicker") %>
+        <%#= link_to( "clear", {}, { :href => "javascript:void(0)",:class => "clear_text_value" } ) %>
+        <%# end %>
+        <%# end %><!--tr -->
+
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Net IRR (since inception):"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :net_irr_inception,:value => (@pei_data.net_irr_inception.to_f > 0 ? @pei_data.net_irr_inception: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Net IRR (since inception)Date:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+
+                <%= date_select(:pei_data, :net_irr_inception_date, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+            <% end %>
+
+        <%end%>
+
+
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Net IRR (1 year):"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :net_irr_year,:value => (@pei_data.net_irr_year.to_f > 0 ? @pei_data.net_irr_year: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Net IRR (1 year)Date:"), { :class => "lab-field" }) %>
+            <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+
+                <%= date_select(:pei_data, :net_irr_year_date, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+            <% end %>
+
+        <%end%>
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Time-Weighted Return (Since Inception):"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :time_weighted_return_inception_string,:value => (@pei_data.time_weighted_return_inception_string.to_f > 0 ? @pei_data.time_weighted_return_inception_string: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Time-Weighted Return (Since Inception)Date: "), { :class => "lab-field" }) %>
+            <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+
+                <%= date_select(:pei_data, :time_weighted_return_inception, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+            <% end %>
+
+        <%end%>
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Time-Weighted Return (1 year):"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :time_weighted_return_cva,:value => (@pei_data.time_weighted_return_cva.to_f > 0 ? @pei_data.time_weighted_return_cva: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"Time-Weighted Return (1 year)Date: "), { :class => "lab-field" }) %>
+            <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+
+                <%= date_select(:pei_data, :time_weighted_return_one, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+            <% end %>
+
+        <%end%>
+
+
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"TVPI (Since Inception):"), { :class => "lab-field" }) %>
+            <%= content_tag(:td, text_field(:pei_data, :tvpi,:value => (@pei_data.tvpi.to_f > 0 ? @pei_data.tvpi: nil)),{:class => "b-size n-size"}) %>
+        <% end %>
+
+        <%= content_tag(:tr) do%>
+            <%= content_tag(:td, content_tag(:label,"TVPI (Since Inception) Date: "), { :class => "lab-field" }) %>
+            <%= content_tag(:td,{ :class => " b-size n-size"}) do%>
+
+                <%= date_select(:pei_data, :source_tvpi_date, { :start_year => (Time.zone.now.year+5), :end_year => 1980, :order => [:month, :year], :prompt => { :month => "Month", :year => "Year" } },{:class => "select_box_general"}) %>
+            <% end %>
+
+        <%end%>
+
+
+
+    <% end %>
+<% end %>
+

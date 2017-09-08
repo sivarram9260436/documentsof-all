@@ -1,0 +1,25 @@
+          <div class="panel-heading" style="border-bottom-color:lightgrey;">
+
+
+content_me           content_menu_reset
+
+
+
+
++            <div class="panel-title"><h3 class="text-center"><strong>E.D.M.S</strong> Forgot Password</h3></div>
+
+
+
++                  <%= submit_tag"Reset password",:class=> "btn btn-success btn-block "%>
+
++                  <!--<button type="button" class="btn btn-success btn-block "><i class="fa fa-lock"></i> Reset Password</button>-->
+
+
+
+
+<div class="flash_notice">
+            <h2 style="color:red;">
+            <p id="text"> <%= flash[:notice] if flash[:notice]!= nil %></p> </h2>
+          </div>
+
+

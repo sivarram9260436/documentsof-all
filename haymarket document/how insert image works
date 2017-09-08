@@ -1,0 +1,340 @@
+
+///////////////////////////////////Creating scope :limit. Overwriting existing method Article.limit.
+Creating scope :by_extended_attr. Overwriting existing method Article.by_extended_attr.
+Creating scope :by_extended_attr_start_at. Overwriting existing method Article.by_extended_attr_start_at.
+Creating scope :by_extended_attr_end_at. Overwriting existing method Article.by_extended_attr_end_at.
+Creating scope :by_extended_attr_substring. Overwriting existing method Article.by_extended_attr_substring.
+Creating scope :substring_match. Overwriting existing method Article.substring_match.
+Creating scope :order_by_extended_attr. Overwriting existing method Article.order_by_extended_attr.
+Creating scope :by_ext_future_date. Overwriting existing method Article.by_ext_future_date.
+Creating scope :by_ext_past_date. Overwriting existing method Article.by_ext_past_date.
+Creating scope :ext_date_time_between. Overwriting existing method Article.ext_date_time_between.
+----------------------------------------------category_ids
+----------------------------------------------sites
+----------------------------------------------author_ids
+----------------------------------------------media_detail
+----------------------------------------------tag_ids
+----------------------------------------------site_ids
+----------------------------------------------related_company_ids
+----------------------------------------------related_company_alias_ids
+----------------------------------------------title
+----------------------------------------------source_id
+----------------------------------------------media_detail_id
+----------------------------------------------section_id
+----------------------------------------------blog_id
+Creating scope :protected. Overwriting existing method DigitalAsset.protected.
+Creating scope :all. Overwriting existing method DigitalAsset.all.
+Creating scope :by_event_types. Overwriting existing method Event.by_event_types.
+Creating scope :by_event_business_areas. Overwriting existing method Event.by_event_business_areas.
+Creating scope :by_date. Overwriting existing method Event.by_date.
+Creating scope :list_event. Overwriting existing method Event.list_event.
+Creating scope :limit. Overwriting existing method Service.limit.
+Creating scope :limit. Overwriting existing method Tag.limit.
+Creating scope :order_by_updated_at. Overwriting existing method Comment.order_by_updated_at.
+Creating scope :by_site. Overwriting existing method Comment.by_site.
+Creating scope :by_blog. Overwriting existing method Comment.by_blog.
+Creating scope :by_site_and_type_poll. Overwriting existing method Comment.by_site_and_type_poll.
+Creating scope :by_site_and_type_service. Overwriting existing method Comment.by_site_and_type_service.
+Creating scope :by_site_and_type_author. Overwriting existing method Comment.by_site_and_type_author.
+Creating scope :by_category_with_children. Overwriting existing method Comment.by_category_with_children.
+Creating scope :by_section. Overwriting existing method Comment.by_section.
+Creating scope :latest. Overwriting existing method Comment.latest.
+Creating scope :by_reported. Overwriting existing method Comment.by_reported.
+Creating scope :by_reported_and_submitted. Overwriting existing method Comment.by_reported_and_submitted.
+Creating scope :by_comment_status. Overwriting existing method Comment.by_comment_status.
+Creating scope :published. Overwriting existing method Comment.published.
+Creating scope :live. Overwriting existing method Comment.live.
+Creating scope :distinct_status. Overwriting existing method Comment.distinct_status.
+Creating scope :order_by. Overwriting existing method Comment.order_by.
+Creating scope :by_article_ids. Overwriting existing method Comment.by_article_ids.
+Creating scope :by_article_title. Overwriting existing method Comment.by_article_title.
+Creating scope :by_poll_title. Overwriting existing method Comment.by_poll_title.
+Creating scope :by_entity_type. Overwriting existing method Comment.by_entity_type.
+Creating scope :by_entity_id. Overwriting existing method Comment.by_entity_id.
+Creating scope :type_service. Overwriting existing method Comment.type_service.
+Creating scope :limit. Overwriting existing method ComponentContainer.limit.
+Creating scope :all. Overwriting existing method EventBrand.all.
+Creating scope :public. Overwriting existing method MyFavourite.public.
+Creating scope :private. Overwriting existing method MyFavourite.private.
+Creating scope :limit. Overwriting existing method PageTemplate.limit.
+Creating scope :limit. Overwriting existing method PageTemplateContainer.limit.
+Creating scope :limit. Overwriting existing method ActivitySummary.limit.
+Creating scope :all. Overwriting existing method Campaign.all.
+Creating scope :limit. Overwriting existing method Campaign.limit.
+Creating scope :all. Overwriting existing method Company.all.
+Creating scope :limit. Overwriting existing method Company.limit.
+Creating scope :limit. Overwriting existing method Document.limit.
+Creating scope :all. Overwriting existing method Document.all.
+Creating scope :all. Overwriting existing method FeaturedSponsership.all.
+Creating scope :limit. Overwriting existing method FeaturedSponsership.limit.
+Creating scope :limit. Overwriting existing method Research.limit.
+Creating scope :all. Overwriting existing method WplSkin.all.
+Creating scope :all. Overwriting existing method WplTaxonomy.all.
+Creating scope :limit. Overwriting existing method WplTaxonomy.limit.
+
+
+Started GET "/admin/image_details/imageset_list?popup=true&type=tiny_mce" for 192.168.209.31 at 2016-12-22 18:54:56 +0530
+  Processing by Admin::ImageDetailsController#imageset_list as HTML
+  Parameters: {"popup"=>"true", "type"=>"tiny_mce"}
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/image_details/_upload_multiple_image.html.erb (122.3ms)
+Rendered admin/image_details/_imageset_list.html.erb (55.9ms)
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/image_details/_upload_search.html.erb (6.7ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/decoration/_decoration_image_set.html.erb (8.8ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/image_details/_images_list.html.erb (134.2ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/image_details/imageset_list.html.erb within layouts/application (395.7ms)
+Completed 200 OK in 2251ms (Views: 704.0ms | ActiveRecord: 299.0ms | Solr: 0.0ms)
+Creating scope :limit. Overwriting existing method Article.limit.
+Creating scope :by_extended_attr. Overwriting existing method Article.by_extended_attr.
+Creating scope :by_extended_attr_start_at. Overwriting existing method Article.by_extended_attr_start_at.
+Creating scope :by_extended_attr_end_at. Overwriting existing method Article.by_extended_attr_end_at.
+Creating scope :by_extended_attr_substring. Overwriting existing method Article.by_extended_attr_substring.
+Creating scope :substring_match. Overwriting existing method Article.substring_match.
+Creating scope :order_by_extended_attr. Overwriting existing method Article.order_by_extended_attr.
+Creating scope :by_ext_future_date. Overwriting existing method Article.by_ext_future_date.
+Creating scope :by_ext_past_date. Overwriting existing method Article.by_ext_past_date.
+Creating scope :ext_date_time_between. Overwriting existing method Article.ext_date_time_between.
+----------------------------------------------category_ids
+----------------------------------------------sites
+----------------------------------------------author_ids
+----------------------------------------------media_detail
+----------------------------------------------tag_ids
+----------------------------------------------site_ids
+----------------------------------------------related_company_ids
+----------------------------------------------related_company_alias_ids
+----------------------------------------------title
+----------------------------------------------source_id
+----------------------------------------------media_detail_id
+----------------------------------------------section_id
+----------------------------------------------blog_id
+Creating scope :protected. Overwriting existing method DigitalAsset.protected.
+Creating scope :all. Overwriting existing method DigitalAsset.all.
+Creating scope :by_event_types. Overwriting existing method Event.by_event_types.
+Creating scope :by_event_business_areas. Overwriting existing method Event.by_event_business_areas.
+Creating scope :by_date. Overwriting existing method Event.by_date.
+Creating scope :list_event. Overwriting existing method Event.list_event.
+Creating scope :limit. Overwriting existing method Service.limit.
+Creating scope :limit. Overwriting existing method Tag.limit.
+Creating scope :order_by_updated_at. Overwriting existing method Comment.order_by_updated_at.
+Creating scope :by_site. Overwriting existing method Comment.by_site.
+Creating scope :by_blog. Overwriting existing method Comment.by_blog.
+Creating scope :by_site_and_type_poll. Overwriting existing method Comment.by_site_and_type_poll.
+Creating scope :by_site_and_type_service. Overwriting existing method Comment.by_site_and_type_service.
+Creating scope :by_site_and_type_author. Overwriting existing method Comment.by_site_and_type_author.
+Creating scope :by_category_with_children. Overwriting existing method Comment.by_category_with_children.
+Creating scope :by_section. Overwriting existing method Comment.by_section.
+Creating scope :latest. Overwriting existing method Comment.latest.
+Creating scope :by_reported. Overwriting existing method Comment.by_reported.
+Creating scope :by_reported_and_submitted. Overwriting existing method Comment.by_reported_and_submitted.
+Creating scope :by_comment_status. Overwriting existing method Comment.by_comment_status.
+Creating scope :published. Overwriting existing method Comment.published.
+Creating scope :live. Overwriting existing method Comment.live.
+Creating scope :distinct_status. Overwriting existing method Comment.distinct_status.
+Creating scope :order_by. Overwriting existing method Comment.order_by.
+Creating scope :by_article_ids. Overwriting existing method Comment.by_article_ids.
+Creating scope :by_article_title. Overwriting existing method Comment.by_article_title.
+Creating scope :by_poll_title. Overwriting existing method Comment.by_poll_title.
+Creating scope :by_entity_type. Overwriting existing method Comment.by_entity_type.
+Creating scope :by_entity_id. Overwriting existing method Comment.by_entity_id.
+Creating scope :type_service. Overwriting existing method Comment.type_service.
+Creating scope :limit. Overwriting existing method ComponentContainer.limit.
+Creating scope :all. Overwriting existing method EventBrand.all.
+Creating scope :public. Overwriting existing method MyFavourite.public.
+Creating scope :private. Overwriting existing method MyFavourite.private.
+Creating scope :limit. Overwriting existing method PageTemplate.limit.
+Creating scope :limit. Overwriting existing method PageTemplateContainer.limit.
+Creating scope :limit. Overwriting existing method ActivitySummary.limit.
+Creating scope :all. Overwriting existing method Campaign.all.
+Creating scope :limit. Overwriting existing method Campaign.limit.
+Creating scope :all. Overwriting existing method Company.all.
+Creating scope :limit. Overwriting existing method Company.limit.
+Creating scope :limit. Overwriting existing method Document.limit.
+Creating scope :all. Overwriting existing method Document.all.
+Creating scope :all. Overwriting existing method FeaturedSponsership.all.
+Creating scope :limit. Overwriting existing method FeaturedSponsership.limit.
+Creating scope :limit. Overwriting existing method Research.limit.
+Creating scope :all. Overwriting existing method WplSkin.all.
+Creating scope :all. Overwriting existing method WplTaxonomy.all.
+Creating scope :limit. Overwriting existing method WplTaxonomy.limit.
+
+
+Started GET "/javascripts/jquery/addedit_admin.js" for 192.168.209.31 at 2016-12-22 18:54:58 +0530
+
+ActionController::RoutingError (No route matches [GET] "/javascripts/jquery/addedit_admin.js"):
+  lib/max_request_per_worker.rb:10:in `call'
+
+Rendered /home/ruby/.rvm/gems/ruby-1.9.3-p194@hay_stage_new/gems/actionpack-3.1.3/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (123.3ms)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+after insert button
+
+
+
+
+
+///////////////////
+
+
+
+
+//////
+
+Started GET "/admin/image_details/show_image_list_step2/13567" for 192.168.209.31 at 2016-12-22 18:55:28 +0530
+  Processing by Admin::ImageDetailsController#show_image_list_step2 as HTML
+  Parameters: {"id"=>"13567"}
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/image_details/_all_imagelist.html.erb (105.4ms)
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/image_details/show_image_list_step2.html.erb (117.0ms)
+Completed 200 OK in 149ms (Views: 114.3ms | ActiveRecord: 17.4ms | Solr: 0.0ms)
+
+
+
+
+
+
+
+
+
+clicking 60*60
+
+/////
+
+Started GET "/admin/image_details/select_inline_image?id=13567&width=60&height=60&image_type=square&path=article" for 192.168.209.31 at 2016-12-22 18:55:58 +0530
+  Processing by Admin::ImageDetailsController#select_inline_image as HTML
+  Parameters: {"id"=>"13567", "width"=>"60", "height"=>"60", "image_type"=>"square", "path"=>"article"}
+Rendered admin/image_details/select_inline_image.html.erb (176.9ms)
+Completed 200 OK in 201ms (Views: 158.1ms | ActiveRecord: 29.3ms | Solr: 0.0ms)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////
+
+
+source code look like
+
+
+
+<div class="left tinyimg_caption" style="width: 60px;"><img title="ap-logo-new-website" src="../../../IMG/567/13567/ap-logo-new-website2203-60x60.png" alt="ap-logo-new-website" width="60" height="60" /></div>
+<p>&nbsp;</p>
+<p>wrfwfdf</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////
+
+
+preview
+
+//////
+
+Started POST "/admin/articles/update_time" for 192.168.209.31 at 2016-12-22 18:57:30 +0530
+  Processing by Admin::ArticlesController#update_time as */*
+  Parameters: {"html"=>nil}
+Rendered /home/ruby/CMS/Kreatio_Core/app/views/admin/articles/_preview_article_form.html.erb (0.9ms)
+Completed 200 OK in 1680ms (Views: 157.3ms | ActiveRecord: 56.5ms | Solr: 0.0ms)
+
+
+
+
+
+
+
+
+

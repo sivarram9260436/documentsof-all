@@ -1,0 +1,35 @@
+  <div class="tiny_contaner" id="parent_tinyid_1">
+         <fieldset style="float:left;width:543px;">
+           <legend>Page Count 1</legend>
+            <div class="tiny_subcontaner" style="float:none;">
+              <div class="title_container" style="display:none;">
+                  <label class="tiny_title_label">
+                     Page Title <span>*</span>:
+                  </label>
+                  <input  type="text" class="tinytitle_input" name="article[pages_content][][title]" value="Page 1" style="display:none;" disabled="" />
+              </div>
+		                <textarea id="tinyid_1" name="article[pages_content][][content]" rows ="35" cols ="30" class="tinyclass" style='width:100%;'><%=@article_content.content_with_asset if @article_content%></textarea>
+               <div class="inactive_tiny_holder" style="display:none;float:right;">
+                    <div class="text_holder button"></div>  
+                    <div class="button">               
+                      <input type="button" value="Expand" onclick="javascript:expand('tinyid_1')"/>
+                  </div>
+               </div>
+               <!--<div class="word_counter_holder" style="margin-top:6px;">-->
+        		         <!--<label class="tiny_word_label">-->
+        		            <!--Word Count:-->
+        		         <!--</label>-->
+        		          <!--<input id="word_tinyid_1" class="tiny_word_input" readonly=true/>-->
+	             <!--</div>-->
+           </div>
+        </fieldset>
+           <div class="tiny_handler button" style="display:none;">
+                <input type="button" value="Delete" class="handle" onclick="javascript:tinymceDelete('tinyid_1')"/>
+           </div>
+  </div>
+
+<script type="text/javascript" >
+     //<![CDATA[
+      tinyMCEOnDemand("tinyid_1")
+    //]]>
+</script>

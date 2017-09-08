@@ -1,0 +1,56 @@
+<div class="section_block full_section">
+<div class="right_section_head">
+	<div class="common_listing_button">
+		<ul>
+			<li class="button">
+                                <a href="/admin/newsletter/subscribers_upload_sample?id=sample">Download Sample File</a>
+                                <!--a href= "/subscribers_upload_sample.xlsx">Download Sample File</a-->
+				<!--input type="button" value="Download Sample File" class="blue-btn float-R" id="subscriber_excel_sample"-->
+			</li>
+		</ul>
+	</div>
+</div>
+<%= form_tag({:controller=>'/admin/newsletter',:action => 'import_subscriber_newsletter'},:multipart => true) do %>
+<!--div class="section_block full_section"-->
+	<h2>Import Subscriber</h2>
+         <% if params[:alert]%>
+              <div class= "validate_msge"><%= params[:alert]%></div>
+           <%end%>        
+
+	<div class="search_fields">
+			
+                          <div class="customfile-container">
+                             <input type="file" id="bulk_upload_subs_file" name="subscriber_excel_file" multiple />
+                          
+				<div class="button subscribe_export">
+					<%=submit_tag "Submit"%>					
+				</div>		
+		
+                         </div>
+
+   </div>
+ <!--/div-->
+
+<%end%>
+
+</div>
+
+<%= render :partial => '/admin/newsletter/import_unsubscriber'%>
+
+
+ <script type="text/javascript">
+        $(document).ready(function () {
+            $("#subscriber_excel_sample").click(function () {
+                window.location = '/subscribers_upload_sample.xlsx';
+            });
+        });
+
+  $(".subscribe_export").click(function(){
+  if ($("#bulk_upload_subs_file").val()== "") {
+    alert("Please add xlsx file.");
+    return false;
+   }
+  });
+
+  </script>
+

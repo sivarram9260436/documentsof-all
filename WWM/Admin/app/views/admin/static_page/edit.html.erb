@@ -1,0 +1,37 @@
+
+	  
+<div id="load_indicatior" style="left: 700px;position: fixed;top: 151px;display:none;">
+<%=image_tag("/images/loading_process.gif",:alt=>"Loading page")%>
+</div>
+<%if @section_type == "static-page" || params[:section_type]== "static-page"%>
+<%= render :partial => '/admin/static_page/form.html.erb' %>
+<%elsif @section_type == "static-fragment" || params[:section_type]== "static-fragment"%>
+<%= render :partial => '/admin/static_page/fragment_form.html.erb' %>
+<%elsif params[:section_type]=="spotlight"%>
+<%= render :partial => 'spotlight_form' ,:locals=>{:path=>@path}%>
+<%else params[:section_type]=="alternate_home_page"%>
+<%= render :partial => 'alternate_home_page_form' ,:locals=>{:path=>@path}%>
+<%end%>
+
+
+
+<script type="text/javascript">
+	$(function () {
+		$('.dataedit_form').click(function () {
+			//$(this).parents('form').attr('name'));
+			  var ajax_url = $(this).attr('data-url');
+			  var parent_url = $(this).attr('data-returnurl');
+			  var data_param = $(this).parents("form").serialize();
+			  $.ajax({
+			    type:'POST',
+			    data: data_param,
+			    url:ajax_url,
+			    success:function () {
+			      window.opener.location.href=parent_url;
+			      self.close();
+			    }
+			  });
+			   return false;
+		});
+	});
+</script>

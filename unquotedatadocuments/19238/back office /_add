@@ -1,0 +1,22 @@
+cat app/views/funds/_add_fund_performance.html.erb
+
+<<%= content_tag(:tr, { :class => "fund_performances #{cycle('odd', 'even')} " }) do %>
+    <%= content_tag(:td, (link_to @fund_performance.commitment,edit_fund_performance_funds_path(:fund_performance_id => @fund_performance.id,:fund_id => @fund.id),{ "fund-performance-event-id" => @fund_performance.id, :class => "edit_fund_event",:class => "color_box" }))rescue nil %>
+    <%= content_tag(:td, (@fund_performance.gross_irr if @fund_performance.gross_irr))%>
+    <%= content_tag(:td, (@fund_performance.net_irr if @fund_performance.net_irr))%>
+    <%= content_tag(:td, (@fund_performance.tvpi if  @fund_performance.tvpi))%>
+    <%= content_tag(:td, (@fund_performance.source if  @fund_performance.source)) %>
+
+
+    <%= content_tag(:td, (@fund_performance.fund_performance_date.strftime("%B") if @fund_performance.fund_performance_date) ) %>
+    <%= content_tag(:td, (@fund_performance.fund_performance_date.strftime("%Y") if @fund_performance.fund_performance_date) )%>
+	<%= content_tag(:td, (@fund_performance.performance_source if  @fund_performance.performance_source)) %>
+    <%= content_tag(:td, (@fund_performance.date_of_commitment.strftime("%B") if @fund_performance.date_of_commitment) ) %>
+    <%= content_tag(:td, (@fund_performance.date_of_commitment.strftime("%Y") if @fund_performance.date_of_commitment) )%>
+
+
+    <%= content_tag(:td) do %>
+        <%= link_to( ( image_tag("trash.png") ), {}, { :href => "javascript:void(0)", "fund-performance-event-id" => @fund_performance.id, :class => "delete_fund_event" } ) %>
+    <% end %>
+<% end %> <!-- tr end -->
+

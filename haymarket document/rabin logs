@@ -1,0 +1,72 @@
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<p>
+        Dear Editor,
+</p>
+
+<p>
+        The following article requires your approval;
+</p>
+
+<p>
+        Article ID: 4951
+</p>
+<p>
+        Article Headline: hide image testing
+</p>
+<p>
+        Source: Autocar Professional
+</p>
+<p>
+        Author: Rabindra Maharana
+</p>
+<p>
+        Please login to <a href="http://haymarketadmin.kreatio.com">"http://haymarketadmin.kreatio.com"</a> to approve this article.
+</p>
+
+<p>
+        With regards,
+</p>
+
+<p>
+        KREATIO Team
+</p>
+
+
+
+<p>
+        Dear Editor,
+</p>
+
+<p>
+        The following article requires your approval;
+</p>
+
+<p>
+        Article ID: <%= @article.id%>
+</p>
+<p>
+        Article Headline: <%= @article.title%>
+</p>
+<p>
+     <% if @article.source_id %>
+        Source: <%= Source.find(@article.source_id).name%>
+<%end%>
+</p>
+<p>
+        Author: <%= @article.article_contents.last.authors.collect{|x| x.full_name}.join(',')%>
+</p>
+<p>
+        Please login to <a href="http://haymarketadmin.kreatio.com">"http://haymarketadmin.kreatio.com"</a> to approve this article.
+</p>
+
+<p>
+        With regards,
+</p>
+
+<p>
+        KREATIO Team
+</p>
+
+
